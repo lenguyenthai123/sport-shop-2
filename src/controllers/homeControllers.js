@@ -23,7 +23,14 @@ const getHomePic = (req, res) => {
     res.render("sample.ejs");
 }
 
+const postCreateUser = (req, res) => {
+    res.send("Created successfull")
+    console.log(req.body);
+}
+
+
 module.exports = {
     getHomeText,
-    getHomePic
+    getHomePic,
+    postCreateUser
 }

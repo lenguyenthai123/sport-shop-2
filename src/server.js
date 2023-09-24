@@ -10,6 +10,10 @@ const app = express()
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOST_NAME;
 
+// Config the post request is in object by json and suitable for form
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // config view engine
 configviewEngine(app)
 
