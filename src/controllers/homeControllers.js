@@ -1,8 +1,10 @@
 const { json } = require("body-parser");
 const connection = require("../config/database.js");
+const { getAllUsers } = require("../services/CRUD.js");
 
-const getHomeText = (req, res) => {
-    return res.render("Homepage.ejs")
+const getHomeText = async (req, res) => {
+    const result = await getAllUsers();
+    return res.render("Homepage.ejs", { listUsers: result })
 }
 
 const getHomePic = (req, res) => {
