@@ -11,31 +11,56 @@
     <div class="topnav">
         <a class="active" href="/">Home</a>
         <a href="/create">News</a>
+        <a href="/search">Search</a>
 
     </div>
 
+    <h1>List of users</h1>
+
     <div>
-        <%= JSON.stringify(listUsers) %>
-            <table>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+                <td>Cam Ranh</td>
+                <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+            <% for(let i=0 ; i<listUsers.length;i++) { %>
+
                 <tr>
-                    <th>Id</th>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>City</th>
+                    <td>
+                        <%= JSON.stringify(listUsers[i].id) %>
+                    </td>
+                    <td>
+                        <%= JSON.stringify(listUsers[i].email) %>
+                    </td>
+                    <td>
+                        <%= JSON.stringify(listUsers[i].name) %>
+                    </td>
+                    <td>
+                        <%= JSON.stringify(listUsers[i].city) %>
+                    </td>
+                    <td>
+                        <form action="/delete/<%= listUsers[i].id%>" method="post" target="_blank">
+                            <a href="/update/<%= listUsers[i].id %>">Edit</a>
+                            <button>Delete</button>
+                        </form>
+                    </td>
                 </tr>
-                <tr>
-                    <td>Alfreds Futterkiste</td>
-                    <td>Maria Anders</td>
-                    <td>Germany</td>
-                    <td>Cam Ranh</td>
-                </tr>
-                <tr>
-                    <td>Centro comercial Moctezuma</td>
-                    <td>Francisco Chang</td>
-                    <td>Mexico</td>
-                    <td>Nha Trang</td>
-                </tr>
-            </table>
+                <% } %>
+
+        </table>
 
     </div>
 
