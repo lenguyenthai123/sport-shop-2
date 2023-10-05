@@ -1,6 +1,7 @@
 const { json } = require("body-parser");
 const connection = require("../config/database.js");
 const { getAllUsers } = require("../services/CRUD.js");
+const Task = require("../model/Task.js");
 
 const getHomeText = async (req, res) => {
     const result = await getAllUsers();
@@ -85,6 +86,96 @@ const getSearch = (req, res) => {
 const postSearchItem = (req, res) => {
 
 }
+
+const getApiTask = async (req, res) => {
+    try {
+        const alltask = await Task.find({})
+        res.status(200).send({ alltask });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+    //res.json(req.body);
+}
+
+
+const postApiTask = async (req, res) => {
+
+    try {
+        const task = await Task.create(req.body);
+        res.status(201).json({ task });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+
+}
+
+const getApiOneTask = async (req, res) => {
+    try {
+        const { id: taskID } = req.params;
+        console.log(req.params);
+        if (taskID.match(/^[0-9a-fA-F]{24}$/)) {
+            const task = await Task.findOne({ _id: taskID });
+            console.log(task);
+            if (task == null) {
+                return res.status(404).json({ message: `Error with taskID: ${taskID}` })
+            }
+            res.status(200).send(task);
+        }
+        else {
+            return res.status(404).json({ message: `Error with taskID: ${taskID}` })
+        }
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).send(error);
+
+    }
+}
+
+
+const deleteApiOneTask = async (req, res) => {
+    try {
+        const { id: taskID } = req.params;
+        if (taskID.match(/^[0-9a-fA-F]{24}$/)) {
+            const task = await Task.findOneAndDelete({ _id: taskID });
+            if (!task) {
+                return res.status(404).json({ message: `Error with taskID: ${taskID}` })
+            }
+
+            res.status(200).json({ msg: `Delete task ${taskID} successfully` });
+        }
+        else {
+            return res.status(404).json({ message: `Error with taskID: ${taskID}` })
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+const updateApiOneTask = async (req, res) => {
+
+    try {
+        const { id: taskID } = req.params;
+        if (taskID.match(/^[0-9a-fA-F]{24}$/)) {
+            const task = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
+                new: true,
+                runValidators: true
+            })
+            if (!task) {
+                return res.status(404).json({ message: `Error with taskID: ${taskID}` })
+            }
+
+            res.status(200).json({ msg: `Update task ${taskID} successfully` });
+
+        }
+        else {
+            return res.status(404).json({ message: `Error with taskID: ${taskID}` })
+        }
+    } catch (error) {
+        res.status(500).json(error);
+
+    }
+}
+
 module.exports = {
     getHomeText,
     getHomePic,
@@ -94,5 +185,10 @@ module.exports = {
     postUpdated,
     postDelete,
     getSearch,
-    postSearchItem
+    postSearchItem,
+    getApiTask,
+    postApiTask,
+    getApiOneTask,
+    deleteApiOneTask,
+    updateApiOneTask
 }
