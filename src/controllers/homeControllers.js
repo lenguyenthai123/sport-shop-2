@@ -3,14 +3,14 @@ const connection = require("../config/database.js");
 const { getAllUsers } = require("../services/CRUD.js");
 
 
+const getHomePage = (req, res, next) => {
+    try {
+        res.render("HomePage.ejs");
+    } catch (error) {
+        next(error);
+    }
+}
 
 module.exports = {
-    getAllUser,
-    postCreateNewUser,
-    replaceUser,
-    updateUser,
-    getAllUserDeck,
-    createUserDeck,
-    signUp,
-    signIn
+    getHomePage
 }
