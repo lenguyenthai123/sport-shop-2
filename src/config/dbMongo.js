@@ -1,6 +1,6 @@
 
 const mongoose = require("mongoose");
-const uri = "mongodb://localhost/newest";
+const uri = "mongodb://localhost/practice-project";
 
 
 const connection = () => {
