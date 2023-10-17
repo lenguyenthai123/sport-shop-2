@@ -5,14 +5,24 @@ const UserScheme = new Schema({
     username: {
         type: String,
         required: [true, 'Error! You must fill this field!'],
-        maxLength: [20, 'No more than 20 character for username'],
         minLength: [6, 'No less than 6 character for username']
     },
     password: {
         type: String,
         required: [true, "Must has password!"],
-        maxLength: [20, 'No more than 20 character for username'],
-        minLength: [6, 'No less than 6 character for username']
+        minLength: [6, 'No less than 6 character for password']
+    },
+    email: {
+        type: String,
+        required: [true, "Must has email!"],
+        minLength: [6, 'No less than 6 character for email']
+    },
+    dateofbirth: {
+        type: Date
+    },
+    createdAcc: {
+        type: Date,
+        default: Date.now()
     },
     latestLogin: {
         type: Date

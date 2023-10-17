@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
-    <title>Home Page </title>
+    <title>Login</title>
 
 </head>
 
 <body>
-    <form action="/login" method="POST">
-        <label class='form-login' for="username">Tên đăng nhập</label> <br />
-        <input class='form-login' placeholder="username" type="text" name="username"> <br />
-        <label class='form-login' for="password">Mật khẩu</label> <br />
-        <input class='form-login' placeholder="password" type="password" name="password"> <br />
-        <button class='form-login button' type="submit">Đăng nhập</button>
-    </form>
+    <h1 class="title">Đăng nhập</h1>
+
+    <div class="form-login-1">
+        <div class='group-button'>
+            <form action="/login" method="POST">
+                <label class='form-login' for="username">Tên đăng nhập</label> <br />
+                <input class='box-login' placeholder="username" type="text" name="username"> <br />
+
+                <label class='form-login' for="password">Mật khẩu</label> <br />
+                <input class='box-login' placeholder="password" type="password" name="password"> <br />
+
+                <button class='form-login button' type="submit">Đăng nhập</button>
+                <a class='form-login button' type="button" href="/signup">Đăng ký</a>
+            </form>
+
+
+        </div>
+    </div>
 </body>
 
 </html>

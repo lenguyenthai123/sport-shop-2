@@ -5,12 +5,15 @@
 
 body {
     display: flex;
+    font-family: 'Courier New', Courier, monospace;
 
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
     background-color: black;
-    background-image:
-        linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+    background-image: url(https://media2.giphy.com/media/Va6MuZFI95flfYNMNs/giphy.gif?cid=ecf05e47ijmj8aniooy9h6cdzzzqda6w1dops173wmdwoxyt&ep=v1_gifs_search&rid=giphy.gif&ct=g);
+
+    /* linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c); */
     background-repeat: no-repeat;
     background-size: cover;
     /* căn giữa theo trục ngang */
@@ -18,6 +21,14 @@ body {
     /* căn giữa theo trục dọc */
     align-items: center;
     animation: theme 12s ease-in-out infinite;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.title {
+    font-size: 4rem;
 }
 
 @keyframes theme {
@@ -38,15 +49,16 @@ body {
     }
 }
 
-form {
+.form-login-1 {
     display: flex;
     flex-direction: column;
     /* Để các phần tử con căn chỉnh theo trục dọc */
     justify-content: center;
     /* Căn giữa theo trục ngang */
-    width: 60vw;
-    height: 60vh;
-    background: url(https://img.freepik.com/free-photo/modern-tech-background-with-low-poly-plexus_1048-14278.jpg?w=900&t=st=1697440670~exp=1697441270~hmac=64c83909fa5a22072529bcd1068a39da308a218e8dc7b1f5177912905357e202);
+    width: 40vw;
+    height: 40vh;
+    background: linear-gradient(0.25turn, #3f87a650, #ebf8e150, #f69d3c50);
+    /* url(https://img.freepik.com/free-photo/modern-tech-background-with-low-poly-plexus_1048-14278.jpg?w=900&t=st=1697440670~exp=1697441270~hmac=64c83909fa5a22072529bcd1068a39da308a218e8dc7b1f5177912905357e202); */
     background-repeat: no-repeat;
     background-size: cover;
     box-sizing: border-box;
@@ -55,37 +67,94 @@ form {
     text-shadow: 1px 1px 1px #504848;
 }
 
-form:hover {
+.form-signup {
+    display: flex;
+    flex-direction: column;
+    /* Để các phần tử con căn chỉnh theo trục dọc */
+    justify-content: center;
+    /* Căn giữa theo trục ngang */
+    width: 40vw;
+    height: 70vh;
+    background: linear-gradient(0.25turn, #3f87a650, #ebf8e150, #f69d3c50);
+    /* url(https://img.freepik.com/free-photo/modern-tech-background-with-low-poly-plexus_1048-14278.jpg?w=900&t=st=1697440670~exp=1697441270~hmac=64c83909fa5a22072529bcd1068a39da308a218e8dc7b1f5177912905357e202); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 5px 5px;
+    text-shadow: 1px 1px 1px #504848;
+}
+
+.form-signup:hover {
     transition: 0.2s;
     /* transition: 0.2s; */
-    width: 60.5vw;
-    height: 60.5vh;
+    width: 40.5vw;
+    height: 70.5vh;
+    float: inline-start;
+}
+
+.form-login-1:hover {
+    transition: 0.2s;
+    /* transition: 0.2s; */
+    width: 40.2vw;
+    height: 40.2vh;
     float: inline-start;
 }
 
 .form-login {
     width: 80%;
-    display: inline;
-    margin: 10px;
+    height: 5%;
+    display: flex;
+    margin-left: 1rem;
     color: rgb(5, 5, 4);
-    font-size: 25px;
-    font-family: 'Courier New', Courier, monospace;
+    font-size: 2.5rem;
     text-align: left;
     border-radius: 5px;
     box-sizing: border-box;
     font-weight: bold;
+}
 
+.box-login {
+    margin-top: -2rem;
+    width: 80%;
+    height: 3.4rem;
+    display: flex;
+    margin: 1rem;
+    color: rgb(5, 5, 4);
+    font-size: 2.5rem;
+    text-align: left;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-weight: bold;
 }
 
 .form-login.button {
+    display: inline-flex;
+    width: 20rem;
+    height: 4rem;
+    padding: 1rem 2rem;
+    border: 2px solid;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    background: linear-gradient(0.25turn, #3f87a650, #ebf8e150, #f69d3c50);
 
-    width: 150px;
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #0490cb;
+    /* Tạo con trỏ khi trỏ vào */
+    cursor: pointer;
+    box-sizing: border-box;
+
+    /* Xóa gạch chân của thẻ a */
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .form-login.button:hover {
     background-color: greenyellow;
     transition: 0.3s;
+}
+
+.group-button {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: left;
 }
