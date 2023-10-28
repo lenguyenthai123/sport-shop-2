@@ -59,7 +59,7 @@ const postLogin = async (req, res, next) => {
                     maxAge: 15 * 60 * 1000,
                     httpOnly: true
                 });
-                res.status(200).json({ successfully: true });
+                res.redirect("/dashboard");
             }
             else {
                 res.status(400).json({ msg: `Incorrect password` });
