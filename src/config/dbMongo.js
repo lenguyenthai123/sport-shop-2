@@ -1,6 +1,6 @@
 
 const mongoose = require("mongoose");
-const uri = "mongodb://localhost/newest";
+const uri = "mongodb+srv://lenguyenthai123:g76a1zu6pJwBRLFy@cluster0.ctwm4lc.mongodb.net/Hotel?retryWrites=true&w=majority";
 
 
 const connection = () => {
