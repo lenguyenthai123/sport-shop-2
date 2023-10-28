@@ -11,7 +11,8 @@ router.get("/", Controllers.getHomePage);
 router.get("/signup", Controllers.getSignUp);
 router.post("/signup", Controllers.postSignUp);
 
-router.post("/login", Controllers.postLogin)
+router.post("/login", Controllers.postLogin);
+router.get("/logout", passport.authenticate('jwt', { session: false }), Controllers.getLogout);
 
-router.get("/dashboard", Controllers.parseCookie, passport.authenticate('jwt', { session: false }), Controllers.getDashBoard)
+router.get("/dashboard", passport.authenticate('jwt', { session: false }), Controllers.getDashBoard)
 module.exports = { router };

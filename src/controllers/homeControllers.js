@@ -42,7 +42,7 @@ const postLogin = async (req, res, next) => {
     try {
         console.log("HEHRE")
         const user = req.body;
-
+        console.log(user);
         const foundedUser = await User.findOne({ username: user.username });
 
         if (!foundedUser) {
@@ -54,12 +54,12 @@ const postLogin = async (req, res, next) => {
                 foundedUser.latestLogin = Date.now();
                 await foundedUser.save();
                 const token = jwt.sign({ id: foundedUser.id, username: foundedUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                const BearerToken = `Bearer ${token}`;
                 res.cookie("token", token, {
                     maxAge: 15 * 60 * 1000,
                     httpOnly: true
                 });
-                res.setHeader("Authorization", `Bearer ${token}`);
-                res.status(200).json({ successfully: true, token });
+                res.status(200).json({ successfully: true });
             }
             else {
                 res.status(400).json({ msg: `Incorrect password` });
@@ -67,6 +67,19 @@ const postLogin = async (req, res, next) => {
         }
     } catch (error) {
         next(error);
+    }
+}
+
+const getLogout = (req, res, next) => {
+    try {
+
+        res.cookie("token", "", {
+            maxAge: -1,
+            httpOnly: true
+        });
+        res.redirect("/");
+    } catch (error) {
+
     }
 }
 
@@ -97,5 +110,6 @@ module.exports = {
     getSignUp,
     postSignUp,
     getDashBoard,
-    parseCookie
+    parseCookie,
+    getLogout
 }
