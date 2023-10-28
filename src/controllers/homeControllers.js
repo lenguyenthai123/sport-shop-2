@@ -31,44 +31,71 @@ const postSignUp = async (req, res, next) => {
         }
         else {
             res.status(200).json({ message: "Created user succesfully!" });
-            res.redirect("/");
         }
-
     } catch (error) {
         next(error);
-
     }
 }
 
 
 const postLogin = async (req, res, next) => {
     try {
-
-        console.log("in here");
+        console.log("HEHRE")
         const user = req.body;
-        console.log(user);
-        user.latestLogin = Date.now();
-        const userget = await User.findOneAndReplace({ username: `${user.username}` }, user);
-        const id = userget._id;
-        const username = userget.username;
-        const token = jwt.sign({ id, username }, process.env.JWT_SECRET, { expiresIn: '30s' })
 
-        if (userget) {
-            res.status(200).json({ msg: 'Found user', token });
+        const foundedUser = await User.findOne({ username: user.username });
+
+        if (!foundedUser) {
+            res.status(404).json({ msg: "Not found user" });
         }
         else {
-            res.status(404).json({ msg: "Not found user" });
+            const result = await foundedUser.comparePass(user.password);
+            if (result) {
+                foundedUser.latestLogin = Date.now();
+                await foundedUser.save();
+                const token = jwt.sign({ id: foundedUser.id, username: foundedUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                res.cookie("token", token, {
+                    maxAge: 15 * 60 * 1000,
+                    httpOnly: true
+                });
+                res.setHeader("Authorization", `Bearer ${token}`);
+                res.status(200).json({ successfully: true, token });
+            }
+            else {
+                res.status(400).json({ msg: `Incorrect password` });
+            }
         }
     } catch (error) {
         next(error);
     }
 }
 
+const parseCookie = async (req, res, next) => {
+    try {
 
+        // Cookies that have not been signed
+        console.log('Cookies: ', req.cookies)
 
+        // Cookies that have been signed
+        console.log('Signed Cookies: ', req.signedCookies)
+
+        // req.headers.Authorization = `Bearer ${req.cookies.token}`;
+        next();
+    } catch (error) {
+        next(error);
+    }
+}
+
+const getDashBoard = (req, res, next) => {
+    const user = req.user;
+    console.log(user);
+    res.render("DashBoard.ejs");
+}
 module.exports = {
     getHomePage,
     postLogin,
     getSignUp,
-    postSignUp
+    postSignUp,
+    getDashBoard,
+    parseCookie
 }

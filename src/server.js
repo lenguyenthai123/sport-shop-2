@@ -4,6 +4,7 @@ const configviewEngine = require("./config/viewEngine.js")
 const { router } = require("./routes/web.js")
 const connection = require("./config/database.js")
 const connectionMongo = require("./config/dbMongo.js");
+const cookieParser = require('cookie-parser')
 require("dotenv").config()
 
 const app = express()
@@ -14,6 +15,8 @@ const hostname = process.env.HOST_NAME;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser())
 
 // config view engine
 configviewEngine(app)
