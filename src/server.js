@@ -2,9 +2,14 @@ const express = require('express')
 const path = require("path")
 const configviewEngine = require("./config/viewEngine.js")
 const { router } = require("./routes/web.js")
-const connection = require("./config/database.js")
+const { routerAuth } = require("./routes/auth.js");
+
+// const connection = require("./config/database.js")
 const connectionMongo = require("./config/dbMongo.js");
 const cookieParser = require('cookie-parser')
+
+const configSession = require("./config/session.js");
+
 require("dotenv").config()
 
 const app = express()
@@ -13,10 +18,17 @@ const hostname = process.env.HOST_NAME;
 
 // Config the post request is in object by json and suitable for form
 // Middleware
+
+
+
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser())
+
+configSession(app);
 
 // config view engine
 configviewEngine(app)
@@ -26,6 +38,7 @@ configviewEngine(app)
 
 // config router
 app.use("/", router);
+app.use("/", routerAuth);
 
 
 //Middleware not found 
