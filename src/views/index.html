@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/fonts/themify-icons/themify-icons.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="header">
+        <img class="header-logo" src="assets\img\logo.jpg" alt="">
+    </div>
+    <!-- page-login -->
+    <div class="row content pd-0-160">
+        <div id="page-login">
+            <div class="col col-8">
+                <img class="img" src="assets\img\background.jpg" alt="">
+            </div>
+
+            <div class="col col-4">
+                <div class="welcome">Welcome Back</div>
+                <div class="instruction">To keep connected with us please login with your
+                    personal information by email address and password <i class="ti-bell"></i></div>
+                <div class="input-content">
+                    <!-- thay đổi action ở đây -->
+                    <form action="/login" method="post">
+                        <div class="input">
+                            <i class="ti-email icon"></i><span></span>
+                            <div class="input-data">
+                                <label for="input-email"></label>
+                                <div class="text-data">Email Address</div>
+                                <input type="email" id="input-email" name="input-email">
+                            </div>
+
+                        </div>
+
+                        <div class="input">
+                            <i class="ti-lock icon"></i>
+                            <div class="input-data ">
+                                <div class="text-data">password</div>
+                                <label for="input-password"></label>
+                                <input type="password" id="input-password" name="input-password">
+                            </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="choose">
+                <label for="checkbox-remember" class="remember">
+                    <input type="checkbox" id="checkbox-remember" name="checkbox-remember">
+                    <div class="text-data">Remember Me</div>
+                </label>
+
+                <a href="#" class="text-data forget-password">Forget Password?</a>
+            </div>
+
+            <div class="btn">
+                <button class="btn-login">Login Now</button>
+                <button class="btn-create-account"
+                    onclick="document.getElementById('home-page').style.display='none'">Create
+                    Account</button>
+            </div>
+
+
+            <div class="text-data pd-20-0">Or you can join with</div>
+            <!--  -->
+            <div class="login-other-method">
+                <img class="login-logo" src="assets/img/icons8-google-48.png" alt=""><a href="#"></a></img><img
+                    class="login-logo" src="assets\img\icons8-facebook-48.png" alt=""><a href="#"></a></img><img
+                    class="login-logo" src="assets\img\icons8-twitter-circled-48.png" alt=""><a href="#"></a></img>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <span onclick="document.getElementById('page-create-account').style.display='none'" class="close"
+            title="Close Modal"></span> -->
+    <!-- create account  -->
+    <div id="page-create-account" class="modal">
+        <div class="col col-8">
+            <img class="img" src="assets\img\background.jpg" alt="">
+        </div>
+        <form class="modal-content" action="/action_page.php">
+            <div class="col col-4">
+                <div class="container">
+                    <h1>Create Account</h1>
+                    <p>Please fill in this form to create an account.</p>
+                    <hr>
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="Enter Your Email" name="email" required>
+
+                    <label for="phone"><b>Number Phone</b></label>
+                    <input type="number" placeholder="Enter Your Number Phone" name="phone" required>
+
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Your Username" name="username" required>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+
+                    <label for="psw-repeat"><b>Confirm Password</b></label>
+                    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px">
+                        Remember me
+                    </label>
+
+                    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
+                            Privacy</a>.
+                    </p>
+
+                    <div class="clearfix">
+
+                        <button type="submit" class="signupbtn">Sign Up</button>
+                        <button type="button" class="cancelbtn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- page forget password -->
+    <div id="page-forget-password" class="modal">
+        <div class="col col-8 ">
+            <img class="img" src="assets\img\background.jpg" alt="">
+        </div>
+        <form class="modal-content" action="/action_page.php">
+            <div class="col col-4 ">
+                <div class="container">
+                    <svg height="36" viewBox="0 0 24 22" width="39" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="m24 11a11 11 0 0 1 -22 .4l-.3.3a.967.967 0 0 1 -1.4 0 .967.967 0 0 1 0-1.4l2-2a.967.967 0 0 1 1.4 0l2 2a.967.967 0 0 1 0 1.4.908.908 0 0 1 -.7.3.908.908 0 0 1 -.7-.3l-.3-.3a9 9 0 1 0 9-9.4.945.945 0 0 1 -1-1 .945.945 0 0 1 1-1 10.968 10.968 0 0 1 11 11zm-16 5v-5a.945.945 0 0 1 1-1v-1a4 4 0 0 1 8 0v1a.945.945 0 0 1 1 1v5a.945.945 0 0 1 -1 1h-8a.945.945 0 0 1 -1-1zm8-4h-6v3h6zm-5-2h4v-1a2 2 0 0 0 -4 0z" />
+                    </svg>
+                    <h1>Forget Password</h1>
+                    <div class="instruction">Enter the email address asociated with your account and we'll send an email
+                        with instructions on how to recover your password</div>
+                    <div class="input">
+                        <i class="ti-email icon"></i><span></span>
+                        <div class="input-data">
+                            <label for="input-email"></label>
+                            <div class="text-data">Email Address</div>
+                            <input type="email" id="input-email" name="input-email">
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="clearfix">
+
+                        <button type="submit" class="resetpasswordbtn">Reset Password</button>
+                    </div>
+                    <div class="footer">
+                        <div class="account-exist">Already have an account?</div>
+                        <button class="log-in">Log in</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- page-reset-password -->
+    <div id="page-reset-password" class="modal">
+        <div class="col col-8">
+            <img class="img" src="assets\img\background.jpg" alt="">
+        </div>
+        <form class="modal-content" action="/action_page.php">
+            <div class="col col-4">
+                <div class="container">
+                    <h1>Reset Password</h1>
+
+                    <hr>
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+
+                    <label for="psw-repeat"><b>Confirm Password</b></label>
+                    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+
+
+                    <div class="clearfix">
+
+                        <button type="submit" class="resetpasswordbtn">Reset Password</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <!-- create account  -->
+
+
+    <!-- <img src="your_image.jpg" id="clickableImage" alt="Hình ảnh có thể bấm">
+    
+    <script>
+        // Bắt sự kiện khi hình ảnh được bấm
+        document.getElementById("clickableImage").addEventListener("click", function() {
+            // Chuyển đến trang hoặc tab mới
+            window.location.href = "https://www.example.com"; // Thay thế địa chỉ URL bằng trang mà bạn muốn chuyển đến.
+        });
+    </script> -->
+
+
+    <script>
+        var cbRemember = document.querySelector(".checkbox-remember")
+
+        var createAccountBtn = document.querySelector('.btn .btn-create-account')
+        var forgetPassword = document.querySelector('.forget-password')
+        // var accountExist = 
+        var cancelBtn = document.querySelector('.clearfix .cancelbtn')
+
+        var pageCreateAccount = document.getElementById('page-create-account')
+        var pageForgetPassword = document.getElementById('page-forget-password')
+        var pageLogin = document.getElementById('page-login')
+
+        console.log(cancelBtn)
+
+        cancelBtn.addEventListener("click", function () {
+            pageCreateAccount.style.display = 'none'
+            pageLogin.style.display = 'block'
+
+        })
+        createAccountBtn.addEventListener("click", function () {
+            pageLogin.style.display = 'none'
+            pageCreateAccount.style.display = 'block'
+
+        })
+        forgetPassword.addEventListener("click", function () {
+            pageLogin.style.display = 'none'
+            pageForgetPassword.style.display = 'block'
+
+        })
+        cbRemember.addEventListener("change", function () {
+            if (cbRemember.checked) {
+                // Checkbox đã được chọn
+                cbRemember.classList.add("checked");
+                console.log(cbRemember)
+                console.log("check")
+            } else {
+                // Checkbox đã bị bỏ chọn
+                cbRemember.classList.remove("checked");
+                console.log(cbRemember)
+                console.log("uncheck")
+            }
+        });
+    </script>
+</body>
+
+</html>
