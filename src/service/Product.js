@@ -12,7 +12,6 @@ const PrfilteredAndSortedProducts = async function (name, catalogId, manufacture
         fliter.name = name;
     }
     if (catalogId !== "None") {
-        console.log(catalogId);
         try {
             fliter.catalogId = new mongoose.Types.ObjectId(catalogId);
 
@@ -37,7 +36,6 @@ const PrfilteredAndSortedProducts = async function (name, catalogId, manufacture
     // Sort
     if (sortByField !== `None`) {
         sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
-        console.log(sort);
     }
 
     try {
@@ -52,7 +50,6 @@ const PrfilteredAndSortedProducts = async function (name, catalogId, manufacture
 }
 
 const getAnProductDetail = async function (productId) {
-    console.log(productId);
     // const id = new mongoose.Types.ObjectId
     try {
         // Get product info
@@ -68,7 +65,6 @@ const getAnProductDetail = async function (productId) {
         // 2. Manufacturer
         const manufacturer = productInfo.manufacturer;
         const manufacturerRelatedProductList = await Product.find({ manufacturer });
-        console.log(manufacturerRelatedProductList)
         // Combine and make the list unique
         const allRelatedProducts = [...catalogRelatedProductList, ...manufacturerRelatedProductList];
         const relatedProducts = Array.from(new Set(allRelatedProducts.map(product => product._id)))
@@ -80,15 +76,34 @@ const getAnProductDetail = async function (productId) {
 
         return { productInfo, relatedProducts, productReviews };
     } catch (error) {
-        console.log("loi")
         throw error;
     }
 
 }
 
 
+// Using for reference product from cart by Id
+const getProductByCart = async function (cart) {
+    try {
+        const result = [];
+        for (let i = 0; i < cart.length; i++) {
+            try {
+                const product = await Product.findById(cart[i][`productId`]);
+                const quantity = cart[i][`quantity`];
+                result.push({ product, quantity });
+            } catch (error) {
+                console.log("Not found product");
+            }
+        }
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     PrfilteredAndSortedProducts,
-    getAnProductDetail
+    getAnProductDetail,
+    getProductByCart
 
 }
