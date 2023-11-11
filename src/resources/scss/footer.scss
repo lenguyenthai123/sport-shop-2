@@ -1,0 +1,86 @@
+.footer{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 50px;
+}
+
+.footer_info{
+    background-color: rgb(65, 65, 65);
+    display: flex;
+    border: 1px solid rgba(223, 223, 223, 0.2);
+    box-shadow: 0 0 1px rgba(78, 77, 77, 0.5);
+
+}
+.payment{
+    flex: 5;
+    padding: 30px 25px;
+    
+}
+.payment img{
+    height: 20px;
+}
+
+.footer_title{
+    color: rgb(225, 222, 222);
+    margin-bottom: 16px;
+}
+
+.footer_description{
+    color: rgb(174, 174, 174);
+    font-size: 14px;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
+.payment_title{
+
+}
+.payment_description{
+    
+}
+.payment_logo img{
+    margin-right: 10px;
+}
+.get_in_touch{
+    flex: 3;
+    padding: 30px 25px;
+
+}
+.design_details{
+    padding: 30px 25px;
+    flex: 3;
+}
+
+.logo_signature{
+    flex:3;
+    position: relative;
+}
+
+.logo_signature img{
+    height: 100px; 
+    position: absolute;
+    right: 30%;
+    top: 20px;
+}
+
+.copyright{
+    background-color: rgb(47, 46, 46);
+    padding: 5px 0px 5px 30px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+}
+.copyright_1{
+    color: rgb(174, 174, 174);
+}
+
+.copyright_2{
+    
+    font-style: italic;
+    color: orange;
+}
+
+.copyright_icon img{
+    height: 50px;
+    margin-right: 20px;
+}

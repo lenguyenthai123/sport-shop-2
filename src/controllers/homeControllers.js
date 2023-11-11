@@ -15,7 +15,7 @@ require('dotenv').config();
 
 const getHomePage = (req, res, next) => {
     try {
-        res.render("HomePage.ejs");
+        res.render("HomePage_1.ejs");
     } catch (error) {
         next(error);
     }
