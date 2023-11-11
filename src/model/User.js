@@ -58,7 +58,7 @@ const UserScheme = new Schema({
     },
     cart: [
         {
-            product: {
+            productId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: `Product`,
             },
@@ -89,5 +89,6 @@ UserScheme.methods.comparePass = async function (temporaryPassword) {
     const result = await bcrypt.compare(temporaryPassword, this.password);
     return result;
 }
+
 
 module.exports = mongoose.model('User', UserScheme);

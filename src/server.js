@@ -1,8 +1,9 @@
 const express = require('express')
 const path = require("path")
 const configviewEngine = require("./config/viewEngine.js")
-const { router } = require("./routes/web.js")
-const { routerAuth } = require("./routes/auth.js");
+
+const routerUser = require("./routes/guest.js")
+const routerAuth = require("./routes/auth.js");
 
 // const connection = require("./config/database.js")
 const connectionMongo = require("./config/dbMongo.js");
@@ -31,10 +32,8 @@ configSession(app);
 configviewEngine(app)
 
 
-
-
 // config router
-app.use("/", router);
+app.use("/", routerUser);
 app.use("/", routerAuth);
 
 
@@ -59,6 +58,7 @@ app.use((err, req, res, next) => {
 
 const start = async () => {
     try {
+
         await connectionMongo(process.env.MONGO_URI1);
         app.listen(port, hostname, () => {
             console.log("Listening on port " + port)

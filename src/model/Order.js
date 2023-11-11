@@ -33,56 +33,22 @@ const OrderScheme = new Schema({
     total: {
         type: Number,
         default: 0
-    }
-    price: {
-        type: Number,
-        required: [true, 'Please provide price'],
-        min: 0
     },
-    description: {
+    phoneNumber: {
         type: String,
+        required: [true, "Please provide phonenumber"]
+    },
+    fullname: {
+        type: String,
+        maxLength: 20,
+        default: "full name",
         trim: true,
-        default: "None",
     },
-    discount: {
-        type: Number,
-        default: 0,
-        min: 0,
-        max: 100
-    },
-    imageList: {
-        type: [String],
-        default: [],
-        validate: {
-            validator: function (value) {
-                return value.every(url => typeof url === 'string' && url.trim().length > 0);
-            },
-            message: 'Invalid image URLs in the list'
-        }
-    },
-    creationTime: {
+    date: {
         type: Date,
         default: Date.now(),
     },
-    view: {
-        type: Number,
-        default: 0,
-        min: 0
-    },
-    // nhà sản xuất
-    manufacturer: {
-        type: String,
-        required: [true, "Please provide manufacturer"],
-        trim: true
-    },
-    // sort theo tống số lần mua
-    totalPurchase: {
-        type: Number,
-        default: 0,
-    }
-
-
 });
 
 
-module.exports = mongoose.model('Product', ProductScheme);
+module.exports = mongoose.model('Order', OrderScheme);
