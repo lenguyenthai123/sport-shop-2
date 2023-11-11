@@ -41,7 +41,7 @@ html {
 
 .text-data {
     font-size: 16px;
-    opacity: 0.6;
+    opacity: 0.7;
 
 
 }
@@ -100,12 +100,13 @@ html {
     padding: 4px;
     width: 100%;
     height: 100%;
-    color: #BBBEC3;
+    color: #747475;
+   
     /* box-shadow: 1px 2px 5px #888888; */
 
 }
 
-#page-login .col-4{
+#page-login .col-4 {
     height: 72vh;
     padding: 120px 0;
 }
@@ -114,11 +115,15 @@ html {
     padding-top: 60px;
 
 }
-
 #input-email,
+#input-username,
 #input-password {
     border: none;
     background-color: inherit;
+    display: block;
+    width: 100%;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 label[class*="input-"] {}
@@ -133,13 +138,13 @@ label[class*="input-"] {}
 
 
 .icon {
-    
+
     padding: 1rem;
 
     text-align: center;
-    
+
     font-size: 1.5rem;
-  
+    
 }
 
 
@@ -185,25 +190,37 @@ input[class*="input-"] {
 
 .btn button[class*="btn-"]:hover {
     opacity: 0.55;
+    cursor: pointer;
 }
 
 .btn .btn-create-account {
     background-color: #fff !important;
     color: #000 !important;
-   
+
 }
 
 
 
-.choose {
+#page-login .choose {
     display: flex;
     padding: 20px 0;
     justify-content: space-between;
 }
 
+#page-create-account .choose{
+    padding-top: 12px;
+}
+
 .remember {
     display: flex;
+    align-items: center;
 }
+
+
+  
+  label[for="checkbox"] {
+    margin-left: 5px;
+  }
 
 .forget-password {
     text-decoration: none;
@@ -218,6 +235,7 @@ input[class*="input-"] {
 
 .login-logo {
     padding-right: 8px;
+    cursor: pointer;
 }
 
 
@@ -227,12 +245,67 @@ input[class*="input-"] {
 
 /* Full-width input fields */
 
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border: 2px solid #4CAF50;
+    border-radius: 50%;
+  }
+  
+  .checkbox-container:hover input ~ .checkmark {
+    background-color: #e7f1e7; 
+  }
+  
+  .checkbox-container input:checked ~ .checkmark {
+    background-color: #4CAF50; 
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .checkbox-container .checkmark:after {
+    left: 3px;
+    top: 1px;
+    width: 2.5px;
+    height: 6px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+
+
 
 #page-create-account,
 #page-reset-password,
 #page-forget-password {
 
-    display: none;
+    /* display: none; */
     width: 100%;
     box-sizing: Content-box;
 }
@@ -261,7 +334,9 @@ hr {
 }
 
 
-
+.login-logo a{
+    cursor: pointer;
+}
 
 .clearfix {
     display: flex;
@@ -316,35 +391,30 @@ hr {
     display: table;
 }
 
-
-
-
-
-
-
-
-#page-forget-password .container{
+#page-forget-password .container {
     height: 100%;
     margin: 120px 0;
 }
 
-#page-forget-password .instruction{
+#page-forget-password .instruction {
     opacity: 0.55;
     padding: 32px 0;
 }
 
 
-#page-forget-password .clearfix{
+#page-forget-password .clearfix {
     display: flex;
     justify-content: center;
 }
 
-#page-forget-password .log-in{
+#page-forget-password .log-in {
     border: none;
     background: #fff;
     color: blue;
+    cursor: pointer;
 }
-#page-forget-password .footer{
+
+#page-forget-password .footer {
     display: flex;
     margin-top: 20px;
     justify-content: center;

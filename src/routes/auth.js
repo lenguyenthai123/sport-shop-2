@@ -12,6 +12,8 @@ routerAuth.get("/signup", Authentication.getSignUp);
 routerAuth.post("/signup", Authentication.postSignUp);
 
 routerAuth.post("/login", Authentication.postLogin);
+routerAuth.get("/login", Authentication.getLogin);
+
 routerAuth.get("/logout", passport.authenticate('jwt', { session: false }), Authentication.getLogout);
 
 routerAuth.get("/forgot-password", Authentication.getForgotPassword)

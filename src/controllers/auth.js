@@ -10,7 +10,7 @@ const User = require("../model/User.js");
 
 const getSignUp = (req, res, next) => {
     try {
-        res.render("SignUp.ejs");
+        res.render("SignUp_1.ejs");
     } catch (error) {
         next(error);
     }
@@ -30,6 +30,13 @@ const postSignUp = async (req, res, next) => {
     }
 }
 
+const getLogin = (req, res, next) => {
+    try {
+        res.render("Login_1.ejs");
+    } catch (error) {
+        next(error);
+    }
+}
 
 const postLogin = async (req, res, next) => {
     try {
@@ -78,7 +85,7 @@ const getLogout = (req, res, next) => {
 
 const getForgotPassword = (req, res, next) => {
     try {
-        res.render("ForgotPassword.ejs");
+        res.render("ForgotPassword_1.ejs");
     } catch (error) {
         next(error);
     }
@@ -137,7 +144,7 @@ const getResetPassword = async (req, res, next) => {
             }
 
             // Successfull because error will throw 
-            res.render("ResetPassword.ejs", { email: user.email })
+            res.render("ResetPassword_1.ejs", { email: user.email })
         }
     } catch (error) {
         next(error);
@@ -223,6 +230,7 @@ const postUpdatePassword = async (req, res, next) => {
 module.exports = {
     getSignUp,
     postSignUp,
+    getLogin,
     postLogin,
     getLogout,
     getForgotPassword,
