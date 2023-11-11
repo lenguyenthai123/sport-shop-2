@@ -23,16 +23,16 @@
             <div class="col col-4">
                 <div class="welcome">Welcome Back</div>
                 <div class="instruction">To keep connected with us please login with your
-                    personal information by email address and password <i class="ti-bell"></i></div>
+                    personal information by username and password <i class="ti-bell"></i></div>
                 <div class="input-content">
                     <!-- thay đổi action ở đây -->
-                    <form action="/login" method="post">
+                    <form action="" method="post">
                         <div class="input">
-                            <i class="ti-email icon"></i><span></span>
+                            <i class="ti-user icon"></i><span></span>
                             <div class="input-data">
-                                <label for="input-email"></label>
-                                <div class="text-data">Email Address</div>
-                                <input type="email" id="input-email" name="input-email">
+                                <label for="input-username"></label>
+                                <div class="text-data">Username</div>
+                                <input type="text" id="input-username" name="input-username">
                             </div>
 
                         </div>
@@ -40,7 +40,7 @@
                         <div class="input">
                             <i class="ti-lock icon"></i>
                             <div class="input-data ">
-                                <div class="text-data">password</div>
+                                <div class="text-data">Password</div>
                                 <label for="input-password"></label>
                                 <input type="password" id="input-password" name="input-password">
                             </div>
@@ -49,11 +49,13 @@
                 </div>
             </div>
             <div class="choose">
-                <label for="checkbox-remember" class="remember">
+                <label for="checkbox-remember" class="checkbox-container">
                     <input type="checkbox" id="checkbox-remember" name="checkbox-remember">
-                    <div class="text-data">Remember Me</div>
+                    <span class="checkmark"></span>Remember Me
                 </label>
 
+               
+                
                 <a href="#" class="text-data forget-password">Forget Password?</a>
             </div>
 
@@ -83,7 +85,7 @@
         <div class="col col-8">
             <img class="img" src="assets\img\background.jpg" alt="">
         </div>
-        <form class="modal-content" action="/action_page.php">
+        <form class="modal-content" action="">
             <div class="col col-4">
                 <div class="container">
                     <h1>Create Account</h1>
@@ -104,15 +106,15 @@
                     <label for="psw-repeat"><b>Confirm Password</b></label>
                     <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
 
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px">
-                        Remember me
-                    </label>
-
-                    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
+                    <div>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
                             Privacy</a>.
-                    </p>
-
+                    </div>
+                    <div class="choose">
+                        <label for="checkbox-accept-policy" class="checkbox-container">
+                            <input type="checkbox" id="checkbox-accept-policy" name="checkbox-accept-policy">
+                            <span class="checkmark"></span>Agree Policies
+                        </label>
+                        </div>
                     <div class="clearfix">
 
                         <button type="submit" class="signupbtn">Sign Up</button>
@@ -128,7 +130,7 @@
         <div class="col col-8 ">
             <img class="img" src="assets\img\background.jpg" alt="">
         </div>
-        <form class="modal-content" action="/action_page.php">
+        <form class="modal-content" action="">
             <div class="col col-4 ">
                 <div class="container">
                     <svg height="36" viewBox="0 0 24 22" width="39" xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +172,7 @@
         <div class="col col-8">
             <img class="img" src="assets\img\background.jpg" alt="">
         </div>
-        <form class="modal-content" action="/action_page.php">
+        <form class="modal-content" action="">
             <div class="col col-4">
                 <div class="container">
                     <h1>Reset Password</h1>
@@ -212,17 +214,24 @@
 
         var createAccountBtn = document.querySelector('.btn .btn-create-account')
         var forgetPassword = document.querySelector('.forget-password')
-        // var accountExist = 
+        var accountExist = document.querySelector('.log-in')
         var cancelBtn = document.querySelector('.clearfix .cancelbtn')
 
         var pageCreateAccount = document.getElementById('page-create-account')
         var pageForgetPassword = document.getElementById('page-forget-password')
         var pageLogin = document.getElementById('page-login')
 
-        console.log(cancelBtn)
+
+        console.log(accountExist)
 
         cancelBtn.addEventListener("click", function () {
             pageCreateAccount.style.display = 'none'
+            pageLogin.style.display = 'block'
+
+        })
+
+        accountExist.addEventListener("click", function () {
+            pageForgetPassword.style.display  = 'none'
             pageLogin.style.display = 'block'
 
         })
