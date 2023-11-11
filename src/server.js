@@ -20,9 +20,6 @@ const hostname = process.env.HOST_NAME;
 // Middleware
 
 
-
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

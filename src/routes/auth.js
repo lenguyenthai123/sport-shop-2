@@ -11,10 +11,7 @@ const Authentication = require("../controllers/auth");
 routerAuth.get("/signup", Authentication.getSignUp);
 routerAuth.post("/signup", Authentication.postSignUp);
 
-routerAuth.post("/login", passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-}), Authentication.postLogin);
+routerAuth.post("/login", Authentication.postLogin);
 routerAuth.get("/logout", passport.authenticate('jwt', { session: false }), Authentication.getLogout);
 
 routerAuth.get("/forgot-password", Authentication.getForgotPassword)

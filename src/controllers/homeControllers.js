@@ -2,6 +2,10 @@ const { json } = require("body-parser");
 const connection = require("../config/database.js");
 const { getAllUsers } = require("../services/CRUD.js");
 const User = require("../model/User.js");
+const Review = require("../model/Review.js");
+const Product = require("../model/Product.js");
+const Catalog = require("../model/Catalog.js");
+
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("./mailApi.js")
@@ -26,8 +30,6 @@ const getDashBoard = (req, res, next) => {
     catch {
         next(error);
     }
-
-
 }
 module.exports = {
     getHomePage,

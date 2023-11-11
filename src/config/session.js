@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const store = new MongoDBStore({
     uri: 'mongodb+srv://lenguyenthai123:g76a1zu6pJwBRLFy@cluster0.ctwm4lc.mongodb.net/Hotel?retryWrites=true&w=majority',
-    collection: 'mySessions'
+    collection: 'mySessions',
 });
 
 const configSession = (app) => {

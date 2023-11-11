@@ -46,16 +46,13 @@ passport.use(new LocalStrategy(
 
             const result = await user.comparePass(password);
             if (result) {
-                console.log("dung pass");
                 done(null, user);
             }
             else {
-                console.log("sai Pass")
                 done(null, false);
             }
 
         } catch (error) {
-            console.log("Loi");
             done(error);
         }
 
