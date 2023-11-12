@@ -27,7 +27,10 @@ const ProductScheme = new Schema({
         min: 0,
         max: 100
     },
-    imageList: {
+    thumbnail: {
+        type: String
+    },
+    gallery: {
         type: [String],
         default: [],
         validate: {
@@ -63,6 +66,7 @@ const ProductScheme = new Schema({
     }
 
 });
+
 
 
 module.exports = mongoose.model('Product', ProductScheme);

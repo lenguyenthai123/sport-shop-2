@@ -74,6 +74,10 @@ const UserScheme = new Schema({
     ban: {
         type: Boolean,
         default: false,
+    },
+    role: {
+        type: String,
+        default: "user",
     }
 
 })
