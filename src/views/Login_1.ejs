@@ -24,9 +24,8 @@
                 <div class="welcome">Welcome Back</div>
                 <div class="instruction">To keep connected with us please login with your
                     personal information by username and password <i class="ti-bell"></i></div>
-                <div class="input-content">
-                    <!-- thay đổi action ở đây -->
-                    <form action="" method="post">
+                <form action="/login" method="post">
+                    <div class="input-content">   
                         <div class="input">
                             <i class="ti-user icon"></i><span></span>
                             <div class="input-data">
@@ -44,27 +43,27 @@
                                 <label for="input-password"></label>
                                 <input type="password" id="input-password" name="input-password">
                             </div>
-                    </form>
-
-                </div>
+                    </div>
+                    <div class="choose">
+                        <label for="checkbox-remember" class="checkbox-container">
+                            <input type="checkbox" id="checkbox-remember" name="checkbox-remember">
+                            <span class="checkmark"></span>Remember Me
+                        </label>
+        
+                       
+                        
+                        <a href="#" class="text-data forget-password">Forget Password?</a>
+                    </div>
+        
+                    <div class="btn">
+                        <button type="button" class="btn-login" onclick="login()">Login Now</button>
+                        <button class="btn-create-account"
+                            onclick="document.getElementById('home-page').style.display='none'">Create
+                            Account</button>
+                    </div>
+                </form>
             </div>
-            <div class="choose">
-                <label for="checkbox-remember" class="checkbox-container">
-                    <input type="checkbox" id="checkbox-remember" name="checkbox-remember">
-                    <span class="checkmark"></span>Remember Me
-                </label>
-
-               
-                
-                <a href="#" class="text-data forget-password">Forget Password?</a>
-            </div>
-
-            <div class="btn">
-                <button class="btn-login">Login Now</button>
-                <button class="btn-create-account"
-                    onclick="document.getElementById('home-page').style.display='none'">Create
-                    Account</button>
-            </div>
+            
 
 
             <div class="text-data pd-20-0">Or you can join with</div>
@@ -76,7 +75,41 @@
             </div>
         </div>
     </div>
+    <script>
+        async function abc(){
+            console.log("111");
+        }
 
+        async function login() {
+            
+            const username = document.getElementById('input-username').value;
+            const password = document.getElementById('input-password').value;
+
+            console.log(username, password);
+
+            await fetch('/login', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            })
+            .then(response => {
+                if (!response) {
+                throw new Error('Login failed');
+                }
+                return response;
+            })
+            .then(data => {
+                // Handle successful login, e.g., redirect or update UI
+                console.log('Login successful', data);
+            })
+            .catch(error => {
+                // Handle login error, e.g., display an error message
+                console.error('Login failed', error);
+            });
+        }
+    </script>
 </body>
 
 </html>

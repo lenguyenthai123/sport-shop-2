@@ -45,7 +45,7 @@ const getHomePage = async (req, res, next) => {
 const getDashBoard = (req, res, next) => {
     try {
         const user = req.user;
-        res.render("DashBoardAmin.ejs");
+        res.render("DashBoardAdmin.ejs");
     }
     catch {
         next(error);
