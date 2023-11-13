@@ -103,15 +103,27 @@ const getProductByCart = async function (cart) {
     }
 }
 
-const saveFileAndGetUrl = async function (files) {
+const saveFileAndGetUrlFromThumbnailAndGallery = async function (files) {
     try {
-        const urlList = [];
 
-        for (let i = 0; i < files.length; i++) {
-            const result = await uploadToCloudinary(files[i]);
-            urlList.push(result.url);
+        let thumbnail;
+        let gallery = []
+        if ("thumbnail" in files) {
+            const thumbnailObject = await uploadToCloudinary(files[`thumbnail`][0], 280, 280);
+            thumbnail = thumbnailObject.url;
+
+            const thumbnailGallery = await uploadToCloudinary(files[`thumbnail`][0], 450, 600);
+            gallery.push(thumbnailGallery.url);
         }
-        return urlList
+        if (`gallery` in files) {
+            for (let i = 0; i < files[`gallery`].length; i++) {
+                const image = await uploadToCloudinary(files[`gallery`][i], 450, 600);
+                gallery.push(image.url);
+                // console.log(image.url);
+            }
+        }
+
+        return { thumbnail, gallery };
     } catch (error) {
         console.log("Error: Save file and get url");
         throw error;
@@ -124,6 +136,6 @@ module.exports = {
     PrfilteredAndSortedProducts,
     getAnProductDetail,
     getProductByCart,
-    saveFileAndGetUrl,
+    saveFileAndGetUrlFromThumbnailAndGallery,
 
 }

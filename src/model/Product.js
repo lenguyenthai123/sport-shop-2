@@ -9,7 +9,6 @@ const ProductScheme = new Schema({
         type: String,
         trim: true,
         required: [true, "Please provide name"],
-        maxLength: 30
     },
     price: {
         type: Number,

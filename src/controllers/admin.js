@@ -95,33 +95,21 @@ const postANewProduct = async (req, res, next) => {
     }
     try {
         const product = {};
+        const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
 
-        if ("thumbnail" in req.files) {
-            const thumbnailList = await ProductService.saveFileAndGetUrl(req.files[`thumbnail`]);
-            product.thumbnail = thumbnailList[0];
-
-        }
-        if (`gallery` in req.files) {
-
-            const galleryList = await ProductService.saveFileAndGetUrl(req.files[`gallery`]);
-            product.gallery = [...galleryList];
-        }
-
+        product.thumbnail = thumbnail;
+        product.gallery = gallery;
         product.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
         product.name = req.body.name;
         product.price = req.body.price;
         product.description = req.body.description;
         product.discount = req.body.discount;
-        product.creationTime = req.body.creationTime;
-        product.view = req.body.view;
-        product.totalPurchase = req.body.totalPurchase;
         product.status = req.body.status;
         product.manufacturer = req.body.manufacturer;
 
-
         const newProduct = new Product(product);
         await newProduct.save();
-        res.status(201).json(newProduct);
+        res.status(201).json({ message: "Create product successfully", newProduct });
 
     }
     catch (error) {
