@@ -7,15 +7,27 @@ const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const streamifier = require("streamifier");
 
-const uploadToCloudinary = (file) => {
+const uploadToCloudinary = (file, width, height) => {
     return new Promise((resolve, reject) => {
-        let stream = cloudinary.uploader.upload_stream((error, result) => {
-            if (result) {
-                resolve(result);
-            } else {
-                reject(error);
+
+        let transformation = {
+            width: width,
+            height: height,
+            crop: "scale",
+        };
+
+        let stream = cloudinary.uploader.upload_stream(
+            {
+                transformation: transformation,
+            },
+            (error, result) => {
+                if (result) {
+                    resolve(result);
+                } else {
+                    reject(error);
+                }
             }
-        });
+        );
 
         streamifier.createReadStream(file.buffer).pipe(stream);
     });
