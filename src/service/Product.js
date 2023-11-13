@@ -1,5 +1,7 @@
+require("dotenv").config();
 const Product = require("../model/Product.js");
 const Review = require("../model/Review.js");
+const uploadToCloudinary = require("../config/cloudinary.js");
 
 const mongoose = require("mongoose");
 
@@ -101,9 +103,27 @@ const getProductByCart = async function (cart) {
     }
 }
 
+const saveFileAndGetUrl = async function (files) {
+    try {
+        const urlList = [];
+
+        for (let i = 0; i < files.length; i++) {
+            const result = await uploadToCloudinary(files[i]);
+            urlList.push(result.url);
+        }
+        return urlList
+    } catch (error) {
+        console.log("Error: Save file and get url");
+        throw error;
+    }
+
+}
+
+
 module.exports = {
     PrfilteredAndSortedProducts,
     getAnProductDetail,
-    getProductByCart
+    getProductByCart,
+    saveFileAndGetUrl,
 
 }

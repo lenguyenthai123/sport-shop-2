@@ -40,7 +40,6 @@ const getLogin = (req, res, next) => {
 
 const postLogin = async (req, res, next) => {
     try {
-        console.log("HEHRE")
         const user = req.body;
         const foundedUser = await User.findOne({ username: user.username });
         if (!foundedUser) {
@@ -54,10 +53,21 @@ const postLogin = async (req, res, next) => {
                 const token = jwt.sign({ id: foundedUser.id, username: foundedUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
                 const BearerToken = `Bearer ${token}`;
                 res.cookie("token", token, {
-                    maxAge: 15 * 60 * 1000,
+                    maxAge: 60 * 60 * 1000,
                     httpOnly: true
                 });
-                res.redirect("/dashboard");
+                // res.redirect("/dashboard");
+                // res.status(200).json({ msg: "login successull" });
+
+                // DOING AFTER LOGIN SUCCESSFULLY
+
+                if (foundedUser.role === "admin") {
+                    res.redirect("/admin/home-page");
+                }
+                else {
+                    res.redirect("/user/home-page");
+                }
+
             }
             else {
                 res.status(401).json({ msg: `Incorrect password` });

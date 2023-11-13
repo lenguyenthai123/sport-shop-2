@@ -1,10 +1,30 @@
-const express = require('express');
-const routerAdmin = express.Router();
-const admin = require('../controllers/admin');
+const express = require("express")
+const router = express.Router();
+const passport = require("passport");
+require("../middlewares/passportAccessToken.js");
 
-routerAdmin.get('/products', admin.getProducts);
-routerAdmin.get('/dashboard', admin.getDashBoard);
-routerAdmin.get('/profile', admin.getProfile);
-routerAdmin.get('/', admin.redirectToDashboard);
+const checkAdmin = require("../middlewares/authenticationAdmin.js")
+const Controllers = require("../controllers/admin.js");
 
-module.exports = routerAdmin;
+
+const multerConfig = require("../config/multer.js")
+const multer = require("multer");
+
+
+const upload = multerConfig;
+
+const UploadProduct = upload.fields([
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'gallery', maxCount: 8 },
+]);
+
+
+
+router.get("/admin/home-page", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getHomePage);
+router.get("/admin/product/:productId", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductDetail)
+
+router.get("/admin/product", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getFormCreateNewProduct)
+router.post("/admin/product", passport.authenticate('jwt', { session: false }), checkAdmin, UploadProduct, Controllers.postANewProduct)
+
+
+module.exports = router;
