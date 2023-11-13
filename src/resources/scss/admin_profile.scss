@@ -1,0 +1,392 @@
+body{
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar_wrapper_cus{
+    width: 300px;
+    height: 100vh;
+    box-sizing: border-box;
+    font-family: 'Muli', "Helvetica", Arial, sans-serif;
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 0px;
+    font-size: 24px;
+    margin: 0px 5px;
+    border-bottom: 1px solid #ccc;
+}
+.nav{
+    padding-left: 0;
+}
+
+.nav li{
+    /* display: block; */
+    height: 50px;
+    box-sizing: border-box;
+    padding: 10px 25px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.nav a {
+    text-decoration: none;
+    color: black; 
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+
+}
+
+.nav a p{
+    margin: 0 0 0 16px ;
+}
+
+.active a p{
+    color: #eb5e28;
+   
+}
+
+.active a svg{
+    fill: #eb5e28;
+}
+
+.admin_profile_info{
+    padding: 0px 20px !important;
+    margin-top: 30px;
+}
+
+.content{
+    display: block;
+    width: 100%;
+    background-color: #f4f3ef;
+}
+.navbar{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 50px;
+}
+
+.start_info{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    height: 520px;
+}
+
+.start_info_frame{
+    width: 100%;
+    height: 430px;
+
+    
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    /* position: relative; */
+    margin-bottom: 20px;
+}
+
+.cover_image{
+    width: 100%;
+    height: 40%;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    /* position: relative; */
+}
+
+.cover_image img{   
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.personal_circular_image{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    top: -10%;
+    border: 5px solid white;
+}
+
+.personal_circular_image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.start_info_text{
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 20px;
+    /* top:-16px; */
+    width: 100%;
+}
+
+.start_info_nickname{
+    color: #ccc5b9;
+    margin-bottom: 10px;
+}
+
+.start_info_name{
+    font-weight: bold;
+    font-size: 24px;
+    font-family:  'Muli', "Helvetica", Arial, sans-serif;
+    margin-bottom: 6px;
+    
+}
+.start_info_slogan{
+    text-align: center;
+    display: block;
+    width: 95%;
+    margin: 0 5px 0px 5px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #ccc;
+    /* box-sizing: border-box; */
+}
+
+.start_info_des{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 16px;
+    
+}
+
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 2px 2px rgba(204,197,185,.5);
+    background-color: #fff;
+    color: #252422;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    margin-top: 30px;
+}
+
+.card .image {
+    width: 100%;
+    overflow: hidden;
+    height: 260px;
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d
+}
+
+.card .image img {
+    width: 100%
+}
+
+.card .card_content {
+    padding: 15px 15px 10px
+}
+
+.card .header {
+    padding: 20px 20px 0
+}
+
+.card .description {
+    font-size: 16px;
+    color: #66615b;
+}
+
+.card h6 {
+    font-size: 12px;
+    margin: 0
+}
+
+.card .category,.card label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #9a9a9a;
+    margin-bottom: 0
+}
+
+.card .category i,.card label i {
+    font-size: 16px
+}
+
+.card label {
+    font-size: 15px;
+    margin-bottom: 5px
+}
+
+.card .title {
+    margin: 0;
+    color: #252422;
+    font-weight: 300
+}
+
+.card .avatar {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 5px
+}
+
+.card .footer {
+    padding: 0;
+    line-height: 30px
+}
+
+.card .footer .legend {
+    padding: 5px 0
+}
+
+.card .footer hr {
+    margin-top: 5px;
+    margin-bottom: 5px
+}
+
+.card .stats {
+    color: #a9a9a9;
+    font-weight: 300
+}
+
+.card .stats i {
+    margin-right: 2px;
+    min-width: 15px;
+    display: inline-block
+}
+
+.card .footer div {
+    display: inline-block
+}
+
+.card .author {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase
+}
+
+.card .author i {
+    font-size: 14px
+}
+
+.card.card-separator:after {
+    height: 100%;
+    right: -15px;
+    top: 0;
+    width: 1px;
+    background-color: #ddd;
+    content: "";
+    position: absolute
+}
+
+.team-members li .row{
+    padding: 10px 0px;
+    margin: 0px 5px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+
+.team-members li .row:last-child{
+
+}
+
+
+.personal_circular_image--small{
+    border: none;
+    width: 60px;
+    height: 60px;
+}
+.personal_circular_image--small img{
+    
+}
+
+.frame_info_2_column{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.frame_info_column_1{
+    width: 48%;
+
+}
+
+.frame_info_column_2{
+    width: 48%;
+}
+
+.label{
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.input_info{
+    width: 100%;
+    height: 30px;
+    margin-top: 15px;
+    margin-bottom: 60px;
+    border-radius: 10px;
+    box-shadow: 10px;
+    padding: 24px;
+    font-size: 18px;
+    font-family: 'Muli', "Helvetica", Arial, sans-serif;
+    border: 3px solid rgb(205, 203, 203);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.info_description{
+    background-color: white;
+    border-radius: 10px;
+    /* margin-left: 20px; */
+}
+
+.info_description > span{    
+    font-size: 26px;
+    font-weight: bold;
+    padding-top: 26px;
+    display: block;
+    padding-left: 20px;
+}
+
+
+.my_button {
+    background-color: #47a1bd;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 20px;
+    display: block;
+    margin: auto;
+    opacity: 0.8;
+}
+
+.my_button:hover {
+    background-color: #2998ba;
+    opacity: 1;
+}
+
+
+@media screen and (max-width: 576px) {
+    .sidebar_wrapper_cus{
+        display: none;
+    }
+}

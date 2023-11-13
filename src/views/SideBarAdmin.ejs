@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Bar</title>
+    <link rel="stylesheet" href="/assets/styleIndex.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo"></div>
+
+        <ul class="menu">
+            <li class="sidebar-icon li-dashboard">
+                <a href="./dashboard" class="sidebar-icon a-dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="sidebar-icon li-view-account-list">
+                <a href="#" class="sidebar-icon a-view-account-list">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Account list</span>
+                </a>
+            </li>
+            <li class="sidebar-icon li-admin-profile">
+                <a class="li-admim-profile" href="./profile">
+                    <i class="fas fa-user"></i>
+                    <span>Admin profile</span>
+                </a>
+            </li>
+            <li class="sidebar-icon li-products">
+                <a class=" li-products" href="./products">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li class="sidebar-icon">
+                <a class="" href="#">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </li>
+            <li class="sidebar-icon">
+                <a class="" href="#">
+                    <i class="fas fa-star"></i>
+                    <span>Testimonials</span>
+                </a>
+            </li>
+            <li class="sidebar-icon">
+                <a class="" href="#">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+
+        </ul>
+    </div>
+    
+    <script>
+        
+        var sidebarIcon = document.querySelectorAll('.sidebar-icon');
+
+        class SideBar{
+            static selection;
+            static setSelection(a){
+                this.selection = a;
+            }
+        }
+
+        // var liDashboard = document.querySelector('.li-dashboard')
+        // var liViewAccountlist = document.querySelector('.li-view-account-list')
+
+        // var aDashboard = document.querySelector('.a-dashboard')
+        // var aViewAccountlist = document.querySelector('.a-view-account-list')
+
+
+        // var dashboard = document.getElementById('dashboard')
+        // var viewAccountList = document.getElementById('view-account-list')
+        // var pageLogin = document.getElementById('page-login')
+
+
+        // console.log(liDashboard)
+        // console.log(liViewAccountlist)
+
+        var selection = localStorage.getItem('AdminSelection');
+        console.log(selection);
+        var activeSelection = document.querySelector(`.${selection}`);
+        console.log(activeSelection);
+        activeSelection.classList.add("active");
+        
+
+
+        function removeActiveIcon(){
+            sidebarIcon.forEach((e) => {
+                e.classList.remove("active");
+            });
+        }
+
+
+        sidebarIcon.forEach((e) =>{
+            e.addEventListener("click", function(){
+                removeActiveIcon();
+                localStorage.setItem("AdminSelection", e.classList[1]);
+            })
+        })
+
+        // aDashboard.addEventListener("click", function () {
+
+        //     viewAccountList.style.display  = 'none'
+        //     dashboard.style.display = 'block'
+        //     liViewAccountlist.classList.remove("active");
+        //     liDashboard.classList.add("active");
+          
+        // })
+        // aViewAccountlist.addEventListener("click", function () {
+        //     dashboard.style.display = 'none'
+        //     viewAccountList.style.display = 'block'
+        //     liViewAccountlist.classList.add("active");
+        //     liDashboard.classList.remove("active");
+           
+        // })
+
+       
+     
+    
+    </script>
+</body>
+</html>

@@ -4,6 +4,7 @@ const configviewEngine = require("./config/viewEngine.js")
 
 const routerUser = require("./routes/guest.js")
 const routerAuth = require("./routes/auth.js");
+const routerAdmin = require("./routes/admin.js");
 
 // const connection = require("./config/database.js")
 const connectionMongo = require("./config/dbMongo.js");
@@ -35,6 +36,7 @@ configviewEngine(app)
 // config router
 app.use("/", routerUser);
 app.use("/", routerAuth);
+app.use("/admin", routerAdmin);
 
 
 //Middleware not found 
