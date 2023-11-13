@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Design</title>
+
+    <!-- <link rel="stylesheet" href="/assets/styleIndex.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Google chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2013',  1000,      400],
+          ['2014',  1170,      460],
+          ['2015',  660,       1120],
+          ['2016',  1030,      540]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+
+<body>
+    <%- include('SideBarAdmin') -%>
+    <!-- dashboard -->
+    <div id="dashboard">
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <span>Primary</span>
+                    <h2>Dashboard</h2>
+                </div>
+                <div class="user--infor">
+                    <div class="search--box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" placeholder="Search">
+                    </div>
+                    <img src="https://omimultimarket.com/inc/style.lib/assets/images/login.png" alt="">
+    
+                </div>
+    
+            </div>
+            <div class="card--container">
+                <h3 class="main--title">Today's data</h3>
+                <div class="card--wrapper">
+                    <div class="payment--card light-red">
+                        <div class="card--header">
+                            <div class="amount">
+                                <span class="title">
+                                    Payment amount
+                                </span>
+                                <span class="amount-value">
+                                    $500.00
+                                </span>
+                            </div>
+                            <i class="fas fa-dollar-sign icon"></i>
+                        </div>
+    
+                        <span class="card-detail">**** **** **** 3484</span>
+                    </div>
+                    <div class="payment--card light-purple">
+                        <div class="card--header">
+                            <div class="amount">
+                                <span class="title">
+                                    Payment order
+                                </span>
+                                <span class="amount-value">
+                                    $200.00
+                                </span>
+                            </div>
+                            <i class="fas fa-list icon dark-purple"></i>
+                        </div>
+    
+                        <span class="card-detail">**** **** **** 5542</span>
+                    </div>
+                    <div class="payment--card light-green">
+                        <div class="card--header">
+                            <div class="amount">
+                                <span class="title">
+                                    Payment customer
+                                </span>
+                                <span class="amount-value">
+                                    $350.00
+                                </span>
+                            </div>
+                            <i class="fas fa-users icon dark-green"></i>
+                        </div>
+    
+                        <span class="card-detail">**** **** **** 8896</span>
+                    </div>
+                    <div class="payment--card light-blue">
+                        <div class="card--header">
+                            <div class="amount">
+                                <span class="title">
+                                    Payment proceed
+                                </span>
+                                <span class="amount-value">
+                                    $150.00
+                                </span>
+                            </div>
+                            <i class="fas fa-check icon dark-blue"></i>
+                        </div>
+    
+                        <span class="card-detail">**** **** **** 7745</span>
+                    </div>
+                    <div class="tabular--wrapper">
+                        <h3 class="main--title">
+                            Finance data
+                        </h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Transaction Type</th>
+                                        <th>Descriptioin</th>
+                                        <th>Amount</th>
+                                        <th>Catagory</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>2023-11-01</td>
+                                        <td>Expenses</td>
+                                        <td>Office Supplies</td>
+                                        <td>$250</td>
+                                        <td>Office Expenses</td>
+                                        <td>Pending</td>
+                                        <td><button>Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-11-01</td>
+                                        <td>Expenses</td>
+                                        <td>Office Supplies</td>
+                                        <td>$250</td>
+                                        <td>Office Expenses</td>
+                                        <td>Pending</td>
+                                        <td><button>Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-11-01</td>
+                                        <td>Expenses</td>
+                                        <td>Office Supplies</td>
+                                        <td>$250</td>
+                                        <td>Office Expenses</td>
+                                        <td>Pending</td>
+                                        <td><button>Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-11-01</td>
+                                        <td>Expenses</td>
+                                        <td>Office Supplies</td>
+                                        <td>$250</td>
+                                        <td>Office Expenses</td>
+                                        <td>Pending</td>
+                                        <td><button>Edit</button></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan = "7">
+                                            Total: $1,000
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                                </thead>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="graphBox">
+                    <div id="chart_div" style="width: 800px; height: 800px;"></div>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

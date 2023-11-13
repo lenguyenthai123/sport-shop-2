@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter product</title>
+    <link rel="stylesheet" href="/css/home_page.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="/library/noUiSlider-15.7.1/noUiSlider-15.7.1/dist/nouislider.min.js"></script>
+    <link rel="stylesheet" href="/library/noUiSlider-15.7.1/noUiSlider-15.7.1/dist/nouislider.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="col-lg-1 home_filter">
+        <button id="filter_button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;"><path fill="none" d="M7 16H3m26 0H15M29 6h-4m-8 0H3m26 20h-4M7 16a4 4 0 1 0 8 0 4 4 0 0 0-8 0zM17 6a4 4 0 1 0 8 0 4 4 0 0 0-8 0zm0 20a4 4 0 1 0 8 0 4 4 0 0 0-8 0zm0 0H3"></path></svg>
+            <span>Filters</span>
+            
+        </button>
+    </div> 
+    <div class="modal_cus" id="modal_cus0">
+        <div class="overlay">
+            
+        </div>
+        <div class="home_filter_page">
+            <div class="home_filter_page_content">
+                
+                <div class="filter_header">
+                    <span>Filters</span>
+                    <div class="close_filter_button" id="close_filter">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;"><path d="m6 6 20 20M26 6 6 26"></path></svg>
+
+                    </div>
+                </div>
+                <form action="" method="GET" id="filter_form">
+                <div class="filter_price filter_title filter_field_component">
+                    <span>
+                        Price range
+                    </span>
+                    <span>
+    
+                        The average nightly price is $90
+                    </span>
+                
+                    <div class="price-filter">
+                        <div id="price-range"></div>
+                        
+                        <div class="price_range_input">
+                            <div class="price_range_minimum">
+                                <span>Minimum</span>
+                                <div class="dollar_icon">$</div>
+                                <input type="text" class="start-input with-prefix" id="start-input" placeholder="Min Price">
+                            </div>
+                            <div class="price_seperate_line"></div>
+                            <div class="price_range_maximum">
+                                <span>Maximum</span>
+                                <div class="dollar_icon">$</div>
+                                <input type="text" class="end-input with-prefix" id="end-input" placeholder="Max Price">
+            
+                            </div>
+        
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="filter_room  filter_title filter_field_component">
+                    <span>Rooms and beds</span>
+                    <div class="filter_room_option">
+                        <span>Bedrooms</span>
+                        <div class="selection-container">
+                            <div class="selection_option selection_option--padding">
+                                <input type="radio" id="option1" name="bedroom_number" class="radio-option" value="Any">
+                                <label for="option1">Any</label>
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option2" name="bedroom_number" class="radio-option" value="1">
+                                <label for="option2">1</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option3" name="bedroom_number" class="radio-option"  value="2">
+                                <label for="option3">2</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option4" name="bedroom_number" class="radio-option"  value="3">
+                                <label for="option4">3</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option5" name="bedroom_number" class="radio-option"  value="4">
+                                <label for="option5">4</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option6" name="bedroom_number" class="radio-option"  value="5">
+                                <label for="option6">5</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option7" name="bedroom_number" class="radio-option"  value="6">
+                                <label for="option7">6</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option8" name="bedroom_number" class="radio-option"  value="7">
+                                <label for="option8">7</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option9" name="bedroom_number" class="radio-option"  value="8+">
+                                <label for="option9">8+</label>
+        
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter_room_option">
+                        <span>Beds</span>
+                        <div class="selection-container">
+                            <div class="selection_option selection_option--padding">
+                                <input type="radio" id="option10" name="bed_number" class="radio-option" value="Any">
+                                <label for="option10">Any</label>
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option11" name="bed_number" class="radio-option" value="1">
+                                <label for="option11">1</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option12" name="bed_number" class="radio-option" value="2">
+                                <label for="option12">2</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option13" name="bed_number" class="radio-option" value="3">
+                                <label for="option13">3</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option14" name="bed_number" class="radio-option" value="4">
+                                <label for="option14">4</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option15" name="bed_number" class="radio-option" value="5">
+                                <label for="option15">5</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option16" name="bed_number" class="radio-option" value="6">
+                                <label for="option16">6</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option17" name="bed_number" class="radio-option" value="7">
+                                <label for="option17">7</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option18" name="bed_number" class="radio-option" value="8+">
+                                <label for="option18">8+</label>
+        
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter_room_option">
+                        <span>Bathrooms</span>
+                        <div class="selection-container">
+                            <div class="selection_option selection_option--padding">
+                                <input type="radio" id="option20" name="bathroom_number" class="radio-option" value="Any">
+                                <label for="option20">Any</label>
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option21" name="bathroom_number" class="radio-option" value="1">
+                                <label for="option21">1</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option22" name="bathroom_number" class="radio-option" value="2">
+                                <label for="option22">2</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option23" name="bathroom_number" class="radio-option" value="3">
+                                <label for="option23">3</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option24" name="bathroom_number" class="radio-option" value="4">
+                                <label for="option24">4</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option25" name="bathroom_number" class="radio-option" value="5">
+                                <label for="option25">5</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option26" name="bathroom_number" class="radio-option" value="6">
+                                <label for="option26">6</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option27" name="bathroom_number" class="radio-option" value="7">
+                                <label for="option27">7</label>
+        
+                            </div>
+                            <div class="selection_option">
+                                <input type="radio" id="option28" name="bathroom_number" class="radio-option" value="8+">
+                                <label for="option28">8+</label>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="property_type filter_title filter_field_component">
+                    <span>Property type</span>
+                    <div class="checkbox-container">
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="image-checkbox" name="property_type" value="house">
+                            <div class="checkbox_option">
+                                <img src="https://a0.muscache.com/pictures/4d7580e1-4ab2-4d26-a3d6-97f9555ba8f9.jpg" alt="Image 1">
+                                <span>House</span>
+
+                            </div>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="image-checkbox" name="property_type" value="apartment">
+                            <div class="checkbox_option">
+                                <img src="https://a0.muscache.com/pictures/21cfc7c9-5457-494d-9779-7b0c21d81a25.jpg" alt="Image 1">
+                                <span>Apartment</span>
+
+                            </div>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="image-checkbox" name="property_type" value="guesthouse">
+                            <div class="checkbox_option">
+                                <img src="https://a0.muscache.com/pictures/6f261426-2e47-4c91-8b1a-7a847da2b21b.jpg" alt="Image 1">
+                                <span>Guesthouse</span>
+
+                            </div>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="image-checkbox" name="property_type" value="hotel">
+                            <div class="checkbox_option">
+                                <img src="https://a0.muscache.com/pictures/64b27fed-56a1-4f03-950a-d8da08efb428.jpg" alt="Image 1">
+                                <span>Hotel</span>
+
+                            </div>
+                        </label>
+                        
+                    </div>
+                </div>
+                <div class="amenities filter_title filter_field_component">
+                    <span>Amenities</span>
+                    <div class="checkbox_container_amen">
+                        <span class="amen_type">Essentials</span>
+                        <div class="checkbox_container_amen_type">
+                            <div class="checkbox_container_amen_left">
+                                <div class="checkbox_amen_selection">
+
+                                    <input type="checkbox" name="amenities" value="wifi" id="amen_wifi" />
+                                    <label for="amen_wifi">Wifi</label>
+                                </div>
+
+                                <div class="checkbox_amen_selection">
+
+                                    <input type="checkbox" name="amenities" value="washer" id="amen_washer" />
+                                    <label for="amen_washer">Washer</label>
+                                </div>
+
+                                <div class="checkbox_amen_selection">
+
+                                    <input type="checkbox" name="amenities" value="airCon" id="amen_airCon" />
+                                    <label for="amen_airCon">Air Conditioning</label>
+                                </div>
+
+                                <div class="checkbox_amen_selection">
+
+                                    <input type="checkbox" name="amenities" value="dedicatedWork" id="amen_dedicatedWork" />
+                                    <label for="amen_dedicatedWork">Dedicated workspace</label>
+                                </div>
+
+                                <div class="checkbox_amen_selection">
+
+                                    <input type="checkbox" name="amenities" value="hairDry" id="amen_hairDry" />
+                                    <label for="amen_hairDry">Hair dryer</label>
+                                </div>
+                            </div>
+
+                            <div class="checkbox_container_amen_right">
+                                <div class="checkbox_amen_selection">
+                                    <input type="checkbox" name="amenities" value="hairDry" id="amen_hairDry" />
+                                    <label for="amen_kitchen">Kitchen</label>
+
+                                </div>
+
+                                <div class="checkbox_amen_selection">
+
+                                    <input type="checkbox" name="amenities" value="dryer" id="amen_dryer" />
+                                    <label for="amen_dryer">Dryer</label>
+                                </div>
+
+                                <div class="checkbox_amen_selection">
+
+                                    <input type="checkbox" name="amenities" value="heat" id="amen_heat" />
+                                    <label for="amen_heat">Heating</label>
+                                </div>
+
+                                <div class="checkbox_amen_selection">
+
+                                    <input type="checkbox" name="amenities" value="tv" id="amen_tv" />
+                                    <label for="amen_tv">TV</label>
+                                </div>
+
+                                <div class="checkbox_amen_selection">
+                                    <input type="checkbox" name="amenities" value="iron" id="amen_iron" />
+                                    <label for="amen_iron">Iron</label>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Add more checkboxes here -->
+                        
+                        <div class="additional-checkboxes-amen">
+                            <span class="amen_type">Features</span>
+                            <div class="checkbox_container_amen_type">
+                                <div class="checkbox_container_amen_left">
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="pool" id="amen_pool" />
+                                        <label for="amen_pool">Pool</label>
+                                    </div>
+    
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="parking" id="amen_parking" />
+                                        <label for="amen_parking">Free parking</label>
+                                    </div>
+    
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="crib" id="amen_crib" />
+                                        <label for="amen_crib">Crib</label>
+                                    </div>
+    
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="gym" id="amen_gym" />
+                                        <label for="amen_gym">Gym</label>
+                                    </div>
+    
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="breakfast" id="amen_breakfast" />
+                                        <label for="amen_breakfast">Breakfast</label>
+                                    </div>
+
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="smokeAllow" id="amen_smokeAllow" />
+                                        <label for="amen_smokeAllow">Smoking allowed</label>
+                                    </div>
+                                </div>
+    
+                                <div class="checkbox_container_amen_right">
+                                    <div class="checkbox_amen_selection">
+                                        <input type="checkbox" name="amenities" value="hotTub" id="amen_hotTub" />
+                                        <label for="amen_hotTub">Hot tub</label>
+    
+                                    </div>
+    
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="evCharger" id="amen_evCharger" />
+                                        <label for="amen_evCharger">EV charger</label>
+                                    </div>
+    
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="kingBed" id="amen_kingBed" />
+                                        <label for="amen_kingBed">King bed</label>
+                                    </div>
+    
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="bbq" id="amen_bbq" />
+                                        <label for="amen_bbq">BBQ grill</label>
+                                    </div>
+    
+                                    <div class="checkbox_amen_selection">
+                                        <input type="checkbox" name="amenities" value="inFireplace" id="amen_inFireplace" />
+                                        <label for="amen_inFireplace">Indoor fireplace</label>
+    
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <span class="amen_type">Location</span>
+                            <div class="checkbox_container_amen_type">
+                                <div class="checkbox_container_amen_left">
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="beachfront" id="amen_beachfront" />
+                                        <label for="amen_beachfront">Beachfront</label>
+                                    </div>
+                                </div>
+    
+                                <div class="checkbox_container_amen_right">
+                                    <div class="checkbox_amen_selection">
+                                        <input type="checkbox" name="amenities" value="waterfront" id="amen_waterfront" />
+                                        <label for="amen_waterfront">Waterfront</label>
+    
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="amen_type">Safety</span>
+                            
+                            <div class="checkbox_container_amen_type">
+                                <div class="checkbox_container_amen_left">
+                                    <div class="checkbox_amen_selection">
+    
+                                        <input type="checkbox" name="amenities" value="smokeAlarm" id="amen_smokeAlarm" />
+                                        <label for="amen_smokeAlarm">Smoke alarm</label>
+                                    </div>
+                                </div>
+    
+                                <div class="checkbox_container_amen_right">
+                                    <div class="checkbox_amen_selection">
+                                        <input type="checkbox" name="amenities" value="coAlarm" id="amen_coAlarm" />
+                                        <label for="amen_coAlarm">Carbon monoxide alarm</label>
+    
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <button id="show-more"  type="button">Show more</button>
+                    </div>
+                </div>
+                <div class="filter_footer">
+                    <button type="button" onclick="clearForm()">
+                        Clear all
+                    </button>
+                    
+                    <button type="submit">
+                        Show places
+                    </button>
+                </div>
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+    <script>
+        const closeFilter = document.getElementById("close_filter");
+        const modalCus = document.getElementById("modal_cus0");
+        const filterButton = document.getElementById("filter_button");
+        closeFilter.addEventListener('click', function() {
+            modalCus.style.display = 'none';
+        })
+        filterButton.addEventListener('click', function(){
+            modalCus.style.display = 'block';
+        })
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const startInput = document.getElementById('start-input');
+            const endInput = document.getElementById('end-input');
+            const priceRange = document.getElementById('price-range');
+    
+            noUiSlider.create(priceRange, {
+                start: [0, 100], // Initial range values
+                connect: true,   // Connect the handles
+                range: {
+                    'min': 0,
+                    'max': 100
+                }
+            });
+    
+            // Update inputs when the range slider changes
+            priceRange.noUiSlider.on('update', function(values, handle) {
+                if (handle === 0) {
+                    startInput.value = values[0];
+                } else {
+                    endInput.value = values[1];
+                }
+            });
+    
+            // Update the range slider when inputs change
+            startInput.addEventListener('input', function() {
+                priceRange.noUiSlider.set([startInput.value, null]);
+            });
+    
+            endInput.addEventListener('input', function() {
+                priceRange.noUiSlider.set([null, endInput.value]);
+            });
+        });
+    
+        const showMoreButton = document.getElementById('show-more');
+        const additionalCheckboxes = document.querySelector('.additional-checkboxes-amen');
+    
+        showMoreButton.addEventListener('click', function (e) {
+        e.preventDefault();
+          if (additionalCheckboxes.style.display === 'none' || additionalCheckboxes.style.display === '') {
+            additionalCheckboxes.style.display = 'block';
+            showMoreButton.textContent = 'Show less';
+          } else {
+            additionalCheckboxes.style.display = 'none';
+            showMoreButton.textContent = 'Show more';
+          }
+        });
+    
+        function clearForm() {
+            var form = document.getElementById("filter_form");
+            form.reset();
+        }
+    
+    
+        </script>
+</body>
+</html>

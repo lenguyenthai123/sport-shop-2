@@ -42,7 +42,6 @@ const postLogin = async (req, res, next) => {
     try {
         const user = req.body;
         const foundedUser = await User.findOne({ username: user.username });
-
         if (!foundedUser) {
             res.status(404).json({ msg: "Not found user" });
         }
@@ -129,7 +128,7 @@ const postForgotPassword = async (req, res, next) => {
             res.send("Please check your email to reset password .....");
         }
 
-    } catch (error) {
+    } catch (error) {etResetPassword
         next(error)
     }
 }

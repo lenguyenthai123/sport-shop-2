@@ -10,10 +10,10 @@ const PrfilteredAndSortedProducts = async function (name, catalogId, manufacture
     const sort = {};
 
     // Fliter
-    if (name !== `None`) {
+    if (name !== `None` && name) {
         fliter.name = name;
     }
-    if (catalogId !== "None") {
+    if (catalogId !== "None" && catalogId) {
         try {
             fliter.catalogId = new mongoose.Types.ObjectId(catalogId);
 
@@ -22,11 +22,11 @@ const PrfilteredAndSortedProducts = async function (name, catalogId, manufacture
             console.log("Catalog Id invalid", error);
         }
     }
-    if (manufacturer !== `None`) {
+    if (manufacturer !== `None` && manufacturer) {
         fliter.manufacturer = manufacturer;
     }
 
-    if (minPrice !== `None` && maxPrice !== `None`) {
+    if (minPrice !== `None` && maxPrice !== `None` && minPrice && maxPrice) {
         minPrice = Number(minPrice);
         maxPrice = Number(maxPrice);
 
@@ -36,7 +36,7 @@ const PrfilteredAndSortedProducts = async function (name, catalogId, manufacture
     }
 
     // Sort
-    if (sortByField !== `None`) {
+    if (sortByField !== `None` && sortByField) {
         sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
     }
 
