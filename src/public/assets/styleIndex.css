@@ -29,7 +29,7 @@ body {
 }
 
 .sidebar:hover {
-    width: 320px;
+    width: 240px;
     transition: 0.5s;
 }
 
@@ -321,10 +321,25 @@ tfoot td{
     background:none;
     cursor: pointer;
 }
-
-.graphBox{
+.throughout-visual,
+.finance-visual{
     background: #fff;
     border-radius: 20px;
     padding: 2rem;
-    margin-top: 20px;
+    margin-top: 1rem;
+    
 }
+.graph-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* div[id*="page active"] */
+div[class*="page"]{
+    display: none;
+}
+div[class*="page"].active{
+    display: block ;
+}
+
