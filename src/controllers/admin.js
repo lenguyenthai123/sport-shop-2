@@ -45,7 +45,7 @@ const getHomePage = async (req, res, next) => {
 const getDashBoard = (req, res, next) => {
     try {
         const user = req.user;
-        res.render("DashBoard.ejs");
+        res.render("DashBoardAmin.ejs");
     }
     catch {
         next(error);
@@ -130,11 +130,35 @@ const postANewProduct = async (req, res, next) => {
     }
 }
 
+const getProductList = async (req, res, next) => {
+    try {
+        const productName = req.query.productName;
+        const catalogId = req.query.catalogId;
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const manufacturer = req.query.manufacturer;
+        const sortByField = req.query.sortByField;
+        const sortByOrder = req.query.sortByOrder;
+
+        const productList = await ProductService.PrfilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        if (productList) {
+            res.render("AdminProducts.ejs", { productList: productList });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getHomePage,
     getDashBoard,
     getProductDetail,
     getFormCreateNewProduct,
-    postANewProduct
+    postANewProduct,
+    getProductList,
 
 }

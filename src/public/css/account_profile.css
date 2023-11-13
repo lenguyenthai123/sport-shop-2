@@ -1,0 +1,165 @@
+body{
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.start_info_frame{
+  width: 95%;
+  height: 550px;
+  margin-top: 30px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 15px;
+  /* position: relative; */
+  margin-bottom: 20px;
+}
+
+.cover_image{
+  margin-top: 20px;
+  width: 95%;
+  height: 50%;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  /* position: relative; */
+}
+
+.cover_image img{   
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+.personal_circular_image{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  top: -15%;
+}
+
+.personal_circular_image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.start_info_text{
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -40px
+}
+
+.start_info_name{
+  color: rgb(37, 142, 222);
+  font-weight: 300;
+  font-size: 40px;
+  font-family: Impact; 
+  margin-bottom: 10px;
+}
+.start_info_uni{
+  font-weight: bold;
+  font-size: 36px;
+}
+
+.student_profile_frame{
+  width: 95%;
+  /* height: 550px; */
+  background-color: white;
+  border-radius: 15px;
+  /* position: relative; */
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.student_profile_frame_info{
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.student_profile_frame_info .title .main_title{
+  color:rgb(7, 7, 163);
+  font-size: 40px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.student_profile_frame_info .title .main_description{
+  color: rgb(7, 7, 163);
+  font-size: 24px;
+  margin-bottom: 30px;
+
+}
+
+.frame_info_2_column {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px; }
+  
+  .frame_info_column_1 {
+    width: 48%; }
+  
+  .frame_info_column_2 {
+    width: 48%; }
+  
+  .label {
+    color: black;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    margin-left: 15px; }
+  
+  .input_info {
+    width: 100%;
+    height: 30px;
+    margin-top: 15px;
+    margin-bottom: 60px;
+    border-radius: 10px;
+    box-shadow: 10px;
+    padding: 24px;
+    font-size: 18px;
+    font-family: 'Muli', "Helvetica", Arial, sans-serif;
+    border: 3px solid #cdcbcb;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); }
+  
+  .info_description {
+    background-color: white;
+    border-radius: 10px;
+    /* margin-left: 20px; */ }
+  
+  .info_description > span {
+    font-size: 26px;
+    font-weight: bold;
+    padding-top: 26px;
+    display: block;
+    padding-left: 20px; }
+  
+  .my_button {
+    background-color: #47a1bd;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 20px;
+    display: block;
+    margin: auto;
+    opacity: 0.8; }
+  
+  .my_button:hover {
+    background-color: #2998ba;
+    opacity: 1; }
+  

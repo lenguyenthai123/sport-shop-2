@@ -9,7 +9,6 @@ body {
   position: relative;
   flex-direction: column; }
 
-
 .home_logo img {
   width: 50px; }
 
@@ -323,7 +322,7 @@ body {
 
 .product_image img {
   height: 280px;
-  /* width: 100%; */ }
+  width: 280px; }
 
 .product_image svg {
   position: absolute;
@@ -350,7 +349,11 @@ body {
   display: block;
   width: 80%;
   display: block;
-  margin: auto; }
+  margin: auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2; }
 
 .product_info_1_rate {
   position: absolute;
@@ -395,7 +398,8 @@ body {
   top: 0;
   right: 0;
   left: 0;
-  bottom: 0; }
+  bottom: 0;
+  z-index: 10; }
 
 .overlay {
   background-color: #7a7a7a;

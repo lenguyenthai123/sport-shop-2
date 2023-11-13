@@ -26,5 +26,8 @@ router.get("/admin/product/:productId", passport.authenticate('jwt', { session: 
 router.get("/admin/product", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getFormCreateNewProduct)
 router.post("/admin/product", passport.authenticate('jwt', { session: false }), checkAdmin, UploadProduct, Controllers.postANewProduct)
 
+router.get("/admin/productlist", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductList)
+router.get("/admin/dashboard", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getDashBoard)
+
 
 module.exports = router;
