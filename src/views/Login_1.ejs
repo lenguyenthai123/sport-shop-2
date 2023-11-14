@@ -103,6 +103,7 @@
             .then(data => {
                 // Handle successful login, e.g., redirect or update UI
                 console.log('Login successful', data);
+                window.location.href = "/home-page";
             })
             .catch(error => {
                 // Handle login error, e.g., display an error message
