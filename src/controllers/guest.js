@@ -127,11 +127,21 @@ const getCart = async (req, res, next) => {
     }
 }
 
+const getAccountProfile = (req, res, next) => {
+    try {
+        res.render("AccountProfile.ejs")
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getHomePage,
     getDashBoard,
     redirectHomePage,
     getProductDetail,
-    getCart
+    getCart,
+    getAccountProfile,
 
 }

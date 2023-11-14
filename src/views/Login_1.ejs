@@ -113,6 +113,7 @@
                     if (response.ok === true && response.redirected === true) {
                         alert("Login successfull")
                         window.location.href = response.url;
+                        console.log(response.url);
                     }
                     return response;
                 })

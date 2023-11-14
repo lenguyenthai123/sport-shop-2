@@ -25,4 +25,6 @@ routerAuth.post("/reset-password", Authentication.postResetPassword)
 routerAuth.get("/update-password", passport.authenticate('jwt', { session: false }), Authentication.getUpdatePassword)
 routerAuth.post("/update-password", passport.authenticate('jwt', { session: false }), Authentication.postUpdatePassword)
 
+
+
 module.exports = routerAuth;

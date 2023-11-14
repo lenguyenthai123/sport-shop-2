@@ -65,7 +65,7 @@ const postLogin = async (req, res, next) => {
                     res.redirect("/admin/home-page");
                 }
                 else {
-                    res.redirect("/user/home-page");
+                    res.redirect("/home-page");
                 }
 
             }

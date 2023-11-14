@@ -8,7 +8,6 @@ const routerGuest = require("./routes/guest.js")
 const routerAuth = require("./routes/auth.js");
 const routerProduct = require("./routes/product.js");
 const routerAdmin = require("./routes/admin.js");
-const routerUser = require("./routes/user.js")
 
 
 
@@ -44,7 +43,6 @@ app.use("/", routerGuest);
 app.use("/", routerAuth);
 app.use("/", routerProduct);
 app.use("/", routerAdmin);
-app.use("/", routerUser);
 app.use((req, res, next) => {try{res.render("404.ejs")} catch(error){next(error)}})
 
 

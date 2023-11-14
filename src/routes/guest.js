@@ -12,4 +12,7 @@ router.get("/home-page/cart", Controllers.getCart)
 router.get("/home-page/:productId", Controllers.getProductDetail)
 
 
+router.get("/profile", Controllers.getAccountProfile);
+
+
 module.exports = router;
