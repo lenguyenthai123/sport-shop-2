@@ -103,7 +103,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/server.js",
+    "start": "./src/server.js",
     "convert-scss": "node-sass --watch src/resources/scss -o src/public/css"
   },
   "repository": {
