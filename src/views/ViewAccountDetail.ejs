@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account detail</title>
+    <link rel="stylesheet" href="\assets\styleIndex.css">
+    <link rel="stylesheet" href="\assets\styleViewAccountList.css">
+    <link rel="stylesheet" href="\assets\styleViewDetailAccount.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Google chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+    <%- include('SideBarAdmin') -%>
+    <div class="page-view-detail-account">
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <span>Primary</span>
+                    <h2>information User</h2>
+                </div>
+                <div class="user--infor">
+                    <div class="search--box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" placeholder="Search detail account">
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+            <div class="information-account-container">
+                <h3 class="main--title">User information</h3>
+                <div class="profile-account">
+                    <div class="img-account">
+                        <img class="img-detail" src="/assets/face-2.jpg" alt="">
+                    </div>
+                    <div class="information-account">
+                        <div class="name-account">name: Henry Ardio</div>
+                        <div class="email-account">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>henryardio@gmail.com</span>
+                        </div>
+                        <div class="phone-account">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>090-112-334</span>
+                        </div>
+                        <div class="address-account">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>Melbourne, Australia</span>
+                        </div>
+
+
+
+                    </div>
+                    <div class="information-expenditure-account">
+                        <div class="rank-account golden">Rank: golden</div>
+                        <div class="money-account">
+                            <i class="fa-solid fa-money-check-dollar"></i>
+                            <span>500.00$</span>
+                        </div>
+                        <div class="voucher-account">
+                            <i class="fa-solid fa-ticket"></i>
+                            <span>23 vouchers</span>
+                        </div>
+                        <div class="favourite-account">
+                            <i class="fa-regular fa-heart"></i>
+                            <span>34 favourite items</span>
+                        </div>
+
+                    </div>
+                    <div class="wrapper-control-access-account">
+                        <button class="ban-account">Ban Account </button>
+                        <button class="unban-account">Unban Account</button>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="wrapper-activities-expenditure-account">
+                <div class="expenditure-account-container">
+                    <h3 class="main--title">Expenditure User</h3>
+
+
+                    <div class="graph-box">
+
+                        <div class="chart-categories-account">
+                            <div id="user_chart"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="activities-month-account-container">
+                    <h3 class="main--title">Activities</h3>
+                    <div class="wrapper-activities-account">
+                        <div class="cart-shopping-account">
+                            <i class="fa-solid fa-cart-shopping icon"></i>
+                            <div class="num-order-account">5 orders</div>
+                        </div>
+    
+    
+                        <div class="visit-shopping-account">
+                            <i class="fa-regular fa-eye icon"></i>
+                            <div class="num-visit-account">34 visits</div>
+                        </div>
+    
+                    </div>
+    
+    
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</body>
+</html>

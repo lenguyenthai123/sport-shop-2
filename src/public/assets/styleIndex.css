@@ -336,10 +336,10 @@ tfoot td{
 }
 
 /* div[id*="page active"] */
-div[class*="page"]{
+/* div[class*="page"]{
     display: none;
 }
 div[class*="page"].active{
     display: block ;
 }
-
+ */

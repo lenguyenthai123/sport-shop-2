@@ -413,7 +413,7 @@ body {
   width: 50vw;
   height: 90vh;
   background-color: white;
-  z-index: 11;
+  z-index: 20;
   display: flex;
   position: relative;
   margin: auto;

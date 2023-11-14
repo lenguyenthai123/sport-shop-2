@@ -39,7 +39,7 @@
                     </span>
                     <span>
     
-                        The average nightly price is $90
+                        The average price is $90
                     </span>
                 
                     <div class="price-filter">
@@ -49,13 +49,13 @@
                             <div class="price_range_minimum">
                                 <span>Minimum</span>
                                 <div class="dollar_icon">$</div>
-                                <input type="text" class="start-input with-prefix" id="start-input" placeholder="Min Price">
+                                <input type="text" class="start-input with-prefix" id="start-input" name="minimum" placeholder="Min Price">
                             </div>
                             <div class="price_seperate_line"></div>
                             <div class="price_range_maximum">
                                 <span>Maximum</span>
                                 <div class="dollar_icon">$</div>
-                                <input type="text" class="end-input with-prefix" id="end-input" placeholder="Max Price">
+                                <input type="text" class="end-input with-prefix" id="end-input" name="maximum" placeholder="Max Price">
             
                             </div>
         
@@ -64,9 +64,9 @@
                     </div>
                 </div>
                 <div class="filter_room  filter_title filter_field_component">
-                    <span>Rooms and beds</span>
+                    <span>Height, weight and material</span>
                     <div class="filter_room_option">
-                        <span>Bedrooms</span>
+                        <span>Height(cm)</span>
                         <div class="selection-container">
                             <div class="selection_option selection_option--padding">
                                 <input type="radio" id="option1" name="bedroom_number" class="radio-option" value="Any">
@@ -74,49 +74,49 @@
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option2" name="bedroom_number" class="radio-option" value="1">
-                                <label for="option2">1</label>
+                                <label for="option2">110</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option3" name="bedroom_number" class="radio-option"  value="2">
-                                <label for="option3">2</label>
+                                <label for="option3">120</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option4" name="bedroom_number" class="radio-option"  value="3">
-                                <label for="option4">3</label>
+                                <label for="option4">130</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option5" name="bedroom_number" class="radio-option"  value="4">
-                                <label for="option5">4</label>
+                                <label for="option5">140</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option6" name="bedroom_number" class="radio-option"  value="5">
-                                <label for="option6">5</label>
+                                <label for="option6">150</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option7" name="bedroom_number" class="radio-option"  value="6">
-                                <label for="option7">6</label>
+                                <label for="option7">160</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option8" name="bedroom_number" class="radio-option"  value="7">
-                                <label for="option8">7</label>
+                                <label for="option8">170</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option9" name="bedroom_number" class="radio-option"  value="8+">
-                                <label for="option9">8+</label>
+                                <label for="option9">180+</label>
         
                             </div>
                         </div>
                     </div>
 
                     <div class="filter_room_option">
-                        <span>Beds</span>
+                        <span>Weight(kg)</span>
                         <div class="selection-container">
                             <div class="selection_option selection_option--padding">
                                 <input type="radio" id="option10" name="bed_number" class="radio-option" value="Any">
@@ -124,92 +124,82 @@
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option11" name="bed_number" class="radio-option" value="1">
-                                <label for="option11">1</label>
+                                <label for="option11">20</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option12" name="bed_number" class="radio-option" value="2">
-                                <label for="option12">2</label>
+                                <label for="option12">30</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option13" name="bed_number" class="radio-option" value="3">
-                                <label for="option13">3</label>
+                                <label for="option13">40</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option14" name="bed_number" class="radio-option" value="4">
-                                <label for="option14">4</label>
+                                <label for="option14">50</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option15" name="bed_number" class="radio-option" value="5">
-                                <label for="option15">5</label>
+                                <label for="option15">60</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option16" name="bed_number" class="radio-option" value="6">
-                                <label for="option16">6</label>
+                                <label for="option16">70</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option17" name="bed_number" class="radio-option" value="7">
-                                <label for="option17">7</label>
+                                <label for="option17">80</label>
         
                             </div>
                             <div class="selection_option">
                                 <input type="radio" id="option18" name="bed_number" class="radio-option" value="8+">
-                                <label for="option18">8+</label>
+                                <label for="option18">90+</label>
         
                             </div>
                         </div>
                     </div>
 
                     <div class="filter_room_option">
-                        <span>Bathrooms</span>
+                        <span>Material</span>
                         <div class="selection-container">
                             <div class="selection_option selection_option--padding">
                                 <input type="radio" id="option20" name="bathroom_number" class="radio-option" value="Any">
                                 <label for="option20">Any</label>
                             </div>
-                            <div class="selection_option">
+                            <div class="selection_option selection_option--padding">
                                 <input type="radio" id="option21" name="bathroom_number" class="radio-option" value="1">
-                                <label for="option21">1</label>
+                                <label for="option21">Polyester</label>
         
                             </div>
-                            <div class="selection_option">
+                            <div class="selection_option selection_option--padding">
                                 <input type="radio" id="option22" name="bathroom_number" class="radio-option" value="2">
-                                <label for="option22">2</label>
+                                <label for="option22">Spandex</label>
         
                             </div>
-                            <div class="selection_option">
+                            <div class="selection_option selection_option--padding">
                                 <input type="radio" id="option23" name="bathroom_number" class="radio-option" value="3">
-                                <label for="option23">3</label>
+                                <label for="option23">Nylon</label>
         
                             </div>
-                            <div class="selection_option">
+                            <div class="selection_option selection_option--padding">
                                 <input type="radio" id="option24" name="bathroom_number" class="radio-option" value="4">
-                                <label for="option24">4</label>
+                                <label for="option24">Wool</label>
         
                             </div>
-                            <div class="selection_option">
+                            <div class="selection_option selection_option--padding">
                                 <input type="radio" id="option25" name="bathroom_number" class="radio-option" value="5">
-                                <label for="option25">5</label>
+                                <label for="option25">Mesh</label>
         
                             </div>
-                            <div class="selection_option">
-                                <input type="radio" id="option26" name="bathroom_number" class="radio-option" value="6">
-                                <label for="option26">6</label>
-        
-                            </div>
-                            <div class="selection_option">
+                            <div class="selection_option selection_option--padding">
                                 <input type="radio" id="option27" name="bathroom_number" class="radio-option" value="7">
-                                <label for="option27">7</label>
-        
-                            </div>
-                            <div class="selection_option">
-                                <input type="radio" id="option28" name="bathroom_number" class="radio-option" value="8+">
-                                <label for="option28">8+</label>
+                                <label for="option27">Cotton</label>
         
                             </div>
                         </div>
@@ -219,34 +209,34 @@
                     <span>Property type</span>
                     <div class="checkbox-container">
                         <label class="checkbox-label">
-                            <input type="checkbox" class="image-checkbox" name="property_type" value="house">
+                            <input type="checkbox" class="image-checkbox" name="property_type" value="shirt">
                             <div class="checkbox_option">
                                 <img src="https://a0.muscache.com/pictures/4d7580e1-4ab2-4d26-a3d6-97f9555ba8f9.jpg" alt="Image 1">
-                                <span>House</span>
+                                <span>Áo</span>
 
                             </div>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" class="image-checkbox" name="property_type" value="apartment">
+                            <input type="checkbox" class="image-checkbox" name="property_type" value="trouser">
                             <div class="checkbox_option">
                                 <img src="https://a0.muscache.com/pictures/21cfc7c9-5457-494d-9779-7b0c21d81a25.jpg" alt="Image 1">
-                                <span>Apartment</span>
+                                <span>Quần</span>
 
                             </div>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" class="image-checkbox" name="property_type" value="guesthouse">
+                            <input type="checkbox" class="image-checkbox" name="property_type" value="shoes">
                             <div class="checkbox_option">
                                 <img src="https://a0.muscache.com/pictures/6f261426-2e47-4c91-8b1a-7a847da2b21b.jpg" alt="Image 1">
-                                <span>Guesthouse</span>
+                                <span>Giày</span>
 
                             </div>
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" class="image-checkbox" name="property_type" value="hotel">
+                            <input type="checkbox" class="image-checkbox" name="property_type" value="tool">
                             <div class="checkbox_option">
                                 <img src="https://a0.muscache.com/pictures/64b27fed-56a1-4f03-950a-d8da08efb428.jpg" alt="Image 1">
-                                <span>Hotel</span>
+                                <span>Dụng cụ tập luyện</span>
 
                             </div>
                         </label>

@@ -21,13 +21,16 @@ const UploadProduct = upload.fields([
 
 
 router.get("/admin/home-page", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getHomePage);
-router.get("/admin/product/:productId", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductDetail)
+router.get("/admin/products/:productId", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductDetail)
 
 router.get("/admin/product", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getFormCreateNewProduct)
 router.post("/admin/product", passport.authenticate('jwt', { session: false }), checkAdmin, UploadProduct, Controllers.postANewProduct)
 
-router.get("/admin/productlist", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductList)
+router.get("/admin/products", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductList)
 router.get("/admin/dashboard", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getDashBoard)
+router.get("/admin/accountlist", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountList)
+router.get("/admin/accountdetail", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountDetail)
+router.get("/admin/profile", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAdminProfile)
 
 
 module.exports = router;

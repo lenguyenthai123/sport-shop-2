@@ -4,52 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Profile</title>
+    <link rel="stylesheet" href="/css/account_profile.css">
 </head>
 <body>
-    <form action="" method="post">
-        <div class="frame_info_2_column">
-            <div class="frame_info_column_1">
-                <div class="student_id">
-                    <span class="label">Student ID</span>
-                    <br>
-                    <input type="text" class="input_info" value="21127648">
-                </div>
-                <div class="full_name">
-                    <span class="label">Full name</span>
-                    <br>
-                    <input type="text" class="input_info" value="Nguyen Nhat Nam">
-                </div>
-                <div class="date_of_birth">
-                    <span class="label">Date of birth</span>
-                    <br>
-                    <input type="text" class="input_info" value="24/11/2003">
-                </div>
-            </div>
-            <div class="frame_info_column_2">
-                <div class="email">
-                    <span class="label">Email</span>
-                    <br>
-                    <input type="text" class="input_info" value="ngnhatnam24@gmail.com">
-                </div>
-                <div class="phone_number">
-                    <span class="label">Phone number</span>
-                    <br>
-                    <input type="text" class="input_info" value="0354422665">
-                </div>
-                <div class="country">
-                    <span class="label">Country</span>
-                    <br>
-                    <input type="text" class="input_info" value="Vietnam">
-                </div>
-            </div>
-            
+    <div class="start_info_frame">
+        <div class="cover_image">
+            <img src="../../images/cover_image.jpg" alt="Cover Image">
         </div>
-        <div class="address">
-            <span class="label">Address</span>
-            <br>
-            <input type="text" class="input_info" value="227 Nguyen Van Cu, District 5, Ho Chi Minh city">
+        <div class="personal_circular_image">
+            <a href="./images/Identify_21127648.jpg">
+                <img src="./images/Identify_21127648.jpg" alt="Personal Image">
+            </a>
         </div>
-        <button class="my_button" >Update Profile</button>                        
-    </form>
+        <div class="start_info_text">
+            <span class="start_info_name">
+                Nhat Nam Nguyen
+            </span>
+
+            <span class="start_info_uni">
+                University of Science, VNUHCM
+            </span>
+        </div>
+    </div>
+    <div class="student_profile_frame">
+        <div class="student_profile_frame_info">
+            <form action="" method="post">
+                <div class="frame_info_2_column">
+                    <div class="frame_info_column_1">
+                        <div class="student_id">
+                            <span class="label">Username</span>
+                            <br>
+                            <input type="text" class="input_info" value="NNNam1123">
+                        </div>
+                        <div class="full_name">
+                            <span class="label">Full name</span>
+                            <br>
+                            <input type="text" class="input_info" value="Nguyen Nhat Nam">
+                        </div>
+                        <div class="date_of_birth">
+                            <span class="label">Date of birth</span>
+                            <br>
+                            <input type="text" class="input_info" value="12/11/2003">
+                        </div>
+                    </div>
+                    <div class="frame_info_column_2">
+                        <div class="email">
+                            <span class="label">Email</span>
+                            <br>
+                            <input type="text" class="input_info" value="ngnhatnam24@gmail.com">
+                        </div>
+                        <div class="phone_number">
+                            <span class="label">Phone number</span>
+                            <br>
+                            <input type="text" class="input_info" value="0354422665">
+                        </div>
+                        <div class="country">
+                            <span class="label">Country</span>
+                            <br>
+                            <input type="text" class="input_info" value="Vietnam">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="address">
+                    <span class="label">Address</span>
+                    <br>
+                    <input type="text" class="input_info" value="227 Nguyen Van Cu, District 5, Ho Chi Minh city">
+                </div>
+                <button class="my_button" >Update Profile</button>                        
+            </form>
+
+        </div>
+
+    </div>
 </body>
 </html>
