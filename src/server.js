@@ -43,7 +43,7 @@ app.use("/", routerGuest);
 app.use("/", routerAuth);
 app.use("/", routerProduct);
 app.use("/", routerAdmin);
-app.use((req, res, next) => {try{res.render("404.ejs")} catch(error){next(error)}})
+app.use((req, res, next) => { try { res.render("404.ejs") } catch (error) { next(error) } })
 
 
 //Middleware not found 
