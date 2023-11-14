@@ -24,7 +24,7 @@
                 <div class="welcome">Welcome Back</div>
                 <div class="instruction">To keep connected with us please login with your
                     personal information by username and password <i class="ti-bell"></i></div>
-                <form action="/login" method="post">
+                <form action="" method="post" id="myForm">
                     <div class="input-content">
                         <div class="input">
                             <i class="ti-user icon"></i><span></span>
@@ -57,8 +57,7 @@
 
                         <div class="btn">
                             <button type="button" class="btn-login" onclick="login()">Login Now</button>
-                            <button class="btn-create-account"
-                                onclick="document.getElementById('home-page').style.display='none'">Create
+                            <button onclick="signup(event)" class="btn-create-account" type="button">Create
                                 Account</button>
                         </div>
                 </form>
@@ -79,7 +78,12 @@
         async function abc() {
             console.log("111");
         }
+        function signup(event) {
+            event.stopPropagation();
+            window.location.href = "../signup";
 
+            console.log(document.querySelector("#myForm"));
+        }
         async function login() {
             // console.log("111");
             let username = document.getElementById('input-username').value;
