@@ -62,7 +62,7 @@ const postLogin = async (req, res, next) => {
                 // DOING AFTER LOGIN SUCCESSFULLY
 
                 if (foundedUser.role === "admin") {
-                    res.redirect("/admin/home-page");
+                    res.redirect("/admin/dashboard");
                 }
                 else {
                     res.redirect("/home-page");

@@ -76,3 +76,6 @@ tfoot td{
     cursor: pointer;
 }
 
+.table-container:hover{
+    cursor: pointer;
+}
