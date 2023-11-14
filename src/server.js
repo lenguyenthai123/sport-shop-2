@@ -21,7 +21,7 @@ require("dotenv").config()
 
 const app = express()
 const port = process.env.PORT || 8888;
-const hostname = process.env.HOST_NAME;
+// const hostname = process.env.HOST_NAME;
 
 // Config the post request is in object by json and suitable for form
 // Middleware
@@ -69,7 +69,7 @@ const start = async () => {
     try {
 
         await connectionMongo(process.env.MONGO_URI1);
-        app.listen(port, hostname, () => {
+        app.listen(port, () => {
             console.log("Listening on port " + port)
         })
     } catch (error) {
