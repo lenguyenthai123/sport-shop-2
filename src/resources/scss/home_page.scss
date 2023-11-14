@@ -148,6 +148,15 @@ body{
 
 }
 
+.account_setting_option_authen > a{
+    text-decoration: none;
+    color: black;
+}
+
+.account_setting_option_authen > a:hover{
+    color: black;
+}
+
 
 .account_setting_option_authen:last-child{
     margin-bottom: 8px;
@@ -168,6 +177,14 @@ body{
     flex-direction: column;
     margin-top: 8px;
 
+}
+
+.account_setting_option_more > a{
+    text-decoration: none;
+    color: black;
+}
+.account_setting_option_more > a:hover{
+    color: black;
 }
 
 .account_setting_option_more span{
