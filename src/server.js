@@ -20,7 +20,7 @@ const configSession = require("./config/session.js");
 require("dotenv").config()
 
 const app = express()
-const port = process.env.PORT || 8888;
+const port = process.env.PORT || 3000;
 // const hostname = process.env.HOST_NAME;
 
 // Config the post request is in object by json and suitable for form
@@ -68,7 +68,7 @@ app.use((err, req, res, next) => {
 const start = async () => {
     try {
 
-        await connectionMongo(process.env.MONGO_URI1);
+        await connectionMongo();
         app.listen(port, () => {
             console.log("Listening on port " + port)
         })
