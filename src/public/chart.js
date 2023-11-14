@@ -45,29 +45,36 @@ function draw3DPieChart() {
 }
 
 
-google.charts.setOnLoadCallback(drawDonutChart);
+google.charts.setOnLoadCallback(drawAccountChart);
 
-function drawDonutChart() {
+      function drawAccountChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Cloth', 'Sneaker'],
+          ['1',  1000,      400],
+          ['2',  1170,      460],
+          ['3',  660,       1120],
+          ['4',  430,      840],
+          ['5',  530,      640],
+          ['6',  230,      940],
+          ['7',  930,      640],
+          ['8',  1230,      1140],
+          ['9',  1360,      740],
+          ['10',  1530,      440],
+          ['11',  1330,      340],
+          ['12',  630,      240],
+        ]);
 
-  var data = google.visualization.arrayToDataTable([
-    ['Effort', 'Amount given'],
-    ['this month', 100],
-    ['remaning target', 200],
-  ]);
+        var options = {
+          title: 'Company Performance',
+          hAxis: {title: '2022',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0},
+          width:700,
+          heigh:700,
+        };
 
-  var options = {
-    pieHole: 0.4,
-    pieSliceTextStyle: {
-      color: 'black',
-    },
-    legend: 'none'
-    , height: 500
-    , width: 700
-  };
-
-  var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
-  chart.draw(data, options);
-}
+        var chart = new google.visualization.AreaChart(document.getElementById('user_chart'));
+        chart.draw(data, options);
+      }
 
 
 google.charts.setOnLoadCallback(drawAxisTickColors);

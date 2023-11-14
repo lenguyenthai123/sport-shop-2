@@ -78,6 +78,7 @@ const postLogin = async (req, res, next) => {
     }
 }
 
+
 const getLogout = (req, res, next) => {
     try {
 
@@ -128,7 +129,8 @@ const postForgotPassword = async (req, res, next) => {
             res.send("Please check your email to reset password .....");
         }
 
-    } catch (error) {etResetPassword
+    } catch (error) {
+        etResetPassword
         next(error)
     }
 }
