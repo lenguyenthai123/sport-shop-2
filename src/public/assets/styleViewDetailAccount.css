@@ -138,4 +138,42 @@ div[class*="-shopping"]{
 
 }
 
+.wrapper-control-access-account{
+    margin-left: 80px;
+}
 
+
+.wrapper-control-access-account .ban-account{
+    border: 1px solid #fff;
+    background-color: rgb(252, 62, 62);
+    color: #fff;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 1rem;
+ 
+}
+
+.wrapper-control-access-account .unban-account{
+    border: 1px solid #fff;
+    background-color: rgb(65, 197, 65);
+    color: #fff;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 1rem;
+    
+}
+
+.wrapper-control-access-account .ban-account:hover{
+    opacity: 0.7;
+    
+}
+
+.wrapper-control-access-account .unban-account:hover{
+    opacity: 0.7;
+    
+}
+
+.wrapper-control-access-account button:hover{
+    cursor: pointer;
+    
+}
