@@ -122,13 +122,9 @@
                     <span>Mizuno</span>
                 </div>
             </div> 
-            <div class="col-4 col-xl-1 col-lg-1 col-sm-4 home_filter">
-                <button id="filter_button">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;"><path fill="none" d="M7 16H3m26 0H15M29 6h-4m-8 0H3m26 20h-4M7 16a4 4 0 1 0 8 0 4 4 0 0 0-8 0zM17 6a4 4 0 1 0 8 0 4 4 0 0 0-8 0zm0 20a4 4 0 1 0 8 0 4 4 0 0 0-8 0zm0 0H3"></path></svg>
-                    <span>Filters</span>
-                    
-                </button>
-            </div> 
+
+                <%- include('FilterProduct') -%>
+                
             <div class="col-8 col-xl-2 col-lg-2 col-sm-8 home_option_for_tax">
                 <select class="form-select" id="sort_selection" aria-label="Sort product">
                     <option selected>Sort products</option>
@@ -173,6 +169,7 @@
             <% } %>
         </div>
     </div>
+
     <script>
     const accountSetting = document.getElementById("account_setting");
     const accountSettingOption = document.getElementById("account_setting_option");
