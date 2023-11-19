@@ -42,10 +42,9 @@ const UserScheme = new Schema({
         type: Date,
         default: Date.now(),
     },
-
-    phoneNumber: {
-        type: String,
-        required: [true, "Please provide phonenumber"]
+    activation: {
+        type: Boolean,
+        default: false,
     },
     registrationDate: {
         type: Date,

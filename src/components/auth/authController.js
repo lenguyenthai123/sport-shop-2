@@ -1,11 +1,14 @@
 const { json } = require("body-parser");
-const connection = require("../config/database.js");
+const connection = require("../../config/database.js");
+
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
-const { sendMail } = require("./mailApi.js")
+
+const { sendMail } = require("../../utils/mailApi.js")
+
 require('dotenv').config();
 
-const User = require("../model/User.js");
+const User = require("../user/userModel.js");
 
 
 const getSignUp = (req, res, next) => {

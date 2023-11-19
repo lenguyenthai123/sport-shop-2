@@ -1,13 +1,12 @@
 const express = require("express")
 const router = express.Router();
 const passport = require("passport");
-require("../middlewares/passportAccessToken.js");
+require("../../middlewares/passportAccessToken");
 
-const checkAdmin = require("../middlewares/authenticationAdmin.js")
-const Controllers = require("../controllers/admin.js");
+const Controllers = require("./adminController.js");
 
 
-const multerConfig = require("../config/multer.js")
+const multerConfig = require("../../config/multer.js")
 const multer = require("multer");
 
 
@@ -18,7 +17,14 @@ const UploadProduct = upload.fields([
     { name: 'gallery', maxCount: 8 },
 ]);
 
-
+const checkAdmin = (req, res, next) => {
+    if (req.user.role === `admin`) {
+        return next();
+    }
+    else {
+        return res.status(403).json({ message: 'Permission denied' });
+    }
+}
 
 router.get("/admin/home-page", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getHomePage);
 router.get("/admin/products/:productId", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductDetail)
@@ -31,6 +37,7 @@ router.get("/admin/dashboard", passport.authenticate('jwt', { session: false }),
 router.get("/admin/accountlist", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountList)
 router.get("/admin/accountdetail", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountDetail)
 router.get("/admin/profile", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAdminProfile)
+
 
 
 module.exports = router;

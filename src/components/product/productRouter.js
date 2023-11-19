@@ -2,9 +2,10 @@ const express = require("express")
 const router = express.Router();
 
 const passport = require("passport");
-require("../middlewares/passportAccessToken.js");
+require("../../middlewares/passportAccessToken.js");
 
-const Controllers = require("../controllers/product.js");
+
+const Controllers = require("./productController.js");
 
 // router.get("/", Controllers.redirectHomePage);
 // router.get("/home-page", Controllers.getHomePage);

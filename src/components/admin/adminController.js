@@ -1,19 +1,19 @@
 const { json } = require("body-parser");
-const connection = require("../config/database.js");
+const connection = require("../../config/database.js");
 const mongoose = require("mongoose");
 
 // Model
-const User = require("../model/User.js");
-const Review = require("../model/Review.js");
-const Product = require("../model/Product.js");
-const Catalog = require("../model/Catalog.js");
+const User = require("../user/userModel.js");
+const Review = require("../review/reviewModel.js");
+const Catalog = require("../catalog/catalogModel.js");
+const Product = require("../product/productModel.js");
 
 //Service
-const ProductService = require("../service/Product.js")
+const ProductService = require("../product/productService.js")
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
-const { sendMail } = require("./mailApi.js")
+const { sendMail } = require("../../utils/mailApi.js");
 
 
 require('dotenv').config();
@@ -64,7 +64,7 @@ const getProductDetail = async (req, res, next) => {
         // if (productInfo) {
 
         //     // Render file in here! Pleases!!!!!!!!!
-            
+
 
         //     res.status(200).json({ productInfo, relatedProducts, productReviews });
         // }

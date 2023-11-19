@@ -3,7 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
 
-const User = require("../model/User")
+const User = require("../components/user/userModel")
 require("dotenv").config();
 const opts = {}
 

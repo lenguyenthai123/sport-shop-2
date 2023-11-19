@@ -1,7 +1,10 @@
 require("dotenv").config();
-const Product = require("../model/Product.js");
-const Review = require("../model/Review.js");
-const uploadToCloudinary = require("../config/cloudinary.js");
+
+const Product = require("./productModel.js");
+const Review = require("../review/reviewModel.js");
+
+const uploadToCloudinary = require("../../config/cloudinary.js");
+
 
 const mongoose = require("mongoose");
 
