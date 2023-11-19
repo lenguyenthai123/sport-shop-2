@@ -130,22 +130,15 @@
                 </button>
             </div> 
             <div class="col-8 col-xl-2 col-lg-2 col-sm-8 home_option_for_tax">
-                <button>
-                    <span>
-                        Display total before taxes
-
-                    </span>
-                    <input type="checkbox" class="toggle-checkbox" id="toggle">
-
-                    <div class="toggle-button">
-                        
-                        <label for="toggle" class="toggle-label">
-                            <div class="toggle-handle">
-                                <img src="images/check-solid.svg" alt="" class="tick-icon">
-                            </div>
-                        </label>
-                    </div>
-                </button>
+                <select class="form-select" id="sort_selection" aria-label="Sort product">
+                    <option selected>Sort products</option>
+                    <option value="name-asc">Alphabetically, A-Z</option>
+                    <option value="name-desc">Alphabetically, Z-A</option>
+                    <option value="price-asc">Price, low to high</option>
+                    <option value="price-desc">Price, high to low</option>
+                    <option value="creationTime-asc">Date, new to old</option>
+                    <option value="creationTime-desc">Date, old to new</option>
+                </select>
             </div>        
         </div>
         <div class="row gx-7">
@@ -180,7 +173,6 @@
             <% } %>
         </div>
     </div>
-    <%- include('FilterProduct') -%>
     <script>
     const accountSetting = document.getElementById("account_setting");
     const accountSettingOption = document.getElementById("account_setting_option");
@@ -192,6 +184,34 @@
         else if (accountSettingOption.style.display == "block"){
             accountSettingOption.style.display = 'none';
         }
+    })
+
+    const sortSelection = document.getElementById("sort_selection");
+    sortSelection.addEventListener("change", async function(){
+        let selectedValue = sortSelection.value;
+        const parts = selectedValue.split('-');
+        const sortByOrder = parts[1];
+        const sortByField = parts[0];
+        console.log(parts);
+
+        const curUrl = new URL(window.location.href);
+
+        if (curUrl.searchParams.has('sortByOrder')) {
+            curUrl.searchParams.set('sortByOrder', sortByOrder);
+        }
+        else{
+            curUrl.searchParams.append('sortByOrder', sortByOrder);
+        }
+
+        if (curUrl.searchParams.has('sortByField')) {
+            curUrl.searchParams.set('sortByField', sortByField);
+        }
+        else{
+            curUrl.searchParams.append('sortByField', sortByField);
+        }
+
+        window.location.href = curUrl.toString();
+
     })
     </script>
     <%- include('Footer') -%>

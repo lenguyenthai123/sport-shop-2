@@ -363,18 +363,26 @@ body{
     padding-right: 5%;
 }
 
-.home_option_for_tax button{
+.home_option_for_tax select{
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 12px 6px;
-    justify-content: space-around;
+    padding: 12px 20px;
+    justify-content: space-evenly;
     border: 1px solid #d2d0d0;
     border-radius: 10px;
     background-color: white;
     font-weight: bold;
     font-size: 15px;
+}
+
+.home_option_for_tax select:hover{
+    cursor: pointer;
+}
+
+.form-select option:hover{
+    cursor: pointer;
 }
 
 
