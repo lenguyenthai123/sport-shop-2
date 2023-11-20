@@ -48,10 +48,42 @@ const sendResetEmail = async function (email, username, resetLink) {
 
 }
 
+const FilteredAndSortedUser = async function (fullname, email, sortByField, sortByOrder) {
+    const filter = {};
+    const sort = {};
+
+    // Fliter
+    if (fullname !== `None` && fullname) {
+        filter.fullname = { $regex: fullname, $options: "i" };
+    }
+
+    if (email !== `None` && email) {
+        filter.email = { $regex: email, $options: "i" };
+    }
+
+    // Sort
+    if (sortByField !== `None` && sortByField) {
+        sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
+    }
+
+    console.log(filter);
+    console.log(sort);
+
+    try {
+        const result = await User.find(filter).sort(sort);
+
+        return result;
+    } catch (error) {
+        console.log("Error in filteredAndSortedProducts of User Services", error);
+        throw error;
+    }
+}
+
 
 module.exports = {
     generateResetToken,
     sendResetEmail,
     generateToken,
-    verifyResetToken
+    verifyResetToken,
+    FilteredAndSortedUser,
 }

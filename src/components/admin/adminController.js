@@ -10,6 +10,8 @@ const Product = require("../product/productModel.js");
 
 //Service
 const ProductService = require("../product/productService.js")
+const UserService = require("../user/userService.js")
+
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
@@ -20,15 +22,15 @@ require('dotenv').config();
 
 const getHomePage = async (req, res, next) => {
     try {
-        const productName = req.query.productName;
-        const catalogId = req.query.catalogId;
-        const minPrice = req.query.minPrice;
-        const maxPrice = req.query.maxPrice;
-        const manufacturer = req.query.manufacturer;
-        const sortByField = req.query.sortByField;
-        const sortByOrder = req.query.sortByOrder;
+        const productName = req.query.productName || "None";
+        const catalogId = req.query.catalogId || "None";
+        const minPrice = req.query.minPrice || "None";
+        const maxPrice = req.query.maxPrice || "None";
+        const manufacturer = req.query.manufacturer || "None";
+        const sortByField = req.query.sortByField || "None";
+        const sortByOrder = req.query.sortByOrder || "None";
 
-        const productList = await ProductService.PrfilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        const productList = await ProductService.FilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
             res.render("HomePage_1.ejs", { productList: productList });
         }
@@ -122,15 +124,15 @@ const postANewProduct = async (req, res, next) => {
 
 const getProductList = async (req, res, next) => {
     try {
-        const productName = req.query.productName;
-        const catalogId = req.query.catalogId;
-        const minPrice = req.query.minPrice;
-        const maxPrice = req.query.maxPrice;
-        const manufacturer = req.query.manufacturer;
-        const sortByField = req.query.sortByField;
-        const sortByOrder = req.query.sortByOrder;
+        const productName = req.query.productName || "None";
+        const catalogId = req.query.catalogId || "None";
+        const minPrice = req.query.minPrice || "None";
+        const maxPrice = req.query.maxPrice || "None";
+        const manufacturer = req.query.manufacturer || "None";
+        const sortByField = req.query.sortByField || "None";
+        const sortByOrder = req.query.sortByOrder || "None";
 
-        const productList = await ProductService.PrfilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        const productList = await ProductService.FilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
             res.render("AdminProducts.ejs", { productList: productList });
         }
@@ -143,10 +145,21 @@ const getProductList = async (req, res, next) => {
     }
 }
 
-const getAccountList = (req, res, next) => {
+const getAccountList = async (req, res, next) => {
     try {
+        const fullname = req.query.fullname || "None";
+        const email = req.query.email || "None";
+        const registrationDate = req.query.registrationTime || "None";
+        const sortByField = req.query.sortByField || "None";
+        const sortByOrder = req.query.sortByOrder || "None";
 
-        res.render("ViewAccountList.ejs");
+        console.log(req.query);
+
+
+        const accountList = await UserService.FilteredAndSortedUser(fullname, email, registrationDate, sortByField, sortByOrder);
+
+        // res.status(200).json({ accountList });
+        res.render("ViewAccountList.ejs", { accountList: accountList });
     }
     catch (error) {
         console.log(error);

@@ -8,7 +8,7 @@ const uploadToCloudinary = require("../../config/cloudinary.js");
 
 const mongoose = require("mongoose");
 
-const PrfilteredAndSortedProducts = async function (name, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder) {
+const FilteredAndSortedProducts = async function (name, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder) {
     const fliter = {};
     const sort = {};
 
@@ -136,7 +136,7 @@ const saveFileAndGetUrlFromThumbnailAndGallery = async function (files) {
 
 
 module.exports = {
-    PrfilteredAndSortedProducts,
+    FilteredAndSortedProducts,
     getAnProductDetail,
     getProductByCart,
     saveFileAndGetUrlFromThumbnailAndGallery,
