@@ -66,7 +66,6 @@ const getAnProductDetail = async function (productId) {
         const catalogId = new mongoose.Types.ObjectId(productInfo.catalogId);
         const catalogRelatedProductList = await Product.find({ catalogId });
 
-
         // 2. Manufacturer
         const manufacturer = productInfo.manufacturer;
         const manufacturerRelatedProductList = await Product.find({ manufacturer });

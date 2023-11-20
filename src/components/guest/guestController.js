@@ -54,7 +54,7 @@ const getHomePage = async (req, res, next) => {
         const sortByField = req.query.sortByField;
         const sortByOrder = req.query.sortByOrder;
 
-        const productList = await ProductService.PrfilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        const productList = await ProductService.FilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
 
         if (productList) {
             res.render("HomePage_1.ejs", { productList: productList });

@@ -57,6 +57,7 @@ const postLogin = async (req, res, next) => {
 
                 await foundedUser.save();
                 const token = await UserService.generateToken(foundedUser);
+                console.log("yes1");
 
                 res.cookie("token", token, {
                     maxAge: 60 * 60 * 1000,

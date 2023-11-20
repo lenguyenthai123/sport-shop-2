@@ -34,10 +34,12 @@ router.post("/admin/product", passport.authenticate('jwt', { session: false }), 
 router.get("/admin/products", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductList)
 router.get("/admin/dashboard", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getDashBoard)
 router.get("/admin/accountlist", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountList)
-router.get("/admin/accountdetail", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountDetail)
+
+
 router.get("/admin/profile", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAdminProfile)
 
 router.get("/admin/products/:productId", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductDetail)
+router.get("/admin/accountlist/:userId", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountDetail)
 
 
 module.exports = router;

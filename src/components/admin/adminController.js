@@ -56,23 +56,19 @@ const getDashBoard = (req, res, next) => {
 
 const getProductDetail = async (req, res, next) => {
     try {
-        res.render("ViewAccountDetail.ejs");
 
-        // const productId = req.params.productId;
+        const productId = req.params.productId || "None";
+        const { productInfo, relatedProducts, productReviews } = await ProductService.getAnProductDetail(productId);
 
-        // const { productInfo, relatedProducts, productReviews } = await ProductService.getAnProductDetail(productId);
+        if (productInfo) {
 
+            // Render file in here! Pleases!!!!!!!!!
 
-        // if (productInfo) {
-
-        //     // Render file in here! Pleases!!!!!!!!!
-
-
-        //     res.status(200).json({ productInfo, relatedProducts, productReviews });
-        // }
-        // else {
-        //     res.status(404).json({ message: "Not found" });
-        // }
+            res.status(200).json({ productInfo, relatedProducts, productReviews });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
     }
     catch (error) {
         console.log(error);
@@ -168,10 +164,18 @@ const getAccountList = async (req, res, next) => {
 }
 
 
-const getAccountDetail = (req, res, next) => {
+const getAccountDetail = async (req, res, next) => {
     try {
+        const { userId } = req.params;
 
-        res.render("ViewAccountDetail.ejs");
+        const user = await User.findById(userId);
+        console.log(user);
+        if (user) {
+            res.status(200).render("ViewAccountDetail.ejs", { user: user });
+        }
+        else {
+            res.status(404).render("404.ejs")
+        }
     }
     catch (error) {
         console.log(error);
