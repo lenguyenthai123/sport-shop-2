@@ -1,5 +1,4 @@
 const { json } = require("body-parser");
-const connection = require("../../config/database.js");
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
@@ -9,6 +8,7 @@ const { sendMail } = require("../../utils/mailApi.js")
 require('dotenv').config();
 
 const User = require("../user/userModel.js");
+const UserService = require("../user/userService.js");
 
 
 const getSignUp = (req, res, next) => {
@@ -44,7 +44,9 @@ const getLogin = (req, res, next) => {
 const postLogin = async (req, res, next) => {
     try {
         const user = req.body;
+        console.log(user);
         const foundedUser = await User.findOne({ username: user.username });
+        console.log(foundedUser);
         if (!foundedUser) {
             res.status(404).json({ msg: "Not found user" });
         }
@@ -52,9 +54,10 @@ const postLogin = async (req, res, next) => {
             const result = await foundedUser.comparePass(user.password);
             if (result) {
                 foundedUser.latestLogin = Date.now();
+
                 await foundedUser.save();
-                const token = jwt.sign({ id: foundedUser.id, username: foundedUser.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-                const BearerToken = `Bearer ${token}`;
+                const token = await UserService.generateToken(foundedUser);
+
                 res.cookie("token", token, {
                     maxAge: 60 * 60 * 1000,
                     httpOnly: true
@@ -65,10 +68,11 @@ const postLogin = async (req, res, next) => {
                 // DOING AFTER LOGIN SUCCESSFULLY
 
                 if (foundedUser.role === "admin") {
-                    res.redirect("/admin/dashboard");
+                    res.redirect(302, "/admin/dashboard");
+
                 }
                 else {
-                    res.redirect("/home-page");
+                    res.redirect(302, "/home-page");
                 }
 
             }
@@ -84,7 +88,6 @@ const postLogin = async (req, res, next) => {
 
 const getLogout = (req, res, next) => {
     try {
-
         res.cookie("token", "", {
             maxAge: -1,
             httpOnly: true
@@ -112,28 +115,17 @@ const postForgotPassword = async (req, res, next) => {
             res.status(404).json({ msg: "Email này không tồn tại" });
         }
         else {
-            const secret = process.env.JWT_SECRET + user.password;
-            const token = jwt.sign({ id: user._id, email: user.email }, secret, { expiresIn: "30m" });
+            const token = await UserService.generateResetToken(user);
 
-            const reserPasswordLink = `http://localhost:8080/reset-password?id=${user._id}&token=${token}`;
+            const resetPasswordLink = `${process.env.WEBSITE_URL}/reset-password?id=${user._id}&token=${token}`;
 
-            const mailOption = {
-                from: `Admin Le Nguyen Thai <lnthai21@clc.fitus.edu.vn>`,
-                to: email,
-                subject: "Reset Password",
-                text: ``,
-                html: `<h3>Dear ${user.username} </h3>, <br>
-                <p>We will give user the reset link below:<br>
-                ${reserPasswordLink}<br>
-                access to this link reset your password.<br>
-                Regrad</p>`
-            }
-            sendMail(mailOption).then(result => { console.log(result) }).catch(e => { console.log(e) });
+            await UserService.sendResetEmail(user.email, user.username, resetPasswordLink);
+
             res.send("Please check your email to reset password .....");
         }
 
     } catch (error) {
-        etResetPassword
+        // etResetPassword
         next(error)
     }
 }
@@ -148,9 +140,7 @@ const getResetPassword = async (req, res, next) => {
             res.status(404).json({ message: "Not found" });
         }
         else {
-
-            const secret = process.env.JWT_SECRET + user.password;
-            const payload = jwt.verify(token, secret);
+            const payload = UserService.verifyResetToken(user, token);
 
             if (payload.id !== id) {
                 res.status(401).json({ msg: "Invalid token or id" });
@@ -165,9 +155,10 @@ const getResetPassword = async (req, res, next) => {
 }
 const postResetPassword = async (req, res, next) => {
     try {
-        const { password, password2 } = req.body;
+        console.log("Here");
+        const { password, confirmedPassword } = req.body;
 
-        if (password !== password2) {
+        if (password !== confirmedPassword) {
             res.status(400).json({ message: "New password and confirmation do not match" });
         }
 
@@ -179,8 +170,7 @@ const postResetPassword = async (req, res, next) => {
             res.status(404).json({ message: "Not found user or id invalid!" });
         }
         else {
-            const secret = process.env.JWT_SECRET + user.password;
-            const payload = jwt.verify(token, secret);
+            const payload = UserService.verifyResetToken(user, token);
 
             if (payload.id !== user.id) {
                 res.status(401).json({ message: "Id invalid or token invalid" });
@@ -202,7 +192,6 @@ const getUpdatePassword = async (req, res, next) => {
 
         res.render("UpdatePassword.ejs");
     } catch (error) {
-
     }
 }
 
@@ -222,7 +211,6 @@ const postUpdatePassword = async (req, res, next) => {
 
             user.password = newPassword;
             await user.save();
-
 
             res.cookie("token", "", {
                 maxAge: -1,
