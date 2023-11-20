@@ -48,29 +48,32 @@ const sendResetEmail = async function (email, username, resetLink) {
 
 }
 
-const FilteredAndSortedUser = async function (fullname, email, sortByField, sortByOrder) {
-    const filter = {};
-    const sort = {};
-
-    // Fliter
-    if (fullname !== `None` && fullname) {
-        filter.fullname = { $regex: fullname, $options: "i" };
-    }
-
-    if (email !== `None` && email) {
-        filter.email = { $regex: email, $options: "i" };
-    }
-
-    // Sort
-    if (sortByField !== `None` && sortByField) {
-        sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
-    }
-
-    console.log(filter);
-    console.log(sort);
-
+const FilteredAndSortedUser = async function (page, fullname, email, sortByField, sortByOrder) {
     try {
-        const result = await User.find(filter).sort(sort);
+        const filter = {};
+        const sort = {};
+
+        // Fliter
+        if (fullname !== `None` && fullname) {
+            filter.fullname = { $regex: fullname, $options: "i" };
+        }
+
+        if (email !== `None` && email) {
+            filter.email = { $regex: email, $options: "i" };
+        }
+
+        // Sort
+        if (sortByField !== `None` && sortByField) {
+            sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
+        }
+
+        const options = {
+            page: page,
+            limit: 10,
+            sort: sort,
+        }
+
+        const result = await User.paginate(filter, options);
 
         return result;
     } catch (error) {

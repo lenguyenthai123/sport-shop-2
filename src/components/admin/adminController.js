@@ -29,10 +29,38 @@ const getHomePage = async (req, res, next) => {
         const manufacturer = req.query.manufacturer || "None";
         const sortByField = req.query.sortByField || "None";
         const sortByOrder = req.query.sortByOrder || "None";
+        const page = 1; // Default
 
-        const productList = await ProductService.FilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("HomePage_1.ejs", { productList: productList });
+            res.render("HomePage_1.ejs", { productList: productList.docs });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+const getProductsForPaging = async (req, res, next) => {
+    try {
+        console.log("paging guest")
+        const productName = req.query.productName || "None";
+        const catalogId = req.query.catalogId || "None";
+        const minPrice = req.query.minPrice || 0;
+        const maxPrice = req.query.maxPrice || 0;
+        const manufacturer = req.query.manufacturer || "None";
+        const sortByField = req.query.sortByField || "None";
+        const sortByOrder = req.query.sortByOrder || "None";
+        const page = req.query.page || 1;
+
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        console.log(productList)
+
+        if (productList) {
+            res.status(200).json({ productList: productList.docs });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -130,7 +158,7 @@ const getProductList = async (req, res, next) => {
 
         const productList = await ProductService.FilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("AdminProducts.ejs", { productList: productList });
+            res.render("AdminProducts.ejs", { productList: productList.docs });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -149,13 +177,40 @@ const getAccountList = async (req, res, next) => {
         const sortByField = req.query.sortByField || "None";
         const sortByOrder = req.query.sortByOrder || "None";
 
-        console.log(req.query);
+        const page = 1;// Default
 
 
-        const accountList = await UserService.FilteredAndSortedUser(fullname, email, registrationDate, sortByField, sortByOrder);
-
+        const accountList = await UserService.FilteredAndSortedUser(page, fullname, email, registrationDate, sortByField, sortByOrder);
         // res.status(200).json({ accountList });
-        res.render("ViewAccountList.ejs", { accountList: accountList });
+        if (accountList) {
+            res.render("ViewAccountList.ejs", { accountList: accountList });
+        }
+        else {
+            res.status(404).json({ message: "Not found" })
+        }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+const getAccountPaging = async (req, res, next) => {
+    try {
+        const fullname = req.query.fullname || "None";
+        const email = req.query.email || "None";
+        const registrationDate = req.query.registrationTime || "None";
+        const sortByField = req.query.sortByField || "None";
+        const sortByOrder = req.query.sortByOrder || "None";
+        const page = req.query.page || 1;
+
+        const accountList = await UserService.FilteredAndSortedUser(page, fullname, email, registrationDate, sortByField, sortByOrder);
+        if (accountList) {
+            res.status(200).json({ accountList: accountList });
+        }
+        else {
+            res.status(404).json({ message: "Not found" })
+        }
     }
     catch (error) {
         console.log(error);
@@ -204,5 +259,7 @@ module.exports = {
     getAccountList,
     getAccountDetail,
     getAdminProfile,
+    getAccountPaging,
+    getProductsForPaging
 
 }

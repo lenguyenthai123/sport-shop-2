@@ -46,18 +46,46 @@ const getHomePage = async (req, res, next) => {
         }
 
 
-        const productName = req.query.productName;
+        const productName = req.query.productName || "None";
         const catalogId = req.query.catalogId;
         const minPrice = req.query.minPrice;
         const maxPrice = req.query.maxPrice;
         const manufacturer = req.query.manufacturer;
         const sortByField = req.query.sortByField;
         const sortByOrder = req.query.sortByOrder;
+        const page = 1; //Default;
 
-        const productList = await ProductService.FilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
-
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
             res.render("HomePage_1.ejs", { productList: productList });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+const getProductsForPaging = async (req, res, next) => {
+    try {
+        console.log("paging guest")
+        const productName = req.query.productName || "None";
+        const catalogId = req.query.catalogId || "None";
+        const minPrice = req.query.minPrice || 0;
+        const maxPrice = req.query.maxPrice || 0;
+        const manufacturer = req.query.manufacturer || "None";
+        const sortByField = req.query.sortByField || "None";
+        const sortByOrder = req.query.sortByOrder || "None";
+        const page = req.query.page || 1;
+
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        console.log(productList)
+
+        if (productList) {
+            res.status(200).json({ productList: productList });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -143,5 +171,6 @@ module.exports = {
     getProductDetail,
     getCart,
     getAccountProfile,
+    getProductsForPaging
 
 }

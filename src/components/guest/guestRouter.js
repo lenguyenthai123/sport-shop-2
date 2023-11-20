@@ -8,6 +8,8 @@ const Controllers = require("./guestController");
 
 router.get("/", Controllers.redirectHomePage);
 router.get("/home-page", Controllers.getHomePage);
+router.get("/home-page/products/paging", Controllers.getProductsForPaging);
+
 router.get("/home-page/cart", Controllers.getCart)
 router.get("/home-page/:productId", Controllers.getProductDetail)
 

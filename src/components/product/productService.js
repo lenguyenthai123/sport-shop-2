@@ -8,47 +8,56 @@ const uploadToCloudinary = require("../../config/cloudinary.js");
 
 const mongoose = require("mongoose");
 
-const FilteredAndSortedProducts = async function (name, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder) {
-    const fliter = {};
-    const sort = {};
-
-    // Fliter
-    if (name !== `None` && name) {
-        fliter.name = name;
-    }
-    if (catalogId !== "None" && catalogId) {
-        try {
-            fliter.catalogId = new mongoose.Types.ObjectId(catalogId);
-
-        } catch (error) {
-            delete fliter.catalogId;
-            console.log("Catalog Id invalid", error);
-        }
-    }
-    if (manufacturer !== `None` && manufacturer) {
-        fliter.manufacturer = manufacturer;
-    }
-
-    if (minPrice !== `None` && maxPrice !== `None` && minPrice && maxPrice) {
-        minPrice = Number(minPrice);
-        maxPrice = Number(maxPrice);
-
-        if (minPrice <= maxPrice) {
-            fliter.price = { $gte: minPrice, $lte: maxPrice };
-        }
-    }
-
-    // Sort
-    if (sortByField !== `None` && sortByField) {
-        sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
-    }
-
+const FilteredAndSortedProducts = async function (page, name, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder) {
     try {
-        const result = await Product.find(fliter).sort(sort);
+
+        const filter = {};
+        const sort = {};
+
+        const limit = 10;
+
+        // filter
+        if (name !== `None` && name) {
+            filter.name = { $regex: name, $options: "i" };
+        }
+        if (catalogId !== "None" && catalogId) {
+            try {
+                filter.catalogId = new mongoose.Types.ObjectId(catalogId);
+
+            } catch (error) {
+                delete filter.catalogId;
+                console.log("Catalog Id invalid", error);
+            }
+        }
+        if (manufacturer !== `None` && manufacturer) {
+            filter.manufacturer = manufacturer;
+        }
+
+        if (minPrice !== `None` && maxPrice !== `None` && minPrice && maxPrice) {
+            minPrice = Number(minPrice);
+            maxPrice = Number(maxPrice);
+
+            if (minPrice <= maxPrice) {
+                filter.price = { $gte: minPrice, $lte: maxPrice };
+            }
+        }
+
+        // Sort
+        if (sortByField !== `None` && sortByField) {
+            sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
+        }
+
+        const options = {
+            page: page,
+            limit: 8,
+            sort: sort,
+        }
+
+        const result = await Product.paginate(filter, options);
 
         return result;
     } catch (error) {
-        console.log("Error in PrfilteredAndSortedProducts of Product Services", error);
+        console.log("Error in filteredAndSortedProducts of Product Services", error);
         throw error;
     }
 

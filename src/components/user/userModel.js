@@ -1,3 +1,4 @@
+const mongoosePaginate = require('mongoose-paginate-v2');
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs")
@@ -93,5 +94,6 @@ UserScheme.methods.comparePass = async function (temporaryPassword) {
     return result;
 }
 
+UserScheme.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('User', UserScheme);

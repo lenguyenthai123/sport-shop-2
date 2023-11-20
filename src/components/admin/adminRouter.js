@@ -32,8 +32,12 @@ router.get("/admin/product", passport.authenticate('jwt', { session: false }), c
 router.post("/admin/product", passport.authenticate('jwt', { session: false }), checkAdmin, UploadProduct, Controllers.postANewProduct)
 
 router.get("/admin/products", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductList)
+router.get("/admin/products/paging", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductsForPaging)
+
 router.get("/admin/dashboard", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getDashBoard)
+
 router.get("/admin/accountlist", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountList)
+router.get("/admin/accountlist/paging", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountPaging)
 
 
 router.get("/admin/profile", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAdminProfile)
