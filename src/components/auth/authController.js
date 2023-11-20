@@ -73,7 +73,7 @@ const postLogin = async (req, res, next) => {
 
                 }
                 else {
-                    res.redirect(302, "/home-page");
+                    res.redirect(302, "/user/home-page");
                 }
 
             }
