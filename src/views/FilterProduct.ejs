@@ -49,13 +49,13 @@
                             <div class="price_range_minimum">
                                 <span>Minimum</span>
                                 <div class="dollar_icon">$</div>
-                                <input type="text" class="start-input with-prefix" id="start-input" name="minimum" placeholder="Min Price">
+                                <input type="text" class="start-input with-prefix" id="start-input" name="minPrice" placeholder="Min Price">
                             </div>
                             <div class="price_seperate_line"></div>
                             <div class="price_range_maximum">
                                 <span>Maximum</span>
                                 <div class="dollar_icon">$</div>
-                                <input type="text" class="end-input with-prefix" id="end-input" name="maximum" placeholder="Max Price">
+                                <input type="text" class="end-input with-prefix" id="end-input" name="maxPrice" placeholder="Max Price">
             
                             </div>
         
@@ -465,11 +465,11 @@
             const priceRange = document.getElementById('price-range');
     
             noUiSlider.create(priceRange, {
-                start: [0, 100], // Initial range values
+                start: [0, 1000000], // Initial range values
                 connect: true,   // Connect the handles
                 range: {
                     'min': 0,
-                    'max': 100
+                    'max': 1000000
                 }
             });
     
