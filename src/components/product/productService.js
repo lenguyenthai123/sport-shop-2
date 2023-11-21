@@ -1,7 +1,11 @@
 require("dotenv").config();
 
+// Model
 const Product = require("./productModel.js");
 const Review = require("../review/reviewModel.js");
+
+// Service
+const ReviewService = require("../review/reviewService.js");
 
 const uploadToCloudinary = require("../../config/cloudinary.js");
 
@@ -13,8 +17,6 @@ const FilteredAndSortedProducts = async function (page, name, catalogId, manufac
 
         const filter = {};
         const sort = {};
-
-        const limit = 10;
 
         // filter
         if (name !== `None` && name) {
@@ -48,7 +50,7 @@ const FilteredAndSortedProducts = async function (page, name, catalogId, manufac
         }
 
         const options = {
-            page: page,
+            page: parseInt(page, 10),
             limit: 8,
             sort: sort,
         }
@@ -60,7 +62,6 @@ const FilteredAndSortedProducts = async function (page, name, catalogId, manufac
         console.log("Error in filteredAndSortedProducts of Product Services", error);
         throw error;
     }
-
 }
 
 const getAnProductDetail = async function (productId) {
@@ -83,11 +84,7 @@ const getAnProductDetail = async function (productId) {
         const relatedProducts = Array.from(new Set(allRelatedProducts.map(product => product._id)))
             .map(productId => allRelatedProducts.find(product => product._id === productId));
 
-
-        // Get Product Reviews
-        const productReviews = await Review.find({ productId });
-
-        return { productInfo, relatedProducts, productReviews };
+        return { productInfo, relatedProducts };
     } catch (error) {
         throw error;
     }

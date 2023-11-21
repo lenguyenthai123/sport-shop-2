@@ -11,7 +11,7 @@ const Product = require("../product/productModel.js");
 //Service
 const ProductService = require("../product/productService.js")
 const UserService = require("../user/userService.js")
-
+const ReviewService = require("../review/reviewService.js");
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
@@ -32,6 +32,9 @@ const getHomePage = async (req, res, next) => {
         const page = 1; // Default
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+
+        console.log(productList);
+
         if (productList) {
             res.render("HomePage_1.ejs", { productList: productList.docs });
         }
@@ -57,7 +60,7 @@ const getProductsForPaging = async (req, res, next) => {
         const page = req.query.page || 1;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
-        console.log(productList)
+
 
         if (productList) {
             res.status(200).json({ productList: productList.docs });
@@ -86,13 +89,14 @@ const getProductDetail = async (req, res, next) => {
     try {
 
         const productId = req.params.productId || "None";
-        const { productInfo, relatedProducts, productReviews } = await ProductService.getAnProductDetail(productId);
+        const { productInfo, relatedProducts } = await ProductService.getAnProductDetail(productId);
+        const reviews = await ReviewService.filteredAndGetPagingReviews(productId, 1); // Default 1 when init.
 
         if (productInfo) {
 
             // Render file in here! Pleases!!!!!!!!!
 
-            res.status(200).json({ productInfo, relatedProducts, productReviews });
+            res.status(200).json({ productInfo, relatedProducts, reviews });
         }
         else {
             res.status(404).json({ message: "Not found" });

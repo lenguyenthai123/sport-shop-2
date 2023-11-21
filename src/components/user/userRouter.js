@@ -13,6 +13,7 @@ router.get("/user/home-page/products/paging", passport.authenticate('jwt', { ses
 router.get("/user/home-page/cart", passport.authenticate('jwt', { session: false }), Controllers.getCart)
 
 router.post("/user/home-page/:productId/review", passport.authenticate('jwt', { session: false }), Controllers.postAReview)
+router.get("/user/home-page/:productId/review", passport.authenticate('jwt', { session: false }), Controllers.getReviewsForPaging)
 router.get("/user/home-page/:productId", passport.authenticate('jwt', { session: false }), Controllers.getProductDetail)
 
 

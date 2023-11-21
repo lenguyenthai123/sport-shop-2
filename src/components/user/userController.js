@@ -70,16 +70,36 @@ const getProductsForPaging = async (req, res, next) => {
 const getProductDetail = async (req, res, next) => {
     try {
 
-        const productId = req.params.productId;
-
-        const { productInfo, relatedProducts, productReviews } = await ProductService.getAnProductDetail(productId);
-
+        const productId = req.params.productId || "None";
+        const { productInfo, relatedProducts } = await ProductService.getAnProductDetail(productId);
+        const reviews = await ReviewService.filteredAndGetPagingReviews(productId, 1); // Default 1 when init.
 
         if (productInfo) {
 
             // Render file in here! Pleases!!!!!!!!!
 
-            res.status(200).json({ productInfo, relatedProducts, productReviews });
+            res.status(200).json({ productInfo, relatedProducts, reviews });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+// paging
+const getReviewsForPaging = async (req, res, next) => {
+    try {
+
+        const productId = req.params.productId || "None";
+        const page = req.query.page || 1;
+        const reviews = await ReviewService.filteredAndGetPagingReviews(productId, page);
+
+        if (reviews) {
+            res.status(200).json({ reviews });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -115,8 +135,8 @@ const postAReview = async (req, res, next) => {
         const userId = req.user._id;
         const { productId } = req.params;
         const { rating, comment } = req.body;
-
-        const result = await ReviewService.createAReview(userId, productId, rating, comment);
+        console.log(req.body);
+        const result = await ReviewService.createAReview(productId, userId, rating, comment);
 
         if (result) {
             res.status(201).json({ message: "Create successfully", data: result });
@@ -137,6 +157,7 @@ module.exports = {
     getCart,
     getAccountProfile,
     getProductsForPaging,
-    postAReview
+    postAReview,
+    getReviewsForPaging,
 
 }

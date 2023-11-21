@@ -11,6 +11,9 @@ router.get("/home-page", Controllers.getHomePage);
 router.get("/home-page/products/paging", Controllers.getProductsForPaging);
 
 router.get("/home-page/cart", Controllers.getCart)
+
+// Product detail and paging.
+router.get("/home-page/:productId/review", Controllers.getReviewsForPaging)
 router.get("/home-page/:productId", Controllers.getProductDetail)
 
 
