@@ -9,10 +9,7 @@ const Product = require("../product/productModel.js");
 
 //Service
 const ProductService = require("../product/productService.js")
-
-const { use } = require("passport");
-const jwt = require("jsonwebtoken");
-const { sendMail } = require("../../utils/mailApi.js");
+const ReviewService = require("../review/reviewService.js")
 
 
 require('dotenv').config();
@@ -69,15 +66,6 @@ const getProductsForPaging = async (req, res, next) => {
 }
 
 
-const getDashBoard = (req, res, next) => {
-    try {
-        const user = req.user;
-        res.render("DashBoard.ejs");
-    }
-    catch {
-        next(error);
-    }
-}
 
 const getProductDetail = async (req, res, next) => {
     try {
@@ -122,12 +110,33 @@ const getAccountProfile = (req, res, next) => {
     }
 }
 
+const postAReview = async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const { productId } = req.params;
+        const { rating, comment } = req.body;
+
+        const result = await ReviewService.createAReview(userId, productId, rating, comment);
+
+        if (result) {
+            res.status(201).json({ message: "Create successfully", data: result });
+        }
+        else {
+            res.status(400).json({ message: "Invalid data provided" });
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+
 module.exports = {
     getHomePage,
-    getDashBoard,
     getProductDetail,
     getCart,
     getAccountProfile,
-    getProductsForPaging
+    getProductsForPaging,
+    postAReview
 
 }
