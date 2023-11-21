@@ -10,6 +10,7 @@ const Product = require("../product/productModel.js");
 //Service
 const ProductService = require("../product/productService.js")
 const ReviewService = require("../review/reviewService.js")
+const UserService = require("./userService.js");
 
 
 require('dotenv').config();
@@ -111,10 +112,21 @@ const getReviewsForPaging = async (req, res, next) => {
     }
 }
 
+
+// Not done
 const getCart = async (req, res, next) => {
     try {
+        const user = req.user;
+        const detailCart = await ProductService.getProductByCart(user.cart);
 
-        // Doing again
+        if (detailCart) {
+            //Render Here
+            res.status(200).json({ cart: detailCart });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
     }
     catch (error) {
         next(error);
@@ -132,11 +144,16 @@ const getAccountProfile = (req, res, next) => {
 
 const postAReview = async (req, res, next) => {
     try {
+        const user = req.user;
         const userId = req.user._id;
         const { productId } = req.params;
         const { rating, comment } = req.body;
         console.log(req.body);
         const result = await ReviewService.createAReview(productId, userId, rating, comment);
+
+        // Preserve the history when user write review.
+        user.reviews.push(result._id);
+        await user.save();
 
         if (result) {
             res.status(201).json({ message: "Create successfully", data: result });
@@ -149,6 +166,25 @@ const postAReview = async (req, res, next) => {
     }
 }
 
+const postAnProductToCart = async (req, res, next) => {
+    try {
+        const { quantity } = req.body;
+        const { productId } = req.params;
+        const user = req.user;
+
+        const result = await UserService.addAProductToCart(user, productId, quantity);
+
+        if (result) {
+            res.status(201).json({ message: "Add product successfully", user });
+        }
+        else {
+            res.status(400).json({ message: "Invalid data" });
+        }
+
+    } catch (error) {
+        next(error);
+    }
+}
 
 
 module.exports = {
@@ -159,5 +195,5 @@ module.exports = {
     getProductsForPaging,
     postAReview,
     getReviewsForPaging,
-
+    postAnProductToCart,
 }

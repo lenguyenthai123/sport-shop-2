@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { sendMail } = require("../../utils/mailApi.js")
 
 const User = require("./userModel.js");
+const mongoose = require("mongoose");
 
 const generateResetToken = async function (user) {
     const secret = process.env.JWT_SECRET + user.password;
@@ -82,6 +83,35 @@ const FilteredAndSortedUser = async function (page, fullname, email, sortByField
     }
 }
 
+const addAProductToCart = async function (user, productId, quantity) {
+    try {
+
+        if (mongoose.isValidObjectId(productId) && !isNaN(quantity)) {
+            const objectProductId = new mongoose.Types.ObjectId(productId);
+            let pos = -1;
+            for (let i = 0; i < user["cart"].length; i++) {
+
+                if (user["cart"][i]["productId"].equals(objectProductId)) {
+                    user["cart"][i]["quantity"] += parseInt(quantity, 10);
+                    user["cart"][i]["quantity"] = Math.max(user["cart"][i]["quantity"], 0);
+                    pos = i;
+                    break;
+                }
+            }
+            if (pos === -1) {
+                user.cart.push({ productId: objectProductId, quantity: parseInt(quantity, 10) });
+            }
+            await user.save();
+            return user;
+        }
+        else {
+            return null;
+        }
+
+    } catch (error) {
+        throw error;
+    }
+}
 
 module.exports = {
     generateResetToken,
@@ -89,4 +119,5 @@ module.exports = {
     generateToken,
     verifyResetToken,
     FilteredAndSortedUser,
+    addAProductToCart,
 }
