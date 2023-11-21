@@ -9,11 +9,7 @@ const Product = require("../product/productModel.js");
 
 //Service
 const ProductService = require("../product/productService.js")
-
-const { use } = require("passport");
-const jwt = require("jsonwebtoken");
-const { sendMail } = require("../../utils/mailApi.js");
-
+const ReviewService = require("../review/reviewService.js")
 
 require('dotenv').config();
 
