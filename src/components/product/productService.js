@@ -65,12 +65,10 @@ const FilteredAndSortedProducts = async function (page, name, catalogId, manufac
 }
 
 const getAnProductDetail = async function (productId) {
-    // const id = new mongoose.Types.ObjectId
     try {
         // Get product info
         const productInfo = await Product.findById(productId);
 
-        // console.log(productInfo)
         //// Get related product
         // 1. Catalog
         const catalogId = new mongoose.Types.ObjectId(productInfo.catalogId);
@@ -138,12 +136,15 @@ const saveFileAndGetUrlFromThumbnailAndGallery = async function (files) {
     }
 
 }
+const addAProductToCart = async function (cart, productId, quantity) {
 
+}
 
 module.exports = {
     FilteredAndSortedProducts,
     getAnProductDetail,
     getProductByCart,
     saveFileAndGetUrlFromThumbnailAndGallery,
+    addAProductToCart
 
 }

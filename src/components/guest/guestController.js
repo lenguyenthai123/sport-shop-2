@@ -10,6 +10,8 @@ const Product = require("../product/productModel.js");
 //Service
 const ProductService = require("../product/productService.js")
 const ReviewService = require("../review/reviewService.js")
+const GuestService = require("./guestService.js");
+
 
 require('dotenv').config();
 
@@ -21,15 +23,15 @@ const getHomePage = async (req, res, next) => {
             const cartData = {
                 cart: [
                     {
-                        productId: "654ec268d07c800c873d0b99",
+                        productId: "6551ec89ffd25c65836c66da",
                         quantity: 10,
                     },
                     {
-                        productId: "654ec268d07c800c873d0b9a",
+                        productId: "6551ed09ffd25c65836c66dd",
                         quantity: 8,
                     },
                     {
-                        productId: "654ec268d07c800c873d0b9b",
+                        productId: "6551eec1fe81b65860274bc3",
                         quantity: 2,
                     },
                 ]
@@ -154,21 +156,50 @@ const getReviewsForPaging = async (req, res, next) => {
     }
 }
 
-const getCart = async (req, res, next) => {
+const postAnProductToCart = async (req, res, next) => {
     try {
 
         const { cart } = JSON.parse(req.cookies.cart);
+        const { quantity } = req.body;
+        const { productId } = req.params;
+        const result = GuestService.addAProductToCart(cart, productId, quantity);
 
-        const detailCart = await ProductService.getProductByCart(cart);
-        // console.log(detailCart);
-
-        //Render Here
-        res.status(200).json({ detailCart });
+        if (result) {
+            res.cookie("cart", JSON.stringify({ cart }), {
+                maxAge: 24 * 60 * 60 * 1000,
+                httpOnly: false,
+            });
+            res.status(201).json({ message: "Add product successfully", cart });
+        }
+        else {
+            res.status(400).json({ message: "Invalid data" });
+        }
     }
     catch (error) {
         next(error);
     }
 }
+
+const getCart = async (req, res, next) => {
+    try {
+        const { cart } = JSON.parse(req.cookies.cart);
+        const detailCart = await ProductService.getProductByCart(cart);
+
+        if (detailCart) {
+
+            //Render Here
+            res.status(200).json({ detailCart });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
 
 const getAccountProfile = (req, res, next) => {
     try {
@@ -188,5 +219,6 @@ module.exports = {
     getAccountProfile,
     getProductsForPaging,
     getReviewsForPaging,
+    postAnProductToCart
 
 }
