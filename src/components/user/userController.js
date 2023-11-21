@@ -113,26 +113,6 @@ const getReviewsForPaging = async (req, res, next) => {
 }
 
 
-// Not done
-const getCart = async (req, res, next) => {
-    try {
-        const user = req.user;
-        const detailCart = await ProductService.getProductByCart(user.cart);
-
-        if (detailCart) {
-            //Render Here
-            res.status(200).json({ cart: detailCart });
-        }
-        else {
-            res.status(404).json({ message: "Not found" });
-        }
-
-    }
-    catch (error) {
-        next(error);
-    }
-}
-
 const getAccountProfile = (req, res, next) => {
     try {
         res.render("AccountProfile.ejs")
@@ -166,16 +146,16 @@ const postAReview = async (req, res, next) => {
     }
 }
 
-const postAnProductToCart = async (req, res, next) => {
+const patchAProductToCart = async (req, res, next) => {
     try {
         const { quantity } = req.body;
         const { productId } = req.params;
         const user = req.user;
 
-        const result = await UserService.addAProductToCart(user, productId, quantity);
+        const result = await UserService.updateAProductToCart(user, productId, quantity);
 
         if (result) {
-            res.status(201).json({ message: "Add product successfully", user });
+            res.status(201).json({ message: "Updated cart successfully", cart: result.cart, subTotal: result.subTotal });
         }
         else {
             res.status(400).json({ message: "Invalid data" });
@@ -185,7 +165,25 @@ const postAnProductToCart = async (req, res, next) => {
         next(error);
     }
 }
+const getCart = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const { detailCart, subTotal } = await UserService.getDetailCart(user.cart);
 
+        if (detailCart) {
+            //Render Here
+
+            res.status(200).json({ cart: detailCart, subTotal });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+    }
+    catch (error) {
+        next(error);
+    }
+}
 
 module.exports = {
     getHomePage,
@@ -195,5 +193,5 @@ module.exports = {
     getProductsForPaging,
     postAReview,
     getReviewsForPaging,
-    postAnProductToCart,
+    patchAProductToCart,
 }

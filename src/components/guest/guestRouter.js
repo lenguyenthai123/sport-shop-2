@@ -14,7 +14,7 @@ router.get("/home-page/cart", Controllers.getCart)
 
 // Product detail and paging.
 router.get("/home-page/:productId/review", Controllers.getReviewsForPaging)
-router.post("/home-page/:productId/cart", Controllers.postAnProductToCart)
+router.post("/home-page/:productId/cart", Controllers.patchAProductToCart)
 
 router.get("/home-page/:productId", Controllers.getProductDetail)
 

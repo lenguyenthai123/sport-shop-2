@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const { sendMail } = require("../../utils/mailApi.js")
 
 const User = require("./userModel.js");
+const Product = require("../product/productModel.js");
+
 const mongoose = require("mongoose");
 
 const generateResetToken = async function (user) {
@@ -83,7 +85,7 @@ const FilteredAndSortedUser = async function (page, fullname, email, sortByField
     }
 }
 
-const addAProductToCart = async function (user, productId, quantity) {
+const updateAProductToCart = async function (user, productId, quantity) {
     try {
 
         if (mongoose.isValidObjectId(productId) && !isNaN(quantity)) {
@@ -98,16 +100,57 @@ const addAProductToCart = async function (user, productId, quantity) {
                     break;
                 }
             }
-            if (pos === -1) {
+
+            // Delete
+            for (let i = user["cart"].length - 1; i >= 0; i--) {
+                if (user["cart"][i]["quantity"] === 0) {
+                    user["cart"].splice(i, 1);
+                }
+            }
+
+            // Add
+            if (pos === -1 && parseInt(quantity, 10) > 0) {
                 user.cart.push({ productId: objectProductId, quantity: parseInt(quantity, 10) });
             }
+
+            let subTotal = 0;
+            for (let i = 0; i < user.cart.length; i++) {
+                try {
+                    const product = await Product.findById(user.cart[i][`productId`]);
+                    const quantity = user.cart[i][`quantity`];
+                    subTotal += product.price * quantity;
+                } catch (error) {
+                    console.log("Not found product");
+                }
+            }
+
             await user.save();
-            return user;
+            return { cart: user.cart, subTotal };
         }
         else {
             return null;
         }
 
+    } catch (error) {
+        throw error;
+    }
+}
+
+const getDetailCart = async function (cart) {
+    try {
+        const detailCart = [];
+        let subTotal = 0;
+        for (let i = 0; i < cart.length; i++) {
+            try {
+                const product = await Product.findById(cart[i][`productId`]);
+                const quantity = cart[i][`quantity`];
+                subTotal += product.price * quantity;
+                detailCart.push({ product, quantity });
+            } catch (error) {
+                console.log("Not found product");
+            }
+        }
+        return { detailCart, subTotal };
     } catch (error) {
         throw error;
     }
@@ -119,5 +162,6 @@ module.exports = {
     generateToken,
     verifyResetToken,
     FilteredAndSortedUser,
-    addAProductToCart,
+    updateAProductToCart,
+    getDetailCart
 }

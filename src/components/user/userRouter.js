@@ -18,7 +18,7 @@ router.post("/user/home-page/:productId/review", passport.authenticate('jwt', { 
 router.get("/user/home-page/:productId/review", passport.authenticate('jwt', { session: false }), Controllers.getReviewsForPaging)
 
 // Add product to cart
-router.post("/user/home-page/:productId/cart", passport.authenticate('jwt', { session: false }), Controllers.postAnProductToCart)
+router.post("/user/home-page/:productId/cart", passport.authenticate('jwt', { session: false }), Controllers.patchAProductToCart)
 
 router.get("/user/home-page/:productId", passport.authenticate('jwt', { session: false }), Controllers.getProductDetail)
 
