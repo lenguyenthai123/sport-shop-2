@@ -2,13 +2,20 @@ const express = require("express")
 const router = express.Router();
 
 const passport = require("passport");
-require("../middlewares/passportAccessToken.js");
+require("../../middlewares/passportAccessToken");
 
-const Controllers = require("../controllers/guest.js");
+const Controllers = require("./guestController");
 
 router.get("/", Controllers.redirectHomePage);
 router.get("/home-page", Controllers.getHomePage);
+router.get("/home-page/products/paging", Controllers.getProductsForPaging);
+
 router.get("/home-page/cart", Controllers.getCart)
+
+// Product detail and paging.
+router.get("/home-page/:productId/review", Controllers.getReviewsForPaging)
+router.post("/home-page/:productId/cart", Controllers.postAnProductToCart)
+
 router.get("/home-page/:productId", Controllers.getProductDetail)
 
 

@@ -104,12 +104,9 @@
                     document.getElementById('input-password').value = "";
                     document.getElementById('input-username').value = "";
 
-
-                    console.log("here");
                     if (!response.ok) {
                         throw new Error('Login failed');
                     }
-
                     if (response.ok === true && response.redirected === true) {
                         alert("Login successfull")
                         window.location.href = response.url;
