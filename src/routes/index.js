@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const passport = require("passport");
-require("../middlewares/passportAccessToken");
+require("../middlewares/passport");
 
 
 const routerAuthentication = require("../components/auth/authRouter");

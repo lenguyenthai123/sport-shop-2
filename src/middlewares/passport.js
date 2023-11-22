@@ -38,21 +38,24 @@ passport.use(new LocalStrategy(
     async function (username, password, done) {
         try {
             const user = await User.findOne({ username: username });
-
+            console.log(user);
             if (!user) {
-                done(null, false);
-            }
+                return done(null, false);
 
+            }
+            console.log("11111")
             const result = await user.comparePass(password);
             if (result) {
+                console.log("Yes");
                 done(null, user);
             }
             else {
-                done(null, false);
+                return done(null, false);
             }
 
         } catch (error) {
             done(error);
+            return;
         }
 
     }
