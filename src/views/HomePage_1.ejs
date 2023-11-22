@@ -244,35 +244,6 @@
                     window.location.href = curUrl.toString();
 
                 })
-
-                document.addEventListener('DOMContentLoaded', async function () {
-                    async function tmp() {
-                        try {
-                            const response = await fetch('home-page/products/paging', {
-                                method: 'GET',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                // Note: You can use the URLSearchParams to build the query string
-                                // Example: new URLSearchParams({ page: 1 }).toString()
-                                // But in your case, it seems like you want to send JSON, so you may want to use the body property instead.
-                                // body: JSON.stringify({ page: 1 })
-                                query: JSON.stringify({ page: 1, })
-
-                            });
-
-                            const data = await response.json();
-                            console.log(data);
-                            // Do something with the data
-
-                        } catch (error) {
-                            console.error(error);
-                            // Handle errors
-                        }
-                    }
-
-                    await tmp();
-                });
             </script>
 
 </body>
