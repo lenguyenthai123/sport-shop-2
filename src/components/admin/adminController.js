@@ -63,7 +63,7 @@ const getProductsForPaging = async (req, res, next) => {
 
 
         if (productList) {
-            res.status(200).json({ productList: productList.docs });
+            res.status(200).json({ productList: productList });
         }
         else {
             res.status(404).json({ message: "Not found" });
