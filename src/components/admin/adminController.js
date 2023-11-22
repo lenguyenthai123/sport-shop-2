@@ -36,7 +36,7 @@ const getHomePage = async (req, res, next) => {
         console.log(productList);
 
         if (productList) {
-            res.render("HomePage_1.ejs", { productList: productList.docs });
+            res.render("HomePage_1.ejs", { productList: productList });
         }
         else {
             res.status(404).json({ message: "Not found" });
