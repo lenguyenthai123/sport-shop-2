@@ -43,10 +43,6 @@ const UserScheme = new Schema({
         type: Date,
         default: Date.now(),
     },
-    activation: {
-        type: Boolean,
-        default: false,
-    },
     registrationDate: {
         type: Date,
         default: Date.now()
@@ -78,8 +74,13 @@ const UserScheme = new Schema({
     role: {
         type: String,
         default: "user",
-    }
-
+    },
+    active: {
+        type: Boolean,
+        default: false
+    },
+    activeToken: String,
+    activeExpires: Date,
 })
 
 UserScheme.pre("save", async function () {

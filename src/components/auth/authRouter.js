@@ -20,7 +20,6 @@ router.post("/signup", Middlewares.signupValidators, Authentication.postSignUp);
 router.post("/login", Middlewares.loginValidators, passport.authenticate('local'), Authentication.postLogin);
 router.get("/login", Authentication.getLogin);
 
-
 router.get("/logout", passport.authenticate('jwt', { session: false }), Authentication.getLogout);
 
 router.get("/forgot-password", Authentication.getForgotPassword)
@@ -32,4 +31,5 @@ router.post("/reset-password", Middlewares.resetPasswordValidator, Authenticatio
 router.get("/update-password", passport.authenticate('jwt', { session: false }), Authentication.getUpdatePassword)
 router.post("/update-password", passport.authenticate('jwt', { session: false }), Middlewares.updatePasswordValidator, Authentication.postUpdatePassword)
 
+router.get("/account/active/:activeToken", Authentication.getActivation);
 module.exports = router;

@@ -7,6 +7,7 @@ const UserService = require("../user/userService.js");
 
 const { validationResult } = require("express-validator");
 
+const crypto = require('crypto');
 
 const getSignUp = (req, res, next) => {
     try {
@@ -46,12 +47,40 @@ const postSignUp = async (req, res, next) => {
             res.status(500).json({ msg: "Created user failed" });
         }
         else {
-            res.status(201).json({ message: "Created user succesfully!" });
+            const resultChecking = await UserService.sendActiveTokenToMail(user);
+
+            if (resultChecking) {
+                res.status(201).send({ message: "Please check your email to activate your account" });
+            }
+            else {
+                res.status(500).json({ msg: "Created user failed" });
+            }
         }
     } catch (error) {
         next(error);
     }
 }
+
+const getActivation = async (req, res, next) => {
+    try {
+        const { activeToken } = req.params;
+
+        const foundedUser = await UserService.getAnUser({ activeToken, activeExpires: { $gt: Date.now() } });
+
+        if (!foundedUser) {
+            res.status(401).json({ messsage: "Invalid activation URL" });
+        }
+        else {
+            foundedUser.active = true;
+            await foundedUser.save();
+            res.status(200).send({ message: "Activation account successfully" });
+        }
+    }
+    catch (error) {
+
+    }
+}
+
 
 const getLogin = (req, res, next) => {
     try {
@@ -144,13 +173,13 @@ const postForgotPassword = async (req, res, next) => {
             res.status(404).json({ msg: "Email is not registered" });
         }
         else {
-            const token = await UserService.generateResetToken(user);
-
-            const resetPasswordLink = `${process.env.WEBSITE_URL}/reset-password?id=${user._id}&token=${token}`;
-
-            await UserService.sendResetEmail(user.email, user.username, resetPasswordLink);
-
-            res.status(200).send("Please check your email to reset password .....");
+            const resultChecking = await UserService.sendResetEmail(user);
+            if (resultChecking) {
+                res.status(200).send("Please check your email to reset password .....");
+            }
+            else {
+                res.status(500).json({ message: "Error" });
+            }
         }
 
     } catch (error) {
@@ -172,11 +201,13 @@ const getResetPassword = async (req, res, next) => {
             const payload = UserService.verifyResetToken(user, token);
 
             if (payload.id !== id) {
-                res.status(401).json({ msg: "Invalid token or id" });
+                res.status(401).json({ msg: "Invalid url to reset password" });
+                return;
             }
 
             // Successfull because error will throw 
             res.render("ResetPassword_1.ejs", { email: user.email })
+            return;
         }
     } catch (error) {
         next(error);
@@ -201,18 +232,21 @@ const postResetPassword = async (req, res, next) => {
 
         if (!user) {
             res.status(404).json({ message: "Not found user or id invalid!" });
+            return;
         }
         else {
             const payload = UserService.verifyResetToken(user, token);
 
-            if (payload.id !== user.id) {
-                res.status(401).json({ message: "Id invalid or token invalid" });
+            if (payload.id !== id) {
+                res.status(401).json({ message: "Invalid url to reset password!" });
+                return;
             }
 
             user.password = password;
             await user.save();
 
             res.status(200).send("Change password successfully!");
+            return;
         }
 
     } catch (error) {
@@ -270,7 +304,6 @@ const postUpdatePassword = async (req, res, next) => {
 
 
 
-
 module.exports = {
     getSignUp,
     postSignUp,
@@ -284,4 +317,5 @@ module.exports = {
     getUpdatePassword,
     postUpdatePassword,
     validatorSignupOk,
+    getActivation,
 }
