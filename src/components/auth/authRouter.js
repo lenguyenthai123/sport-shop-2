@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const passport = require("passport");
-require("../../middlewares/passportAccessToken");
+require("../../middlewares/passport.js");
 
 const Authentication = require("./authController");
 
@@ -11,7 +11,7 @@ const Authentication = require("./authController");
 router.get("/signup", Authentication.getSignUp);
 router.post("/signup", Authentication.postSignUp);
 
-router.post("/login", Authentication.postLogin);
+router.post("/login", passport.authenticate('local'), Authentication.postLogin);
 router.get("/login", Authentication.getLogin);
 
 

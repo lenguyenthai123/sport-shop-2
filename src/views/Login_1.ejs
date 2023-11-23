@@ -85,46 +85,44 @@
             console.log(document.querySelector("#myForm"));
         }
         async function login() {
-            // console.log("111");
-            let username = document.getElementById('input-username').value;
-            let password = document.getElementById('input-password').value;
+            try {
+                let username = document.getElementById('input-username').value;
+                let password = document.getElementById('input-password').value;
 
-
-            await fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            })
-                .then(response => {
-
-                    username = "";
-                    password = "";
-                    document.getElementById('input-password').value = "";
-                    document.getElementById('input-username').value = "";
-
-                    if (!response.ok) {
-                        throw new Error('Login failed');
-                    }
-                    if (response.ok === true && response.redirected === true) {
-                        alert("Login successfull")
-                        window.location.href = response.url;
-                        console.log(response.url);
-                    }
-                    return response;
-                })
-                .then(data => {
-                    // Handle successful login, e.g., redirect or update UI
-                    console.log('Login successful', data);
-                })
-                .catch(error => {
-                    // Handle login error, e.g., display an error message
-                    alert("Login failed",);
-                    console.error('Login failed', error);
-                    console.log(error);
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
                 });
+
+                // Clear input fields regardless of the response status
+                document.getElementById('input-password').value = "";
+                document.getElementById('input-username').value = "";
+
+                if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+
+                console.log(response);
+                // Check if the response indicates a successful login and a redirection
+                if (response.ok && response.redirected) {
+                    window.location.href = response.url;
+                    return;
+                }
+
+                // Optional: You can handle the data returned from the server if needed
+                const data = await response.json();
+                console.log(data);
+
+            } catch (error) {
+                // Handle login error, e.g., display an error message
+                alert("Login failed");
+                console.error('Login failed', error);
+            }
         }
+
     </script>
 </body>
 

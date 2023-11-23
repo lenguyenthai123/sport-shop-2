@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router();
 
 const passport = require("passport");
-require("../../middlewares/passportAccessToken.js");
+require("../../middlewares/passport.js");
 
 
 const Controllers = require("./productController.js");

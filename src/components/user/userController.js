@@ -10,6 +10,7 @@ const Product = require("../product/productModel.js");
 //Service
 const ProductService = require("../product/productService.js")
 const ReviewService = require("../review/reviewService.js")
+const UserService = require("./userService.js");
 
 
 require('dotenv').config();
@@ -111,15 +112,6 @@ const getReviewsForPaging = async (req, res, next) => {
     }
 }
 
-const getCart = async (req, res, next) => {
-    try {
-
-        // Doing again
-    }
-    catch (error) {
-        next(error);
-    }
-}
 
 const getAccountProfile = (req, res, next) => {
     try {
@@ -132,11 +124,16 @@ const getAccountProfile = (req, res, next) => {
 
 const postAReview = async (req, res, next) => {
     try {
+        const user = req.user;
         const userId = req.user._id;
         const { productId } = req.params;
         const { rating, comment } = req.body;
         console.log(req.body);
         const result = await ReviewService.createAReview(productId, userId, rating, comment);
+
+        // Preserve the history when user write review.
+        user.reviews.push(result._id);
+        await user.save();
 
         if (result) {
             res.status(201).json({ message: "Create successfully", data: result });
@@ -149,7 +146,44 @@ const postAReview = async (req, res, next) => {
     }
 }
 
+const patchAProductToCart = async (req, res, next) => {
+    try {
+        const { quantity } = req.body;
+        const { productId } = req.params;
+        const user = req.user;
 
+        const result = await UserService.updateAProductToCart(user, productId, quantity);
+
+        if (result) {
+            res.status(201).json({ message: "Updated cart successfully", cart: result.cart, subTotal: result.subTotal });
+        }
+        else {
+            res.status(400).json({ message: "Invalid data" });
+        }
+
+    } catch (error) {
+        next(error);
+    }
+}
+const getCart = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const { detailCart, subTotal } = await UserService.getDetailCart(user.cart);
+
+        if (detailCart) {
+            //Render Here
+
+            res.status(200).json({ cart: detailCart, subTotal });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+    }
+    catch (error) {
+        next(error);
+    }
+}
 
 module.exports = {
     getHomePage,
@@ -159,5 +193,5 @@ module.exports = {
     getProductsForPaging,
     postAReview,
     getReviewsForPaging,
-
+    patchAProductToCart,
 }

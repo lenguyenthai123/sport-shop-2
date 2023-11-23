@@ -34,7 +34,7 @@ const getHomePage = async (req, res, next) => {
                         productId: "6551eec1fe81b65860274bc3",
                         quantity: 2,
                     },
-                ]
+                ],
             };
 
             res.cookie("cart", JSON.stringify(cartData), {
@@ -156,20 +156,21 @@ const getReviewsForPaging = async (req, res, next) => {
     }
 }
 
-const postAnProductToCart = async (req, res, next) => {
+// Chú ý trong việc frontend =!!!!!!!!!!!!
+const patchAProductToCart = async (req, res, next) => {
     try {
-
         const { cart } = JSON.parse(req.cookies.cart);
         const { quantity } = req.body;
         const { productId } = req.params;
-        const result = GuestService.addAProductToCart(cart, productId, quantity);
+        const result = await GuestService.updateAProductToCart(cart, productId, quantity);
 
         if (result) {
-            res.cookie("cart", JSON.stringify({ cart }), {
+            res.cookie("cart", JSON.stringify({ cart: result.cart }), {
                 maxAge: 24 * 60 * 60 * 1000,
                 httpOnly: false,
             });
-            res.status(201).json({ message: "Add product successfully", cart });
+
+            res.status(201).json({ message: "Updated cart successfully", cart: result.cart, subTotal: result.subTotal });
         }
         else {
             res.status(400).json({ message: "Invalid data" });
@@ -183,12 +184,12 @@ const postAnProductToCart = async (req, res, next) => {
 const getCart = async (req, res, next) => {
     try {
         const { cart } = JSON.parse(req.cookies.cart);
-        const detailCart = await ProductService.getProductByCart(cart);
+        const { detailCart, subTotal } = await GuestService.getProductByCart(cart);
 
         if (detailCart) {
 
             //Render Here
-            res.status(200).json({ detailCart });
+            res.status(200).json({ cart: detailCart, subTotal });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -219,6 +220,6 @@ module.exports = {
     getAccountProfile,
     getProductsForPaging,
     getReviewsForPaging,
-    postAnProductToCart
+    patchAProductToCart
 
 }

@@ -43,45 +43,38 @@ const getLogin = (req, res, next) => {
 
 const postLogin = async (req, res, next) => {
     try {
-        const user = req.body;
+
+        if (!req.user) {
+            res.status(401).json({ message: "Unauthorized" });
+            return;
+        }
+
+        const user = req.user;
         console.log(user);
-        const foundedUser = await User.findOne({ username: user.username });
-        console.log(foundedUser);
-        if (!foundedUser) {
-            res.status(404).json({ msg: "Not found user" });
+        user.latestLogin = Date.now();
+
+        await user.save();
+        const token = await UserService.generateToken(user);
+
+        res.cookie("token", token, {
+            maxAge: 60 * 60 * 1000,
+            httpOnly: true
+        });
+        // res.redirect("/dashboard");
+        // res.status(200).json({ msg: "login successull" });
+
+        // DOING AFTER LOGIN SUCCESSFULLY
+
+        if (user.role === "admin") {
+            res.redirect(302, "/admin/dashboard");
+
         }
         else {
-            const result = await foundedUser.comparePass(user.password);
-            if (result) {
-                foundedUser.latestLogin = Date.now();
-
-                await foundedUser.save();
-                const token = await UserService.generateToken(foundedUser);
-                console.log("yes1");
-
-                res.cookie("token", token, {
-                    maxAge: 60 * 60 * 1000,
-                    httpOnly: true
-                });
-                // res.redirect("/dashboard");
-                // res.status(200).json({ msg: "login successull" });
-
-                // DOING AFTER LOGIN SUCCESSFULLY
-
-                if (foundedUser.role === "admin") {
-                    res.redirect(302, "/admin/dashboard");
-
-                }
-                else {
-                    res.redirect(302, "/user/home-page");
-                }
-
-            }
-            else {
-                res.status(401).json({ msg: `Incorrect password` });
-            }
+            res.redirect(302, "/user/home-page");
         }
-    } catch (error) {
+
+    }
+    catch (error) {
         next(error);
     }
 }

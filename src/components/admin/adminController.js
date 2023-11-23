@@ -36,7 +36,7 @@ const getHomePage = async (req, res, next) => {
         console.log(productList);
 
         if (productList) {
-            res.render("HomePage_1.ejs", { productList: productList.docs });
+            res.render("HomePage_1.ejs", { productList: productList });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -63,7 +63,7 @@ const getProductsForPaging = async (req, res, next) => {
 
 
         if (productList) {
-            res.status(200).json({ productList: productList.docs });
+            res.status(200).json({ productList: productList });
         }
         else {
             res.status(404).json({ message: "Not found" });

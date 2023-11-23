@@ -90,24 +90,7 @@ const getAnProductDetail = async function (productId) {
 }
 
 
-// Using for reference product from cart by Id
-const getProductByCart = async function (cart) {
-    try {
-        const result = [];
-        for (let i = 0; i < cart.length; i++) {
-            try {
-                const product = await Product.findById(cart[i][`productId`]);
-                const quantity = cart[i][`quantity`];
-                result.push({ product, quantity });
-            } catch (error) {
-                console.log("Not found product");
-            }
-        }
-        return result;
-    } catch (error) {
-        throw error;
-    }
-}
+
 
 const saveFileAndGetUrlFromThumbnailAndGallery = async function (files) {
     try {
@@ -143,7 +126,6 @@ const addAProductToCart = async function (cart, productId, quantity) {
 module.exports = {
     FilteredAndSortedProducts,
     getAnProductDetail,
-    getProductByCart,
     saveFileAndGetUrlFromThumbnailAndGallery,
     addAProductToCart
 
