@@ -20,7 +20,7 @@ const validatorSignupOk = (req, res, next) => {
         // Verify user input
         const result = validationResult(req);
         if (!result.isEmpty()) {
-            res.status(401).send({ errors: result.array() });
+            res.status(400).send({ errors: result.array() });
             return;
         }
         else {
@@ -36,7 +36,7 @@ const postSignUp = async (req, res, next) => {
         // Verify user input
         const result = validationResult(req);
         if (!result.isEmpty()) {
-            res.status(401).send({ errors: result.array() });
+            res.status(400).send({ errors: result.array() });
             return;
         }
 
@@ -68,7 +68,8 @@ const postLogin = async (req, res, next) => {
         const result = validationResult(req);
 
         if (!result.isEmpty()) {
-            res.status(401).send({ errors: result.array() });
+            res.status(400).send({ errors: result.array() });
+            return;
         }
 
         // Doing 
@@ -127,12 +128,20 @@ const getForgotPassword = (req, res, next) => {
 }
 const postForgotPassword = async (req, res, next) => {
     try {
+        // Verify user input
+        const result = validationResult(req);
+
+        if (!result.isEmpty()) {
+            res.status(400).send({ errors: result.array() });
+            return;
+        }
+
+        // Doing
         const { email } = req.body;
-        console.log(email);
 
         const user = await User.findOne({ email: email });
         if (!user) {
-            res.status(404).json({ msg: "Email này không tồn tại" });
+            res.status(404).json({ msg: "Email is not registered" });
         }
         else {
             const token = await UserService.generateResetToken(user);
@@ -141,7 +150,7 @@ const postForgotPassword = async (req, res, next) => {
 
             await UserService.sendResetEmail(user.email, user.username, resetPasswordLink);
 
-            res.send("Please check your email to reset password .....");
+            res.status(200).send("Please check your email to reset password .....");
         }
 
     } catch (error) {
@@ -175,12 +184,16 @@ const getResetPassword = async (req, res, next) => {
 }
 const postResetPassword = async (req, res, next) => {
     try {
-        console.log("Here");
-        const { password, confirmedPassword } = req.body;
+        // Verify user input
+        const result = validationResult(req);
 
-        if (password !== confirmedPassword) {
-            res.status(400).json({ message: "New password and confirmation do not match" });
+        if (!result.isEmpty()) {
+            res.status(400).send({ errors: result.array() });
+            return;
         }
+
+        // Doing next thing
+        const { password, passwordConfirmation } = req.body;
 
         const { id, token } = req.query;
 
@@ -217,14 +230,21 @@ const getUpdatePassword = async (req, res, next) => {
 
 const postUpdatePassword = async (req, res, next) => {
     try {
+        // Verify user input
+        const resultValidator = validationResult(req);
 
-        const { password, newPassword, confirmPassword } = req.body;
+        if (!resultValidator.isEmpty()) {
+            res.status(400).send({ errors: resultValidator.array() });
+            return;
+        }
+
+        const { password, newPassword, passwordConfirmation } = req.body;
 
         const user = req.user;
 
         const result = await user.comparePass(password);
         if (result) {
-            if (newPassword !== confirmPassword) {
+            if (newPassword !== passwordConfirmation) {
                 res.status(400).json({ message: "New password and confirmation do not match" });
                 return;
             }

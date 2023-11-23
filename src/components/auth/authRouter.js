@@ -24,12 +24,12 @@ router.get("/login", Authentication.getLogin);
 router.get("/logout", passport.authenticate('jwt', { session: false }), Authentication.getLogout);
 
 router.get("/forgot-password", Authentication.getForgotPassword)
-router.post("/forgot-password", Authentication.postForgotPassword)
+router.post("/forgot-password", Middlewares.forgotPasswordValidator, Authentication.postForgotPassword)
 
 router.get("/reset-password", Authentication.getResetPassword)
-router.post("/reset-password", Authentication.postResetPassword)
+router.post("/reset-password", Middlewares.resetPasswordValidator, Authentication.postResetPassword)
 
 router.get("/update-password", passport.authenticate('jwt', { session: false }), Authentication.getUpdatePassword)
-router.post("/update-password", passport.authenticate('jwt', { session: false }), Authentication.postUpdatePassword)
+router.post("/update-password", passport.authenticate('jwt', { session: false }), Middlewares.updatePasswordValidator, Authentication.postUpdatePassword)
 
 module.exports = router;

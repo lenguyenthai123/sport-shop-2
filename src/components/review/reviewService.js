@@ -4,8 +4,6 @@ const mongoose = require("mongoose");
 
 const createAReview = async function (productId, userId, rating, comment) {
     try {
-
-
         if (mongoose.isValidObjectId(productId) && mongoose.isValidObjectId(userId)) {
 
             const review = {
