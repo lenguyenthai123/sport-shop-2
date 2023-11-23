@@ -5,13 +5,19 @@ const router = express.Router();
 const passport = require("passport");
 require("../../middlewares/passport.js");
 
+const { body, validationResult } = require("express-validator");
+const Middlewares = require("./authMiddleware.js");
+
 const Authentication = require("./authController");
 
 
 router.get("/signup", Authentication.getSignUp);
-router.post("/signup", Authentication.postSignUp);
 
-router.post("/login", passport.authenticate('local'), Authentication.postLogin);
+// Router using for ajax.
+router.post("/signup-check", Middlewares.signupValidators, Authentication.validatorSignupOk)
+router.post("/signup", Middlewares.signupValidators, Authentication.postSignUp);
+
+router.post("/login", Middlewares.loginValidators, passport.authenticate('local'), Authentication.postLogin);
 router.get("/login", Authentication.getLogin);
 
 

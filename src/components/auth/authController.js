@@ -1,14 +1,11 @@
-const { json } = require("body-parser");
-
-const { use } = require("passport");
-const jwt = require("jsonwebtoken");
-
 const { sendMail } = require("../../utils/mailApi.js")
 
 require('dotenv').config();
 
 const User = require("../user/userModel.js");
 const UserService = require("../user/userService.js");
+
+const { validationResult } = require("express-validator");
 
 
 const getSignUp = (req, res, next) => {
@@ -18,9 +15,32 @@ const getSignUp = (req, res, next) => {
         next(error);
     }
 }
+const validatorSignupOk = (req, res, next) => {
+    try {
+        // Verify user input
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            res.status(401).send({ errors: result.array() });
+            return;
+        }
+        else {
+            res.status(200).json({ message: "Valid" });
+        }
 
+    } catch (error) {
+        next(error);
+    }
+}
 const postSignUp = async (req, res, next) => {
     try {
+        // Verify user input
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            res.status(401).send({ errors: result.array() });
+            return;
+        }
+
+        // Doing next
         const user = await User.create(req.body);
         if (!user) {
             res.status(500).json({ msg: "Created user failed" });
@@ -36,6 +56,7 @@ const postSignUp = async (req, res, next) => {
 const getLogin = (req, res, next) => {
     try {
         res.render("Login_1.ejs");
+
     } catch (error) {
         next(error);
     }
@@ -43,7 +64,14 @@ const getLogin = (req, res, next) => {
 
 const postLogin = async (req, res, next) => {
     try {
+        // Verify user input
+        const result = validationResult(req);
 
+        if (!result.isEmpty()) {
+            res.status(401).send({ errors: result.array() });
+        }
+
+        // Doing 
         if (!req.user) {
             res.status(401).json({ message: "Unauthorized" });
             return;
@@ -60,8 +88,6 @@ const postLogin = async (req, res, next) => {
             maxAge: 60 * 60 * 1000,
             httpOnly: true
         });
-        // res.redirect("/dashboard");
-        // res.status(200).json({ msg: "login successull" });
 
         // DOING AFTER LOGIN SUCCESSFULLY
 
@@ -222,6 +248,9 @@ const postUpdatePassword = async (req, res, next) => {
     }
 }
 
+
+
+
 module.exports = {
     getSignUp,
     postSignUp,
@@ -234,4 +263,5 @@ module.exports = {
     postResetPassword,
     getUpdatePassword,
     postUpdatePassword,
+    validatorSignupOk,
 }
