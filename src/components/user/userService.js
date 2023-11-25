@@ -2,17 +2,31 @@
 const jwt = require("jsonwebtoken");
 const { sendMail } = require("../../utils/mailApi.js")
 
+//Model
 const User = require("./userModel.js");
 const Product = require("../product/productModel.js");
 
+const crypto = require('crypto');
+
 const mongoose = require("mongoose");
+
+require("dotenv").config();
+
+
+const getAnUser = async function (condition) {
+    try {
+        return await User.findOne(condition);
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 const generateResetToken = async function (user) {
     const secret = process.env.JWT_SECRET + user.password;
     return jwt.sign({ id: user._id, email: user.email }, secret, { expiresIn: "30m" });
 }
-const verifyResetToken = async function (user, token) {
+const verifyResetToken = function (user, token) {
 
     try {
         const secret = process.env.JWT_SECRET + user.password;
@@ -32,20 +46,68 @@ const generateToken = async function (user) {
     }
 }
 
-const sendResetEmail = async function (email, username, resetLink) {
+const sendResetEmail = async function (user) {
     try {
-        const mailOption = {
+        const token = await generateResetToken(user);
+
+        const resetLink = `${process.env.WEBSITE_URL}/reset-password?id=${user._id}&token=${token}`;
+        const mailOptions = {
             from: `Admin Le Nguyen Thai <lnthai21@clc.fitus.edu.vn>`,
-            to: email,
-            subject: "Reset Password",
-            text: ``,
-            html: `<h3>Dear ${username} </h3>, <br>
-                <p>We will give user the reset link below:<br>
-                ${resetLink}<br>
-                access to this link reset your password.<br>
-                Regards</p>`
+            to: user.email,
+            subject: "Reset Your Password",
+            html: `
+              <html>
+                <head>
+                  <style>
+                    body {
+                      font-family: 'Arial', sans-serif;
+                      line-height: 1.6;
+                      color: #333;
+                    }
+                    .container {
+                      max-width: 600px;
+                      margin: 0 auto;
+                    }
+                    .header {
+                      background-color: #4CAF50;
+                      color: white;
+                      padding: 20px;
+                      text-align: center;
+                    }
+                    .content {
+                      padding: 20px;
+                    }
+                    .footer {
+                      background-color: #f1f1f1;
+                      padding: 10px;
+                      text-align: center;
+                    }
+                  </style>
+                </head>
+                <body>
+                  <div class="container">
+                    <div class="header">
+                      <h1>Reset Your Password</h1>
+                    </div>
+                    <div class="content">
+                      <p>Dear ${user.username},</p>
+                      <p>We received a request to reset your password. To reset your password, please click the link below:</p>
+                      <a href="${resetLink}">${resetLink}</a>
+                      <p>This link will expire in 1 hour for security reasons.</p>
+                      <p>If you did not request a password reset, you can ignore this email.</p>
+                      <p>Regards,</p>
+                      <p>Admin Le Nguyen Thai</p>
+                    </div>
+                    <div class="footer">
+                      <p>© 2023 SportiqueBliss</p>
+                    </div>
+                  </div>
+                </body>
+              </html>
+            `,
         };
-        return sendMail(mailOption);
+
+        return sendMail(mailOptions);
     } catch (error) {
         throw error;
     }
@@ -157,6 +219,78 @@ const getDetailCart = async function (cart) {
     }
 }
 
+const sendActiveTokenToMail = async function (user) {
+    try {
+        const randomActivation = await crypto.randomBytes(20);
+        user.activeToken = user._id + randomActivation.toString("hex");
+        user.activeExpires = Date.now() + 24 * 3600 * 1000;
+
+        await user.save();
+        const linkActive = `${process.env.WEBSITE_URL}/account/active/` + user.activeToken;
+
+        const mailOptions = {
+            from: `Admin Le Nguyen Thai <lnthai21@clc.fitus.edu.vn>`,
+            to: user.email,
+            subject: "Activate Your Account",
+            html: `
+              <html>
+                <head>
+                  <style>
+                    body {
+                      font-family: 'Arial', sans-serif;
+                      line-height: 1.6;
+                      color: #333;
+                    }
+                    .container {
+                      max-width: 600px;
+                      margin: 0 auto;
+                    }
+                    .header {
+                      background-color: #4CAF50;
+                      color: white;
+                      padding: 20px;
+                      text-align: center;
+                    }
+                    .content {
+                      padding: 20px;
+                    }
+                    .footer {
+                      background-color: #f1f1f1;
+                      padding: 10px;
+                      text-align: center;
+                    }
+                  </style>
+                </head>
+                <body>
+                  <div class="container">
+                    <div class="header">
+                      <h1>Activate Your Account</h1>
+                    </div>
+                    <div class="content">
+                      <p>Dear <b> ${user.fullname} <b>,</p>
+                      <p>Welcome to our platform! To activate your account, please click the link below:</p>
+                      <a href="${linkActive}">${linkActive}</a>
+                      <p>This link will expire in 24 hours for security reasons.</p>
+                      <p>If you did not sign up for an account, you can ignore this email.</p>
+                      <p>Regards,</p>
+                      <p>Admin Le Nguyen Thai</p>
+                    </div>
+                    <div class="footer">
+                      <p>© 2023 SportiqueBliss </p>
+                    </div>
+                  </div>
+                </body>
+              </html>
+            `,
+        };
+
+        return sendMail(mailOptions);
+    } catch (error) {
+        throw error
+    }
+
+}
+
 const takeAccountProfileData = async function (id){
     try {
         let profile = await User.findById(id);
@@ -184,6 +318,8 @@ module.exports = {
     FilteredAndSortedUser,
     updateAProductToCart,
     getDetailCart,
+    sendActiveTokenToMail,
+    getAnUser,
     takeAccountProfileData,
     updateProfileData,
 }

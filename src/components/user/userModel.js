@@ -87,8 +87,13 @@ const UserScheme = new Schema({
     role: {
         type: String,
         default: "user",
-    }
-
+    },
+    active: {
+        type: Boolean,
+        default: false
+    },
+    activeToken: String,
+    activeExpires: Date,
 })
 
 UserScheme.pre("save", async function () {

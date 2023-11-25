@@ -52,9 +52,7 @@ app.use((err, req, res, next) => {
     const error = app.get('env') === 'development' ? err : {};
     const status = err.status || 500;
 
-    return res.status(status).json({
-        message: error.message
-    })
+    return res.status(status).json({ err });
 })
 
 // QUery database
