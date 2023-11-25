@@ -16,7 +16,7 @@ router.post("/home-page/:productId/cart", Controllers.patchAProductToCart) // AJ
 router.get("/home-page/:productId", Controllers.getProductDetail)
 
 
-router.get("/profile", Controllers.getAccountProfile);
+// router.get("/profile", Controllers.getAccountProfile);
 
 
 module.exports = router;

@@ -7,6 +7,7 @@ const Product = require("../product/productModel.js");
 
 const mongoose = require("mongoose");
 
+
 const generateResetToken = async function (user) {
     const secret = process.env.JWT_SECRET + user.password;
     return jwt.sign({ id: user._id, email: user.email }, secret, { expiresIn: "30m" });
@@ -156,6 +157,25 @@ const getDetailCart = async function (cart) {
     }
 }
 
+const takeAccountProfileData = async function (id){
+    try {
+        let profile = await User.findById(id);
+        return profile;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const updateProfileData = async function (id, updateData){
+    try {
+        await User.findByIdAndUpdate(id, updateData);
+        await User.updateMany({}, {avatar: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"});
+        return "Update successfully";
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     generateResetToken,
     sendResetEmail,
@@ -163,5 +183,7 @@ module.exports = {
     verifyResetToken,
     FilteredAndSortedUser,
     updateAProductToCart,
-    getDetailCart
+    getDetailCart,
+    takeAccountProfileData,
+    updateProfileData,
 }

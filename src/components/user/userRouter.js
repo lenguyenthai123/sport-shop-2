@@ -22,6 +22,11 @@ router.post("/user/home-page/:productId/cart", passport.authenticate('jwt', { se
 
 router.get("/user/home-page/:productId", passport.authenticate('jwt', { session: false }), Controllers.getProductDetail)
 
+//User profile
 router.get("/user/profile", passport.authenticate('jwt', { session: false }), Controllers.getAccountProfile);
+
+router.patch("/user/profile", passport.authenticate('jwt', { session: false }), Controllers.patchUserProfile);
+
+
 
 module.exports = router;

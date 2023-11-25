@@ -11,6 +11,8 @@ const Product = require("../product/productModel.js");
 const ProductService = require("../product/productService.js")
 const ReviewService = require("../review/reviewService.js")
 const UserService = require("./userService.js");
+const Jwt = require('jsonwebtoken');
+const { profile } = require("console");
 
 
 require('dotenv').config();
@@ -113,9 +115,25 @@ const getReviewsForPaging = async (req, res, next) => {
 }
 
 
-const getAccountProfile = (req, res, next) => {
+const getAccountProfile = async (req, res, next) => {
     try {
-        res.render("AccountProfile.ejs")
+        const token = req.cookies['token'];
+        Jwt.verify(token, process.env.JWT_SECRET, async (err, decode) => {
+            if(err){
+                console.log(err.message);
+                res.redirect('/login');
+            }
+            else{
+                console.log(decode);
+                profileData = await UserService.takeAccountProfileData(decode.id);
+                console.log(profileData);
+                if(profileData){
+
+                    res.render("AccountProfile.ejs", { user: profileData });
+                }
+            }
+        })
+        
     }
     catch (error) {
         next(error);
@@ -185,6 +203,26 @@ const getCart = async (req, res, next) => {
     }
 }
 
+const patchUserProfile = async (req, res, next) => {
+    try {
+        console.log(req.body);
+        const token = req.cookies['token'];
+        const decode = Jwt.verify(token, process.env.JWT_SECRET);
+        // if(err){
+        //     console.log(err.message);
+        //     res.redirect('/login');
+        // }
+        // else{
+        const response = await UserService.updateProfileData(decode.id, req.body);
+        console.log(response);
+        res.json({message : response});
+            
+        // }
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getHomePage,
     getProductDetail,
@@ -194,4 +232,5 @@ module.exports = {
     postAReview,
     getReviewsForPaging,
     patchAProductToCart,
+    patchUserProfile,
 }

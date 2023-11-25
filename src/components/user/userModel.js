@@ -31,7 +31,7 @@ const UserScheme = new Schema({
     },
     avatar: {
         type: String,
-
+        default: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"
     },
 
     address: {
@@ -42,6 +42,15 @@ const UserScheme = new Schema({
     dateOfBirth: {
         type: Date,
         default: Date.now(),
+    },
+    country: {
+        type: String,
+        trim: true,
+        default: "Vietnam",
+    },
+    phoneNumber : {
+        type: String,
+        trim: true
     },
     activation: {
         type: Boolean,
