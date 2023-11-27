@@ -119,21 +119,21 @@ const getAccountProfile = async (req, res, next) => {
     try {
         const token = req.cookies['token'];
         Jwt.verify(token, process.env.JWT_SECRET, async (err, decode) => {
-            if(err){
+            if (err) {
                 console.log(err.message);
                 res.redirect('/login');
             }
-            else{
+            else {
                 console.log(decode);
                 profileData = await UserService.takeAccountProfileData(decode.id);
                 console.log(profileData);
-                if(profileData){
+                if (profileData) {
 
                     res.render("AccountProfile.ejs", { user: profileData });
                 }
             }
         })
-        
+
     }
     catch (error) {
         next(error);
@@ -215,11 +215,26 @@ const patchUserProfile = async (req, res, next) => {
         // else{
         const response = await UserService.updateProfileData(decode.id, req.body);
         console.log(response);
-        res.json({message : response});
-            
+        res.json({ message: response });
+
         // }
     } catch (error) {
         next(error);
+    }
+}
+const checkRoleAndRedirect = async (req, res, next) => {
+    try {
+        const { role } = req.user;
+
+        if (role === "user") {
+            next();
+            return;
+        }
+        else {
+            res.redirect('/admin/home-page');
+        }
+    } catch (error) {
+
     }
 }
 
@@ -233,4 +248,5 @@ module.exports = {
     getReviewsForPaging,
     patchAProductToCart,
     patchUserProfile,
+    checkRoleAndRedirect
 }
