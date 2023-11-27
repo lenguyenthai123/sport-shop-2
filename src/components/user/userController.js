@@ -238,6 +238,28 @@ const checkRoleAndRedirect = async (req, res, next) => {
     }
 }
 
+const patchAvatarProfile = async (req, res, next) => {
+    try {
+        console.log("HEREW");
+        console.log(req.file);
+        if (req.file) {
+            const result = await UserService.updateAvatar(req.user, req.file);
+            console.log(result)
+            if (result) {
+                res.status(201).json({ message: "Avatar updated successfully", result });
+            }
+            else {
+                res.status(400).json({ message: "Invalid file provided" });
+            }
+        }
+        else {
+            res.status(400).json({ message: "Invalid file provided" });
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getHomePage,
     getProductDetail,
@@ -248,5 +270,6 @@ module.exports = {
     getReviewsForPaging,
     patchAProductToCart,
     patchUserProfile,
-    checkRoleAndRedirect
+    checkRoleAndRedirect,
+    patchAvatarProfile
 }

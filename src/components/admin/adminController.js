@@ -250,6 +250,25 @@ const getAdminProfile = (req, res, next) => {
     }
 }
 
+const patchAvatarProfile = async (req, res, next) => {
+    try {
+        if (req.file) {
+            const result = await UserService.updateAvatar(req.user, req.file);
+            if (result) {
+                res.status(201).json({ message: "Avatar updated successfully", result });
+            }
+            else {
+                res.status(400).json({ message: "Invalid file provided" });
+            }
+        }
+        else {
+            res.status(400).json({ message: "Invalid file provided" });
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getHomePage,
     getDashBoard,
@@ -261,6 +280,7 @@ module.exports = {
     getAccountDetail,
     getAdminProfile,
     getAccountPaging,
-    getProductsForPaging
+    getProductsForPaging,
+    patchAvatarProfile,
 
 }

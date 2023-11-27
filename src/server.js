@@ -9,7 +9,7 @@ const router = require("./routes/index.js");
 
 // const connection = require("./config/database.js")
 const connectionMongo = require("./config/dbMongo.js");
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const configSession = require("./config/session.js");
 
