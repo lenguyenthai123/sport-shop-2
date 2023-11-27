@@ -200,8 +200,6 @@ const getCart = async (req, res, next) => {
     }
 }
 
-
-
 const getAccountProfile = (req, res, next) => {
     try {
         res.render("AccountProfile.ejs")
@@ -210,6 +208,23 @@ const getAccountProfile = (req, res, next) => {
         next(error);
     }
 }
+
+const checkRoleAndRedirect = (req, res, next) => {
+    try {
+        if (!req.cookies.token) {
+            next();
+            return;
+        }
+        else {
+            res.redirect("/user/home-page");
+            return;
+        }
+    }
+    catch (error) {
+        next(error)
+    }
+}
+
 
 module.exports = {
     getHomePage,
@@ -220,6 +235,7 @@ module.exports = {
     getAccountProfile,
     getProductsForPaging,
     getReviewsForPaging,
-    patchAProductToCart
+    patchAProductToCart,
+    checkRoleAndRedirect,
 
 }

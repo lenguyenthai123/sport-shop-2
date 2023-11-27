@@ -7,7 +7,7 @@ require("../../middlewares/passport.js");
 const Controllers = require("./userController.js");
 
 
-router.get("/user/home-page", passport.authenticate('jwt', { session: false }), Controllers.getHomePage);
+router.get("/user/home-page", passport.authenticate('jwt', { session: false }), Controllers.checkRoleAndRedirect, Controllers.getHomePage);
 router.get("/user/home-page/products/paging", passport.authenticate('jwt', { session: false }), Controllers.getProductsForPaging);
 
 router.get("/user/home-page/cart", passport.authenticate('jwt', { session: false }), Controllers.getCart)

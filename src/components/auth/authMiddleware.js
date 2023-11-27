@@ -52,7 +52,6 @@ const signupValidators = [
         }
         return true;
     })
-
 ]
 
 const forgotPasswordValidator = [

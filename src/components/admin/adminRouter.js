@@ -17,6 +17,7 @@ const UploadProduct = upload.fields([
     { name: 'gallery', maxCount: 8 },
 ]);
 
+
 const checkAdmin = (req, res, next) => {
     if (req.user.role === `admin`) {
         return next();

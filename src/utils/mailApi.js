@@ -16,13 +16,6 @@ async function sendMail(mailOption) {
                 accessToken: accessToken
             }
         })
-        // const mailOption = {
-        //     from: `LENGUYEN THAI <lnthai21@clc.fitus.edu.vn>`,
-        //     to: `lnt0995449235@gmail.com`,
-        //     subject: "Hello from gmail using API",
-        //     text: "hello world",
-        //     html: `<h1> Hello from gmail </h1>`
-        // }
 
         const result = transport.sendMail(mailOption);
 

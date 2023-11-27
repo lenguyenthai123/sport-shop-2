@@ -48,7 +48,7 @@ const UserScheme = new Schema({
         trim: true,
         default: "Vietnam",
     },
-    phoneNumber : {
+    phoneNumber: {
         type: String,
         trim: true
     },
