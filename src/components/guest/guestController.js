@@ -230,6 +230,23 @@ const getAccountProfile = (req, res, next) => {
     }
 }
 
+const checkRoleAndRedirect = (req, res, next) => {
+    try {
+        if (!req.cookies.token) {
+            next();
+            return;
+        }
+        else {
+            res.redirect("/user/home-page");
+            return;
+        }
+    }
+    catch (error) {
+        next(error)
+    }
+}
+
+
 module.exports = {
     getHomePage,
     getDashBoard,
@@ -239,6 +256,7 @@ module.exports = {
     getAccountProfile,
     getProductsForPaging,
     getReviewsForPaging,
-    patchAProductToCart
+    patchAProductToCart,
+    checkRoleAndRedirect,
 
 }

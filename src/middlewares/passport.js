@@ -38,15 +38,12 @@ passport.use(new LocalStrategy(
     async function (username, password, done) {
         try {
             const user = await User.findOne({ username: username });
-            console.log(user);
             if (!user) {
                 return done(null, false);
 
             }
-            console.log("11111")
             const result = await user.comparePass(password);
             if (result) {
-                console.log("Yes");
                 done(null, user);
             }
             else {
@@ -57,7 +54,6 @@ passport.use(new LocalStrategy(
             done(error);
             return;
         }
-
     }
 ));
 passport.serializeUser(function (user, cb) {

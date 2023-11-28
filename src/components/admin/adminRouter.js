@@ -17,6 +17,7 @@ const UploadProduct = upload.fields([
     { name: 'gallery', maxCount: 8 },
 ]);
 
+
 const checkAdmin = (req, res, next) => {
     if (req.user.role === `admin`) {
         return next();
@@ -40,6 +41,7 @@ router.get("/admin/accountlist", passport.authenticate('jwt', { session: false }
 router.get("/admin/accountlist/paging", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAccountPaging)
 
 
+router.patch("/admin/profile/avatar", passport.authenticate('jwt', { session: false }), checkAdmin, upload.single("avatar"), Controllers.patchAvatarProfile);
 router.get("/admin/profile", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getAdminProfile)
 
 router.get("/admin/products/:productId", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.getProductDetail)

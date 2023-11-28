@@ -61,7 +61,6 @@ const getProductsForPaging = async (req, res, next) => {
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
 
-
         if (productList) {
             res.status(200).json({ productList: productList });
         }
@@ -73,7 +72,6 @@ const getProductsForPaging = async (req, res, next) => {
         next(error);
     }
 }
-
 
 const getDashBoard = (req, res, next) => {
     try {
@@ -95,7 +93,6 @@ const getProductDetail = async (req, res, next) => {
         if (productInfo) {
 
             // Render file in here! Pleases!!!!!!!!!
-
             res.status(200).json({ productInfo, relatedProducts, reviews });
         }
         else {
@@ -253,6 +250,25 @@ const getAdminProfile = (req, res, next) => {
     }
 }
 
+const patchAvatarProfile = async (req, res, next) => {
+    try {
+        if (req.file) {
+            const result = await UserService.updateAvatar(req.user, req.file);
+            if (result) {
+                res.status(201).json({ message: "Avatar updated successfully", result });
+            }
+            else {
+                res.status(400).json({ message: "Invalid file provided" });
+            }
+        }
+        else {
+            res.status(400).json({ message: "Invalid file provided" });
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     getHomePage,
     getDashBoard,
@@ -264,6 +280,7 @@ module.exports = {
     getAccountDetail,
     getAdminProfile,
     getAccountPaging,
-    getProductsForPaging
+    getProductsForPaging,
+    patchAvatarProfile,
 
 }

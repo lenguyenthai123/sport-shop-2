@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Profile</title>
     <link rel="stylesheet" href="/css/account_profile.css">
 </head>
+
 <body>
     <div class="start_info_frame">
         <div class="cover_image">
@@ -28,7 +30,7 @@
     </div>
     <div class="student_profile_frame">
         <div class="student_profile_frame_info">
-            <form action="" method="post" id="profileForm"  enctype="multipart/form-data">
+            <form action="" method="post" id="profileForm" enctype="multipart/form-data">
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="frame_info_2_column">
                     <div class="frame_info_column_1">
@@ -45,7 +47,8 @@
                         <div class="date_of_birth">
                             <span class="label">Date of birth</span>
                             <br>
-                            <input type="text" name="dateOfBirth" class="input_info" value="<%= user.dateOfBirth.toLocaleDateString() %>">
+                            <input type="text" name="dateOfBirth" class="input_info"
+                                value="<%= user.dateOfBirth.toLocaleDateString() %>">
                         </div>
                     </div>
                     <div class="frame_info_column_2">
@@ -54,7 +57,7 @@
                             <br>
                             <input disabled type="text" name="email" class="input_info" value="<%= user.email %>">
                         </div>
-                        <div class="phone_number">  
+                        <div class="phone_number">
                             <span class="label">Phone number</span>
                             <br>
                             <input type="text" name="phoneNumber" class="input_info" value="<%= user.phoneNumber %>">
@@ -65,13 +68,14 @@
                             <input type="text" name="country" class="input_info" value="<%= user.country %>">
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="address">
                     <span class="label">Address</span>
-                    <input type="text" name="address" class="input_info input_info--address" value="<%= user.address %>">
+                    <input type="text" name="address" class="input_info input_info--address"
+                        value="<%= user.address %>">
                 </div>
-                <button type="button" class="my_button" onclick="submitForm()" >Update Profile</button>                        
+                <button type="button" class="my_button" onclick="submitForm()">Update Profile</button>
             </form>
 
         </div>
@@ -79,7 +83,7 @@
     </div>
     <script>
         let updatedData = {};
-        
+
         const originalFormData = new FormData(document.getElementById('profileForm'));
 
         async function submitForm() {
@@ -101,15 +105,15 @@
             console.log("update data", updatedData);
 
             await fetch('/user/profile', {
-            method: 'PATCH', 
-            body: JSON.stringify(updatedData),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
+                method: 'PATCH',
+                body: JSON.stringify(updatedData),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
                 },
             })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
 
             // Perform other actions (e.g., submit the form)
         }
@@ -117,11 +121,11 @@
         let avatar = document.getElementById("image_avatar");
         let update_avatar_button = document.getElementById("update_avatar_button");
 
-        avatar.addEventListener("click", function() {
-            if(update_avatar_button.style.display == "" || update_avatar_button.style.display == "none"){
+        avatar.addEventListener("click", function () {
+            if (update_avatar_button.style.display == "" || update_avatar_button.style.display == "none") {
                 update_avatar_button.style.display = 'block';
             }
-            else if (update_avatar_button.style.display == "block"){
+            else if (update_avatar_button.style.display == "block") {
                 update_avatar_button.style.display = 'none';
             }
         })
@@ -130,4 +134,5 @@
 
     </script>
 </body>
+
 </html>
