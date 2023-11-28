@@ -55,7 +55,7 @@ const getHomePage = async (req, res, next) => {
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("HomePage_1.ejs", { productList: productList });
+            res.render("HomePage_Guest.ejs", { productList: productList });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -187,7 +187,7 @@ const getCart = async (req, res, next) => {
         const { detailCart, subTotal } = await GuestService.getProductByCart(cart);
 
         if (detailCart) {
-
+            // res.render("CartPage.ejs");
             //Render Here
             res.status(200).json({ cart: detailCart, subTotal });
         }
@@ -199,6 +199,27 @@ const getCart = async (req, res, next) => {
         next(error);
     }
 }
+
+const getCartPage = async (req, res, next) => {
+    try {
+        const { cart } = JSON.parse(req.cookies.cart);
+        const { detailCart, subTotal } = await GuestService.getProductByCart(cart);
+
+        if (detailCart) {
+            res.render("CartPage.ejs");
+            //Render Here
+            // res.status(200).json({ cart: detailCart, subTotal });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
 
 const getAccountProfile = (req, res, next) => {
     try {

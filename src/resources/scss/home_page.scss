@@ -11,7 +11,6 @@ body{
     flex-direction: column;
 }
 
-
 .home_logo img{
     width: 50px;
 }
@@ -955,3 +954,16 @@ body{
     }
 }
 
+.cart_button{
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+.cart_button:hover{
+    background-color: #f7f5f5;  
+    border-radius: 50%;
+    cursor: pointer;
+}
