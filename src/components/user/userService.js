@@ -314,9 +314,7 @@ const updateProfileData = async function (id, updateData) {
 
 const updateAvatar = async function (user, avatarFile) {
   try {
-    console.log(avatarFile);
     const avatar = await uploadToCloudinary(avatarFile, 300, 300);
-    console.log(avatar);
     user.avatar = avatar.url;
     await user.save();
     return user;

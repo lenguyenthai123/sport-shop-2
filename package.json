@@ -125,5 +125,8 @@
   "bugs": {
     "url": "https://github.com/lenguyenthai123/website/issues"
   },
-  "homepage": "https://github.com/lenguyenthai123/website#readme"
+  "homepage": "https://github.com/lenguyenthai123/website#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
