@@ -1,0 +1,125 @@
+.modal_cus_cart {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 10; }
+
+.overlay {
+  background-color: #7a7a7a;
+  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: absolute; }
+
+.shopping_cart {
+  width: 30vw;
+  height: 100vh;
+  background-color: white;
+  z-index: 11;
+  display: flex;
+  position: absolute;
+  right: 0;
+  /* justify-content: center; */
+  /* align-items: center; */
+  flex-direction: column;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  overflow: auto; }
+
+.shopping_cart_content {
+  padding-left: 30px;
+  padding-right: 30px;
+  position: relative;
+  width: 100%; }
+
+.cart_header {
+  font-weight: bold;
+  font-size: 20px;
+  padding: 20px 0px;
+  border-bottom: 1px solid #d2d0d0;
+  position: relative; }
+
+.close_cart_button {
+  position: absolute;
+  right: 24px;
+  top: 30%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; }
+
+.close_cart_button:hover {
+  cursor: pointer;
+  background-color: #eeeeee; }
+
+.image {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  background-color: #F7F7F7; }
+
+.woocommerce-mini-cart-item .mini_cart_item {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  border: none;
+  border-bottom: 1px solid #E9E9E9;
+  text-align: left; }
+
+.title {
+  flex-grow: 1;
+  margin: 0 15px; }
+
+.wrap-remove {
+  flex-shrink: 0;
+  text-align: right; }
+
+.cart_list {
+  list-style: none;
+  margin: 0; }
+
+.mini_cart_item .image img {
+  width: 100px;
+  height: 100px; }
+
+.widget_shopping_cart_content {
+  font-size: 16px; }
+
+.widget_shopping_cart_content--empty {
+  height: 65vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center; }
+
+.woocommerce-mini-cart__empty-message {
+  margin-top: 20px;
+  font-weight: bold; }
+
+.btn-shop-all {
+  text-decoration: none;
+  padding: 10px 30%;
+  background-color: #ffc300;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-top: 50px;
+  text-align: center; }
+
+.btn-shop-all:hover {
+  color: black; }
+
+.cart {
+  padding: 0; }

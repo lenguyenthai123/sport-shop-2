@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="/library/noUiSlider-15.7.1/noUiSlider-15.7.1/dist/nouislider.min.js"></script>
+    <link rel="stylesheet" href="/library/noUiSlider-15.7.1/noUiSlider-15.7.1/dist/nouislider.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="stylesheet" href="/css/home_page.css">
+    <link rel="stylesheet" href="/css/home_page2.css">
+</head>
+
+<body>
+
+
+    <div class="container overflow-hidden">
+        <div class="row navbar_cus">
+            <div class="col home_logo">
+                <a href="/home-page">
+                    <img src="/images/logo.png" alt="">
+
+                </a>
+            </div>
+            <div class="col">
+                <form class="searching_container">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <!-- <iframe src="date_range.html" frameborder="0"></iframe> -->
+            </div>
+            <div class="col">
+                <div class="home_setting">
+                    <div class="post_home">
+                        Contact shop
+                    </div>
+                    <div class="cart_button" id="cart_button">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
+                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License -
+                                 https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                 <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41
+                                  152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7
+                                   24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 
+                                   48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                        </svg>
+                    </div>
+                    <div class="account_setting" id="account_setting">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"
+                            role="presentation" focusable="false"
+                            style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;">
+                            <g fill="none">
+                                <path d="M2 16h28M2 24h28M2 8h28"></path>
+                            </g>
+                        </svg>
+                        <div class="home_avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"
+                                role="presentation" focusable="false"
+                                style="display: block; height: 100%; width: 100%; fill: currentcolor;">
+                                <path
+                                    d="M16 .7C7.56.7.7 7.56.7 16S7.56 31.3 16 31.3 31.3 24.44 31.3 16 24.44.7 16 .7zm0 28c-4.02 0-7.6-1.88-9.93-4.81a12.43 12.43 0 0 1 6.45-4.4A6.5 6.5 0 0 1 9.5 14a6.5 6.5 0 0 1 13 0 6.51 6.51 0 0 1-3.02 5.5 12.42 12.42 0 0 1 6.45 4.4A12.67 12.67 0 0 1 16 28.7z">
+                                </path>
+                            </svg>
+                            <div class="home_notification">
+                                1
+                            </div>
+                        </div>
+                        <div class="account_setting_option" id="account_setting_option">
+                            <div class="account_setting_option_authen">
+                                <a href="/signup">
+                                    <span>
+                                        Sign up
+                                    </span>
+                                </a>
+                                <a href="/login">
+                                    <span>
+                                        Log in
+                                    </span>
+                                </a>
+                            </div>
+                            <!-- <div class="seperate_line_1"></div> -->
+                            <!-- <div class="account_setting_option_more">
+                                <a href="/user/profile">
+                                    <span>
+                                        Account profile
+                                    </span>
+                                </a>
+                                <a href="">
+                                    <span>
+                                        Change password
+                                    </span>
+                                </a>
+                            </div>
+                        </div> -->
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row gx-6">
+            <div class="col-9 gy-4 home_hotel_type_list">
+                <div class="home_hotel_type" data-custom-value="NIKE">
+                    <img src="https://th.bing.com/th/id/R.2ddcd4f63591b5791f683b5042dc4418?rik=uWCyzmzztJvIbg&riu=http%3a%2f%2fpngimg.com%2fuploads%2fnike%2fnike_PNG1.png&ehk=Tnaf1XewweFJMNa9CdDB%2b1uXzu4Zb5ZFQzoah337Yro%3d&risl=&pid=ImgRaw&r=0"
+                        alt="">
+                    <span>Nike</span>
+                </div>
+                <div class="home_hotel_type" data-custom-value="ADIDAS">
+                    <img src="https://th.bing.com/th/id/R.4b367a49de6132f2dfe9d60c695edaeb?rik=P1r%2bie2jr9NPYg&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f2016%2f06%2fAdidas-Logo-Transparent.png&ehk=Gihr6qCE0oTPLeLeSeIXgnt4KZXDeQz20iJ4zr1JRrs%3d&risl=&pid=ImgRaw&r=0"
+                        alt="">
+                    <span>Adidas</span>
+                </div>
+                <div class="home_hotel_type" data-custom-value="PUMA">
+                    <img src="https://th.bing.com/th/id/R.20b832e7e341028cef5b6c6a7108b55d?rik=zWv%2fV3MjNJ0lWA&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fpuma-logo-png-puma-se-logo-300.png&ehk=3%2bPCPDGXQsYAByvGxzwbCbYy8vKZ6ySMSP%2bCjlJzAjk%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1"
+                        alt="">
+                    <span>Puma</span>
+                </div>
+                <div class="home_hotel_type" data-custom-value="REEBOK">
+                    <img src="https://freepngimg.com/thumb/reebok/29092-5-reebok-logo-photos.png" alt="">
+                    <span>Reebok</span>
+                </div>
+                <div class="home_hotel_type" data-custom-value="NEW BALANCE">
+                    <img src="https://www.pngkit.com/png/full/66-666606_w490l15-new-balance-white-logo.png" alt="">
+                    <span>New Balance</span>
+                </div>
+                <div class="home_hotel_type" data-custom-value="GARMIN">
+                    <img src="https://logodix.com/logo/576522.png" alt="">
+                    <span>Garmin</span>
+                </div>
+                <div class="home_hotel_type" data-custom-value="YONEX">
+                    <img src="https://clipground.com/images/yonex-logo-png-10.png" alt="">
+                    <span>Yonex</span>
+                </div>
+                <div class="home_hotel_type" data-custom-value="UNDER ARMOUR">
+                    <img src="https://th.bing.com/th/id/R.81352ae074146dcc7e35fa3a65653ab3?rik=%2fEHNB6WxYl5jvg&riu=http%3a%2f%2fjordanspieth.s3.amazonaws.com%2f05%2f49%2f4f2787e440c6a2601945fdb641fa%2funder-armour-color-svg.png&ehk=MS3Dtad%2fLiu%2fu4esD5piIgDB1N0yytXuo2WCGRtkFT8%3d&risl=&pid=ImgRaw&r=0" alt="">
+                    <span>Under Armour</span>
+                </div>
+                <div class="home_hotel_type" data-custom-value="VICTOR">
+                    <img src="https://seeklogo.com/images/V/victor-sport-logo-03F2CDFD3F-seeklogo.com.png" alt="">
+                    <span>Victor</span>
+                </div>
+                <div class="home_hotel_type" data-custom-value="MIZUNO">
+                    <img src="https://cdn.shopify.com/s/files/1/0277/5003/9639/files/mizuno-bird-logo_2x_5ee895de-d4db-48cf-8f4c-eea2d8657cba.png?v=1621994014"
+                        alt="">
+                    <span>Mizuno</span>
+                </div>
+            </div>
+
+            <%- include('FilterProduct') -%>
+
+                <div class="col-8 col-xl-2 col-lg-2 col-sm-8 home_option_for_tax">
+                    <select class="form-select" id="sort_selection" aria-label="Sort product">
+                        <option selected>Sort products</option>
+                        <option value="name-asc">Alphabetically, A-Z</option>
+                        <option value="name-desc">Alphabetically, Z-A</option>
+                        <option value="price-asc">Price, low to high</option>
+                        <option value="price-desc">Price, high to low</option>
+                        <option value="creationTime-asc">Date, new to old</option>
+                        <option value="creationTime-desc">Date, old to new</option>
+                    </select>
+                </div>
+        </div>
+        <div class="row gx-7" id="home_page_product">
+            <% for(let i = 0; i < productList.docs.length; i++){ %>
+                <div class="col-12 col-xl-3 col-lg-4 col-md-4 col-sm-6 gy-5">
+                    <div class="product">
+                        <div class="product_image">
+                            <img src= " <%= productList.docs[i].thumbnail %> "
+                            alt="Victor Thruster TK-TTY A Tai Tzu Ying Signature Badminton Racket">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" 
+                            aria-hidden="true" role="presentation" focusable="false">
+                            <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 
+                            6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>
+                            <div class="product_info_1_rate">
+                                <div class="star-icon">&#9733;</div>
+                                <span>4.88</span>
+
+                            </div>
+                        </div>
+                        <div class="product_info_1">
+                            <span><%= productList.docs[i].name %></span>
+                        </div>
+                        <div class="product_info_2">
+                            <span><%= productList.docs[i].description %></span>
+                            <span><%= productList.docs[i].manufacturer %></span>
+                            <div class="product_info_2_price">
+                                <span class="product_info_2_dollar">$ <%= productList.docs[i].price %></span>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="pagination-container"></div>
+
+    <%- include('Footer') -%>
+
+    <script>
+    const productPart = document.getElementById("home_page_product");
+    async function loadProductHtml(page) {
+        const curUrl = new URL(window.location.href);
+        curUrl.pathname = '/home-page/products/paging';
+
+        if (curUrl.searchParams.has('page')) {
+            curUrl.searchParams.set('page', page);
+        } else {
+            curUrl.searchParams.append('page', page);
+        }
+                
+        await fetch(curUrl.toString())
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            return data.productList;
+
+        })
+        .then(function (products){
+            let htmlContent = "";
+            products.docs.forEach(element => {
+                htmlContent += 
+                `<div class="col-12 col-xl-3 col-lg-4 col-md-4 col-sm-6 gy-5">
+                    <div class="product">
+                        <div class="product_image">
+                            <img src= "${element.thumbnail}"
+                            alt="${element.name}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" 
+                            aria-hidden="true" role="presentation" focusable="false">
+                            <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 
+                            6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>
+                            <div class="product_info_1_rate">
+                                <div class="star-icon">&#9733;</div>
+                                <span>4.88</span>
+
+                            </div>
+                        </div>
+                        <div class="product_info_1">
+                            <span>${element.name}</span>
+                        </div>
+                        <div class="product_info_2">
+                            <span>${element.description}</span>
+                            <span>${element.manufacturer}</span>
+                            <div class="product_info_2_price">
+                                <span class="product_info_2_dollar">$ ${element.price}</span>   
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            productPart.innerHTML = htmlContent;
+        })
+    }
+
+    document.addEventListener('DOMContentLoaded',async function () {
+
+        let totalPages = 10;
+        let currentPage = 1;
+        
+        const curUrl = new URL(window.location.href);
+        curUrl.pathname = '/home-page/products/paging';
+
+        await fetch(curUrl.toString())
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            totalPages = data.productList.totalPages;
+            return data.productList;
+
+        })
+
+        // Function to generate pagination HTML
+        function generatePagination() {
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = ''; // Clear previous content
+
+            for (let i = 1; i <= totalPages; i++) {
+                const paginationItem = document.createElement('li');
+                paginationItem.textContent = i;
+                paginationItem.className = 'pagination-item';
+                paginationItem.dataset.value = i;
+                
+                // Add active class to the current page
+                if (i === currentPage) {
+                    paginationItem.classList.add('active');
+                }
+
+                // Add click event listener to each pagination item
+                paginationItem.addEventListener('click', function () {
+                    currentPage = i;
+                    loadProductHtml(i);
+                    generatePagination(); // Re-generate pagination on click
+                });
+
+                paginationContainer.appendChild(paginationItem);
+                
+            }
+        }
+
+            
+        // Initial generation of pagination
+        generatePagination();
+        
+        
+    });
+    
+    const manufacturers = document.querySelectorAll(".home_hotel_type")
+
+    manufacturers.forEach((e)=>{
+        e.addEventListener("click", async function (){
+            const curUrl = new URL(window.location.href);
+
+            if (curUrl.searchParams.has('manufacturer')) {
+                curUrl.searchParams.set('manufacturer', e.getAttribute("data-custom-value"));
+            }
+            else {
+                curUrl.searchParams.append('manufacturer', e.getAttribute("data-custom-value"));
+            }
+
+            window.location.href = curUrl;
+        })
+    })
+
+    
+
+
+    const accountSetting = document.getElementById("account_setting");
+    const accountSettingOption = document.getElementById("account_setting_option");
+    accountSetting.addEventListener('click', function() {
+        console.log(accountSettingOption.style.display == "");
+        if(accountSettingOption.style.display == "" || accountSettingOption.style.display == "none"){
+            accountSettingOption.style.display = 'block';
+        }
+        else if (accountSettingOption.style.display == "block"){
+            accountSettingOption.style.display = 'none';
+        }
+    })
+
+    const sortSelection = document.getElementById("sort_selection");
+    sortSelection.addEventListener("change", async function () {
+        let selectedValue = sortSelection.value;
+        const parts = selectedValue.split('-');
+        const sortByOrder = parts[1];
+        const sortByField = parts[0];
+        console.log(parts);
+
+        const curUrl = new URL(window.location.href);
+
+        if (curUrl.searchParams.has('sortByOrder')) {
+            curUrl.searchParams.set('sortByOrder', sortByOrder);
+        }
+        else {
+            curUrl.searchParams.append('sortByOrder', sortByOrder);
+        }
+
+        if (curUrl.searchParams.has('sortByField')) {
+            curUrl.searchParams.set('sortByField', sortByField);
+        }
+        else {
+            curUrl.searchParams.append('sortByField', sortByField);
+        }
+
+        window.location.href = curUrl.toString();
+
+    })
+
+    const modal_cart_1 = document.getElementById("modal_cus_cart");
+    const cartButton = document.getElementById("cart_button");
+    cartButton.addEventListener("click", function(){
+        modal_cart_1.style.display = 'block'
+    })
+
+    </script>
+
+</body>
+
+</html>

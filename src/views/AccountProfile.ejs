@@ -1,81 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Profile</title>
     <link rel="stylesheet" href="/css/account_profile.css">
 </head>
+
 <body>
     <div class="start_info_frame">
         <div class="cover_image">
-            <img src="../../images/cover_image.jpg" alt="Cover Image">
+            <img src="/images/cover_image.jpg" alt="Cover Image">
         </div>
-        <div class="personal_circular_image">
-            <a href="./images/Identify_21127648.jpg">
-                <img src="./images/Identify_21127648.jpg" alt="Personal Image">
+        <div class="personal_circular_image" id="image_avatar">
+            <a>
+                <img src="<%= user.avatar %>" alt="Personal Image">
             </a>
+            <div class="update_avatar_button" id="update_avatar_button">
+                <button class="my_button">Update avatar</button>
+                <!-- <input type="file" value="Update Profile">           -->
+            </div>
         </div>
         <div class="start_info_text">
             <span class="start_info_name">
-                Nhat Nam Nguyen
-            </span>
-
-            <span class="start_info_uni">
-                University of Science, VNUHCM
+                <%= user.fullname%>
             </span>
         </div>
     </div>
     <div class="student_profile_frame">
         <div class="student_profile_frame_info">
-            <form action="" method="post">
+            <form action="" method="post" id="profileForm" enctype="multipart/form-data">
+                <input type="hidden" name="_method" value="PATCH">
                 <div class="frame_info_2_column">
                     <div class="frame_info_column_1">
                         <div class="student_id">
                             <span class="label">Username</span>
                             <br>
-                            <input type="text" class="input_info" value="NNNam1123">
+                            <input disabled type="text" name="username" class="input_info" value="<%= user.username %>">
                         </div>
                         <div class="full_name">
                             <span class="label">Full name</span>
                             <br>
-                            <input type="text" class="input_info" value="Nguyen Nhat Nam">
+                            <input type="text" name="fullname" class="input_info" value="<%= user.fullname %>">
                         </div>
                         <div class="date_of_birth">
                             <span class="label">Date of birth</span>
                             <br>
-                            <input type="text" class="input_info" value="12/11/2003">
+                            <input type="text" name="dateOfBirth" class="input_info"
+                                value="<%= user.dateOfBirth.toLocaleDateString() %>">
                         </div>
                     </div>
                     <div class="frame_info_column_2">
                         <div class="email">
                             <span class="label">Email</span>
                             <br>
-                            <input type="text" class="input_info" value="ngnhatnam24@gmail.com">
+                            <input disabled type="text" name="email" class="input_info" value="<%= user.email %>">
                         </div>
                         <div class="phone_number">
                             <span class="label">Phone number</span>
                             <br>
-                            <input type="text" class="input_info" value="0354422665">
+                            <input type="text" name="phoneNumber" class="input_info" value="<%= user.phoneNumber %>">
                         </div>
                         <div class="country">
                             <span class="label">Country</span>
                             <br>
-                            <input type="text" class="input_info" value="Vietnam">
+                            <input type="text" name="country" class="input_info" value="<%= user.country %>">
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="address">
                     <span class="label">Address</span>
-                    <br>
-                    <input type="text" class="input_info" value="227 Nguyen Van Cu, District 5, Ho Chi Minh city">
+                    <input type="text" name="address" class="input_info input_info--address"
+                        value="<%= user.address %>">
                 </div>
-                <button class="my_button" >Update Profile</button>                        
+                <button type="button" class="my_button" onclick="submitForm()">Update Profile</button>
             </form>
 
         </div>
 
     </div>
+    <script>
+        let updatedData = {};
+
+        const originalFormData = new FormData(document.getElementById('profileForm'));
+
+        async function submitForm() {
+            // Get the current form data
+            const currentFormData = new FormData(document.getElementById('profileForm'));
+
+            // Compare the original and current form data
+            for (const pair of originalFormData.entries()) {
+                const fieldName = pair[0];
+                const originalValue = pair[1];
+                const currentValue = currentFormData.get(fieldName);
+
+                if (originalValue !== currentValue) {
+                    console.log(`Field '${fieldName}' changed from '${originalValue}' to '${currentValue}'`);
+                    updatedData[fieldName] = currentValue;
+                }
+            }
+
+            console.log("update data", updatedData);
+
+            await fetch('/user/profile', {
+                method: 'PATCH',
+                body: JSON.stringify(updatedData),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+
+            // Perform other actions (e.g., submit the form)
+        }
+
+        let avatar = document.getElementById("image_avatar");
+        let update_avatar_button = document.getElementById("update_avatar_button");
+
+        avatar.addEventListener("click", function () {
+            if (update_avatar_button.style.display == "" || update_avatar_button.style.display == "none") {
+                update_avatar_button.style.display = 'block';
+            }
+            else if (update_avatar_button.style.display == "block") {
+                update_avatar_button.style.display = 'none';
+            }
+        })
+
+
+
+    </script>
 </body>
+
 </html>

@@ -295,18 +295,24 @@ body {
 .home_option_for_tax span {
   padding-right: 5%; }
 
-.home_option_for_tax button {
+.home_option_for_tax select {
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 12px 6px;
-  justify-content: space-around;
+  padding: 12px 20px;
+  justify-content: space-evenly;
   border: 1px solid #d2d0d0;
   border-radius: 10px;
   background-color: white;
   font-weight: bold;
   font-size: 15px; }
+
+.home_option_for_tax select:hover {
+  cursor: pointer; }
+
+.form-select option:hover {
+  cursor: pointer; }
 
 .star {
   width: 0;
@@ -390,7 +396,7 @@ body {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   /* Number of lines to show */
   max-height: 70px;
   margin-bottom: 10px; }
@@ -759,3 +765,16 @@ body {
 @media screen and (max-width: 739px) {
   .wide {
     width: 100%; } }
+
+.cart_button {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px; }
+
+.cart_button:hover {
+  background-color: #f7f5f5;
+  border-radius: 50%;
+  cursor: pointer; }
