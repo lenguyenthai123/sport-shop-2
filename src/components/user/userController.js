@@ -30,7 +30,7 @@ const getHomePage = async (req, res, next) => {
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("HomePage_User.ejs", { productList: productList });
+            res.render("HomePage_Guest.ejs", { productList: productList });
         }
         else {
             res.status(404).json({ message: "Not found" });

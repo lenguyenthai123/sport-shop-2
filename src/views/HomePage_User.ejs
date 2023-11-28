@@ -36,7 +36,7 @@
                     <div class="post_home">
                         Contact shop
                     </div>
-                    <div class="change_language">
+                    <div class="cart_button" id="cart_button">
                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
                             <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License -
                                  https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -94,9 +94,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
 
             </div>
@@ -193,10 +190,10 @@
                     </div>
                 </div>
                 <% } %>
+            </div>
         </div>
     </div>
 
-    <!-- <%- include('ViewProductsInCart') -%> -->
 
     <div id="pagination-container"></div>
 
@@ -261,19 +258,22 @@
         })
     }
 
-    document.addEventListener('DOMContentLoaded',async function () {
+    document.addEventListener('DOMContentLoaded', async function () {
 
         let totalPages = 10;
         let currentPage = 1;
         
         const curUrl = new URL(window.location.href);
-        curUrl.pathname = '/home-page/products/paging';
+        curUrl.pathname = '/user/home-page/products/paging';
+
+        console.log(curUrl.toString());
 
         await fetch(curUrl.toString())
         .then((response) => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
+            console.log(response);
             return response.json();
         })
         .then((data) => {
@@ -313,7 +313,6 @@
             
         // Initial generation of pagination
         generatePagination();
-        
         
     });
     
@@ -375,6 +374,13 @@
 
         window.location.href = curUrl.toString();
 
+    })
+
+    
+    const modal_cart_1 = document.getElementById("modal_cus_cart");
+    const cartButton = document.getElementById("cart_button");
+    cartButton.addEventListener("click", function(){
+        modal_cart_1.style.display = 'block'
     })
 
     </script>
