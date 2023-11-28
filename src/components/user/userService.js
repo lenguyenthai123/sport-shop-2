@@ -323,6 +323,36 @@ const updateAvatar = async function (user, avatarFile) {
   }
 }
 
+const getUserByConditions = async function (conditions) {
+  try {
+    const user = await User.findOne(conditions);
+    return user;
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+const getUserById = async function (id) {
+  try {
+    const user = await User.findById(id);
+    return user;
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+const save = async (user) => {
+  try {
+    await user.save();
+    console.log
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   generateResetToken,
   sendResetEmail,
@@ -336,4 +366,7 @@ module.exports = {
   takeAccountProfileData,
   updateProfileData,
   updateAvatar,
+  save,
+  getUserByConditions,
+  getUserById
 }

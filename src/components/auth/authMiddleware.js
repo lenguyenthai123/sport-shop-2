@@ -36,10 +36,10 @@ const signupValidators = [
             }
         }),
 
-    body("fullname").trim()
-        .notEmpty().withMessage("Fullname must not be empty")
-        .escape()
-    ,
+    // body("fullname").trim()
+    //     .notEmpty().withMessage("Fullname must not be empty")
+    //     .escape()
+    // ,
 
     body("password")
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
@@ -92,10 +92,30 @@ const updatePasswordValidator = [
     })
 ]
 
+const checkTokenAndActivationValidate = (req, res, next) => {
+    try {
+        if (req.cookies.token !== req.user.token) {
+            console.log(req.cookies.token);
+            console.log(req.user.token);
+            res.status(401).json({ message: "You have to login" });
+            return;
+        }
+        if (req.user.active === false) {
+            res.status(401).json({ message: "You have to verify your account" });
+            return;
+        }
+
+        next();
+    }
+    catch (error) {
+    }
+}
+
 module.exports = {
     loginValidators,
     signupValidators,
     forgotPasswordValidator,
     resetPasswordValidator,
-    updatePasswordValidator
+    updatePasswordValidator,
+    checkTokenAndActivationValidate,
 }
