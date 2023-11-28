@@ -126,6 +126,7 @@
   },
   "homepage": "https://github.com/lenguyenthai123/website#readme",
   "devDependencies": {
+    "node-sass": "^9.0.0",
     "nodemon": "^3.0.1"
   }
 }

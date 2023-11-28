@@ -303,7 +303,6 @@ const takeAccountProfileData = async function (id){
 const updateProfileData = async function (id, updateData){
     try {
         await User.findByIdAndUpdate(id, updateData);
-        await User.updateMany({}, {avatar: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"});
         return "Update successfully";
     } catch (error) {
         throw error;

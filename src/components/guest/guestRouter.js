@@ -7,7 +7,7 @@ router.get("/", Controllers.redirectHomePage);
 router.get("/home-page", Controllers.getHomePage);
 router.get("/home-page/products/paging", Controllers.getProductsForPaging);
 
-router.get("/home-page/cart", Controllers.getCart)
+router.get("/cart", Controllers.getCart)
 
 // Product detail and paging.
 router.get("/home-page/:productId/review", Controllers.getReviewsForPaging)
