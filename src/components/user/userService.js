@@ -302,13 +302,13 @@ const takeAccountProfileData = async function (id) {
   }
 }
 
-const updateProfileData = async function (id, updateData){
-    try {
-        await User.findByIdAndUpdate(id, updateData);
-        return "Update successfully";
-    } catch (error) {
-        throw error;
-    }
+const updateProfileData = async function (id, updateData) {
+  try {
+    await User.findByIdAndUpdate(id, updateData);
+    return "Update successfully";
+  } catch (error) {
+    throw error;
+  }
 }
 
 const updateAvatar = async function (user, avatarFile) {
@@ -322,6 +322,35 @@ const updateAvatar = async function (user, avatarFile) {
   }
 }
 
+const getUserByConditions = async function (conditions) {
+  try {
+    const user = await User.findOne(conditions);
+    return user;
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+const getUserById = async function (id) {
+  try {
+    const user = await User.findById(id);
+    return user;
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+const save = async (user) => {
+  try {
+    await user.save();
+    console.log
+  }
+  catch (error) {
+    throw error;
+  }
+}
 
 module.exports = {
   generateResetToken,
@@ -336,4 +365,7 @@ module.exports = {
   takeAccountProfileData,
   updateProfileData,
   updateAvatar,
+  save,
+  getUserByConditions,
+  getUserById
 }

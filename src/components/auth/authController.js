@@ -72,12 +72,11 @@ const getActivation = async (req, res, next) => {
         }
         else {
             foundedUser.active = true;
-            await foundedUser.save();
+            await UserService.save(foundedUser);
             res.status(200).send({ message: "Activation account successfully" });
         }
     }
     catch (error) {
-
     }
 }
 
@@ -108,11 +107,12 @@ const postLogin = async (req, res, next) => {
         }
 
         const user = req.user;
-        console.log(user);
-        user.latestLogin = Date.now();
 
-        await user.save();
+        user.latestLogin = Date.now();
         const token = await UserService.generateToken(user);
+        user.token = token;
+
+        await UserService.save(user);
 
         res.cookie("token", token, {
             maxAge: 60 * 60 * 1000,
@@ -136,12 +136,17 @@ const postLogin = async (req, res, next) => {
 }
 
 
-const getLogout = (req, res, next) => {
+const getLogout = async (req, res, next) => {
     try {
-        res.cookie("token", "", {
-            maxAge: -1,
-            httpOnly: true
-        });
+
+        // Clear token from user session
+        const user = req.user;
+        user.token = "";
+        await UserService.save(user);
+
+        res.clearCookie("token");
+
+
         res.redirect("/");
     } catch (error) {
 
@@ -168,7 +173,7 @@ const postForgotPassword = async (req, res, next) => {
         // Doing
         const { email } = req.body;
 
-        const user = await User.findOne({ email: email });
+        const user = await UserService.getUserByConditions({ email: email });
         if (!user) {
             res.status(404).json({ msg: "Email is not registered" });
         }
@@ -192,7 +197,7 @@ const getResetPassword = async (req, res, next) => {
     try {
         const { id, token } = req.query;
 
-        const user = await User.findById(id);
+        const user = await UserService.getUserById(id);
 
         if (!user) {
             res.status(404).json({ message: "Not found" });
@@ -228,7 +233,7 @@ const postResetPassword = async (req, res, next) => {
 
         const { id, token } = req.query;
 
-        const user = await User.findById(id);
+        const user = await UserService.getUserById(id);
 
         if (!user) {
             res.status(404).json({ message: "Not found user or id invalid!" });
@@ -243,7 +248,7 @@ const postResetPassword = async (req, res, next) => {
             }
 
             user.password = password;
-            await user.save();
+            await UserService.save(user);
 
             res.status(200).send("Change password successfully!");
             return;
@@ -284,7 +289,7 @@ const postUpdatePassword = async (req, res, next) => {
             }
 
             user.password = newPassword;
-            await user.save();
+            await UserService.save(user);
 
             res.cookie("token", "", {
                 maxAge: -1,

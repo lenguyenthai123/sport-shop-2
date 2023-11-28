@@ -94,6 +94,10 @@ const UserScheme = new Schema({
     },
     activeToken: String,
     activeExpires: Date,
+    token: {
+        type: String,
+        default: "token",
+    }
 })
 
 UserScheme.pre("save", async function () {
