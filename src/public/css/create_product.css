@@ -1,0 +1,162 @@
+html {
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    color: rgb(0, 0, 0);
+}
+
+.fix-center {
+    border: #bdc3c7;
+}
+
+
+button:focus {
+    outline: 0;
+}
+
+.navbar .container {
+    position: relative;
+}
+
+.tm-mt-big {
+    margin-top: 57px;
+}
+
+.tm-block {
+    padding: 40px;
+    -webkit-box-shadow: 1px 1px 5px 0 #455c71;
+    -moz-box-shadow: 1px 1px 5px 0 #455c71;
+    box-shadow: 1px 1px 5px 0 #455c71;
+    min-height: 350px;
+    height: 100%;
+    max-height: 450px;
+}
+
+.tm-block-h-auto {
+    min-height: 1px;
+    max-height: none;
+    height: auto;
+}
+
+.form-control {
+    background-color: #ffffff;
+    color: #333333;
+    /* border-color: black; */
+}
+
+.form-group label {
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.tm-bg-primary-dark {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: #213749;
+}
+
+.custom-select {
+    width: 100%;
+    height: 52px;
+    font-size: 15px;
+    border-radius: 5px;
+    border-color: #bdc3c7;
+    padding: 15px;
+    background: url(../img/arrow-down.png) 98% no-repeat #ffffff;
+}
+
+input::placeholder {
+    color: #acc6de;
+    /* Màu xám nhạt, bạn có thể điều chỉnh màu sắc theo mong muốn của bạn */
+}
+
+.tm-product-img-dummy {
+    max-width: 100%;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #aaa;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2ecc71;
+    border: 2px solid #2ecc71;
+    font-size: 90%;
+    font-weight: 600;
+}
+
+.btn {
+    border-radius: 10px;
+    padding: 13px 28px;
+    transition: all 0.2s ease;
+    max-width: 100%;
+}
+
+.btn-primary:active {
+    color: #2ecc71;
+    background-color: transparent;
+    border: 2px solid #2ecc71;
+}
+
+.btn-primary:hover {
+    color: #2ecc71;
+    background-color: transparent;
+    border: 2px solid #2ecc71;
+}
+
+.btn-submit-primary {
+    color: #fff;
+    background-color: #3498db;
+    border: 2px solid #3498db;
+    font-size: 90%;
+    font-weight: 600;
+}
+
+.btn-submit {
+    border-radius: 10px;
+    padding: 13px 28px;
+    transition: all 0.2s ease;
+    max-width: 100%;
+}
+
+.btn-submit-primary:active {
+    color: #3498db;
+    background-color: transparent;
+    border: 2px solid #3498db;
+}
+
+.btn-submit-primary:hover {
+    color: #3498db;
+    background-color: transparent;
+    border: 2px solid #3498db;
+}
+
+.error-popup {
+    display: none;
+    position: absolute;
+    background-color: #ffdddd;
+    color: #8b0000;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #f44336;
+    margin-top: 5px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}

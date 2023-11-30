@@ -12,6 +12,7 @@ const Product = require("../product/productModel.js");
 const ProductService = require("../product/productService.js")
 const UserService = require("../user/userService.js")
 const ReviewService = require("../review/reviewService.js");
+const CatalogService = require("../catalog/catalogService.js");
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
@@ -107,7 +108,6 @@ const getProductDetail = async (req, res, next) => {
 
 const getFormCreateNewProduct = (req, res, next) => {
     try {
-
         res.render("CreateNewProduct.ejs");
     }
     catch (error) {
@@ -115,7 +115,6 @@ const getFormCreateNewProduct = (req, res, next) => {
         next(error);
     }
 }
-
 
 
 const postANewProduct = async (req, res, next) => {
