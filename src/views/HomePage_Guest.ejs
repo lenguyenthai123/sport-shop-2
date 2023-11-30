@@ -92,14 +92,10 @@
                                         Change password
                                     </span>
                                 </a>
-                            </div>
-                        </div> -->
+                            </div> -->
+                        </div> 
                     </div>
-
-
-
                 </div>
-
             </div>
         </div>
         <div class="row gx-6">
@@ -152,17 +148,17 @@
 
             <%- include('FilterProduct') -%>
 
-                <div class="col-8 col-xl-2 col-lg-2 col-sm-8 home_option_for_tax">
-                    <select class="form-select" id="sort_selection" aria-label="Sort product">
-                        <option selected>Sort products</option>
-                        <option value="name-asc">Alphabetically, A-Z</option>
-                        <option value="name-desc">Alphabetically, Z-A</option>
-                        <option value="price-asc">Price, low to high</option>
-                        <option value="price-desc">Price, high to low</option>
-                        <option value="creationTime-asc">Date, new to old</option>
-                        <option value="creationTime-desc">Date, old to new</option>
-                    </select>
-                </div>
+            <div class="col-8 col-xl-2 col-lg-2 col-sm-8 home_option_for_tax">
+                <select class="form-select" id="sort_selection" aria-label="Sort product">
+                    <option selected>Sort products</option>
+                    <option value="name-asc">Alphabetically, A-Z</option>
+                    <option value="name-desc">Alphabetically, Z-A</option>
+                    <option value="price-asc">Price, low to high</option>
+                    <option value="price-desc">Price, high to low</option>
+                    <option value="creationTime-asc">Date, new to old</option>
+                    <option value="creationTime-desc">Date, old to new</option>
+                </select>
+            </div>
         </div>
         <div class="row gx-7" id="home_page_product">
             <% for(let i = 0; i < productList.docs.length; i++){ %>

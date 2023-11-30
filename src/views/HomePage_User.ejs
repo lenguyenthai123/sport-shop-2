@@ -95,7 +95,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="row gx-6">
@@ -203,7 +202,7 @@
     const productPart = document.getElementById("home_page_product");
     async function loadProductHtml(page) {
         const curUrl = new URL(window.location.href);
-        curUrl.pathname = '/home-page/products/paging';
+        curUrl.pathname = '/user/home-page/products/paging';
 
         if (curUrl.searchParams.has('page')) {
             curUrl.searchParams.set('page', page);
