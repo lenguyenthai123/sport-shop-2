@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/create_product.css">
     <!-- <link rel="stylesheet" href="mau.css"> -->
 
-    <title>Document</title>
+    <title>Create New Product</title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
                             <h2 class="tm-block-title d-inline-block title">Add Product</h2>
                         </div>
                     </div>
-                    <form action="/" method="POST" class="tm-edit-product-form" enctype="multipart/form-data">
+                    <form action="" method="POST" class="tm-edit-product-form" enctype="multipart/form-data">
 
                         <div class="row tm-edit-product-row">
 
@@ -41,13 +41,15 @@
                                         placeholder="Type your description..."></textarea>
                                 </div>
                                 <div class="form-group mb-3">
+                                    <input type="hidden" id="catalogId" name="catalogId" value="">
                                     <label for="category">Category</label>
-                                    <select class="custom-select tm-select-accounts" id="catalog" required>
+                                    <select class="custom-select tm-select-accounts" id="catalogId-select" required>
                                         <option value="" selected="">Select category</option>
-                                        <option value="1">Shirt</option>
-                                        <option value="2">Pant</option>
-                                        <option value="3">Shoes</option>
-                                        <option value="4">Equipment</option>
+                                        <% for(let i=0; i < catalogList.length; i++){ %>
+                                            <option value="<%= catalogList[i]._id %>">
+                                                <%= catalogList[i].name %>
+                                            </option>
+                                            <% } %>
                                     </select>
                                 </div>
                                 <div class="row">
@@ -67,33 +69,29 @@
                                     </div>
 
                                 </div>
-                                <div class="row">
-                                    <div id="price-error" class="form-group mb-3 col-xs-12 col-sm-6">
-
-                                    </div>
-                                    <div id="discount-error" class="form-group mb-3 col-xs-12 col-sm-6">
-
-                                    </div>
-
-                                </div>
 
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
                                 <div class="row">
                                     <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <input type="hidden" id="status" name="status" value="">
+
                                         <label for="stock">Status
                                         </label>
-                                        <select class="custom-select tm-select-accounts" id="status" required>
+                                        <select class="custom-select tm-select-accounts" id="status-select" required>
                                             <option value="" selected="">Select status</option>
-                                            <option value="1">In Stock</option>
-                                            <option value="2">Pre Order</option>
-                                            <option value="3">Out of Stock</option>
+                                            <option value="In Stock">In Stock</option>
+                                            <option value="Pre Order">Pre Order</option>
+                                            <option value="Out of Stock">Out of Stock</option>
                                         </select>
                                     </div>
                                     <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <input type="hidden" id="manufacturer" name="manufacturer" value="">
+
                                         <label for="name">Manufacturer
                                         </label>
-                                        <select class="custom-select tm-select-accounts" id="manufacturer" required>
+                                        <select class="custom-select tm-select-accounts" id="manufacturer-select"
+                                            required>
                                             <option value="" selected="">Select</option>
                                             <option value="NIKE">Nike</option>
                                             <option value="ADIDAS">Adidas</option>
@@ -113,8 +111,8 @@
                                             onclick="document.getElementById('fileInput').click();"></i>
                                     </div> -->
                                     <div class="custom-file mt-3 mb-2">
-                                        <input id="thumbnail" class="btn btn-primary btn-block mx-auto" type="file"
-                                            style="display:none;" accept="image/*">
+                                        <input name="thumbnail" id="thumbnail" class="btn btn-primary btn-block mx-auto"
+                                            type="file" style="display:none;" accept="image/*">
                                         <input type="button" class="btn btn-primary btn-block mx-auto"
                                             value="UPLOAD THUMBNAIL"
                                             onclick="document.getElementById('thumbnail').click();">
@@ -124,7 +122,8 @@
 
 
                                     <div class="custom-file mt-3 mb-10">
-                                        <input id="gallery" type="file" style="display:none;" accept="image/*" multiple>
+                                        <input name="gallery" id="gallery" type="file" style="display:none;"
+                                            accept="image/*" multiple>
                                         <input type="button" class="btn btn-primary btn-block mx-auto"
                                             value="UPLOAD GALLERY"
                                             onclick="document.getElementById('gallery').click();">
@@ -157,6 +156,29 @@
 
         const price = document.querySelector("#price");
 
+        const manufacturerSelect = document.querySelector("#manufacturer-select");
+        const manufacturer = document.querySelector("#manufacturer");
+
+        const statusSelect = document.querySelector("#status-select");
+        const status = document.querySelector("#status");
+
+        const catalogIdSelect = document.querySelector("#catalogId-select");
+        const catalogId = document.querySelector("#catalogId");
+
+        catalogIdSelect.addEventListener("change", () => {
+            catalogId.value = catalogIdSelect.value;
+            console.log(catalogIdSelect.value);
+        })
+
+        manufacturerSelect.addEventListener("change", () => {
+            manufacturer.value = manufacturerSelect.value;
+            console.log(manufacturerSelect.value);
+        })
+
+        statusSelect.addEventListener("change", () => {
+            status.value = statusSelect.value;
+            console.log(statusSelect.value);
+        })
 
         uploadThumbnail.addEventListener("change", (e) => {
             const files = uploadThumbnail.files;

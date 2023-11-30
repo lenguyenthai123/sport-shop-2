@@ -106,9 +106,10 @@ const getProductDetail = async (req, res, next) => {
     }
 }
 
-const getFormCreateNewProduct = (req, res, next) => {
+const getFormCreateNewProduct = async (req, res, next) => {
     try {
-        res.render("CreateNewProduct.ejs");
+        const catalogList = await CatalogService.getAllCatalog();
+        res.render("CreateNewProduct.ejs", { catalogList });
     }
     catch (error) {
         console.log(error);
