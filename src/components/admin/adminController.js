@@ -12,6 +12,7 @@ const Product = require("../product/productModel.js");
 const ProductService = require("../product/productService.js")
 const UserService = require("../user/userService.js")
 const ReviewService = require("../review/reviewService.js");
+const CatalogService = require("../catalog/catalogService.js");
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
@@ -105,17 +106,16 @@ const getProductDetail = async (req, res, next) => {
     }
 }
 
-const getFormCreateNewProduct = (req, res, next) => {
+const getFormCreateNewProduct = async (req, res, next) => {
     try {
-
-        res.render("CreateNewProduct.ejs");
+        const catalogList = await CatalogService.getAllCatalog();
+        res.render("CreateNewProduct.ejs", { catalogList });
     }
     catch (error) {
         console.log(error);
         next(error);
     }
 }
-
 
 
 const postANewProduct = async (req, res, next) => {

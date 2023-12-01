@@ -1,0 +1,296 @@
+* {
+    /* max-width: 1440px ; */
+}
+
+.p-15 {
+    padding: 15px;
+}
+
+.container {
+    max-width: 1440px !important;
+
+}
+
+.container .img-banner>.row {
+    margin: 0;
+    height: 640px;
+}
+
+
+
+.img-banner .main-img,
+.img-banner .sub-imgs,
+.img-banner .row {
+    padding: 0px;
+}
+
+
+.wrapper-main-img {
+    width: 100%;
+    height: 100%;
+}
+
+.main-img {
+    width: 100%;
+    height: 100%;
+    padding-right: 30px !important;
+    position: relative;
+
+}
+
+.main-img .img {
+    object-fit: cover;
+    /* Đảm bảo ảnh không bị biến dạng */
+    filter: blur(1px);
+    /* Điều chỉnh độ mờ của viền */
+
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.main-img .active {
+    opacity: 1;
+}
+
+.sub-imgs div[class*="sub-img"] {
+
+    height: 50%;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+}
+
+.sub-img1 {
+    padding-bottom: 15px !important;
+    padding-left: 15px !important;
+}
+
+.sub-img2 {
+    padding-top: 15px !important;
+    padding-left: 15px !important;
+}
+
+.img-cover {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.img-banner {
+    position: relative;
+}
+
+.img-banner .sub-imgs {
+    height: 100%;
+}
+
+.content-main-img {
+    position: absolute;
+    top: 16%;
+    z-index: 1;
+}
+
+
+.wrapper-content-top {
+    opacity: 0;
+    max-height: 0;
+
+    overflow: hidden;
+    animation: slideDown 1s ease-out;
+    animation-fill-mode: forwards;
+    color: #fff;
+
+}
+
+.wrapper-content-bottom {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    animation: slideUp 1s ease-out;
+    animation-fill-mode: forwards;
+    color: #fff;
+
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.show {
+    opacity: 1;
+    max-height: 1000px;
+}
+
+.text-sale-number {
+    background-color: rgb(219, 68, 68);
+    padding: 4px;
+    width: fit-content;
+    margin: 0 0 12px 45px;
+}
+
+.text-sale {
+    font-size: 44px;
+    width: 350px;
+    margin: 0 0 16px 45px;
+}
+
+.sub-text-sale {
+    margin: 0 0 32px 45px;
+}
+
+.shop-now {
+    margin: 0 0 0px 45px;
+    padding: 14px 40px 11px;
+    background-color: #C3E92D;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.content-main-img:active .wrapper-content-top,
+.content-main-img:active .wrapper-content-bottom {
+    opacity: 1;
+    max-height: 1000px;
+
+}
+
+
+
+.shop-now:hover {
+    cursor: pointer;
+    background-color: black;
+    color: #fff;
+}
+
+.control-nav-main-img {
+    margin: 120px 0 32px 45px;
+    z-index: 1;
+    display: flex;
+    position: absolute;
+    bottom: 40px;
+
+
+}
+
+.control-nav-main-img a {
+    border-radius: 10px;
+    background-color: #fff;
+    width: 10px;
+    height: 10px;
+    display: block;
+    margin-right: 4px;
+   
+  
+}
+
+.control-nav-main-img a:hover {
+    background-color: #C3E92D;
+    
+}
+
+
+.flex-active {
+    width: 32px !important;
+    background-color: #C3E92D !important;
+
+}
+
+
+.wrapper-shop-category {
+    padding: 90px 0 0;
+
+}
+
+.shop-category {
+    list-style: none;
+    display: flex;
+    padding: 0px;
+}
+
+.header-shop-category {
+    font-size: 44px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.shop-category li {
+    margin-right: 52.5px;
+}
+
+.shop-category li img {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    transition: all 0.5s ease-in-out;
+
+}
+
+
+.shop-category li img:hover {
+    scale: 1.1;
+    cursor: pointer;
+    transform: translateY(-12px);
+
+}
+
+.text-header-category {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 12px;
+}
+
+.text-header-category:hover {
+    color: #C3E92D;
+    cursor: pointer;
+   
+}
+
+
+.service{
+    margin-top: 4rem;
+    background-color: #F7F7F7;
+    text-align: center;
+    padding: 22px 20px 20px;
+}
+
+.text-header-service{
+    font-size: 20px;
+    padding: 12px 0;
+}
+.text-sub-service{
+    font-size: 14px;
+    opacity: 0.6;
+    line-height: 1.6;
+    
+}
+
+
+.service .col-3 svg{
+    transition: transform 0.3s ease;
+}
+
+.service .col-3 svg:hover{
+    scale: 1.1;
+    transform: rotate(-1deg);
+}
