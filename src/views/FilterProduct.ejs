@@ -158,19 +158,6 @@
             });
         });
     
-        const showMoreButton = document.getElementById('show-more');
-        const additionalCheckboxes = document.querySelector('.additional-checkboxes-amen');
-    
-        showMoreButton.addEventListener('click', function (e) {
-        e.preventDefault();
-          if (additionalCheckboxes.style.display === 'none' || additionalCheckboxes.style.display === '') {
-            additionalCheckboxes.style.display = 'block';
-            showMoreButton.textContent = 'Show less';
-          } else {
-            additionalCheckboxes.style.display = 'none';
-            showMoreButton.textContent = 'Show more';
-          }
-        });
     
         function clearForm() {
             var form = document.getElementById("filter_form");

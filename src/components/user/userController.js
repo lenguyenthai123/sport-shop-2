@@ -239,7 +239,10 @@ const checkRoleAndRedirect = async (req, res, next) => {
 }
 
 const patchAvatarProfile = async (req, res, next) => {
+    console.log("PATCH AVA");
+    console.log(req.headers);
     try {
+        
         if (req.file) {
             const result = await UserService.updateAvatar(req.user, req.file);
             if (result) {

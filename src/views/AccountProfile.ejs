@@ -18,7 +18,7 @@
                 <img src="<%= user.avatar %>" alt="Personal Image">
             </a>
             <div class="update_avatar_button" id="update_avatar_button">
-                <button class="my_button">Update avatar</button>
+                <button onclick="openModal()" class="my_button">Update avatar</button>
                 <!-- <input type="file" value="Update Profile">           -->
             </div>
         </div>
@@ -81,7 +81,71 @@
         </div>
 
     </div>
+
+    <div id="modal_cus">
+        <div id="modal-content">
+          <span id="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Upload Avatar</h2>
+          <form method="post" action="/user/profile/avatar" onsubmit="announceSuccess()" enctype="multipart/form-data">
+            <label for="avatar">Choose a file:</label>
+                <input type="file" id="avatar" name="avatar" required accept=".jpg, .jpeg, .png">
+            <br>
+            <input class="submit_avatar_button" type="submit" value="Upload">
+          </form>
+        </div>
+    </div>
+
     <script>
+        function openModal() {
+            document.getElementById('modal_cus').style.display = 'flex';
+        }
+        
+
+        function closeModal() {
+            document.getElementById('modal_cus').style.display = 'none';
+        }
+
+        function announceSuccess(){
+            alert("Update avatar successfully");
+        }
+
+        // async function sendImage() {
+        //     const fileInput = document.getElementById('avatar');
+        //     const file = fileInput.files[0];
+
+        //     if (file) {
+        //         const url = '/user/profile/avatar';
+
+                
+        //         const formData = new FormData();
+        //         formData.append('avatar', file);
+                
+        //         const contentType = `multipart/form-data; boundary=${formData._boundary}`;
+
+        //         await fetch(url, {
+        //             method: 'POST',
+        //             body: formData,
+        //             headers: {
+        //                 'Content-Type': contentType,
+        //             }
+        //         })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             // Handle the server response
+        //             console.log('Server response:', data);
+        //             if(data.message) alert(data.message);
+        //         })
+        //         .catch(error => {
+        //         // Handle errors
+        //             console.error('Error during file upload:', error);
+        //             alert('Error during file upload. Please try again.');
+        //         });
+        //     } else {
+        //         alert('Please choose a file before uploading.');
+        //     }
+        // }
+        
+
         let updatedData = {};
 
         const originalFormData = new FormData(document.getElementById('profileForm'));
