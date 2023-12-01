@@ -32,7 +32,7 @@ router.get("/user/home-page/:productId", passport.authenticate('jwt', { session:
 //User profile
 router.get("/user/profile", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.getAccountProfile);
 
-router.post("/user/profile/avatar", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, upload.single("avatar"), Controllers.patchAvatarProfile);
+router.patch("/user/profile/avatar", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, upload.single("avatar"), Controllers.patchAvatarProfile);
 router.patch("/user/profile", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.patchUserProfile);
 
 
