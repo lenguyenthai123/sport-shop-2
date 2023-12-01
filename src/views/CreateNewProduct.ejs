@@ -6,36 +6,220 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/create_product.css">
+    <!-- <link rel="stylesheet" href="mau.css"> -->
+
+    <title>Create New Product</title>
 </head>
 
 <body>
-    <div class="page-header">
-        <div class="row align-items-center">
-            <div class="col-sm mb-2 mb-sm-0">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb breadcrumb-no-gutter">
-                        <li class="breadcrumb-item"><a class="breadcrumb-link"
-                                href="https://htmlstream.com/front-dashboard/ecommerce-products.html">Products</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Add Product</li>
-                    </ol>
-                </nav>
+    <div class="container tm-mt-big tm-mb-big fix-center">
+        <div class="row">
+            <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+                <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title d-inline-block title">Add Product</h2>
+                        </div>
+                    </div>
+                    <form action="" method="POST" class="tm-edit-product-form" enctype="multipart/form-data">
 
-                <h1 class="page-header-title">Add Product</h1>
+                        <div class="row tm-edit-product-row">
 
-                <div class="mt-2">
-                    <a class="text-body me-3" href="javascript:;">
-                        <i class="bi-clipboard me-1"></i> Duplicate
-                    </a>
-                    <a class="text-body" href="javascript:;">
-                        <i class="bi-eye me-1"></i> Preview
-                    </a>
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group mb-3">
+                                    <label for="name">Product Name
+                                    </label>
+                                    <input id="name" name="name" type="text" class="form-control validate" required=""
+                                        placeholder="Shirt, t-shirts, etc.">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control validate" rows="3" required=""
+                                        placeholder="Type your description..."></textarea>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input type="hidden" id="catalogId" name="catalogId" value="">
+                                    <label for="category">Category</label>
+                                    <select class="custom-select tm-select-accounts" id="catalogId-select" required>
+                                        <option value="" selected="">Select category</option>
+                                        <% for(let i=0; i < catalogList.length; i++){ %>
+                                            <option value="<%= catalogList[i]._id %>">
+                                                <%= catalogList[i].name %>
+                                            </option>
+                                            <% } %>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label for="price">Price
+                                        </label>
+                                        <input id="price" name="price" type="number" autocomplete="off"
+                                            class="form-control validate hasDatepicker" data-large-mode="true" required
+                                            min="0" placeholder="0.00">
+                                    </div>
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label for="discount">Discount(%)
+                                        </label>
+                                        <input id="discount" name="discount" type="number" autocomplete="off"
+                                            placeholder="0" class="form-control validate hasDatepicker"
+                                            data-large-mode="true" required min="0" max="100">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                                <div class="row">
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <input type="hidden" id="status" name="status" value="">
+
+                                        <label for="stock">Status
+                                        </label>
+                                        <select class="custom-select tm-select-accounts" id="status-select" required>
+                                            <option value="" selected="">Select status</option>
+                                            <option value="In Stock">In Stock</option>
+                                            <option value="Pre Order">Pre Order</option>
+                                            <option value="Out of Stock">Out of Stock</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <input type="hidden" id="manufacturer" name="manufacturer" value="">
+
+                                        <label for="name">Manufacturer
+                                        </label>
+                                        <select class="custom-select tm-select-accounts" id="manufacturer-select"
+                                            required>
+                                            <option value="" selected="">Select</option>
+                                            <option value="NIKE">Nike</option>
+                                            <option value="ADIDAS">Adidas</option>
+                                            <option value="PUMA">Puma</option>
+                                            <option value="REEBOK">ReeBok</option>
+                                            <option value="NEW BALANCE">New Balance</option>
+                                            <option value="GARMIN">Garmin</option>
+                                            <option value="YONEX">Yonex</option>
+                                            <option value="UNDER ARMOUR">Under Armour</option>
+                                            <option value="VICTOR">Victor</option>
+                                            <option value="MIZUNO">Mizuno</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- <div class="tm-product-img-dummy mx-auto mt-3">
+                                        <i class="fas fa-cloud-upload-alt tm-upload-icon"
+                                            onclick="document.getElementById('fileInput').click();"></i>
+                                    </div> -->
+                                    <div class="custom-file mt-3 mb-2">
+                                        <input name="thumbnail" id="thumbnail" class="btn btn-primary btn-block mx-auto"
+                                            type="file" style="display:none;" accept="image/*">
+                                        <input type="button" class="btn btn-primary btn-block mx-auto"
+                                            value="UPLOAD THUMBNAIL"
+                                            onclick="document.getElementById('thumbnail').click();">
+                                    </div>
+                                    <div id="thumbnailState" class="mt-3">
+                                    </div>
+
+
+                                    <div class="custom-file mt-3 mb-10">
+                                        <input name="gallery" id="gallery" type="file" style="display:none;"
+                                            accept="image/*" multiple>
+                                        <input type="button" class="btn btn-primary btn-block mx-auto"
+                                            value="UPLOAD GALLERY"
+                                            onclick="document.getElementById('gallery').click();">
+                                    </div>
+
+                                    <div id="galleryState" class="mt-3">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn-submit btn-submit-primary btn-block text-uppercase">Add
+                                    Product
+                                    Now</button>
+                            </div>
+                    </form>
+
                 </div>
             </div>
-            <!-- End Col -->
         </div>
-        <!-- End Row -->
     </div>
+    </div>
+    <script>
+        const uploadThumbnail = document.querySelector("#thumbnail");
+        const thumbnailState = document.querySelector("#thumbnailState");
+
+        const uploadGallery = document.querySelector("#gallery");
+        const galleryState = document.querySelector("#galleryState");
+
+        const price = document.querySelector("#price");
+
+        const manufacturerSelect = document.querySelector("#manufacturer-select");
+        const manufacturer = document.querySelector("#manufacturer");
+
+        const statusSelect = document.querySelector("#status-select");
+        const status = document.querySelector("#status");
+
+        const catalogIdSelect = document.querySelector("#catalogId-select");
+        const catalogId = document.querySelector("#catalogId");
+
+        catalogIdSelect.addEventListener("change", () => {
+            catalogId.value = catalogIdSelect.value;
+            console.log(catalogIdSelect.value);
+        })
+
+        manufacturerSelect.addEventListener("change", () => {
+            manufacturer.value = manufacturerSelect.value;
+            console.log(manufacturerSelect.value);
+        })
+
+        statusSelect.addEventListener("change", () => {
+            status.value = statusSelect.value;
+            console.log(statusSelect.value);
+        })
+
+        uploadThumbnail.addEventListener("change", (e) => {
+            const files = uploadThumbnail.files;
+            console.log(files);
+            if (files.length > 0) {
+
+                thumbnailState.textContent = `Upload file: ${rutgon(files[0].name)}`;
+                thumbnailState.style.color = `#000000`;
+                thumbnailState.style.fontWeight = "300";
+            }
+
+        });
+
+        function rutgon(s) {
+            if (s.length < 34) {
+                return s;
+            }
+            else {
+                const ans = s.slice(0, 12) + "..." + s.slice(s.length - 18, s.length);
+                return ans;
+            }
+        }
+
+        uploadGallery.addEventListener("change", (e) => {
+            const files = uploadGallery.files;
+            console.log(files);
+            if (files.length > 0) {
+                galleryState.innerHTML = `Upload file:</br>`;
+                for (let i = 0; i < files.length; i++) {
+                    galleryState.innerHTML += `- ${rutgon(files[i].name)}</br>`;
+                    // galleryState.innerHTML += `${files[i].name.length}</br>`;
+                }
+                galleryState.innerHTML += "";
+                // #acc6de
+                galleryState.style.color = `#000000`;
+                galleryState.style.fontWeight = "300";
+            }
+        })
+
+
+    </script>
 </body>
 
 </html>
