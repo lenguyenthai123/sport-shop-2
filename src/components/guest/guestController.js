@@ -15,7 +15,16 @@ const GuestService = require("./guestService.js");
 
 require('dotenv').config();
 
-const getHomePage = async (req, res, next) => {
+const getHomePage = (req, res, next) => {
+    try {
+        res.render("Homepage_1.ejs", {isLoggedIn: false});
+    }
+    catch {
+        next(error);
+    }
+}
+
+const getAllProductPage = async (req, res, next) => {
     try {
         // Set up cookie cart for guest
 
@@ -55,7 +64,7 @@ const getHomePage = async (req, res, next) => {
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("HomePage_Guest.ejs", { productList: productList });
+            res.render("AllProduct.ejs", { productList: productList, isLoggedIn: false });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -135,6 +144,30 @@ const getProductDetail = async (req, res, next) => {
         next(error);
     }
 }
+
+const getProductDetailInfo = async (req, res, next) => {
+    try {
+
+        const productId = req.params.productId || "None";
+        const { productInfo, relatedProducts } = await ProductService.getAnProductDetail(productId);
+        const reviews = await ReviewService.filteredAndGetPagingReviews(productId, 1); // Default 1 when init.
+
+        if (productInfo) {
+
+            // Render file in here! Pleases!!!!!!!!!
+
+            res.status(200).json({ productInfo, relatedProducts, reviews });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 // paging
 const getReviewsForPaging = async (req, res, next) => {
     try {
@@ -247,8 +280,42 @@ const checkRoleAndRedirect = (req, res, next) => {
 }
 
 
+const checkRoleAndRedirectAllProduct = (req, res, next) => {
+    try {
+        if (!req.cookies.token) {
+            next();
+            return;
+        }
+        else {
+            res.redirect("/user/all-product");
+            return;
+        }
+    }
+    catch (error) {
+        next(error)
+    }
+}
+
+const checkRoleAndRedirectCart = (req, res, next) => {
+    try {
+        if (!req.cookies.token) {
+            next();
+            return;
+        }
+        else {
+            res.redirect("/user/cart");
+            return;
+        }
+    }
+    catch (error) {
+        next(error)
+    }
+}
+
+
 module.exports = {
     getHomePage,
+    getAllProductPage,
     getDashBoard,
     redirectHomePage,
     getProductDetail,
@@ -258,5 +325,8 @@ module.exports = {
     getReviewsForPaging,
     patchAProductToCart,
     checkRoleAndRedirect,
+    checkRoleAndRedirectAllProduct,
+    checkRoleAndRedirectCart,
+    getProductDetailInfo,
 
 }

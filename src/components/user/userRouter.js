@@ -15,9 +15,12 @@ const upload = multerConfig;
 
 
 router.get("/user/home-page", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getHomePage);
+
+router.get("/user/all-product", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getAllProductPage);
+
 router.get("/user/home-page/products/paging", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.getProductsForPaging);
 
-router.get("/user/home-page/cart", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.getCart)
+router.get("/user/cart", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.getCart)
 
 router.post("/user/home-page/:productId/review", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.postAReview)
 

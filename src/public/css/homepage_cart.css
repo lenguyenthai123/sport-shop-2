@@ -147,3 +147,8 @@
 .btn-shop-all{
     padding: 10px 0 !important;
 }
+
+.img-fluid{
+    height: 56px;
+    width: 56px;
+}
