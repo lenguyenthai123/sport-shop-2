@@ -90,7 +90,7 @@
             <label for="avatar">Choose a file:</label>
                 <input type="file" id="avatar" name="avatar" required accept=".jpg, .jpeg, .png">
             <br>
-            <input class="submit_avatar_button" type="submit" value="Upload">
+            <input class="submit_avatar_button" onclick="sendImage()" type="button" value="Upload">
           </form>
         </div>
     </div>
@@ -109,41 +109,41 @@
             alert("Update avatar successfully");
         }
 
-        // async function sendImage() {
-        //     const fileInput = document.getElementById('avatar');
-        //     const file = fileInput.files[0];
+        async function sendImage() {
+            const fileInput = document.getElementById('avatar');
+            const file = fileInput.files[0];
 
-        //     if (file) {
-        //         const url = '/user/profile/avatar';
+            if (file) {
+                const url = '/user/profile/avatar';
 
                 
-        //         const formData = new FormData();
-        //         formData.append('avatar', file);
+                const formData = new FormData();
+                formData.append('avatar', file);
                 
-        //         const contentType = `multipart/form-data; boundary=${formData._boundary}`;
+                const contentType = `multipart/form-data; boundary=${formData._boundary}`;
 
-        //         await fetch(url, {
-        //             method: 'POST',
-        //             body: formData,
-        //             headers: {
-        //                 'Content-Type': contentType,
-        //             }
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             // Handle the server response
-        //             console.log('Server response:', data);
-        //             if(data.message) alert(data.message);
-        //         })
-        //         .catch(error => {
-        //         // Handle errors
-        //             console.error('Error during file upload:', error);
-        //             alert('Error during file upload. Please try again.');
-        //         });
-        //     } else {
-        //         alert('Please choose a file before uploading.');
-        //     }
-        // }
+                await fetch(url, {
+                    method: 'PATCH',
+                    body: formData,
+                    headers: {
+                        "enctype": "multipart/form-data",
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the server response
+                    console.log('Server response:', data);
+                    if(data.message) alert(data.message);
+                })
+                .catch(error => {
+                // Handle errors
+                    console.error('Error during file upload:', error);
+                    alert('Error during file upload. Please try again.');
+                });
+            } else {
+                alert('Please choose a file before uploading.');
+            }
+        }
         
 
         let updatedData = {};

@@ -18,86 +18,7 @@
 
 
     <div class="container overflow-hidden">
-        <div class="row navbar_cus">
-            <div class="col home_logo">
-                <a href="/home-page">
-                    <img src="/images/logo.png" alt="">
-
-                </a>
-            </div>
-            <div class="col">
-                <form class="searching_container">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                <!-- <iframe src="date_range.html" frameborder="0"></iframe> -->
-            </div>
-            <div class="col">
-                <div class="home_setting">
-                    <div class="post_home">
-                        Contact shop
-                    </div>
-                    <div class="cart_button" id="cart_button">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
-                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License -
-                                 https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                 <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41
-                                  152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7
-                                   24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 
-                                   48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                        </svg>
-                    </div>
-                    <div class="account_setting" id="account_setting">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"
-                            role="presentation" focusable="false"
-                            style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;">
-                            <g fill="none">
-                                <path d="M2 16h28M2 24h28M2 8h28"></path>
-                            </g>
-                        </svg>
-                        <div class="home_avatar">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"
-                                role="presentation" focusable="false"
-                                style="display: block; height: 100%; width: 100%; fill: currentcolor;">
-                                <path
-                                    d="M16 .7C7.56.7.7 7.56.7 16S7.56 31.3 16 31.3 31.3 24.44 31.3 16 24.44.7 16 .7zm0 28c-4.02 0-7.6-1.88-9.93-4.81a12.43 12.43 0 0 1 6.45-4.4A6.5 6.5 0 0 1 9.5 14a6.5 6.5 0 0 1 13 0 6.51 6.51 0 0 1-3.02 5.5 12.42 12.42 0 0 1 6.45 4.4A12.67 12.67 0 0 1 16 28.7z">
-                                </path>
-                            </svg>
-                            <div class="home_notification">
-                                1
-                            </div>
-                        </div>
-                        <div class="account_setting_option" id="account_setting_option">
-                            <div class="account_setting_option_authen">
-                                <a href="/signup">
-                                    <span>
-                                        Sign up
-                                    </span>
-                                </a>
-                                <a href="/login">
-                                    <span>
-                                        Log in
-                                    </span>
-                                </a>
-                            </div>
-                            <!-- <div class="seperate_line_1"></div> -->
-                            <!-- <div class="account_setting_option_more">
-                                <a href="/user/profile">
-                                    <span>
-                                        Account profile
-                                    </span>
-                                </a>
-                                <a href="">
-                                    <span>
-                                        Change password
-                                    </span>
-                                </a>
-                            </div> -->
-                        </div> 
-                    </div>
-                </div>
-            </div>
-        </div>
+        <%- include('Navbar') %>
         <div class="row gx-6">
             <div class="col-9 gy-4 home_hotel_type_list">
                 <div class="home_hotel_type" data-custom-value="NIKE">
@@ -193,6 +114,8 @@
             </div>
         </div>
     </div>
+
+    
 
 
     <div id="pagination-container"></div>
@@ -331,20 +254,7 @@
         })
     })
 
-    
 
-
-    const accountSetting = document.getElementById("account_setting");
-    const accountSettingOption = document.getElementById("account_setting_option");
-    accountSetting.addEventListener('click', function() {
-        console.log(accountSettingOption.style.display == "");
-        if(accountSettingOption.style.display == "" || accountSettingOption.style.display == "none"){
-            accountSettingOption.style.display = 'block';
-        }
-        else if (accountSettingOption.style.display == "block"){
-            accountSettingOption.style.display = 'none';
-        }
-    })
 
     const sortSelection = document.getElementById("sort_selection");
     sortSelection.addEventListener("change", async function () {
@@ -374,11 +284,7 @@
 
     })
     
-    const modal_cart_1 = document.getElementById("modal_cus_cart");
-    const cartButton = document.getElementById("cart_button");
-    cartButton.addEventListener("click", function(){
-        modal_cart_1.style.display = 'block'
-    })
+
     
 
     </script>

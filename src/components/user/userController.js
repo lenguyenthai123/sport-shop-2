@@ -19,6 +19,16 @@ require('dotenv').config();
 
 const getHomePage = async (req, res, next) => {
     try {
+        res.render("Homepage_1.ejs", {isLoggedIn: true});
+
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+const getAllProductPage = async (req, res, next) => {
+    try {
         const productName = req.query.productName || "None";
         const catalogId = req.query.catalogId;
         const minPrice = req.query.minPrice;
@@ -30,7 +40,7 @@ const getHomePage = async (req, res, next) => {
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("HomePage_User.ejs", { productList: productList });
+            res.render("AllProduct.ejs", { productList: productList, isLoggedIn: true });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -191,7 +201,7 @@ const getCart = async (req, res, next) => {
         if (detailCart) {
             //Render Here
 
-            res.status(200).json({ cart: detailCart, subTotal });
+            res.render("CartPage.ejs" ,{ cart: detailCart, subTotal });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -239,8 +249,6 @@ const checkRoleAndRedirect = async (req, res, next) => {
 }
 
 const patchAvatarProfile = async (req, res, next) => {
-    console.log("PATCH AVA");
-    console.log(req.headers);
     try {
         
         if (req.file) {
@@ -262,6 +270,7 @@ const patchAvatarProfile = async (req, res, next) => {
 
 module.exports = {
     getHomePage,
+    getAllProductPage,
     getProductDetail,
     getCart,
     getAccountProfile,

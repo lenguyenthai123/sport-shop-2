@@ -16,7 +16,8 @@ body {
   padding: 12px 0px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #d2d0d0; }
+  border-bottom: 1px solid #d2d0d0;
+  margin-bottom: 10px; }
 
 .searching_container {
   /* display: flex;
