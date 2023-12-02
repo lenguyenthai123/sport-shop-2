@@ -5,6 +5,8 @@ require("../../middlewares/passport.js");
 
 const Controllers = require("./adminController.js");
 
+const middleware = require("./adminMiddleware.js");
+
 const { checkTokenAndActivationValidate } = require("../auth/authMiddleware.js");
 
 const multerConfig = require("../../config/multer.js")
@@ -33,6 +35,9 @@ router.get("/admin/home-page", passport.authenticate('jwt', { session: false }),
 router.get("/admin/product", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, checkAdmin, Controllers.getFormCreateNewProduct)
 router.post("/admin/product", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, checkAdmin, UploadProduct, Controllers.postANewProduct)
 
+router.get("/admin/update-product/:productId", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, checkAdmin, Controllers.getFormUpdateProduct)
+router.patch("/admin/update-product/:productId", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, checkAdmin, UploadProduct, Controllers.patchAProduct)
+
 router.get("/admin/products", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, checkAdmin, Controllers.getProductList)
 router.get("/admin/products/paging", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, checkAdmin, Controllers.getProductsForPaging)
 
@@ -47,6 +52,14 @@ router.get("/admin/profile", passport.authenticate('jwt', { session: false }), c
 
 router.get("/admin/products/:productId", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, checkAdmin, Controllers.getProductDetail)
 router.get("/admin/accountlist/:userId", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, checkAdmin, Controllers.getAccountDetail)
+
+
+
+
+
+// fix
+
+router.get("/admin/updateCatalogName", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateCatalogName);
 
 
 module.exports = router;

@@ -147,6 +147,71 @@ const postANewProduct = async (req, res, next) => {
     }
 }
 
+
+const getFormUpdateProduct = async (req, res, next) => {
+    try {
+        console.log("get in here...");
+        const { productId } = req.params;
+
+        const product = await ProductService.getProductById(productId);
+        console.log(product);
+        if (product) {
+            const catalogList = await CatalogService.getAllCatalog();
+            console.log(catalogList);
+            res.render("UpdateProduct.ejs", { product, catalogList });
+            return;
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+    }
+    catch (error) {
+        console.log("Error in getFormUpdateProduct:", error);
+
+        next(error);
+    }
+}
+
+const patchAProduct = async (req, res, next) => {
+
+    try {
+        console.log("patchAProduct");
+
+        const { productId } = req.params;
+
+        const product = {};
+        console.log(req.files);
+        if (req.files) {
+            const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
+            console.log("Anh moi: ", thumbnail);
+            if (thumbnail) {
+                console.log("checker");
+                product.thumbnail = thumbnail;
+            }
+            if (gallery) {
+                product.gallery = gallery;
+            }
+        }
+
+        product.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
+        product.name = req.body.name;
+        product.price = req.body.price;
+        product.description = req.body.description;
+        product.discount = req.body.discount;
+        product.status = req.body.status;
+        product.manufacturer = req.body.manufacturer;
+
+        await ProductService.updateOne(productId, product);
+        res.status(201).json({ message: "Update product successfully", product });
+
+    }
+    catch (error) {
+        console.log("Xuat loi:::", error);
+        next(error);
+    }
+}
+
+
 const getProductList = async (req, res, next) => {
     try {
         const productName = req.query.productName || "None";
@@ -269,6 +334,31 @@ const patchAvatarProfile = async (req, res, next) => {
     }
 }
 
+const updateCatalogName = async (req, res, next) => {
+    try {
+        console.log("Get in here");
+        const list = await ProductService.getAllProduct();
+        for (let i = 0; i < list.length; i++) {
+            const catalog = await Catalog.findById(list[i].catalogId);
+            console.log(catalog);
+            if (catalog) {
+                list[i].catalogName = catalog.name;
+            }
+            console.log(list[i]);
+
+            await list[i].save();
+            console.log("Update successful");
+
+        }
+        res.status(200).json({ message: "Update catalog name successfully" });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
+
 module.exports = {
     getHomePage,
     getDashBoard,
@@ -282,5 +372,7 @@ module.exports = {
     getAccountPaging,
     getProductsForPaging,
     patchAvatarProfile,
-
+    updateCatalogName,
+    getFormUpdateProduct,
+    patchAProduct,
 }

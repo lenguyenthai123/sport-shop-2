@@ -1,15 +1,20 @@
 const mongoosePaginate = require('mongoose-paginate-v2');
+const Catalog = require("../catalog/catalogModel");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const ProductScheme = new Schema({
-    catalogId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Catalog' // Tham chiếu đến schema danh mục sản phẩm (Catalog)
-    },
     name: {
         type: String,
         trim: true,
         required: [true, "Please provide name"],
+    },
+    catalogId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Catalog' // Tham chiếu đến schema danh mục sản phẩm (Catalog)
+    },
+    catalogName: {
+        type: String,
+        trim: true
     },
     price: {
         type: Number,
@@ -66,6 +71,21 @@ const ProductScheme = new Schema({
     }
 
 });
+
+
+ProductScheme.pre("save", async function () {
+    try {
+        if (!this.isModified("catalogId")) return;
+        const catalog = await Catalog.findById(this.catalogId);
+        if (catalog) {
+            this.catalogName = catalog.name;
+        }
+    }
+    catch (error) {
+        throw (error);
+    }
+});
+
 ProductScheme.plugin(mongoosePaginate);
 
 

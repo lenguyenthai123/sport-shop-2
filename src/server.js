@@ -22,7 +22,7 @@ const hostname = process.env.HOST_NAME;
 // Config the post request is in object by json and suitable for form
 // Middleware
 
-// app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
