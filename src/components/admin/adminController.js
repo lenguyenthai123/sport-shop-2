@@ -123,6 +123,8 @@ const postANewProduct = async (req, res, next) => {
         return res.status(400).json({ error: "No file uploaded" });
     }
     try {
+        console.log(req.body);
+        console.log(req.body.catalogId);
         const product = {};
         const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
 
@@ -175,7 +177,8 @@ const getFormUpdateProduct = async (req, res, next) => {
 const patchAProduct = async (req, res, next) => {
 
     try {
-        console.log("patchAProduct");
+
+
 
         const { productId } = req.params;
 
@@ -183,9 +186,7 @@ const patchAProduct = async (req, res, next) => {
         console.log(req.files);
         if (req.files) {
             const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
-            console.log("Anh moi: ", thumbnail);
             if (thumbnail) {
-                console.log("checker");
                 product.thumbnail = thumbnail;
             }
             if (gallery) {
