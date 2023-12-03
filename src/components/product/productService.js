@@ -3,6 +3,7 @@ require("dotenv").config();
 // Model
 const Product = require("./productModel.js");
 const Review = require("../review/reviewModel.js");
+const Catalog = require("../catalog/catalogModel");
 
 // Service
 const ReviewService = require("../review/reviewService.js");
@@ -69,6 +70,9 @@ const getAnProductDetail = async function (productId) {
         // Get product info
         const productInfo = await Product.findById(productId);
 
+        productInfo.view++;
+        await productInfo.save();
+
         //// Get related product
         // 1. Catalog
         const catalogId = new mongoose.Types.ObjectId(productInfo.catalogId);
@@ -95,7 +99,7 @@ const getAnProductDetail = async function (productId) {
 const saveFileAndGetUrlFromThumbnailAndGallery = async function (files) {
     try {
 
-        let thumbnail;
+        let thumbnail = null;
         let gallery = []
         if ("thumbnail" in files) {
             const thumbnailObject = await uploadToCloudinary(files[`thumbnail`][0], 280, 280);
@@ -123,10 +127,51 @@ const addAProductToCart = async function (cart, productId, quantity) {
 
 }
 
+const getAllProduct = async function () {
+    try {
+        const list = await Product.find({});
+        return list;
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
+const getProductById = async function (productId) {
+    try {
+        const product = await Product.findById(productId);
+        return product;
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
+
+const updateOne = async function (id, product) {
+    try {
+        const catalog = await Catalog.findById(product.catalogId);
+        if (catalog) {
+            product.catalogName = catalog.name;
+        }
+
+        const result = await Product.findByIdAndUpdate(id, product);
+        console.log(result);
+
+        return result;
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     FilteredAndSortedProducts,
     getAnProductDetail,
     saveFileAndGetUrlFromThumbnailAndGallery,
-    addAProductToCart
+    addAProductToCart,
+    getAllProduct,
+    getProductById,
+    updateOne,
 
 }

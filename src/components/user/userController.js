@@ -165,14 +165,15 @@ const postAReview = async (req, res, next) => {
     try {
         const user = req.user;
         const userId = req.user._id;
+        const { fullname } = req.user;
         const { productId } = req.params;
         const { rating, comment } = req.body;
         console.log(req.body);
-        const result = await ReviewService.createAReview(productId, userId, rating, comment);
+        const result = await ReviewService.createAReview(productId, userId, fullname, rating, comment);
 
         // Preserve the history when user write review.
         user.reviews.push(result._id);
-        await user.save();
+        await UserService.save(user);
 
         if (result) {
             res.status(201).json({ message: "Create successfully", data: result });
@@ -212,7 +213,7 @@ const getCart = async (req, res, next) => {
         if (detailCart) {
             //Render Here
 
-            res.render("CartPage.ejs" ,{ cart: detailCart, subTotal });
+            res.render("CartPage.ejs", { cart: detailCart, subTotal });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -245,11 +246,17 @@ const patchUserProfile = async (req, res, next) => {
 }
 const checkRoleAndRedirect = async (req, res, next) => {
     try {
-        const { role } = req.user;
+        const { ban, role } = req.user;
 
         if (role === "user") {
-            next();
-            return;
+            if (!ban) {
+                next();
+                return;
+            }
+            else {
+                res.status(403).send("Your account is banned");
+                return;
+            }
         }
         else {
             res.redirect('/admin/home-page');
@@ -261,7 +268,7 @@ const checkRoleAndRedirect = async (req, res, next) => {
 
 const patchAvatarProfile = async (req, res, next) => {
     try {
-        
+
         if (req.file) {
             const result = await UserService.updateAvatar(req.user, req.file);
             if (result) {

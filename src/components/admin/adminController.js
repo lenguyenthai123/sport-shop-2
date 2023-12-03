@@ -123,6 +123,7 @@ const postANewProduct = async (req, res, next) => {
         return res.status(400).json({ error: "No file uploaded" });
     }
     try {
+
         const product = {};
         const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
 
@@ -146,6 +147,70 @@ const postANewProduct = async (req, res, next) => {
         next(error);
     }
 }
+
+
+const getFormUpdateProduct = async (req, res, next) => {
+    try {
+        console.log("get in here...");
+        const { productId } = req.params;
+
+        const product = await ProductService.getProductById(productId);
+        console.log(product);
+        if (product) {
+            const catalogList = await CatalogService.getAllCatalog();
+            console.log(catalogList);
+            res.render("UpdateProduct.ejs", { product, catalogList });
+            return;
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+    }
+    catch (error) {
+        console.log("Error in getFormUpdateProduct:", error);
+
+        next(error);
+    }
+}
+
+const patchAProduct = async (req, res, next) => {
+
+    try {
+
+
+
+        const { productId } = req.params;
+
+        const product = {};
+        console.log(req.files);
+        if (req.files) {
+            const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
+            if (thumbnail) {
+                product.thumbnail = thumbnail;
+            }
+            if (gallery) {
+                product.gallery = gallery;
+            }
+        }
+
+        product.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
+        product.name = req.body.name;
+        product.price = req.body.price;
+        product.description = req.body.description;
+        product.discount = req.body.discount;
+        product.status = req.body.status;
+        product.manufacturer = req.body.manufacturer;
+
+        await ProductService.updateOne(productId, product);
+        res.status(201).json({ message: "Update product successfully", product });
+
+    }
+    catch (error) {
+        console.log("Xuat loi:::", error);
+        next(error);
+    }
+}
+
 
 const getProductList = async (req, res, next) => {
     try {
@@ -182,6 +247,7 @@ const getAccountList = async (req, res, next) => {
 
 
         const accountList = await UserService.FilteredAndSortedUser(page, fullname, email, registrationDate, sortByField, sortByOrder);
+        console.log(accountList);
         // res.status(200).json({ accountList });
         if (accountList) {
             res.render("ViewAccountList.ejs", { accountList: accountList });
@@ -269,6 +335,76 @@ const patchAvatarProfile = async (req, res, next) => {
     }
 }
 
+const updateCatalogName = async (req, res, next) => {
+    try {
+        console.log("Get in here");
+        const list = await ProductService.getAllProduct();
+        for (let i = 0; i < list.length; i++) {
+            const catalog = await Catalog.findById(list[i].catalogId);
+            console.log(catalog);
+            if (catalog) {
+                list[i].catalogName = catalog.name;
+            }
+            console.log(list[i]);
+
+            await list[i].save();
+            console.log("Update successful");
+
+        }
+        res.status(200).json({ message: "Update catalog name successfully" });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
+const patchBanAnUser = async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+        const ban = req.body.ban;
+
+        const user = await UserService.getUserById(userId);
+
+        if (user._id !== req.user._id) {
+            const result = await UserService.setBanAnUser(user, ban);
+            if (result) {
+                console.log(ban);
+                if (ban) {
+                    res.status(200).json({ message: "Ban user successfully" });
+                }
+                else {
+                    res.status(200).json({ message: "Unban user successfully" });
+                }
+                return;
+            }
+            else {
+                res.status(500).json({ message: "Internal Server Error" });
+            }
+        }
+        else {
+            res.status(403).json({ message: "Can not ban your admin account" });
+            return;
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+const updateRatingProduct = async (req, res, next) => {
+    try {
+        const list = await Product.find({});
+        for (let i = 0; i < list.length; i++) {
+            list[i].totalReview = 0;
+            await list[i].save();
+            console.log(list[i]);
+
+        }
+    } catch (error) {
+
+    }
+}
+
 module.exports = {
     getHomePage,
     getDashBoard,
@@ -282,5 +418,9 @@ module.exports = {
     getAccountPaging,
     getProductsForPaging,
     patchAvatarProfile,
-
+    updateCatalogName,
+    getFormUpdateProduct,
+    patchAProduct,
+    patchBanAnUser,
+    updateRatingProduct,
 }
