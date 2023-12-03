@@ -14,7 +14,7 @@ router.get("/cart", Controllers.checkRoleAndRedirectCart, Controllers.getCart)
 router.get("/home-page/:productId/review", Controllers.checkRoleAndRedirect, Controllers.getReviewsForPaging)
 router.post("/home-page/:productId/cart", Controllers.checkRoleAndRedirect, Controllers.patchAProductToCart) // AJAX for 
 
-router.get("/home-page/:productId", Controllers.checkRoleAndRedirect, Controllers.getProductDetail)
+router.get("/home-page/:productId", Controllers.checkRoleAndRedirect, Controllers.getProductDetailPage)
 
 router.get("/info-product/:productId", Controllers.getProductDetailInfo)
 
