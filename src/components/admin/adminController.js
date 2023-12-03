@@ -123,8 +123,7 @@ const postANewProduct = async (req, res, next) => {
         return res.status(400).json({ error: "No file uploaded" });
     }
     try {
-        console.log(req.body);
-        console.log(req.body.catalogId);
+
         const product = {};
         const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
 
@@ -248,6 +247,7 @@ const getAccountList = async (req, res, next) => {
 
 
         const accountList = await UserService.FilteredAndSortedUser(page, fullname, email, registrationDate, sortByField, sortByOrder);
+        console.log(accountList);
         // res.status(200).json({ accountList });
         if (accountList) {
             res.render("ViewAccountList.ejs", { accountList: accountList });
@@ -359,6 +359,51 @@ const updateCatalogName = async (req, res, next) => {
 }
 
 
+const patchBanAnUser = async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+        const ban = req.body.ban;
+
+        const user = await UserService.getUserById(userId);
+
+        if (user._id !== req.user._id) {
+            const result = await UserService.setBanAnUser(user, ban);
+            if (result) {
+                console.log(ban);
+                if (ban) {
+                    res.status(200).json({ message: "Ban user successfully" });
+                }
+                else {
+                    res.status(200).json({ message: "Unban user successfully" });
+                }
+                return;
+            }
+            else {
+                res.status(500).json({ message: "Internal Server Error" });
+            }
+        }
+        else {
+            res.status(403).json({ message: "Can not ban your admin account" });
+            return;
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+const updateRatingProduct = async (req, res, next) => {
+    try {
+        const list = await Product.find({});
+        for (let i = 0; i < list.length; i++) {
+            list[i].totalReview = 0;
+            await list[i].save();
+            console.log(list[i]);
+
+        }
+    } catch (error) {
+
+    }
+}
 
 module.exports = {
     getHomePage,
@@ -376,4 +421,6 @@ module.exports = {
     updateCatalogName,
     getFormUpdateProduct,
     patchAProduct,
+    patchBanAnUser,
+    updateRatingProduct,
 }

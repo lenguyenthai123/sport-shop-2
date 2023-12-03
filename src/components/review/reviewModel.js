@@ -12,6 +12,11 @@ const reviewSchema = new mongoose.Schema({
         ref: 'User', // Tham chiếu đến schema người dùng (User)
         required: true
     },
+    username: {
+        type: String,
+        required: true,
+    }
+    ,
     rating: {
         type: Number,
         required: true,

@@ -70,6 +70,9 @@ const getAnProductDetail = async function (productId) {
         // Get product info
         const productInfo = await Product.findById(productId);
 
+        productInfo.view++;
+        await productInfo.save();
+
         //// Get related product
         // 1. Catalog
         const catalogId = new mongoose.Types.ObjectId(productInfo.catalogId);

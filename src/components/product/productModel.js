@@ -68,8 +68,17 @@ const ProductScheme = new Schema({
     status: {
         type: String,
         required: [true, `Please provide status`],
+    },
+    rating: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 5
+    },
+    totalReview: {
+        type: Number,
+        default: 0,
     }
-
 });
 
 
