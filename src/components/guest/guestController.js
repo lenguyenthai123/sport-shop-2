@@ -17,7 +17,7 @@ require('dotenv').config();
 
 const getHomePage = (req, res, next) => {
     try {
-        res.render("Homepage_1.ejs", {isLoggedIn: false});
+        res.render("Homepage_1.ejs", { isLoggedIn: false });
     }
     catch {
         next(error);
@@ -265,14 +265,14 @@ const getAccountProfile = (req, res, next) => {
 
 const checkRoleAndRedirect = (req, res, next) => {
     try {
-        if (!req.cookies.token) {
-            next();
-            return;
-        }
-        else {
-            res.redirect("/user/home-page");
-            return;
-        }
+        // if (!req.cookies.token) {
+        //     next();
+        //     return;
+        // }
+        // else {
+        //     res.redirect("/user/home-page");
+        //     return;
+        // }
     }
     catch (error) {
         next(error)

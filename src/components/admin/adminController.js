@@ -307,14 +307,34 @@ const getAccountDetail = async (req, res, next) => {
 
 const getAdminProfile = (req, res, next) => {
     try {
-
-        res.render("AdminProfile.ejs");
+        const user = req.user;
+        res.render("AdminProfile.ejs", { user });
     }
     catch (error) {
         console.log(error);
         next(error);
     }
 }
+
+const patchAdminProfile = async (req, res, next) => {
+    try {
+        const user = req.user;
+
+        const result = await UserService.updateProfileData(user._id, req.body);
+        if (result) {
+            res.status(200).json({ message: result });
+            return;
+        }
+        else {
+            res.status(404).json({ message: "Can't update profile" });
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
 
 const patchAvatarProfile = async (req, res, next) => {
     try {
@@ -405,6 +425,8 @@ const updateRatingProduct = async (req, res, next) => {
     }
 }
 
+
+
 module.exports = {
     getHomePage,
     getDashBoard,
@@ -423,4 +445,5 @@ module.exports = {
     patchAProduct,
     patchBanAnUser,
     updateRatingProduct,
+    patchAdminProfile,
 }
