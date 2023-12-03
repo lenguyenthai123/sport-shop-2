@@ -8,6 +8,7 @@ body {
     background-color: #ffffff;
     overflow-x: hidden;
     color: rgb(0, 0, 0);
+    position: relative;
 }
 
 .fix-center {
@@ -35,6 +36,14 @@ button:focus {
     min-height: 350px;
     height: 100%;
     max-height: 450px;
+}
+
+#alert {
+
+    margin-top: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .tm-block-h-auto {

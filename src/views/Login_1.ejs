@@ -101,6 +101,8 @@
                 document.getElementById('input-password').value = "";
                 document.getElementById('input-username').value = "";
 
+                console.log(response);
+
                 if (!response.ok) {
                     throw new Error('Login failed');
                 }

@@ -17,6 +17,26 @@ require('dotenv').config();
 
 const getHomePage = async (req, res, next) => {
     try {
+        const productName = req.query.productName || "None";
+        const catalogId = req.query.catalogId;
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const manufacturer = req.query.manufacturer;
+        const sortByField = req.query.sortByField;
+        const sortByOrder = req.query.sortByOrder;
+        const page = req.query.page; //Default;
+
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+
+        res.render("Homepage_1.ejs", { productList: productList, isLoggedIn: false });
+    }
+    catch {
+        next(error);
+    }
+}
+
+const getAllProductPage = async (req, res, next) => {
+    try {
         // Set up cookie cart for guest
 
         if (!("cart" in req.cookies)) {
@@ -55,7 +75,7 @@ const getHomePage = async (req, res, next) => {
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("HomePage_Guest.ejs", { productList: productList });
+            res.render("AllProduct.ejs", { productList: productList, isLoggedIn: false });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -113,7 +133,7 @@ const redirectHomePage = (req, res, next) => {
     }
 }
 
-const getProductDetail = async (req, res, next) => {
+const getProductDetailPage = async (req, res, next) => {
     try {
 
         const productId = req.params.productId || "None";
@@ -137,6 +157,30 @@ const getProductDetail = async (req, res, next) => {
         next(error);
     }
 }
+
+const getProductDetailInfo = async (req, res, next) => {
+    try {
+
+        const productId = req.params.productId || "None";
+        const { productInfo, relatedProducts } = await ProductService.getAnProductDetail(productId);
+        const reviews = await ReviewService.filteredAndGetPagingReviews(productId, 1); // Default 1 when init.
+
+        if (productInfo) {
+
+            // Render file in here! Pleases!!!!!!!!!
+
+            res.status(200).json({ productInfo, relatedProducts, reviews });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 // paging
 const getReviewsForPaging = async (req, res, next) => {
     try {
@@ -234,12 +278,45 @@ const getAccountProfile = (req, res, next) => {
 
 const checkRoleAndRedirect = (req, res, next) => {
     try {
+        // if (!req.cookies.token) {
+        //     next();
+        //     return;
+        // }
+        // else {
+        //     res.redirect("/user/home-page");
+        //     return;
+        // }
+    }
+    catch (error) {
+        next(error)
+    }
+}
+
+
+const checkRoleAndRedirectAllProduct = (req, res, next) => {
+    try {
         if (!req.cookies.token) {
             next();
             return;
         }
         else {
-            res.redirect("/user/home-page");
+            res.redirect("/user/all-product");
+            return;
+        }
+    }
+    catch (error) {
+        next(error)
+    }
+}
+
+const checkRoleAndRedirectCart = (req, res, next) => {
+    try {
+        if (!req.cookies.token) {
+            next();
+            return;
+        }
+        else {
+            res.redirect("/user/cart");
             return;
         }
     }
@@ -251,14 +328,18 @@ const checkRoleAndRedirect = (req, res, next) => {
 
 module.exports = {
     getHomePage,
+    getAllProductPage,
     getDashBoard,
     redirectHomePage,
-    getProductDetail,
+    getProductDetailPage,
     getCart,
     getAccountProfile,
     getProductsForPaging,
     getReviewsForPaging,
     patchAProductToCart,
     checkRoleAndRedirect,
+    checkRoleAndRedirectAllProduct,
+    checkRoleAndRedirectCart,
+    getProductDetailInfo,
 
 }

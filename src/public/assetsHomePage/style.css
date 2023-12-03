@@ -7,7 +7,7 @@
 }
 
 .container {
-    max-width: 1440px !important;
+    max-width: 1440px;
 
 }
 
@@ -217,7 +217,7 @@
 
 
 .wrapper-shop-category {
-    padding: 90px 0 0;
+    padding: 70px 0 0;
 
 }
 
@@ -225,6 +225,7 @@
     list-style: none;
     display: flex;
     padding: 0px;
+    justify-content: center;
 }
 
 .header-shop-category {
@@ -272,6 +273,8 @@
     background-color: #F7F7F7;
     text-align: center;
     padding: 22px 20px 20px;
+    margin-top: 50px !important;
+    border-radius: 20px;
 }
 
 .text-header-service{
@@ -293,4 +296,8 @@
 .service .col-3 svg:hover{
     scale: 1.1;
     transform: rotate(-1deg);
+}
+
+.header-shop-category--product{
+    margin-bottom: 20px;
 }

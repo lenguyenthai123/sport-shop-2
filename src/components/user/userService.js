@@ -304,7 +304,8 @@ const takeAccountProfileData = async function (id) {
 
 const updateProfileData = async function (id, updateData) {
   try {
-    await User.findByIdAndUpdate(id, updateData);
+    const result = await User.findByIdAndUpdate(id, updateData);
+
     return "Update successfully";
   } catch (error) {
     throw error;
@@ -334,8 +335,24 @@ const getUserByConditions = async function (conditions) {
 
 const getUserById = async function (id) {
   try {
-    const user = await User.findById(id);
-    return user;
+    if (mongoose.isValidObjectId(id)) {
+      const user = await User.findById(id);
+      return user;
+    }
+    else {
+      return null;
+    }
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+const setBanAnUser = async function (user, ban) {
+  try {
+    user.ban = ban;
+    const result = await User.findByIdAndUpdate(user._id, user);
+    return result;
   }
   catch (error) {
     throw error;
@@ -345,7 +362,6 @@ const getUserById = async function (id) {
 const save = async (user) => {
   try {
     await user.save();
-    console.log
   }
   catch (error) {
     throw error;
@@ -367,5 +383,6 @@ module.exports = {
   updateAvatar,
   save,
   getUserByConditions,
-  getUserById
+  getUserById,
+  setBanAnUser,
 }
