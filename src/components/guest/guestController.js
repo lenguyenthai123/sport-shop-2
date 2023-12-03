@@ -15,9 +15,20 @@ const GuestService = require("./guestService.js");
 
 require('dotenv').config();
 
-const getHomePage = (req, res, next) => {
+const getHomePage = async (req, res, next) => {
     try {
-        res.render("Homepage_1.ejs", {isLoggedIn: false});
+        const productName = req.query.productName || "None";
+        const catalogId = req.query.catalogId;
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const manufacturer = req.query.manufacturer;
+        const sortByField = req.query.sortByField;
+        const sortByOrder = req.query.sortByOrder;
+        const page = req.query.page; //Default;
+
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        
+        res.render("Homepage_1.ejs", { productList: productList ,isLoggedIn: false});
     }
     catch {
         next(error);
@@ -122,7 +133,7 @@ const redirectHomePage = (req, res, next) => {
     }
 }
 
-const getProductDetail = async (req, res, next) => {
+const getProductDetailPage = async (req, res, next) => {
     try {
 
         const productId = req.params.productId || "None";
@@ -318,7 +329,7 @@ module.exports = {
     getAllProductPage,
     getDashBoard,
     redirectHomePage,
-    getProductDetail,
+    getProductDetailPage,
     getCart,
     getAccountProfile,
     getProductsForPaging,

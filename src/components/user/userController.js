@@ -19,7 +19,18 @@ require('dotenv').config();
 
 const getHomePage = async (req, res, next) => {
     try {
-        res.render("Homepage_1.ejs", {isLoggedIn: true});
+        const productName = req.query.productName || "None";
+        const catalogId = req.query.catalogId;
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const manufacturer = req.query.manufacturer;
+        const sortByField = req.query.sortByField;
+        const sortByOrder = req.query.sortByOrder;
+        const page = req.query.page; //Default;
+
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        
+        res.render("Homepage_1.ejs", {productList: productList, isLoggedIn: true});
 
     }
     catch (error) {
