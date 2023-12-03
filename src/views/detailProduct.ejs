@@ -460,7 +460,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-9" id = "reviews-page-product">
+                <div class="col-9" id="reviews-page-product">
 
 
                     <ul class="user-reviews">
@@ -675,7 +675,7 @@
                 curUrl.searchParams.append('page', page);
             }
 
-           
+
             await fetch(curUrl.pathname)
                 .then((response) => {
                     if (!response.ok) {
@@ -740,7 +740,7 @@
 
             const reviewPagingPath = urlObjectPath + pathPaging;
 
-           
+
             await fetch(reviewPagingPath)
                 .then((response) => {
                     if (!response.ok) {
@@ -749,7 +749,7 @@
                     return response.json();
                 })
                 .then((data) => {
-                  
+
                     totalPages = data.reviews.totalPages;
                     return data;
 
@@ -759,15 +759,15 @@
             function generatePagination() {
                 const paginationContainer = document.getElementById('pagination-container');
                 paginationContainer.innerHTML = ''; // Clear previous content
-               
-           
+
+
                 for (let i = 1; i <= totalPages; i++) {
-                   
+
                     const paginationItem = document.createElement('li');
                     paginationItem.textContent = i;
                     paginationItem.className = 'pagination-item';
                     paginationItem.dataset.value = i;
-                   
+
                     // Add active class to the current page
                     if (i === currentPage) {
 
@@ -930,7 +930,15 @@
             num.innerText = a;
         })
 
+        // submit form
 
+        const submit = $('.col-12 .btn-primary')
+
+        submit.addEventListener('click', function () {
+            currentPage = i;
+            loadProductHtml(i);
+            generatePagination(); // Re-generate pagination on click
+        });
 
 
 
