@@ -26,6 +26,7 @@ const hostname = process.env.HOST_NAME;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 app.use(cookieParser())
 
 configSession(app);
