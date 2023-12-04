@@ -126,6 +126,6 @@
   },
   "homepage": "https://github.com/lenguyenthai123/website#readme",
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.2"
   }
 }

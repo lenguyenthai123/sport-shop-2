@@ -27,7 +27,7 @@ const getHomePage = async (req, res, next) => {
         const page = req.query.page; //Default;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
-
+        console.log("aa")
         res.render("Homepage_1.ejs", { productList: productList, isLoggedIn: false });
     }
     catch {
@@ -126,6 +126,7 @@ const getDashBoard = (req, res, next) => {
 }
 const redirectHomePage = (req, res, next) => {
     try {
+        console.log("aa")
         res.redirect("/home-page");
     }
     catch (error) {
