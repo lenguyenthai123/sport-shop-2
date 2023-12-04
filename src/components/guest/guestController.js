@@ -143,8 +143,10 @@ const getProductDetailPage = async (req, res, next) => {
         if (productInfo) {
 
             // Render file in here! Pleases!!!!!!!!!
-
-            res.status(200).json({ productInfo, relatedProducts, reviews });
+            // res.status(200).json({ productInfo, relatedProducts, reviews });
+           
+            res.render("detailProduct.ejs", { productInfo, relatedProducts, reviews });
+          
         }
         else {
             res.status(404).json({ message: "Not found" });
