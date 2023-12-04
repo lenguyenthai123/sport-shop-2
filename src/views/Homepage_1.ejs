@@ -36,7 +36,9 @@
 
                     <div class="wrapper-content-bottom">
                         <div class="sub-text-sale">We Help You Finding to Right Shoes</div>
-                        <button class="shop-now">SHOP NOW</button>
+                        <a href="/all-product">
+                            <button class="shop-now" id="shop_now_btn">SHOP NOW</button>
+                        </a>
                     </div>
 
 
@@ -91,7 +93,9 @@
         </div>
 
         <div class="wrapper-shop-category">
-            <h2 class="header-shop-category header-shop-category--product">OUR PRODUCTS</h2>
+            <a href="/all-product">
+                <h2 class="header-shop-category header-shop-category--product">OUR PRODUCTS</h2>
+            </a>
             <div class="row gx-7" id="home_page_product">
                 <% for(let i = 0; i < productList.docs.length; i++){ %>
                     <div class="col-12 col-xl-3 col-lg-4 col-md-4 col-sm-6 gy-5">
@@ -275,6 +279,7 @@
                 console.log(this)
             }
         });
+
     </script>
 
 

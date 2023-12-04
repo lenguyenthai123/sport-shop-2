@@ -24,26 +24,20 @@ require('dotenv').config();
 const getHomePage = async (req, res, next) => {
     try {
         const productName = req.query.productName || "None";
-        const catalogId = req.query.catalogId || "None";
-        const minPrice = req.query.minPrice || "None";
-        const maxPrice = req.query.maxPrice || "None";
-        const manufacturer = req.query.manufacturer || "None";
-        const sortByField = req.query.sortByField || "None";
-        const sortByOrder = req.query.sortByOrder || "None";
-        const page = 1; // Default
+        const catalogId = req.query.catalogId;
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const manufacturer = req.query.manufacturer;
+        const sortByField = req.query.sortByField;
+        const sortByOrder = req.query.sortByOrder;
+        const page = req.query.page; //Default;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        
+        res.render("Homepage_1.ejs", {productList: productList, isLoggedIn: true});
 
-        console.log(productList);
-
-        if (productList) {
-            res.render("HomePage_1.ejs", { productList: productList });
-        }
-        else {
-            res.status(404).json({ message: "Not found" });
-        }
-
-    } catch (error) {
+    }
+    catch (error) {
         next(error);
     }
 }
@@ -215,16 +209,17 @@ const patchAProduct = async (req, res, next) => {
 const getProductList = async (req, res, next) => {
     try {
         const productName = req.query.productName || "None";
-        const catalogId = req.query.catalogId || "None";
-        const minPrice = req.query.minPrice || "None";
-        const maxPrice = req.query.maxPrice || "None";
-        const manufacturer = req.query.manufacturer || "None";
-        const sortByField = req.query.sortByField || "None";
-        const sortByOrder = req.query.sortByOrder || "None";
+        const catalogId = req.query.catalogId;
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const manufacturer = req.query.manufacturer;
+        const sortByField = req.query.sortByField;
+        const sortByOrder = req.query.sortByOrder;
+        const page = req.query.page; //Default;
 
-        const productList = await ProductService.FilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("AdminProducts.ejs", { productList: productList.docs });
+            res.render("AdminProducts.ejs", { productList: productList });
         }
         else {
             res.status(404).json({ message: "Not found" });

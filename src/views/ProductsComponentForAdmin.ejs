@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +11,19 @@
     <link rel="stylesheet" href="/css/pagination.css">
     <link rel="stylesheet" href="/css/home_page.css">
     <link rel="stylesheet" href="/css/home_page2.css">
+    <style>
+        .searching_container{
+            margin-top: 30px;
+        }
+    </style>
 </head>
-
 <body>
+    
     <div class="container overflow-hidden">
-        <%- include('Navbar') %>
+        <form class="searching_container">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
         <div class="row gx-6">
             <div class="col-9 gy-4 home_hotel_type_list">
                 <div class="home_hotel_type" data-custom-value="NIKE">
@@ -99,159 +106,148 @@
                 </div>
             <% } %>
         </div>
+        <div id="pagination-container"></div>
     </div>
 
     
 
 
-    <div id="pagination-container"></div>
-
-    <%- include('Footer') -%>
-
 
     <script>
-    var isLoggedIn = <%= JSON.stringify(isLoggedIn) %>;
-        
-    const productPart = document.getElementById("home_page_product");
-    async function loadProductHtml(page) {
-        const curUrl = new URL(window.location.href);
-        curUrl.pathname = '/home-page/products/paging';
-        if(isLoggedIn) {
-            curUrl.pathname = '/user/home-page/products/paging';
-        }
-
-        if (curUrl.searchParams.has('page')) {
-            curUrl.searchParams.set('page', page);
-        } else {
-            curUrl.searchParams.append('page', page);
-        }
-                
-        await fetch(curUrl.toString())
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then((data) => {
-            return data.productList;
-
-        })
-        .then(function (products){
-            let htmlContent = "";
-            products.docs.forEach(element => {
-                htmlContent += 
-                `<div class="col-12 col-xl-3 col-lg-4 col-md-4 col-sm-6 gy-5">
-                    <div class="product">
-                        <div class="product_image">
-                            <img src= "${element.thumbnail}"
-                            alt="${element.name}">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" 
-                            aria-hidden="true" role="presentation" focusable="false">
-                            <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 
-                            6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>
-                            <div class="product_info_1_rate">
-                                <div class="star-icon">&#9733;</div>
-                                <span>4.88</span>
-
-                            </div>
-                        </div>
-                        <div class="product_info_1">
-                            <span>${element.name}</span>
-                        </div>
-                        <div class="product_info_2">
-                            <span>${element.description}</span>
-                            <span>${element.manufacturer}</span>
-                            <div class="product_info_2_price">
-                                <span class="product_info_2_dollar">$ ${element.price}</span>   
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-            });
-            productPart.innerHTML = htmlContent;
-        })
-    }
-
-    document.addEventListener('DOMContentLoaded',async function () {
-
-        let totalPages = 10;
-        let currentPage = 1;
-        
-        const curUrl = new URL(window.location.href);
-        curUrl.pathname = '/home-page/products/paging';
-
-        if(isLoggedIn) {
-            curUrl.pathname = '/user/home-page/products/paging';
-        }
-
-        await fetch(curUrl.toString())
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then((data) => {
-            totalPages = data.productList.totalPages;
-            return data.productList;
-
-        })
-
-        // Function to generate pagination HTML
-        function generatePagination() {
-            const paginationContainer = document.getElementById('pagination-container');
-            paginationContainer.innerHTML = ''; // Clear previous content
-
-            for (let i = 1; i <= totalPages; i++) {
-                const paginationItem = document.createElement('li');
-                paginationItem.textContent = i;
-                paginationItem.className = 'pagination-item';
-                paginationItem.dataset.value = i;
-                
-                // Add active class to the current page
-                if (i === currentPage) {
-                    paginationItem.classList.add('active');
-                }
-
-                // Add click event listener to each pagination item
-                paginationItem.addEventListener('click', function () {
-                    currentPage = i;
-                    loadProductHtml(i);
-                    generatePagination(); // Re-generate pagination on click
-                });
-
-                paginationContainer.appendChild(paginationItem);
-                
-            }
-        }
-
             
-        // Initial generation of pagination
-        generatePagination();
-        
-        
-    });
-    
-    const manufacturers = document.querySelectorAll(".home_hotel_type")
-
-    manufacturers.forEach((e)=>{
-        e.addEventListener("click", async function (){
+        const productPart = document.getElementById("home_page_product");
+        async function loadProductHtml(page) {
             const curUrl = new URL(window.location.href);
+            curUrl.pathname = '/admin/products/paging';
 
-            if (curUrl.searchParams.has('manufacturer')) {
-                curUrl.searchParams.set('manufacturer', e.getAttribute("data-custom-value"));
+    
+            if (curUrl.searchParams.has('page')) {
+                curUrl.searchParams.set('page', page);
+            } else {
+                curUrl.searchParams.append('page', page);
             }
-            else {
-                curUrl.searchParams.append('manufacturer', e.getAttribute("data-custom-value"));
+                    
+            await fetch(curUrl.toString())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                return data.productList;
+    
+            })
+            .then(function (products){
+                let htmlContent = "";
+                products.docs.forEach(element => {
+                    htmlContent += 
+                    `<div class="col-12 col-xl-3 col-lg-4 col-md-4 col-sm-6 gy-5">
+                        <div class="product">
+                            <div class="product_image">
+                                <img src= "${element.thumbnail}"
+                                alt="${element.name}">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" 
+                                aria-hidden="true" role="presentation" focusable="false">
+                                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 
+                                6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>
+                                <div class="product_info_1_rate">
+                                    <div class="star-icon">&#9733;</div>
+                                    <span>4.88</span>
+    
+                                </div>
+                            </div>
+                            <div class="product_info_1">
+                                <span>${element.name}</span>
+                            </div>
+                            <div class="product_info_2">
+                                <span>${element.description}</span>
+                                <span>${element.manufacturer}</span>
+                                <div class="product_info_2_price">
+                                    <span class="product_info_2_dollar">$ ${element.price}</span>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+                productPart.innerHTML = htmlContent;
+            })
+        }
+    
+        document.addEventListener('DOMContentLoaded',async function () {
+    
+            let totalPages = 10;
+            let currentPage = 1;
+            
+            const curUrl = new URL(window.location.href);
+            curUrl.pathname = '/admin/products/paging';
+    
+    
+            await fetch(curUrl.toString())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                totalPages = data.productList.totalPages;
+                return data.productList;
+    
+            })
+    
+            // Function to generate pagination HTML
+            function generatePagination() {
+                const paginationContainer = document.getElementById('pagination-container');
+                paginationContainer.innerHTML = ''; // Clear previous content
+    
+                for (let i = 1; i <= totalPages; i++) {
+                    const paginationItem = document.createElement('li');
+                    paginationItem.textContent = i;
+                    paginationItem.className = 'pagination-item';
+                    paginationItem.dataset.value = i;
+                    
+                    // Add active class to the current page
+                    if (i === currentPage) {
+                        paginationItem.classList.add('active');
+                    }
+    
+                    // Add click event listener to each pagination item
+                    paginationItem.addEventListener('click', function () {
+                        currentPage = i;
+                        loadProductHtml(i);
+                        generatePagination(); // Re-generate pagination on click
+                    });
+    
+                    paginationContainer.appendChild(paginationItem);
+                    
+                }
             }
-
-            window.location.href = curUrl;
+    
+                
+            // Initial generation of pagination
+            generatePagination();
+            
+            
+        });
+        
+        const manufacturers = document.querySelectorAll(".home_hotel_type")
+    
+        manufacturers.forEach((e)=>{
+            e.addEventListener("click", async function (){
+                const curUrl = new URL(window.location.href);
+    
+                if (curUrl.searchParams.has('manufacturer')) {
+                    curUrl.searchParams.set('manufacturer', e.getAttribute("data-custom-value"));
+                }
+                else {
+                    curUrl.searchParams.append('manufacturer', e.getAttribute("data-custom-value"));
+                }
+    
+                window.location.href = curUrl;
+            })
         })
-    })
-
-    </script>
-
+    
+        </script>
 </body>
-
 </html>

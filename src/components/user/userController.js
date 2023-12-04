@@ -47,7 +47,7 @@ const getAllProductPage = async (req, res, next) => {
         const manufacturer = req.query.manufacturer;
         const sortByField = req.query.sortByField;
         const sortByOrder = req.query.sortByOrder;
-        const page = 1; //Default;
+        const page = req.query.page; //Default;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {

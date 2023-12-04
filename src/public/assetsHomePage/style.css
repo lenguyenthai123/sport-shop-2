@@ -221,6 +221,11 @@
 
 }
 
+.wrapper-shop-category > a{
+    text-decoration: none;
+    color: black;
+}
+
 .shop-category {
     list-style: none;
     display: flex;
@@ -301,3 +306,4 @@
 .header-shop-category--product{
     margin-bottom: 20px;
 }
+
