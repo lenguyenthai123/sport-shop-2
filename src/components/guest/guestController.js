@@ -27,7 +27,7 @@ const getHomePage = async (req, res, next) => {
         const page = req.query.page; //Default;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
-        console.log("aa")
+     
         res.render("Homepage_1.ejs", { productList: productList, isLoggedIn: false });
     }
     catch {
@@ -126,7 +126,7 @@ const getDashBoard = (req, res, next) => {
 }
 const redirectHomePage = (req, res, next) => {
     try {
-        console.log("aa")
+        
         res.redirect("/home-page");
     }
     catch (error) {
@@ -145,9 +145,9 @@ const getProductDetailPage = async (req, res, next) => {
 
             // Render file in here! Pleases!!!!!!!!!
             // res.status(200).json({ productInfo, relatedProducts, reviews });
-
+           
             res.render("detailProduct.ejs", { productInfo, relatedProducts, reviews });
-
+          
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -286,7 +286,7 @@ const checkRoleAndRedirect = (req, res, next) => {
         // else {
         //     res.redirect("/user/home-page");
         //     return;
-        // }
+        //
         next();
     }
     catch (error) {
