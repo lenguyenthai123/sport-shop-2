@@ -47,7 +47,9 @@ router.get("/admin/accountlist/paging", passport.authenticate('jwt', { session: 
 
 
 router.patch("/admin/profile/avatar", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, upload.single("avatar"), Controllers.patchAvatarProfile);
-router.get("/admin/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getAdminProfile)
+router.get("/admin/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getAdminProfile);
+router.patch("/admin/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.patchAdminProfile);
+
 
 router.get("/admin/products/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getProductDetail)
 router.get("/admin/accountlist/:userId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getAccountDetail)
@@ -61,6 +63,8 @@ router.patch("/admin/accountlist/:userId/ban", passport.authenticate('jwt', { se
 
 router.get("/admin/updateCatalogName", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateCatalogName);
 
-router.get("/admin/updateRatingProduct", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateRatingProduct);
+router.get("/admin/updateCatalogName", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateCatalogName);
+
+router.get("/admin/updateUserAddress", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateUserAddress);
 
 module.exports = router;

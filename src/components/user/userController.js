@@ -237,7 +237,7 @@ const patchUserProfile = async (req, res, next) => {
         // else{
         const response = await UserService.updateProfileData(decode.id, req.body);
         console.log(response);
-        res.json({ message: response });
+        res.status(200).json({ message: response });
 
         // }
     } catch (error) {

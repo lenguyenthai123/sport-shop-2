@@ -27,8 +27,8 @@ const getHomePage = async (req, res, next) => {
         const page = req.query.page; //Default;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
-        
-        res.render("Homepage_1.ejs", { productList: productList ,isLoggedIn: false});
+     
+        res.render("Homepage_1.ejs", { productList: productList, isLoggedIn: false });
     }
     catch {
         next(error);
@@ -126,6 +126,7 @@ const getDashBoard = (req, res, next) => {
 }
 const redirectHomePage = (req, res, next) => {
     try {
+        
         res.redirect("/home-page");
     }
     catch (error) {
@@ -143,8 +144,10 @@ const getProductDetailPage = async (req, res, next) => {
         if (productInfo) {
 
             // Render file in here! Pleases!!!!!!!!!
-
-            res.status(200).json({ productInfo, relatedProducts, reviews });
+            // res.status(200).json({ productInfo, relatedProducts, reviews });
+           
+            res.render("detailProduct.ejs", { productInfo, relatedProducts, reviews });
+          
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -276,14 +279,15 @@ const getAccountProfile = (req, res, next) => {
 
 const checkRoleAndRedirect = (req, res, next) => {
     try {
-        if (!req.cookies.token) {
-            next();
-            return;
-        }
-        else {
-            res.redirect("/user/home-page");
-            return;
-        }
+        // if (!req.cookies.token) {
+        //     next();
+        //     return;
+        // }
+        // else {
+        //     res.redirect("/user/home-page");
+        //     return;
+        //
+        next();
     }
     catch (error) {
         next(error)

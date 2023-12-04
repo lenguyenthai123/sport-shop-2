@@ -19,164 +19,250 @@
 
 <body>
     <%- include('SideBarAdmin') -%>
+        <div id="alert"></div>
 
-     <!-- Admin Profile -->
-     <div class="container-fluid admin_profile_info">
-        <div class="row">
+        <!-- Admin Profile -->
+        <div class="container-fluid admin_profile_info">
+            <div class="row">
 
-            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 gx-5">
-                <div class="start_info">
+                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 gx-5">
+                    <div class="start_info">
 
-                    <div class="start_info_frame">
-                        <div class="cover_image">
-                            <img src="/images/cover_image.jpg" alt="Cover Image">
+                        <div class="start_info_frame">
+                            <div class="cover_image">
+                                <img src="/images/cover_image.jpg" alt="Cover Image">
+                            </div>
+                            <div class="personal_circular_image">
+                                <a href="/images/Identify_21127648.jpg">
+                                    <img src="/images/Identify_21127648.jpg" alt="Personal Image">
+                                </a>
+                            </div>
+                            <div class="start_info_text">
+                                <span class="start_info_name">
+                                    Nhat Nam Nguyen
+                                </span>
+
+                                <span class="start_info_nickname">@NguyenNNam</span>
+
+                                <span class="start_info_slogan">
+                                    "I like the way you work it
+                                    <br>No diggity
+                                    <br>I wanna bag it up"
+                                </span>
+                            </div>
                         </div>
-                        <div class="personal_circular_image">
-                            <a href="/images/Identify_21127648.jpg">
-                                <img src="/images/Identify_21127648.jpg" alt="Personal Image">
-                            </a>
-                        </div>
-                        <div class="start_info_text">
-                            <span class="start_info_name">
-                                Nhat Nam Nguyen
-                            </span>
-                            
-                            <span class="start_info_nickname">@NguyenNNam</span>
-                
-                            <span class="start_info_slogan">
-                                "I like the way you work it
-                                <br>No diggity
-                                <br>I wanna bag it up"
-                            </span>
+
+                        <div class="row">
+                            <div class="start_info_des col-5 col-md-5 col-md-offset-1">
+                                <h5>
+                                    12<br />
+                                    <small>Files</small>
+                                </h5>
+                            </div>
+                            <div class="start_info_des col-2 col-md-2">
+                                <h5>
+                                    2GB<br />
+                                    <small>Used</small>
+                                </h5>
+                            </div>
+                            <div class="start_info_des col-5 col-md-5">
+                                <h5>
+                                    24,6$<br />
+                                    <small>Spent</small>
+                                </h5>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="start_info_des col-5 col-md-5 col-md-offset-1">
-                            <h5>
-                                12<br />
-                                <small>Files</small>
-                            </h5>
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Team Members</h4>
                         </div>
-                        <div class="start_info_des col-2 col-md-2">
-                            <h5>
-                                2GB<br />
-                                <small>Used</small>
-                            </h5>
-                        </div>
-                        <div class="start_info_des col-5 col-md-5">
-                            <h5>
-                                24,6$<br />
-                                <small>Spent</small>
-                            </h5>
+                        <div class="card_content">
+                            <ul class="list-unstyled team-members">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-3 col-xs-3">
+                                            <div class="personal_circular_image personal_circular_image--small">
+                                                <a href="/images/Identify_21127162.jpg">
+                                                    <img src="/images/Identify_21127162.jpg" alt="Personal Image">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-xs-6">
+                                            Nguyen Thai Le
+                                            <br />
+                                            <span class="text-muted"><small>Offline</small></span>
+                                        </div>
+                                        <div class="col-3 col-xs-3 text-right">
+                                            <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i>
+                                            </btn>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-3 col-xs-3">
+                                            <div class="personal_circular_image personal_circular_image--small">
+                                                <a href="/images/Identify_21127163.jpg">
+                                                    <img src="/images/Identify_21127163.jpg" alt="Personal Image">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-xs-6">
+                                            Quang Thai Nguyen
+                                            <br />
+                                            <span class="text-success"><small>Available</small></span>
+                                        </div>
+                                        <div class="col-3 col-xs-3 text-right">
+                                            <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i>
+                                            </btn>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                
-                <div class="card">
-                    <div class="header">
-                        <h4 class="title">Team Members</h4>
-                    </div>
-                    <div class="card_content">
-                        <ul class="list-unstyled team-members">
-                            <li>
-                                <div class="row">
-                                    <div class="col-3 col-xs-3">
-                                        <div class="personal_circular_image personal_circular_image--small">
-                                            <a href="/images/Identify_21127162.jpg">
-                                                <img src="/images/Identify_21127162.jpg" alt="Personal Image">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-xs-6">
-                                        Nguyen Thai Le
-                                        <br />
-                                        <span class="text-muted"><small>Offline</small></span>
-                                    </div>
-                                    <div class="col-3 col-xs-3 text-right">
-                                        <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-3 col-xs-3">
-                                        <div class="personal_circular_image personal_circular_image--small">
-                                            <a href="/images/Identify_21127163.jpg">
-                                                <img src="/images/Identify_21127163.jpg" alt="Personal Image">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-xs-6">
-                                        Quang Thai Nguyen
-                                        <br />
-                                        <span class="text-success"><small>Available</small></span>
-                                    </div>
-                                    <div class="col-3 col-xs-3 text-right">
-                                        <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-xl-8 gx-5 info_description">
-                <span>Edit profile</span>
-                <form action="" method="post">
-                    <div class="frame_info_2_column">
-                        <div class="frame_info_column_1">
-                            <div class="student_id">
-                                <span class="label">Student ID</span>
-                                <br>
-                                <input type="text" class="input_info" value="21127648">
+                <div class="col-xl-8 gx-5 info_description">
+                    <span>Edit profile</span>
+                    <form>
+                        <input type="hidden" name="_method" value="PATCH">
+
+                        <div class="frame_info_2_column">
+                            <div class="frame_info_column_1">
+                                <div class="student_id">
+                                    <span class="label">Student ID</span>
+                                    <br>
+                                    <input type="text" class="input_info" value="21127648">
+                                </div>
+                                <div class="full_name">
+                                    <span class="label">Full name</span>
+                                    <br>
+                                    <input id="fullname" name="fullname" type="text" class="input_info"
+                                        value="<%= user.fullname %>">
+                                </div>
+                                <div class="date_of_birth">
+                                    <span class="label">Date of birth</span>
+                                    <br>
+                                    <input id="dateOfBirth" name="dateOfBirth" type="date" class="input_info"
+                                        value="<%= userDateOfBirth.toISOString().split('T')[0] %>">
+                                </div>
                             </div>
-                            <div class="full_name">
-                                <span class="label">Full name</span>
-                                <br>
-                                <input type="text" class="input_info" value="Nguyen Nhat Nam">
+                            <div class="frame_info_column_2">
+                                <div class="email">
+                                    <span class="label">Email</span>
+                                    <br>
+                                    <input id="email" name="email" type="text" class="input_info"
+                                        value="<%= user.email %>">
+                                </div>
+                                <div class="phone_number">
+                                    <span class="label">Phone number</span>
+                                    <br>
+                                    <input id="phoneNumber" name="phoneNumber" type="text" class="input_info"
+                                        value="<%= user.phoneNumber %>">
+                                </div>
+                                <div class="country">
+                                    <span class="label">Country</span>
+                                    <br>
+                                    <input id="country" name="country" type="text" class="input_info"
+                                        value="<%= user.country %>">
+                                </div>
                             </div>
-                            <div class="date_of_birth">
-                                <span class="label">Date of birth</span>
-                                <br>
-                                <input type="text" class="input_info" value="24/11/2003">
-                            </div>
+
                         </div>
-                        <div class="frame_info_column_2">
-                            <div class="email">
-                                <span class="label">Email</span>
-                                <br>
-                                <input type="text" class="input_info" value="ngnhatnam24@gmail.com">
-                            </div>
-                            <div class="phone_number">
-                                <span class="label">Phone number</span>
-                                <br>
-                                <input type="text" class="input_info" value="0354422665">
-                            </div>
-                            <div class="country">
-                                <span class="label">Country</span>
-                                <br>
-                                <input type="text" class="input_info" value="Vietnam">
-                            </div>
+                        <div class="address">
+                            <span class="label">Address</span>
+                            <br>
+                            <input id="address" name="address" type="text" class="input_info"
+                                value="<%= user.address %>">
                         </div>
-                        
-                    </div>
-                    <div class="address">
-                        <span class="label">Address</span>
-                        <br>
-                        <input type="text" class="input_info" value="227 Nguyen Van Cu, District 5, Ho Chi Minh city">
-                    </div>
-                    <button type="file" class="my_button">Update Profile</button> 
-                                 
-                </form>
+                        <button id="button-submit" type="button" class="my_button">Update Profile</button>
+
+                    </form>
+                </div>
+
             </div>
 
         </div>
+        <script>
 
-    </div>
+            const button = document.querySelector("#button-submit");
+            const fullname = document.querySelector("#fullname");
+            const email = document.querySelector("#email");
+            const phoneNumber = document.querySelector("#phoneNumber");
+            const dateOfBirth = document.querySelector("#dateOfBirth");
+            const country = document.querySelector("#country");
+            const address = document.querySelector("#address");
 
-    
+            // Alert
+            const alertPlaceholder = document.getElementById('alert')
+            const appendAlert = (message, type) => {
+                alertPlaceholder.style.display = "block";
+                alertPlaceholder.innerHTML = "";
+                const wrapper = document.createElement('div')
+                wrapper.innerHTML = [
+                    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                    `   <div>${message}</div>`,
+                    '</div>'
+                ].join('');
+
+                alertPlaceholder.append(wrapper);
+                if (type !== "info") {
+                    setTimeout(function () {
+                        alertPlaceholder.style.display = "none";
+                    }, 5000)
+                }
+            }
+            appendAlert("Loading...", "info");
+            alertPlaceholder.style.display = "none";
+
+            const alertTrigger = document.getElementById('liveAlertBtn')
+            if (alertTrigger) {
+                alertTrigger.addEventListener('click', () => {
+                    appendAlert('Nice, you triggered this alert message!', 'success')
+                })
+            }
+
+            async function submitForm(event) {
+                const profile = {
+                    fullname: fullname.value,
+                    email: email.value,
+                    phoneNumber: phoneNumber.value,
+                    dateOfBirth: dateOfBirth.value,
+                    country: country.value,
+                    address: address.value,
+                }
+
+                const currentUrl = window.location.href;
+                appendAlert("Loading...", "info");
+                console.log(profile);
+                await fetch(currentUrl, {
+                    method: 'PATCH',
+                    body: JSON.stringify(profile),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+
+                }).then(res => {
+                    console.log(res);
+                    if (res.ok) {
+                        console.log('Update admin profile successfully.');
+                        appendAlert("Update admin profile successfully", "success");
+                    } else {
+                        console.error('Failed to Update admin profile successfully.');
+                        appendAlert("Update admin profile failed", "danger");
+
+                    }
+                }).catch(error => {
+                    console.error('Error update admin profile:', error);
+                });
+            }
+            button.addEventListener("click", submitForm);
+
+        </script>
+
 </body>
 
 </html>

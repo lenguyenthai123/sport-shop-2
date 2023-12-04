@@ -302,14 +302,38 @@ const getAccountDetail = async (req, res, next) => {
 
 const getAdminProfile = (req, res, next) => {
     try {
+        console.log("getAdminProfile");
+        const user = req.user;
+        const userDateOfBirth = new Date(user.dateOfBirth);
 
-        res.render("AdminProfile.ejs");
+        res.render("AdminProfile.ejs", { user, userDateOfBirth });
     }
     catch (error) {
         console.log(error);
         next(error);
     }
 }
+
+const patchAdminProfile = async (req, res, next) => {
+    try {
+        console.log("patchAdminProfile");
+        const user = req.user;
+        console.log(req.body);
+        const result = await UserService.updateProfileData(user._id, req.body);
+        if (result) {
+            res.status(200).json({ message: result });
+            return;
+        }
+        else {
+            res.status(404).json({ message: "Can't update profile" });
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
 
 const patchAvatarProfile = async (req, res, next) => {
     try {
@@ -400,6 +424,21 @@ const updateRatingProduct = async (req, res, next) => {
     }
 }
 
+const updateUserAddress = async (req, res, next) => {
+    try {
+        const list = await User.find({});
+        for (let i = 0; i < list.length; i++) {
+            list[i].address = "Null";
+            await list[i].save();
+            console.log(list[i]);
+
+        }
+    } catch (error) {
+
+    }
+}
+
+
 module.exports = {
     getHomePage,
     getDashBoard,
@@ -418,4 +457,6 @@ module.exports = {
     patchAProduct,
     patchBanAnUser,
     updateRatingProduct,
+    patchAdminProfile,
+    updateUserAddress,
 }
