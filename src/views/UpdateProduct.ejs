@@ -206,7 +206,7 @@
                 alertPlaceholder.style.display = "none";
             }, 5000)
         }
-        appendAlert("Loading", "info");
+        appendAlert("Loading...", "info");
         alertPlaceholder.style.display = "none";
 
         const alertTrigger = document.getElementById('liveAlertBtn')
@@ -282,6 +282,7 @@
             formData.append("manufacturer", manufacturer.value);
             formData.append("status", status.value);
 
+            console.log(formData);
 
             if (uploadThumbnail.files.length > 0) {
                 console.log(uploadThumbnail.files[0]);

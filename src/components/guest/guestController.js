@@ -145,9 +145,9 @@ const getProductDetailPage = async (req, res, next) => {
 
             // Render file in here! Pleases!!!!!!!!!
             // res.status(200).json({ productInfo, relatedProducts, reviews });
-           
+
             res.render("detailProduct.ejs", { productInfo, relatedProducts, reviews });
-          
+
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -287,6 +287,7 @@ const checkRoleAndRedirect = (req, res, next) => {
         //     res.redirect("/user/home-page");
         //     return;
         // }
+        next();
     }
     catch (error) {
         next(error)

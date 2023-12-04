@@ -305,7 +305,6 @@ const takeAccountProfileData = async function (id) {
 const updateProfileData = async function (id, updateData) {
   try {
     const result = await User.findByIdAndUpdate(id, updateData);
-
     return "Update successfully";
   } catch (error) {
     throw error;

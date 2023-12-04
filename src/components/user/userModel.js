@@ -36,7 +36,8 @@ const UserScheme = new Schema({
 
     address: {
         type: String,
-        trim: true
+        trim: true,
+        default: "Null",
     },
 
     dateOfBirth: {
