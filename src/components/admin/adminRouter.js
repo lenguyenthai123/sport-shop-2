@@ -63,6 +63,8 @@ router.patch("/admin/accountlist/:userId/ban", passport.authenticate('jwt', { se
 
 router.get("/admin/updateCatalogName", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateCatalogName);
 
-router.get("/admin/updateRatingProduct", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateRatingProduct);
+router.get("/admin/updateCatalogName", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateCatalogName);
+
+router.get("/admin/updateUserAddress", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateUserAddress);
 
 module.exports = router;

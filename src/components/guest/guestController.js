@@ -284,6 +284,7 @@ const checkRoleAndRedirect = (req, res, next) => {
         //     res.redirect("/user/home-page");
         //     return;
         // }
+        next();
     }
     catch (error) {
         next(error)
