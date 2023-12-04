@@ -314,6 +314,10 @@ const checkRoleAndRedirectAllProduct = (req, res, next) => {
 const checkRoleAndRedirectCart = (req, res, next) => {
     try {
         if (!req.cookies.token) {
+            req.cookie('desireRoute', '/cart', {
+                httpOnly: true,
+            });
+            res.redirect("/login");
             next();
             return;
         }
