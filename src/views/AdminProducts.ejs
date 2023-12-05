@@ -23,40 +23,7 @@
 
      <!-- Products -->
 
-    <div class="container admin_products">
-        <%- include('FilterProduct') -%>
-        <div class="row gx-7">
-            <% for(let i = 0; i < productList.length; i++){ %>
-                <div class="col-12 col-xl-3 col-lg-4 col-md-4 col-sm-6 gy-5">
-                    <div class="product">
-                        <div class="product_image">
-                            <img src= " <%= productList[i].thumbnail %> "
-                            alt="Victor Thruster TK-TTY A Tai Tzu Ying Signature Badminton Racket">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" 
-                            aria-hidden="true" role="presentation" focusable="false">
-                            <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 
-                            6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>
-                            <div class="product_info_1_rate">
-                                <div class="star-icon">&#9733;</div>
-                                <span>4.88</span>
-    
-                            </div>
-                        </div>
-                        <div class="product_info_1">
-                            <span><%= productList[i].name %></span>
-                        </div>
-                        <div class="product_info_2">
-                            <span><%= productList[i].description %></span>
-                            <span><%= productList[i].manufacturer %></span>
-                            <div class="product_info_2_price">
-                                <span class="product_info_2_dollar">$<%= productList[i].price %></span>   
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <% } %>
-        </div>
-    </div>
+    <%- include('ProductsComponentForAdmin') -%>
 </body>
 
 </html>
