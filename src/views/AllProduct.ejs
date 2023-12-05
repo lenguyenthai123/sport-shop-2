@@ -71,7 +71,7 @@
         <div class="row gx-7" id="home_page_product">
             <% for(let i = 0; i < productList.docs.length; i++){ %>
                 <div class="col-12 col-xl-3 col-lg-4 col-md-4 col-sm-6 gy-5">
-                    <div class="product">
+                    <div class="product" onclick="loadDetailProduct('<%= productList.docs[i]._id %>')">
                         <div class="product_image">
                             <img src= " <%= productList.docs[i].thumbnail %> "
                             alt="Victor Thruster TK-TTY A Tai Tzu Ying Signature Badminton Racket">
@@ -248,6 +248,10 @@
             window.location.href = curUrl;
         })
     })
+
+    function loadDetailProduct(productId){
+        window.location.href = `/home-page/${productId}`;
+    }
 
     </script>
 
