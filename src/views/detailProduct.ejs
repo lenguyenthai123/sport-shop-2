@@ -14,6 +14,10 @@
 </head>
 
 <body>
+    <div class="alert alert-danger  text-center align-items-center">
+        Please login to review
+    </div>
+
     <div class="container">
         <div class="main-product row">
             <div class="col-6">
@@ -22,35 +26,31 @@
 
                 </div>
                 <ul class="list-image">
+                    <li><img src="<%= productInfo.thumbnail %>" alt=""></li>
+                    <div class="wrapper-left-btn">
+                        <button class="btn-left-arrow"> <img width="20" height="20"
+                                src="https://img.icons8.com/material/20/less-than--v1.png" alt="less-than--v1" />
+                        </button>
+                    </div>
 
+                    <div class="wrapper-right-btn">
+                        <button class="btn-right-arrow"><img width="20" height="20"
+                                src="https://img.icons8.com/material-outlined/20/more-than.png" alt="more-than" />
+                        </button>
+                    </div>
+                    <% for(let i=0; i < productInfo.gallery.length; i++){ %>
+                        <li><img src="<%= productInfo.gallery[i] %>" alt=""></li>
 
-                    <li>
-                        <div class="wrapper-left-btn">
-                            <button class="btn-left-arrow"> <img width="20" height="20"
-                                    src="https://img.icons8.com/material/20/less-than--v1.png" alt="less-than--v1" />
-                            </button>
-                        </div>
-                        <img src="<%= productInfo.thumbnail %>" alt="">
-                    </li>
-
-                    <li><img src="<%= productInfo.gallery[0] %>" alt=""></li>
-                    <li><img src="<%= productInfo.gallery[1] %>" alt=""></li>
-                    <li><img src="<%= productInfo.gallery[2] %>" alt=""></li>
-
-                    <li>
-                        <div class="wrapper-right-btn">
-                            <button class="btn-right-arrow"><img width="20" height="20"
-                                    src="https://img.icons8.com/material-outlined/20/more-than.png" alt="more-than" />
-                            </button>
-                        </div>
-                        <img src="<%= productInfo.gallery[3] %>" alt="">
-                    </li>
+                        <!-- <li><img src="<%= productInfo.gallery[1] %>" alt=""></li>
+                        <li><img src="<%= productInfo.gallery[2] %>" alt=""></li>
+                        <li><img src="<%= productInfo.gallery[3] %>" alt=""></li> -->
+                        <% } %>
 
 
                 </ul>
             </div>
 
-            <div class="col-6 discription-product">
+            <div class="col-6 description-product">
                 <div class="category-product">
                     <%= productInfo.catalogName %>
                 </div>
@@ -59,6 +59,7 @@
                 </div>
                 <div class="num-review">
                     <div class="rating">
+
                         <!-- <input type="radio" id="star-5" name="rating" value="5" checked>
                         <label for="star-5"></label>
                         <input type="radio" id="star-4" name="rating" value="4">
@@ -89,7 +90,7 @@
                     </div>
                 </div>
 
-                <div class="discription-product">
+                <div class="description-product">
                     The garments labelled as Committed are products that have been produced using sustainable fibres or
                     processes, reducing their environmental impact.
                 </div>
@@ -257,17 +258,13 @@
             </div>
 
         </div>
-        <div class="wrapper-discription ">
+        <div class="wrapper-description ">
             <!-- handled description: none -->
             <div class="row description">
                 <div class="col-6">
                     <div class="text-header">Description</div>
-                    <div class="text-content">Keep your home organized, yet elegant with storage cabinets by
-                        Onita Patio Furniture. These cabinets not only make a great storage units, but also
-                        bring a great decorative accent to your decor. Traditionally designed, they are perfect
-                        to be used in the hallway, living room, bedroom, office or any place where you need to
-                        store or display things. Made of high quality materials, they are sturdy and durable for
-                        years. Bring one-of-a-kind look to your interior with furniture from Onita Furniture!
+                    <div class="text-content">
+                        <%= productInfo.description %>
                     </div>
 
 
@@ -486,7 +483,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="name-user">Maverick Nguyen </div>
+                                    <div class="name-user">
+                                        <%= reviews.docs[i].username %>
+                                    </div>
                                     <div class="time-review"> 11/03/2023</div>
                                     <div class="content-user-review">
                                         <%= reviews.docs[i].comment %>
@@ -598,7 +597,7 @@
         </div>
 
         <div class="body-card">
-            <div class="discription-freeship">
+            <div class="description-freeship">
                 Get free shipping for orders over
                 <span>$200</span>
             </div>
@@ -607,11 +606,28 @@
                 <div class="progress-bar" style="width: 40%"></div>
             </div>
             <ul class="listCard">
+                <li class="product">
+                    <img src="<%= productInfo.thumbnail %>" alt="" class="image-product">
+                    <a href="" class="name-product">
+                        <%= productInfo.name %>
+                    </a>
+                    <div class="wrapper-quantity">
+                        <div class="remove-product">REMOVE</div>
+                        <div class="quantity-product">
+                            <div class="num-quantity">
+
+                            </div>
+                            <div class="price-product">
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
             <div class="footer">
                 <div class="Subtotal-wrapper">
                     <div class="Subtotal">Subtotal: </div>
-                    <div class="Subtotal-price">$80.00 </div>
+                    <div class="Subtotal-price"></div>
                 </div>
                 <div class="wrapper-button">
                     <button class="view-cart">View Cart</button>
@@ -622,7 +638,9 @@
         </div>
 
     </div>
+    <div class="layer-background">
 
+    </div>
 
 
     <script>
@@ -674,9 +692,9 @@
             } else {
                 curUrl.searchParams.append('page', page);
             }
+            console.log(curUrl.pathname);
 
-
-            await fetch(curUrl.pathname)
+            await fetch(curUrl)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -687,9 +705,10 @@
                     console.log(data.reviews.docs)
                     let htmlContent = "";
                     data.reviews.docs.forEach(element => {
+                        console.log(element)
                         htmlContent +=
                             `<ul class="user-reviews">
-                        <% for(let i=0; i < reviews.docs.length; i++){ %>
+                     
                             <li class="user-review">
                                 <img alt=""
                                     src="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=100&amp;d=mm&amp;r=g"
@@ -711,14 +730,14 @@
                                         </div>
                                     </div>
 
-                                    <div class="name-user">${element.userId}</div>
+                                    <div class="name-user">${element.username}</div>
                                     <div class="time-review"> 11/03/2023</div>
                                     <div class="content-user-review">
                                         ${element.comment}
                                     </div>
                                 </div>
                             </li>
-                            <% } %>
+                           
                     </ul>`;
                     });
                     reviewsProduct.innerHTML = htmlContent;
@@ -777,6 +796,7 @@
                     // Add click event listener to each pagination item
                     paginationItem.addEventListener('click', function () {
                         currentPage = i;
+
                         loadReviewHtml(i);
                         generatePagination(); // Re-generate pagination on click
                     });
@@ -791,20 +811,6 @@
             generatePagination();
 
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         listMainImg.forEach((mainImg, index) => {
             const page = listMainImg[index]
@@ -835,19 +841,33 @@
 
         });
 
-
+        // handle add product to cart
         const addToCart = $('.add-to-cart')
-        const backgroundOverlay = document.getElementById('backgroundOverlay');
+        const backgroundOverlay = $('.layer-background');
 
+
+        const subTotal = $('.Subtotal-price')
+        const priceProduct = $('.price-product')
+        const numQuantity = $('.num-quantity')
 
         addToCart.addEventListener('click', function () {
 
+            subTotal.innerHTML = '$' + (currentPrice * numOfProduct).toString();
+            priceProduct.innerHTML = '$' + currentPrice.toString();
+            numQuantity.innerHTML = numOfProduct.toString() + "x";
+            backgroundOverlay.classList.add('active')
             body.classList.add('active')
 
         });
 
         closeShopping.addEventListener('click', function () {
+            backgroundOverlay.classList.remove('active')
+            body.classList.remove('active')
 
+        });
+
+        backgroundOverlay.addEventListener('click', function () {
+            backgroundOverlay.classList.remove('active')
             body.classList.remove('active')
 
         });
@@ -916,29 +936,56 @@
         }
 
 
-        let a = 1;
+        let numOfProduct = 1;
         plus.addEventListener("click", () => {
-            a++;
-            num.innerText = a;
+            numOfProduct++;
+            num.innerText = numOfProduct;
         })
         minus.addEventListener("click", () => {
 
-            a--;
-            if (a <= 1) {
-                a = 1;
+            numOfProduct--;
+            if (numOfProduct <= 1) {
+                numOfProduct = 1;
             }
-            num.innerText = a;
+            num.innerText = numOfProduct;
         })
 
         // submit form
 
-        const submit = $('.col-12 .btn-primary')
+        // const submit = $('.col-12 .btn-primary')
 
-        submit.addEventListener('click', function () {
-            currentPage = i;
-            loadProductHtml(i);
-            generatePagination(); // Re-generate pagination on click
+        // submit.addEventListener('click', function () {
+        //     currentPage = i;
+        //     loadProductHtml(i);
+        //     generatePagination(); // Re-generate pagination on click
+        // });
+
+        // handle form
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const reviewFrom = $('.needs-review')
+            reviewFrom.addEventListener("submit", function (event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của form (load lại trang)
+
+                // Xử lý logic khi form được submit
+                // Ví dụ: Kiểm tra và xác thực dữ liệu, gửi dữ liệu đến máy chủ, v.v.
+                console.log("Form submitted!");
+            });
         });
+        const submitFrom = $('.btn-primary')
+        const alertLogin = $('.alert-danger')
+        submitFrom.addEventListener("click", () => {
+            console.log('haha')
+            alertLogin.style.opacity = "1";
+            alertLogin.style.display = "block"
+            console.log(alertLogin)
+            setTimeout(function () {
+                alertLogin.style.opacity = "0";
+                setTimeout(function () {
+                    alertLogin.style.display = "none";
+                }, 500);
+            }, 3000);
+        })
 
 
 
