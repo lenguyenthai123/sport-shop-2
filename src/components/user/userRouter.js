@@ -30,7 +30,7 @@ router.get("/user/home-page/:productId/review", passport.authenticate('jwt', { s
 // Add product to cart
 router.post("/user/home-page/:productId/cart", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.patchAProductToCart)
 
-router.get("/user/home-page/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getProductDetail)
+router.get("/user/home-page/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getProductDetailPage)
 
 //User profile
 router.get("/user/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getAccountProfile);

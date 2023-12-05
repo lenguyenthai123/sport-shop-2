@@ -91,7 +91,7 @@ const getProductsForPaging = async (req, res, next) => {
 
 
 
-const getProductDetail = async (req, res, next) => {
+const getProductDetailPage = async (req, res, next) => {
     try {
 
         const productId = req.params.productId || "None";
@@ -101,8 +101,10 @@ const getProductDetail = async (req, res, next) => {
         if (productInfo) {
 
             // Render file in here! Pleases!!!!!!!!!
-
-            res.status(200).json({ productInfo, relatedProducts, reviews });
+            // res.status(200).json({ productInfo, relatedProducts, reviews });
+           
+            res.render("detailProduct.ejs", { productInfo, relatedProducts, reviews, isLoggedIn: true });
+          
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -289,7 +291,7 @@ const patchAvatarProfile = async (req, res, next) => {
 module.exports = {
     getHomePage,
     getAllProductPage,
-    getProductDetail,
+    getProductDetailPage,
     getCart,
     getAccountProfile,
     getProductsForPaging,

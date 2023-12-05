@@ -279,10 +279,10 @@ const getAccountProfile = (req, res, next) => {
 
 const checkRoleAndRedirect = (req, res, next) => {
     try {
-        // if (!req.cookies.token) {
-        //     next();
-        //     return;
-        // }
+        if (!req.cookies.token) {
+            next();
+            return;
+        }
         // else {
         //     res.redirect("/user/home-page");
         //     return;
@@ -293,6 +293,22 @@ const checkRoleAndRedirect = (req, res, next) => {
         next(error)
     }
 }
+
+const checkRoleAndRedirectProductPage = (req, res, next) => {
+    try {
+        const productId = req.params.productId;
+        if (req.cookies.token) {
+            res.redirect("/user/home-page/" + productId);
+            next();
+            return;
+        }
+        next();
+    }
+    catch (error) {
+        next(error)
+    }
+}
+
 
 
 const checkRoleAndRedirectAllProduct = (req, res, next) => {
@@ -347,5 +363,6 @@ module.exports = {
     checkRoleAndRedirectAllProduct,
     checkRoleAndRedirectCart,
     getProductDetailInfo,
+    checkRoleAndRedirectProductPage,
 
 }
