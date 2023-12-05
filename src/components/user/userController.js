@@ -103,7 +103,7 @@ const getProductDetailPage = async (req, res, next) => {
             // Render file in here! Pleases!!!!!!!!!
             // res.status(200).json({ productInfo, relatedProducts, reviews });
            
-            res.render("detailProduct.ejs", { productInfo, relatedProducts, reviews, isLoggedIn: true });
+            res.render("detailProductUser.ejs", { productInfo, relatedProducts, reviews, isLoggedIn: true });
           
         }
         else {
@@ -181,9 +181,12 @@ const postAReview = async (req, res, next) => {
             res.status(201).json({ message: "Create successfully", data: result });
         }
         else {
+            
             res.status(400).json({ message: "Invalid data provided" });
+
         }
     } catch (error) {
+        console.log(error)
         next(error);
     }
 }

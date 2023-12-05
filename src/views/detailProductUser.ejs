@@ -11,17 +11,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/home_page.css">
-    <link rel="stylesheet" href="/css/home_page2.css">
 </head>
 
 <body>
-    <div class="alert alert-danger  text-center align-items-center">
-        Please login to review
+    <div class="alert alert-success  text-center align-items-center">
+        create
     </div>
 
     <div class="container">
-        <%- include('Navbar') %>
         <div class="main-product row">
             <div class="col-6">
                 <div class="img-main-product">
@@ -554,7 +551,7 @@
             </div>
 
 
-            <form class="row g-3 needs-review" novalidate>
+            <form class="row g-3 needs-review" id="reviewForm" novalidate>
                 <!-- <div class="col-md-6">
                     <label for="nameReview" class="form-label"></label>
                     <input type="text" class="form-control" id="nameReview" placeholder="Your name" required>
@@ -586,41 +583,6 @@
                     <button class="btn btn-primary" type="submit">Submit form</button>
                 </div>
             </form>
-        </div>
-        <div class="add-review related-products">
-            <div class="header-add-review">Related products</div>
-            <div class="row gx-7" id="home_page_product">
-                <% for(let i = 0; i < relatedProducts.length; i++){ %>
-                    <div class="col-12 col-xl-3 col-lg-4 col-md-4 col-sm-6 gy-5">
-                        <div class="product product-fixed-width" onclick="loadDetailProduct('<%= relatedProducts[i]._id %>')">
-                            <div class="product_image">
-                                <img src= " <%= relatedProducts[i].thumbnail %> "
-                                alt="Victor Thruster TK-TTY A Tai Tzu Ying Signature Badminton Racket">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" 
-                                aria-hidden="true" role="presentation" focusable="false">
-                                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 
-                                6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>
-                                <div class="product_info_1_rate">
-                                    <div class="star-icon">&#9733;</div>
-                                    <span>4.88</span>
-    
-                                </div>
-                            </div>
-                            <div class="product_info_1">
-                                <span><%= relatedProducts[i].name %></span>
-                            </div>
-                            <div class="product_info_2">
-                                <span><%= relatedProducts[i].description %></span>
-                                <span><%= relatedProducts[i].manufacturer %></span>
-                                <div class="product_info_2_price">
-                                    <span class="product_info_2_dollar">$ <%= relatedProducts[i].price %></span>   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <% } %>
-                </div>
-            </div>
         </div>
     </div>
     <div class="card">
@@ -676,9 +638,6 @@
         </div>
 
     </div>
-
-    <%- include('Footer') %>
-
     <div class="layer-background">
 
     </div>
@@ -929,14 +888,10 @@
             mainImage.style.transform = "scale(1)"
         })
 
-
         // adjust number of products
         const plus = $(".plus")
         const num = $(".num")
         const minus = $(".minus")
-
-
-
 
         function initApp() {
             products.forEach((value, key) => {
@@ -991,45 +946,68 @@
             num.innerText = numOfProduct;
         })
 
-        // submit form
 
-        // const submit = $('.col-12 .btn-primary')
 
-        // submit.addEventListener('click', function () {
-        //     currentPage = i;
-        //     loadProductHtml(i);
-        //     generatePagination(); // Re-generate pagination on click
-        // });
+        $('#reviewForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Ngăn chặn form gửi đi một cách tự động
 
-        // handle form
+            const numRating = getRating();
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const reviewFrom = $('.needs-review')
-            reviewFrom.addEventListener("submit", function (event) {
-                event.preventDefault(); // Ngăn chặn hành động mặc định của form (load lại trang)
+            const feedback = $('#feedback').value
+            console.log($('#reviewForm'))
 
-                // Xử lý logic khi form được submit
-                // Ví dụ: Kiểm tra và xác thực dữ liệu, gửi dữ liệu đến máy chủ, v.v.
-                console.log("Form submitted!");
-            });
+
+
+            const formData = {
+                'rating': numRating,
+                'comment': feedback
+            };
+            const curUrl = new URL(window.location.href);
+
+            const urlObjectPath = curUrl.pathname;
+            const pathPaging = "/review"
+
+            curUrl.pathname = urlObjectPath + pathPaging;
+
+
+            // formData.append('rating', numRating)
+            // formData.append()
+
+            console.log(curUrl.pathname);
+            fetch(curUrl.pathname, {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Hoặc response.text() tùy thuộc vào định dạng dữ liệu bạn mong đợi từ server
+                })
+                .then(data => {
+                    // Xử lý kết quả từ server (nếu cần)
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
         });
-        const submitFrom = $('.btn-primary')
-        const alertLogin = $('.alert-danger')
-        submitFrom.addEventListener("click", () => {
-            console.log('haha')
-            alertLogin.style.opacity = "1";
-            alertLogin.style.display = "block"
-            console.log(alertLogin)
-            setTimeout(function () {
-                alertLogin.style.opacity = "0";
-                setTimeout(function () {
-                    alertLogin.style.display = "none";
-                }, 500);
-            }, 3000);
-        })
 
-        function loadDetailProduct(productId){
-        window.location.href = `/home-page/${productId}`;
+        function getRating() {
+            var ratingElements = $$('.rating-form .rating input');
+            var selectedRating;
+
+            for (var i = 0; i < ratingElements.length; i++) {
+                if (ratingElements[i].checked) {
+                    selectedRating = ratingElements[i].value;
+                    break;
+                }
+            }
+
+            return selectedRating;
         }
 
 

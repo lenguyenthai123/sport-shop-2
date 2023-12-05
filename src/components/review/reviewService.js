@@ -17,7 +17,9 @@ const createAReview = async function (productId, userId, fullname, rating, comme
             const product = await Product.findById(productId);
 
             // Cập nhật cho rating cho product
-            product.rating = (product.totalReview * product.rating + rating) / (product.totalReview + 1);
+            product.rating = (product.totalReview * product.rating + parseFloat(rating)) / (product.totalReview + 1);
+            console.log(product.rating)
+            console.log(parseFloat(rating))
             product.totalReview++;
             await product.save();
 
