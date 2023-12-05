@@ -22,9 +22,9 @@
                 </a>
             </div>
             <div class="col">
-                <form class="searching_container">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="searching_container"  action="/user/all-product"  method="get">
+                    <input class="form-control me-2" id="search_input" name="productName" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" ud="search_input_btn" type="submit">Search</button>
                 </form>
                 <!-- <iframe src="date_range.html" frameborder="0"></iframe> -->
             </div>
@@ -103,9 +103,9 @@
                 </a>
             </div>
             <div class="col">
-                <form class="searching_container">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="searching_container"  action="/all-product"  method="get">
+                    <input class="form-control me-2" id="search_input" name="productName" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" ud="search_input_btn" type="submit">Search</button>
                 </form>
                 <!-- <iframe src="date_range.html" frameborder="0"></iframe> -->
             </div>
@@ -395,6 +395,18 @@
         closeCart.addEventListener("click", function(){
             modal_cart.style.display = 'none';
         })
+
+        // const searchInputButton = document.getElementById("search_input_btn");
+        // const productName = document.getElementById("search_input").value;
+
+        // searchInputButton.addEventListener("click", function (){
+        //     if (curUrl.searchParams.has('productName')) {
+        //         curUrl.searchParams.set('productName', productName);
+        //     }
+        //     else {
+        //         curUrl.searchParams.append('productName', productName);
+        //     }
+        // })
 
 
     </script>
