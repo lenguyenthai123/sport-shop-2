@@ -29,8 +29,8 @@ const getHomePage = async (req, res, next) => {
         const page = req.query.page; //Default;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
-        
-        res.render("Homepage_1.ejs", {productList: productList, isLoggedIn: true});
+
+        res.render("Homepage_1.ejs", { productList: productList, isLoggedIn: true });
 
     }
     catch (error) {
@@ -98,16 +98,18 @@ const getProductDetailPage = async (req, res, next) => {
         const { productInfo, relatedProducts } = await ProductService.getAnProductDetail(productId);
         const reviews = await ReviewService.filteredAndGetPagingReviews(productId, 1); // Default 1 when init.
 
+        console.log("Vao day");
         if (productInfo) {
 
             // Render file in here! Pleases!!!!!!!!!
             // res.status(200).json({ productInfo, relatedProducts, reviews });
-           
+
             res.render("detailProductUser.ejs", { productInfo, relatedProducts, reviews, isLoggedIn: true });
-          
+            return;
         }
         else {
             res.status(404).json({ message: "Not found" });
+            return;
         }
     }
     catch (error) {
@@ -181,7 +183,7 @@ const postAReview = async (req, res, next) => {
             res.status(201).json({ message: "Create successfully", data: result });
         }
         else {
-            
+
             res.status(400).json({ message: "Invalid data provided" });
 
         }
@@ -256,7 +258,6 @@ const checkRoleAndRedirect = async (req, res, next) => {
         if (role === "user") {
             if (!ban) {
                 next();
-                return;
             }
             else {
                 res.status(403).send("Your account is banned");
@@ -265,6 +266,7 @@ const checkRoleAndRedirect = async (req, res, next) => {
         }
         else {
             res.redirect('/admin/home-page');
+            return;
         }
     } catch (error) {
 
