@@ -14,12 +14,11 @@
 </head>
 
 <body>
-    <div class="alert alert-danger  text-center align-items-center">
-        Please login to review
+    <div class="alert alert-success  text-center align-items-center">
+        create
     </div>
 
     <div class="container">
-        <%- include('Navbar') %>
         <div class="main-product row">
             <div class="col-6">
                 <div class="img-main-product">
@@ -552,7 +551,7 @@
             </div>
 
 
-            <form class="row g-3 needs-review" novalidate>
+            <form class="row g-3 needs-review" id="reviewForm" novalidate>
                 <!-- <div class="col-md-6">
                     <label for="nameReview" class="form-label"></label>
                     <input type="text" class="form-control" id="nameReview" placeholder="Your name" required>
@@ -584,9 +583,6 @@
                     <button class="btn btn-primary" type="submit">Submit form</button>
                 </div>
             </form>
-        </div>
-        <div class="add-review">
-            <div class="header-add-review">Related products</div>
         </div>
     </div>
     <div class="card">
@@ -642,9 +638,6 @@
         </div>
 
     </div>
-
-    <%- include('Footer') %>
-
     <div class="layer-background">
 
     </div>
@@ -895,14 +888,10 @@
             mainImage.style.transform = "scale(1)"
         })
 
-
         // adjust number of products
         const plus = $(".plus")
         const num = $(".num")
         const minus = $(".minus")
-
-
-
 
         function initApp() {
             products.forEach((value, key) => {
@@ -957,43 +946,69 @@
             num.innerText = numOfProduct;
         })
 
-        // submit form
 
-        // const submit = $('.col-12 .btn-primary')
 
-        // submit.addEventListener('click', function () {
-        //     currentPage = i;
-        //     loadProductHtml(i);
-        //     generatePagination(); // Re-generate pagination on click
-        // });
+        $('#reviewForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Ngăn chặn form gửi đi một cách tự động
 
-        // handle form
+            const numRating = getRating();
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const reviewFrom = $('.needs-review')
-            reviewFrom.addEventListener("submit", function (event) {
-                event.preventDefault(); // Ngăn chặn hành động mặc định của form (load lại trang)
+            const feedback = $('#feedback').value
+            console.log($('#reviewForm'))
 
-                // Xử lý logic khi form được submit
-                // Ví dụ: Kiểm tra và xác thực dữ liệu, gửi dữ liệu đến máy chủ, v.v.
-                console.log("Form submitted!");
-            });
+
+
+            const formData = {
+                'rating': numRating,
+                'comment': feedback
+            };
+            const curUrl = new URL(window.location.href);
+
+            const urlObjectPath = curUrl.pathname;
+            const pathPaging = "/review"
+
+            curUrl.pathname = urlObjectPath + pathPaging;
+
+
+            // formData.append('rating', numRating)
+            // formData.append()
+
+            console.log(curUrl.pathname);
+            fetch(curUrl.pathname, {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Hoặc response.text() tùy thuộc vào định dạng dữ liệu bạn mong đợi từ server
+                })
+                .then(data => {
+                    // Xử lý kết quả từ server (nếu cần)
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
         });
-        const submitFrom = $('.btn-primary')
-        const alertLogin = $('.alert-danger')
-        submitFrom.addEventListener("click", () => {
-            console.log('haha')
-            alertLogin.style.opacity = "1";
-            alertLogin.style.display = "block"
-            console.log(alertLogin)
-            setTimeout(function () {
-                alertLogin.style.opacity = "0";
-                setTimeout(function () {
-                    alertLogin.style.display = "none";
-                }, 500);
-            }, 3000);
-        })
 
+        function getRating() {
+            var ratingElements = $$('.rating-form .rating input');
+            var selectedRating;
+
+            for (var i = 0; i < ratingElements.length; i++) {
+                if (ratingElements[i].checked) {
+                    selectedRating = ratingElements[i].value;
+                    break;
+                }
+            }
+
+            return selectedRating;
+        }
 
 
     </script>
