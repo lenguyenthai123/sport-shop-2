@@ -85,7 +85,7 @@ const updatePasswordValidator = [
         .escape(),
 
     body("passwordConfirmation").escape().custom((value, { req }) => {
-        if (value !== req.body.password) {
+        if (value !== req.body.newPassword) {
             throw new Error("Password confirmation does not match password");
         }
         return true;

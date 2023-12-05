@@ -16,7 +16,8 @@ body {
   padding: 12px 0px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #d2d0d0; }
+  border-bottom: 1px solid #d2d0d0;
+  margin-bottom: 10px; }
 
 .searching_container {
   /* display: flex;
@@ -343,6 +344,9 @@ body {
 .product_image img {
   height: 280px;
   width: 280px; }
+
+.product-fixed-width img {
+  width: 280px !important; }
 
 .product_image svg {
   position: absolute;

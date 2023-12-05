@@ -1,0 +1,130 @@
+@media (max-width: 575px) {
+
+    #page-forget-password .col-xs-0.col-md-6,
+    #page-create-account .col-xs-0.col-md-6,
+    #page-login .col-xs-0.col-md-6 {
+        display: none;
+    }
+
+    .text-header {
+        font-size: 24px;
+    }
+
+    .input {
+        height: 36px;
+    }
+
+    .text-data-input {
+        font-size: 18px;
+        padding: 6px 0;
+    }
+
+    #page-login .btn {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .btn button[class*="btn-"] {
+        padding: 4px 12px;
+        width: 100%;
+        background-color: #3D90FF;
+        border: 1px solid #fff;
+        border-radius: 50px;
+        color: #fff;
+        margin: 0 4px;
+    }
+
+    .input.username {
+        margin-bottom: 0.5rem;
+    }
+
+    .login-other-method,
+    .wrapper-other-method {
+        margin-top: 1.5rem;
+    }
+
+    .btn-create-account {
+        margin-top: 1rem !important;
+    }
+
+    .choose,
+    .input-content {
+
+        margin: 0 1rem;
+
+    }
+
+    #page-login .input-content,
+    #page-login .choose {
+        margin: 0 1rem;
+
+    }
+
+    .checkbox-container {
+        padding-right: 8px;
+    }
+
+    #page-login .col-md-6>div:not(:first-child) {
+        position: relative;
+        top: -16%;
+    }
+
+    .login-logo {
+        height: 36px;
+        width: 42px;
+        margin: 0 0.5rem;
+    }
+
+
+    .modal-content {
+        padding: 0 1rem;
+    }
+
+    .clearfix button {
+
+
+        padding: 6px 8px;
+        margin: 4px 0;
+
+        min-width: 60px;
+        border-radius: 6px;
+        margin-top: 8px;
+    }
+
+    #page-create-account .choose {
+        padding-top: 12px;
+    }
+
+    .text-policy {
+        margin-top: 1rem;
+    }
+
+
+    #input-confirm-password,
+    #input-email,
+    #input-username,
+    #input-password {
+        border: none;
+        background-color: inherit;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+
+    }
+}
+
+
+@media (max-width: 739px) {}
+
+
+@media (max-width: 1023px) {}
+
+/*  */
+
+@media (max-width: 1023px) and (min-width:740px) {}
+
+
+/* desktop */
+@media (min-width: 1024px) {}

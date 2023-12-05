@@ -12,6 +12,7 @@ const Product = require("../product/productModel.js");
 const ProductService = require("../product/productService.js")
 const UserService = require("../user/userService.js")
 const ReviewService = require("../review/reviewService.js");
+const CatalogService = require("../catalog/catalogService.js");
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
@@ -23,26 +24,20 @@ require('dotenv').config();
 const getHomePage = async (req, res, next) => {
     try {
         const productName = req.query.productName || "None";
-        const catalogId = req.query.catalogId || "None";
-        const minPrice = req.query.minPrice || "None";
-        const maxPrice = req.query.maxPrice || "None";
-        const manufacturer = req.query.manufacturer || "None";
-        const sortByField = req.query.sortByField || "None";
-        const sortByOrder = req.query.sortByOrder || "None";
-        const page = 1; // Default
+        const catalogId = req.query.catalogId;
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const manufacturer = req.query.manufacturer;
+        const sortByField = req.query.sortByField;
+        const sortByOrder = req.query.sortByOrder;
+        const page = req.query.page; //Default;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        
+        res.render("Homepage_1.ejs", {productList: productList, isLoggedIn: true});
 
-        console.log(productList);
-
-        if (productList) {
-            res.render("HomePage_1.ejs", { productList: productList });
-        }
-        else {
-            res.status(404).json({ message: "Not found" });
-        }
-
-    } catch (error) {
+    }
+    catch (error) {
         next(error);
     }
 }
@@ -105,10 +100,10 @@ const getProductDetail = async (req, res, next) => {
     }
 }
 
-const getFormCreateNewProduct = (req, res, next) => {
+const getFormCreateNewProduct = async (req, res, next) => {
     try {
-
-        res.render("CreateNewProduct.ejs");
+        const catalogList = await CatalogService.getAllCatalog();
+        res.render("CreateNewProduct.ejs", { catalogList });
     }
     catch (error) {
         console.log(error);
@@ -117,12 +112,12 @@ const getFormCreateNewProduct = (req, res, next) => {
 }
 
 
-
 const postANewProduct = async (req, res, next) => {
     if (!req.files) {
         return res.status(400).json({ error: "No file uploaded" });
     }
     try {
+
         const product = {};
         const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
 
@@ -147,19 +142,84 @@ const postANewProduct = async (req, res, next) => {
     }
 }
 
+
+const getFormUpdateProduct = async (req, res, next) => {
+    try {
+        console.log("get in here...");
+        const { productId } = req.params;
+
+        const product = await ProductService.getProductById(productId);
+        console.log(product);
+        if (product) {
+            const catalogList = await CatalogService.getAllCatalog();
+            console.log(catalogList);
+            res.render("UpdateProduct.ejs", { product, catalogList });
+            return;
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+    }
+    catch (error) {
+        console.log("Error in getFormUpdateProduct:", error);
+
+        next(error);
+    }
+}
+
+const patchAProduct = async (req, res, next) => {
+
+    try {
+
+
+
+        const { productId } = req.params;
+
+        const product = {};
+        console.log(req.files);
+        if (req.files) {
+            const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
+            if (thumbnail) {
+                product.thumbnail = thumbnail;
+            }
+            if (gallery) {
+                product.gallery = gallery;
+            }
+        }
+
+        product.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
+        product.name = req.body.name;
+        product.price = req.body.price;
+        product.description = req.body.description;
+        product.discount = req.body.discount;
+        product.status = req.body.status;
+        product.manufacturer = req.body.manufacturer;
+
+        await ProductService.updateOne(productId, product);
+        res.status(201).json({ message: "Update product successfully", product });
+
+    }
+    catch (error) {
+        console.log("Xuat loi:::", error);
+        next(error);
+    }
+}
+
+
 const getProductList = async (req, res, next) => {
     try {
         const productName = req.query.productName || "None";
-        const catalogId = req.query.catalogId || "None";
-        const minPrice = req.query.minPrice || "None";
-        const maxPrice = req.query.maxPrice || "None";
-        const manufacturer = req.query.manufacturer || "None";
-        const sortByField = req.query.sortByField || "None";
-        const sortByOrder = req.query.sortByOrder || "None";
+        const catalogId = req.query.catalogId;
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const manufacturer = req.query.manufacturer;
+        const sortByField = req.query.sortByField;
+        const sortByOrder = req.query.sortByOrder;
+        const page = req.query.page; //Default;
 
-        const productList = await ProductService.FilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("AdminProducts.ejs", { productList: productList.docs });
+            res.render("AdminProducts.ejs", { productList: productList });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -182,6 +242,7 @@ const getAccountList = async (req, res, next) => {
 
 
         const accountList = await UserService.FilteredAndSortedUser(page, fullname, email, registrationDate, sortByField, sortByOrder);
+        console.log(accountList);
         // res.status(200).json({ accountList });
         if (accountList) {
             res.render("ViewAccountList.ejs", { accountList: accountList });
@@ -241,14 +302,38 @@ const getAccountDetail = async (req, res, next) => {
 
 const getAdminProfile = (req, res, next) => {
     try {
+        console.log("getAdminProfile");
+        const user = req.user;
+        const userDateOfBirth = new Date(user.dateOfBirth);
 
-        res.render("AdminProfile.ejs");
+        res.render("AdminProfile.ejs", { user, userDateOfBirth });
     }
     catch (error) {
         console.log(error);
         next(error);
     }
 }
+
+const patchAdminProfile = async (req, res, next) => {
+    try {
+        console.log("patchAdminProfile");
+        const user = req.user;
+        console.log(req.body);
+        const result = await UserService.updateProfileData(user._id, req.body);
+        if (result) {
+            res.status(200).json({ message: result });
+            return;
+        }
+        else {
+            res.status(404).json({ message: "Can't update profile" });
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
 
 const patchAvatarProfile = async (req, res, next) => {
     try {
@@ -269,6 +354,91 @@ const patchAvatarProfile = async (req, res, next) => {
     }
 }
 
+const updateCatalogName = async (req, res, next) => {
+    try {
+        console.log("Get in here");
+        const list = await ProductService.getAllProduct();
+        for (let i = 0; i < list.length; i++) {
+            const catalog = await Catalog.findById(list[i].catalogId);
+            console.log(catalog);
+            if (catalog) {
+                list[i].catalogName = catalog.name;
+            }
+            console.log(list[i]);
+
+            await list[i].save();
+            console.log("Update successful");
+
+        }
+        res.status(200).json({ message: "Update catalog name successfully" });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
+const patchBanAnUser = async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+        const ban = req.body.ban;
+
+        const user = await UserService.getUserById(userId);
+
+        if (user._id !== req.user._id) {
+            const result = await UserService.setBanAnUser(user, ban);
+            if (result) {
+                console.log(ban);
+                if (ban) {
+                    res.status(200).json({ message: "Ban user successfully" });
+                }
+                else {
+                    res.status(200).json({ message: "Unban user successfully" });
+                }
+                return;
+            }
+            else {
+                res.status(500).json({ message: "Internal Server Error" });
+            }
+        }
+        else {
+            res.status(403).json({ message: "Can not ban your admin account" });
+            return;
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+const updateRatingProduct = async (req, res, next) => {
+    try {
+        const list = await Product.find({});
+        for (let i = 0; i < list.length; i++) {
+            list[i].totalReview = 0;
+            await list[i].save();
+            console.log(list[i]);
+
+        }
+    } catch (error) {
+
+    }
+}
+
+const updateUserAddress = async (req, res, next) => {
+    try {
+        const list = await User.find({});
+        for (let i = 0; i < list.length; i++) {
+            list[i].address = "Null";
+            await list[i].save();
+            console.log(list[i]);
+
+        }
+    } catch (error) {
+
+    }
+}
+
+
 module.exports = {
     getHomePage,
     getDashBoard,
@@ -282,5 +452,11 @@ module.exports = {
     getAccountPaging,
     getProductsForPaging,
     patchAvatarProfile,
-
+    updateCatalogName,
+    getFormUpdateProduct,
+    patchAProduct,
+    patchBanAnUser,
+    updateRatingProduct,
+    patchAdminProfile,
+    updateUserAddress,
 }

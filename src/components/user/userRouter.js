@@ -14,26 +14,29 @@ const multer = require("multer");
 const upload = multerConfig;
 
 
-router.get("/user/home-page", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getHomePage);
-router.get("/user/home-page/products/paging", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.getProductsForPaging);
+router.get("/user/home-page", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getHomePage);
 
-router.get("/user/home-page/cart", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.getCart)
+router.get("/user/all-product", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getAllProductPage);
 
-router.post("/user/home-page/:productId/review", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.postAReview)
+router.get("/user/home-page/products/paging", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getProductsForPaging);
+
+router.get("/user/cart", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getCart)
+
+router.post("/user/home-page/:productId/review", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.postAReview)
 
 // Paging
-router.get("/user/home-page/:productId/review", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.getReviewsForPaging)
+router.get("/user/home-page/:productId/review", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getReviewsForPaging)
 
 // Add product to cart
-router.post("/user/home-page/:productId/cart", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.patchAProductToCart)
+router.post("/user/home-page/:productId/cart", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.patchAProductToCart)
 
-router.get("/user/home-page/:productId", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.getProductDetail)
+router.get("/user/home-page/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getProductDetailPage)
 
 //User profile
-router.get("/user/profile", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.getAccountProfile);
+router.get("/user/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getAccountProfile);
 
-router.patch("/user/profile/avatar", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, upload.single("avatar"), Controllers.patchAvatarProfile);
-router.patch("/user/profile", passport.authenticate('jwt', { session: false }), checkTokenAndActivationValidate, Controllers.patchUserProfile);
+router.patch("/user/profile/avatar", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, upload.single("avatar"), Controllers.patchAvatarProfile);
+router.patch("/user/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.patchUserProfile);
 
 
 

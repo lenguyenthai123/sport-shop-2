@@ -26,11 +26,32 @@ const getHomePage = async (req, res, next) => {
         const manufacturer = req.query.manufacturer;
         const sortByField = req.query.sortByField;
         const sortByOrder = req.query.sortByOrder;
-        const page = 1; //Default;
+        const page = req.query.page; //Default;
+
+        const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        
+        res.render("Homepage_1.ejs", {productList: productList, isLoggedIn: true});
+
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+const getAllProductPage = async (req, res, next) => {
+    try {
+        const productName = req.query.productName || "None";
+        const catalogId = req.query.catalogId;
+        const minPrice = req.query.minPrice;
+        const maxPrice = req.query.maxPrice;
+        const manufacturer = req.query.manufacturer;
+        const sortByField = req.query.sortByField;
+        const sortByOrder = req.query.sortByOrder;
+        const page = req.query.page; //Default;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
         if (productList) {
-            res.render("HomePage_User.ejs", { productList: productList });
+            res.render("AllProduct.ejs", { productList: productList, isLoggedIn: true });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -70,7 +91,7 @@ const getProductsForPaging = async (req, res, next) => {
 
 
 
-const getProductDetail = async (req, res, next) => {
+const getProductDetailPage = async (req, res, next) => {
     try {
 
         const productId = req.params.productId || "None";
@@ -80,8 +101,10 @@ const getProductDetail = async (req, res, next) => {
         if (productInfo) {
 
             // Render file in here! Pleases!!!!!!!!!
-
-            res.status(200).json({ productInfo, relatedProducts, reviews });
+            // res.status(200).json({ productInfo, relatedProducts, reviews });
+           
+            res.render("detailProductUser.ejs", { productInfo, relatedProducts, reviews, isLoggedIn: true });
+          
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -144,22 +167,26 @@ const postAReview = async (req, res, next) => {
     try {
         const user = req.user;
         const userId = req.user._id;
+        const { fullname } = req.user;
         const { productId } = req.params;
         const { rating, comment } = req.body;
         console.log(req.body);
-        const result = await ReviewService.createAReview(productId, userId, rating, comment);
+        const result = await ReviewService.createAReview(productId, userId, fullname, rating, comment);
 
         // Preserve the history when user write review.
         user.reviews.push(result._id);
-        await user.save();
+        await UserService.save(user);
 
         if (result) {
             res.status(201).json({ message: "Create successfully", data: result });
         }
         else {
+            
             res.status(400).json({ message: "Invalid data provided" });
+
         }
     } catch (error) {
+        console.log(error)
         next(error);
     }
 }
@@ -191,7 +218,7 @@ const getCart = async (req, res, next) => {
         if (detailCart) {
             //Render Here
 
-            res.status(200).json({ cart: detailCart, subTotal });
+            res.render("CartPage.ejs", { cart: detailCart, subTotal });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -215,7 +242,7 @@ const patchUserProfile = async (req, res, next) => {
         // else{
         const response = await UserService.updateProfileData(decode.id, req.body);
         console.log(response);
-        res.json({ message: response });
+        res.status(200).json({ message: response });
 
         // }
     } catch (error) {
@@ -224,11 +251,17 @@ const patchUserProfile = async (req, res, next) => {
 }
 const checkRoleAndRedirect = async (req, res, next) => {
     try {
-        const { role } = req.user;
+        const { ban, role } = req.user;
 
         if (role === "user") {
-            next();
-            return;
+            if (!ban) {
+                next();
+                return;
+            }
+            else {
+                res.status(403).send("Your account is banned");
+                return;
+            }
         }
         else {
             res.redirect('/admin/home-page');
@@ -240,6 +273,7 @@ const checkRoleAndRedirect = async (req, res, next) => {
 
 const patchAvatarProfile = async (req, res, next) => {
     try {
+
         if (req.file) {
             const result = await UserService.updateAvatar(req.user, req.file);
             if (result) {
@@ -259,7 +293,8 @@ const patchAvatarProfile = async (req, res, next) => {
 
 module.exports = {
     getHomePage,
-    getProductDetail,
+    getAllProductPage,
+    getProductDetailPage,
     getCart,
     getAccountProfile,
     getProductsForPaging,

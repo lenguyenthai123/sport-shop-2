@@ -1,0 +1,327 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/create_product.css">
+    <!-- <link rel="stylesheet" href="mau.css"> -->
+
+    <title>Update Product</title>
+</head>
+
+<body>
+    <div id="alert"></div>
+
+    <div class="container tm-mt-big tm-mb-big fix-center">
+        <div class="row">
+            <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+                <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title d-inline-block title">Update Product</h2>
+                        </div>
+                    </div>
+                    <form class="tm-edit-product-form" enctype="multipart/form-data">
+                        <input type="hidden" name="_method" value="PATCH">
+
+                        <div class="row tm-edit-product-row">
+
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <div class="form-group mb-3">
+                                    <label for="name">Product Name
+                                    </label>
+                                    <input id="name" name="name" type="text" class="form-control validate" required=""
+                                        value="<%= product.name %>" placeholder="Shirt, t-shirts, etc.">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="description">Description</label>
+                                    <textarea id="description" class="form-control validate" rows="3" required=""
+                                        value="<%= product.description %>"
+                                        placeholder="Type your description..."><%= product.description %></textarea>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input type="hidden" id="catalogId" name="catalogId"
+                                        value="<%= product.catalogId %>">
+                                    <label for="category">Category</label>
+                                    <select class="custom-select tm-select-accounts" id="catalogId-select" required>
+                                        <option value="<%= product.catalogId %>" selected="">
+                                            <%= product.catalogName %>
+                                        </option>
+                                        <% for(let i=0; i < catalogList.length; i++){ %>
+                                            <% if(catalogList[i]._id!==product.catalogId){ %>
+                                                <option value="<%= catalogList[i]._id %>">
+                                                    <%= catalogList[i].name %>
+                                                </option>
+                                                <% } %>
+                                                    <% } %>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label for="price">Price
+                                        </label>
+                                        <input id="price" name="price" type="number" autocomplete="off"
+                                            class="form-control validate hasDatepicker" data-large-mode="true"
+                                            value="<%= product.price %>" required min="0" placeholder="0.00">
+                                    </div>
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label for="discount">Discount(%)
+                                        </label>
+                                        <input id="discount" name="discount" type="number" autocomplete="off"
+                                            placeholder="0" class="form-control validate hasDatepicker"
+                                            data-large-mode="true" value="<%= product.discount %>" required min="0"
+                                            max="100">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                                <div class="row">
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <input type="hidden" id="status" name="status" value="<%= product.status %>">
+
+                                        <label for="stock">Status
+                                        </label>
+                                        <select class="custom-select tm-select-accounts" id="status-select" required>
+                                            <option value="<%= product.status %>" selected="">Select status</option>
+                                            <option value="In Stock">In Stock</option>
+                                            <option value="Pre Order">Pre Order</option>
+                                            <option value="Out of Stock">Out of Stock</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <input type="hidden" id="manufacturer" name="manufacturer"
+                                            value="<%= product.manufacturer %>">
+
+                                        <label for="name">Manufacturer
+                                        </label>
+                                        <select class="custom-select tm-select-accounts" id="manufacturer-select"
+                                            required>
+                                            <option value="<%= product.manufacturer %>" selected="">Select</option>
+                                            <option value="NIKE">Nike</option>
+                                            <option value="ADIDAS">Adidas</option>
+                                            <option value="PUMA">Puma</option>
+                                            <option value="REEBOK">ReeBok</option>
+                                            <option value="NEW BALANCE">New Balance</option>
+                                            <option value="GARMIN">Garmin</option>
+                                            <option value="YONEX">Yonex</option>
+                                            <option value="UNDER ARMOUR">Under Armour</option>
+                                            <option value="VICTOR">Victor</option>
+                                            <option value="MIZUNO">Mizuno</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- <div class="tm-product-img-dummy mx-auto mt-3">
+                                        <i class="fas fa-cloud-upload-alt tm-upload-icon"
+                                            onclick="document.getElementById('fileInput').click();"></i>
+                                    </div> -->
+                                    <div class="custom-file mt-3 mb-2">
+                                        <input name="thumbnail" id="thumbnail" class="btn btn-primary btn-block mx-auto"
+                                            type="file" style="display:none;" accept="image/*">
+                                        <input type="button" class="btn btn-primary btn-block mx-auto"
+                                            value="UPDATE THUMBNAIL"
+                                            onclick="document.getElementById('thumbnail').click();">
+                                    </div>
+                                    <div id="thumbnailState" class="mt-3">
+                                    </div>
+
+
+                                    <div class="custom-file mt-3 mb-10">
+                                        <input name="gallery" id="gallery" type="file" style="display:none;"
+                                            accept="image/*" multiple>
+                                        <input type="button" class="btn btn-primary btn-block mx-auto"
+                                            value="UPDATE GALLERY"
+                                            onclick="document.getElementById('gallery').click();">
+                                    </div>
+
+                                    <div id="galleryState" class="mt-3">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12">
+                                <button id="button-submit" type="button"
+                                    class="btn-submit btn-submit-primary btn-block text-uppercase">Update
+                                    Product
+                                    Now</button>
+                            </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+
+        const uploadThumbnail = document.querySelector("#thumbnail");
+        const thumbnailState = document.querySelector("#thumbnailState");
+
+        const uploadGallery = document.querySelector("#gallery");
+        const galleryState = document.querySelector("#galleryState");
+
+        const price = document.querySelector("#price");
+
+        const manufacturerSelect = document.querySelector("#manufacturer-select");
+        const manufacturer = document.querySelector("#manufacturer");
+
+        const statusSelect = document.querySelector("#status-select");
+        const status = document.querySelector("#status");
+
+        const catalogIdSelect = document.querySelector("#catalogId-select");
+        const catalogId = document.querySelector("#catalogId");
+
+        const btnSubmit = document.querySelector("#button-submit");
+
+        const name = document.querySelector("#name");
+        const description = document.querySelector("#description");
+        const discount = document.querySelector("#discount");
+
+
+        // Alert
+        const alertPlaceholder = document.getElementById('alert')
+        const appendAlert = (message, type) => {
+            alertPlaceholder.style.display = "block";
+            alertPlaceholder.innerHTML = "";
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '</div>'
+            ].join('');
+
+            alertPlaceholder.append(wrapper);
+
+            setTimeout(function () {
+                alertPlaceholder.style.display = "none";
+            }, 5000)
+        }
+        appendAlert("Loading...", "info");
+        alertPlaceholder.style.display = "none";
+
+        const alertTrigger = document.getElementById('liveAlertBtn')
+        if (alertTrigger) {
+            alertTrigger.addEventListener('click', () => {
+                appendAlert('Nice, you triggered this alert message!', 'success')
+            })
+        }
+
+        catalogIdSelect.addEventListener("change", () => {
+            catalogId.value = catalogIdSelect.value;
+            console.log(catalogIdSelect.value);
+        })
+
+        manufacturerSelect.addEventListener("change", () => {
+            manufacturer.value = manufacturerSelect.value;
+            console.log(manufacturerSelect.value);
+        })
+
+        statusSelect.addEventListener("change", () => {
+            status.value = statusSelect.value;
+            console.log(statusSelect.value);
+        })
+
+        uploadThumbnail.addEventListener("change", (e) => {
+            const files = uploadThumbnail.files;
+            console.log(files);
+            if (files.length > 0) {
+
+                thumbnailState.textContent = `Update file: ${rutgon(files[0].name)}`;
+                thumbnailState.style.color = `#000000`;
+                thumbnailState.style.fontWeight = "300";
+            }
+
+        });
+
+        function rutgon(s) {
+            if (s.length < 34) {
+                return s;
+            }
+            else {
+                const ans = s.slice(0, 12) + "..." + s.slice(s.length - 18, s.length);
+                return ans;
+            }
+        }
+
+        uploadGallery.addEventListener("change", (e) => {
+            const files = uploadGallery.files;
+            console.log(files);
+            if (files.length > 0) {
+                galleryState.innerHTML = `Update files:</br>`;
+                for (let i = 0; i < files.length; i++) {
+                    galleryState.innerHTML += `- ${rutgon(files[i].name)}</br>`;
+                    // galleryState.innerHTML += `${files[i].name.length}</br>`;
+                }
+                galleryState.innerHTML += "";
+                // #acc6de
+                galleryState.style.color = `#000000`;
+                galleryState.style.fontWeight = "300";
+            }
+        })
+
+        async function submit(event) {
+
+            console.log("Vao day");
+            const formData = new FormData();
+
+            formData.append("name", name.value);
+            formData.append("price", price.value);
+            formData.append("description", description.value);
+            formData.append("discount", discount.value);
+            formData.append("catalogId", catalogId.value);
+            formData.append("manufacturer", manufacturer.value);
+            formData.append("status", status.value);
+
+            console.log(formData);
+
+            if (uploadThumbnail.files.length > 0) {
+                console.log(uploadThumbnail.files[0]);
+                formData.append("thumbnail", uploadThumbnail.files[0]);
+            }
+            if (uploadGallery.files.length > 0) {
+                for (const file of uploadGallery.files) {
+                    formData.append("gallery", file);
+                }
+            }
+            const currentUrl = window.location.href;
+
+            appendAlert("Loading...", "info");
+            fetch(currentUrl,
+                {
+                    method: 'PATCH',
+                    body: formData,
+                    headers: {
+                        "enctype": "multipart/form-data",
+                    },
+                }).then(response => {
+                    if (response.ok) {
+                        console.log('Data and gallery images uploaded successfully.');
+                        appendAlert("Update product successfully", "success");
+                    } else {
+                        console.error('Failed to upload data and gallery images.');
+                        appendAlert("Update product failed", "danger");
+
+                    }
+                }).catch(error => {
+                    console.error('Error uploading data and gallery images:', error);
+                });
+        }
+
+        btnSubmit.addEventListener("click", submit);
+
+
+
+    </script>
+</body>
+
+</html>

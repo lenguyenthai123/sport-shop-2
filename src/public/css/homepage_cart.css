@@ -70,7 +70,10 @@
     font-size: 0.7rem;
 }
 .shopping_cart img{
-    width: 3.5rem;
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    
 }
 .shopping_cart .back-to-shop{
     margin-top: 4.5rem;
@@ -146,4 +149,9 @@
 
 .btn-shop-all{
     padding: 10px 0 !important;
+}
+
+.img-product{
+    height: 72px;
+    width: 72px;
 }
