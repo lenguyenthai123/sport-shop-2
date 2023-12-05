@@ -342,7 +342,8 @@ body {
   border-radius: 14px; }
 
 .product_image img {
-  height: 280px; }
+  height: 280px;
+  width: 280px; }
 
 .product-fixed-width img {
   width: 280px !important; }
