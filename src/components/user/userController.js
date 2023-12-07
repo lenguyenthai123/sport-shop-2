@@ -143,21 +143,14 @@ const getReviewsForPaging = async (req, res, next) => {
 const getAccountProfile = async (req, res, next) => {
     try {
         const token = req.cookies['token'];
-        Jwt.verify(token, process.env.JWT_SECRET, async (err, decode) => {
-            if (err) {
-                console.log(err.message);
-                res.redirect('/login');
-            }
-            else {
-                console.log(decode);
-                profileData = await UserService.takeAccountProfileData(decode.id);
-                console.log(profileData);
-                if (profileData) {
+        const decode = Jwt.verify(token, process.env.JWT_SECRET);
+        console.log(decode);
+        profileData = await UserService.takeAccountProfileData(decode.id);
+        console.log(profileData);
+        if (profileData) {
 
-                    res.render("AccountProfile.ejs", { user: profileData });
-                }
-            }
-        })
+            res.render("AccountProfile.ejs", { user: profileData });
+        }
 
     }
     catch (error) {

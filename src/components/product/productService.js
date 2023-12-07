@@ -165,6 +165,12 @@ const updateOne = async function (id, product) {
     }
 }
 
+const takePriceOfProduct = async (productId) => {
+    const product = await Product.findById(productId);
+    let price = product.price * (100 - product.discount)/100;
+    return price;
+}
+
 module.exports = {
     FilteredAndSortedProducts,
     getAnProductDetail,
@@ -173,5 +179,6 @@ module.exports = {
     getAllProduct,
     getProductById,
     updateOne,
+    takePriceOfProduct,
 
 }

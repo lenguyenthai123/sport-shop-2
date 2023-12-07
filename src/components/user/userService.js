@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const uploadToCloudinary = require("../../config/cloudinary.js");
+const { nextTick } = require("process");
 
 
 const getAnUser = async function (condition) {
@@ -221,6 +222,41 @@ const getDetailCart = async function (cart) {
   }
 }
 
+const getDetailCart1 = async function (cart) {
+  try {
+    const detailCart = [];
+    let subTotal = 0;
+    let total = 0;
+    for (let i = 0; i < cart.length; i++) {
+      try {
+        const product = await Product.findById(cart[i][`productId`]);
+        const quantity = cart[i][`quantity`];
+        subTotal += product.price * quantity;
+        total += product.price * (1 - product.discount/100) * quantity; 
+        detailCart.push({ productId : new mongoose.Types.ObjectId(cart[i]['productId']) , quantity });
+      } catch (error) {
+        console.log(error);
+        console.log("Not found product");
+      }
+    }
+    return { detailCart, subTotal, total };
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+const getDetailCartById = async (id) =>{
+  try{
+    const userData = await User.findById(id);
+    const cart = userData.cart;
+    return getDetailCart1(cart);
+  }
+  catch(error){
+    throw error;
+  }
+}
+ 
 const sendActiveTokenToMail = async function (user) {
   try {
     const randomActivation = await crypto.randomBytes(20);
@@ -375,6 +411,7 @@ module.exports = {
   FilteredAndSortedUser,
   updateAProductToCart,
   getDetailCart,
+  getDetailCartById,
   sendActiveTokenToMail,
   getAnUser,
   takeAccountProfileData,
