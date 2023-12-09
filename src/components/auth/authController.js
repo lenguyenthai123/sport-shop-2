@@ -233,6 +233,8 @@ const postResetPassword = async (req, res, next) => {
 
         const { id, token } = req.query;
 
+        console.log({ id, token })
+
         const user = await UserService.getUserById(id);
 
         if (!user) {
