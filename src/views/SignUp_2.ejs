@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/authStyle/loginCreateForget.css">
+    <link rel="stylesheet" href="/authStyle/responsive.css">
+    <link rel="stylesheet" href="authStyle/fonts/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Sign up</title>
+</head>
+
+
+<body>
+    <div class="alert alert-success  text-center align-items-center">
+        Check your email to activate your account
+    </div>
+    <div id="page-create-account" class="">
+        <div class="background container">
+            <div class="row page-container m-20">
+                <div class="col-xs-12 col-md-6">
+                    <div class="box-header">
+                        <div class="text-header">
+                            CREATE ACCOUNT
+                        </div>
+                    </div>
+                    <!-- <form class="modal-content" action="" method="POST"> -->
+                    <form class="modal-content" id="signupForm">
+                        <hr>
+                        <div class="text-data-input">Full Name</div>
+                        <div class="wrapper-input-full-name">
+                            <div class="input full-name">
+                                <i class="icon"><img src="/authStyle/img/icons8-name-50.png" alt=""></i>
+                                <div class="input-data">
+                                    <label for="input-full-name"></label>
+                                    <input type="text" id="input-full-name" name="name" required>
+                                </div>
+                                <div class="error"> error</div>
+                            </div>
+                        </div>
+
+
+                        <div class="wrapper-input-email">
+                            <div class="text-data-input">Email</div>
+                            <div class="input email">
+                                <i class="ti-email icon"></i>
+                                <div class="input-data">
+                                    <label for="email"></label>
+                                    <input type="text" id="input-email" name="email" required>
+                                </div>
+                                <div class="error">Email was error</div>
+                            </div>
+
+                        </div>
+                        <!-- <label for="phone"><b>Number Phone</b></label>
+                        <input type="number" placeholder="Enter Your Number Phone" name="phone" required> -->
+                        <div class="wrapper-input-username">
+                            <div class="text-data-input">Username</div>
+                            <div class="input username">
+                                <i class="ti-user icon"></i>
+                                <div class="input-data">
+                                    <label for="input-username"></label>
+                                    <input type="text" id="input-username" name="username" required>
+                                </div>
+                                <div class="error"> error</div>
+                            </div>
+
+                        </div>
+
+                        <div class="wrapper-input-password">
+                            <div class="text-data-input">Password</div>
+                            <div class="input password">
+                                <i class="ti-lock icon"></i>
+                                <div class="input-data ">
+
+                                    <label for="input-password"></label>
+                                    <input type="password" id="input-password" name="password" required>
+                                </div>
+                                <div class="error"> error</div>
+                            </div>
+
+                        </div>
+
+                        <div class="wrapper-input-confirm-password">
+                            <div class="text-data-input">Confirm Password</div>
+                            <div class="input confirm-password">
+                                <i class="ti-reload icon"></i>
+                                <div class="input-data ">
+
+                                    <label for="input-confirm-password"></label>
+                                    <input type="password" id="input-confirm-password" name="passwordConfirmation"
+                                        required>
+                                </div>
+                                <div class="error"> error</div>
+                            </div>
+
+                        </div>
+                        <!-- <div class="text-policy">By creating an account you agree to our <a href="#"
+                                style="color:dodgerblue">Terms &
+                                Privacy</a>.
+                        </div> -->
+                        <!-- <div class="choose">
+                            <label for="checkbox-accept-policy" class="checkbox-container">
+                                <input type="checkbox" id="checkbox-accept-policy" name="checkbox-accept-policy">
+                                <span class="checkmark"></span>Agree Policies
+                            </label>
+                        </div> -->
+                        <div class="clearfix">
+
+                            <button type="button" id="signUpBtn" class="signupbtn">Sign Up</button>
+                            <button type="button" onclick="redirectToLogin()" class="cancelbtn">Cancel</button>
+                        </div>
+
+
+                    </form>
+                </div>
+
+                <div class=" col-xs-0 col-md-6">
+                    <div class="background-img">
+                        <div class="welcome-text">
+                            <div class="hello">HELLO,</div>
+                            <div class="welcome">WELCOME BACK</div>
+                        </div>
+
+                        <img class="img" src="authStyle\img\background.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        const $ = document.querySelector.bind(document)
+        const $$ = document.querySelectorAll.bind(document)
+
+
+        $('#signUpBtn').addEventListener('click', async function (event) {
+            event.preventDefault(); // Prevent the form from submitting automatically
+            const curUrl = new URL(window.location.href);
+            let isError = false;
+            // Collect data from the form
+
+            const formData = {
+                'name': $('#input-full-name').value,
+                'email': $('#input-email').value,
+                'username': $('#input-username').value,
+                'password': $('#input-password').value,
+                'passwordConfirmation': $('#input-confirm-password').value,
+
+            };
+            console.log(formData)
+            fetch('/signup', {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }).then(response => {
+                if (!response.ok) {
+                    isError = true;
+                }
+                return response.json(); // or response.text() depending on the expected data format from the server
+            }).then(data => {
+                // Process the result from the server if needed
+                if (isError == true) {
+                    console.log(data);
+                    console.log(data.errors[0].path)
+                    // Add error handling to display error messages
+                    const errorElements = $$('.error');
+
+                    errorElements.forEach(errorElement => {
+                        errorElement.classList.remove('active');
+                    });
+                    errorElements.forEach(errorElement => {
+                        const fieldName = errorElement.previousElementSibling.lastElementChild.getAttribute('name');
+                        if (data.errors.some(error => error.path === fieldName)) {
+                            errorElement.classList.add('active');
+                            const matchingError = data.errors.find(error => error.path === fieldName);
+                            errorElement.innerHTML = matchingError.msg;
+                        }
+                    });
+                }
+                if (isError == false) {
+                    const alertReview = $('.alert-success')
+                    alertReview.style.opacity = "1";
+                    alertReview.style.display = "block"
+                    console.log(alertReview)
+                    setTimeout(function () {
+                        alertReview.style.opacity = "0";
+                        setTimeout(function () {
+                            alertReview.style.display = "none";
+                        }, 500);
+                    }, 3000);
+                 
+                    
+                }
+                
+              
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+        });
+
+
+
+
+        function redirectToLogin() {
+            window.location.href = "./login";
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

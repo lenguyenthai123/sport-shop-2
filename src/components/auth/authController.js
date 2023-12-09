@@ -11,7 +11,7 @@ const crypto = require('crypto');
 
 const getSignUp = (req, res, next) => {
     try {
-        res.render("SignUp_1.ejs");
+        res.render("SignUp_2.ejs");
     } catch (error) {
         next(error);
     }
@@ -83,7 +83,7 @@ const getActivation = async (req, res, next) => {
 
 const getLogin = (req, res, next) => {
     try {
-        res.render("Login_1.ejs");
+        res.render("Login_2.ejs");
 
     } catch (error) {
         next(error);
@@ -155,7 +155,7 @@ const getLogout = async (req, res, next) => {
 
 const getForgotPassword = (req, res, next) => {
     try {
-        res.render("ForgotPassword_1.ejs");
+        res.render("ForgotPassword_2.ejs");
     } catch (error) {
         next(error);
     }
@@ -211,7 +211,7 @@ const getResetPassword = async (req, res, next) => {
             }
 
             // Successfull because error will throw 
-            res.render("ResetPassword_1.ejs", { email: user.email })
+            res.render("ResetPassword_2.ejs", { email: user.email })
             return;
         }
     } catch (error) {
