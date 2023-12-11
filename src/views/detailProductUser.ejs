@@ -15,7 +15,7 @@
 
 <body>
     <div class="alert alert-success  text-center align-items-center">
-        create
+        Review had added.
     </div>
 
     <div class="container">
@@ -70,11 +70,13 @@
                         <label for="star-2"></label>
                         <input type="radio" id="star-1" name="rating" value="1">
                         <label for="star-1"></label> -->
-                        <div class="star-5"></div>
-                        <div class="star-4"></div>
-                        <div class="star-3"></div>
-                        <div class="star-2"></div>
-                        <div class="star-1"></div>
+                        <% for(let k = 5; k >= 1; k--) { %>
+                            <% if ((productInfo.rating).toFixed(0) >= k) { %>
+                                <div class="star-<%= k %> active"></div>
+                            <% } else { %>
+                                <div class="star-<%= k %>"></div>
+                            <% } %>
+                        <% } %>
                     </div>
                     ( <%= reviews.totalDocs %> Customer Reviews)
                 </div>
@@ -344,15 +346,17 @@
                 <div class="col-3 ">
                     <div class="wrapper-score-review">
                         <div class="score-review">
-                            5.0
+                            <%= (productInfo.rating).toFixed(1) %>
                         </div>
                         <div class="num-review">
                             <div class="rating">
-                                <div class="star-5"></div>
-                                <div class="star-4"></div>
-                                <div class="star-3"></div>
-                                <div class="star-2"></div>
-                                <div class="star-1"></div>
+                                <% for(let k = 5; k >= 1; k--) { %>
+                                    <% if ((productInfo.rating).toFixed(0) >= k) { %>
+                                        <div class="star-<%= k %> active"></div>
+                                    <% } else { %>
+                                        <div class="star-<%= k %>"></div>
+                                    <% } %>
+                                <% } %>
                             </div>
                             <div class="num-ratings">
                                 (<%= reviews.totalDocs %> Ratings)
@@ -472,11 +476,15 @@
                                     <div class="score-rating-user">
                                         <div class="num-review">
                                             <div class="rating">
-                                                <div class="star-5"></div>
-                                                <div class="star-4"></div>
-                                                <div class="star-3"></div>
-                                                <div class="star-2"></div>
-                                                <div class="star-1"></div>
+                                                <% for (let j=5; j>= 1; j--) { %>
+                                                    <% if (reviews.docs[i].rating>= j) { %>
+                                                        <input type="radio" class="star-<%= j %>" value="<%= j %>">
+                                                        <label for="star-<%= j %>" style="color:#ffcc00"></label>
+                                                        <% } else { %>
+                                                            <input type="radio" class="star-<%= j %>" value="<%= j %>">
+                                                            <label for="star-<%= j %>"></label>
+                                                            <% } %>
+                                                                <% } %>
                                             </div>
 
 
@@ -719,11 +727,62 @@
                                     <div class="score-rating-user">
                                         <div class="num-review">
                                             <div class="rating">
+                                                `;
+                        switch (element.rating) {
+                            case 1:
+                                htmlContent +=
+                                    `
                                                 <div class="star-5"></div>
                                                 <div class="star-4"></div>
                                                 <div class="star-3"></div>
                                                 <div class="star-2"></div>
-                                                <div class="star-1"></div>
+                                                <div class="star-1 active"></div>
+                                            `;
+                                break;
+                            case 2:
+                                htmlContent +=
+                                    `
+                                                <div class="star-5"></div>
+                                                <div class="star-4"></div>
+                                                <div class="star-3"></div>
+                                                <div class="star-2 active"></div>
+                                                <div class="star-1 active"></div>
+                                            `;
+                                break;
+                            case 3:
+                                htmlContent +=
+                                    `
+                                                <div class="star-5"></div>
+                                                <div class="star-4"></div>
+                                                <div class="star-3 active"></div>
+                                                <div class="star-2 active"></div>
+                                                <div class="star-1 active"></div>
+                                            `;
+                                break;
+                            case 4:
+                                htmlContent +=
+                                    `
+                                                <div class="star-5"></div>
+                                                <div class="star-4 active"></div>
+                                                <div class="star-3  active"></div>
+                                                <div class="star-2 active"></div>
+                                                <div class="star-1 active"></div>
+                                            `;
+                                break;
+                            case 5:
+                                htmlContent +=
+                                    `
+                                                <div class="star-5  active"></div>
+                                                <div class="star-4  active"></div>
+                                                <div class="star-3  active"></div>
+                                                <div class="star-2 active"></div>
+                                                <div class="star-1 active"></div>
+                                            `;
+                                break;
+                        }
+
+                        htmlContent +=
+                            `
                                             </div>
 
 
@@ -989,7 +1048,18 @@
                 })
                 .then(data => {
                     // Xử lý kết quả từ server (nếu cần)
-                    console.log(data);
+                  
+                    const submitFrom = $('.btn-primary')
+                    const alertReview = $('.alert-success')
+                    alertReview.style.opacity = "1";
+                    alertReview.style.display = "block"
+                    console.log(alertReview)
+                    setTimeout(function () {
+                        alertReview.style.opacity = "0";
+                        setTimeout(function () {
+                            alertReview.style.display = "none";
+                        }, 500);
+                    }, 3000);
                 })
                 .catch(error => {
                     console.error('There has been a problem with your fetch operation:', error);
