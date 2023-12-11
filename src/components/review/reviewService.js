@@ -41,6 +41,7 @@ const filteredAndGetPagingReviews = async function (productId, page) {
             const options = {
                 page: parseInt(page, 10),
                 limit: 5,
+                sort: { datePost: -1 }
             }
             const result = await Review.paginate({ productId: new mongoose.Types.ObjectId(productId) }, options);
 
