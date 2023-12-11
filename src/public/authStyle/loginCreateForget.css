@@ -216,7 +216,7 @@ html {
     margin-top: 2rem;
 }
 
- .input.username {
+.input.username {
     margin-bottom: 1.5rem;
 }
 
@@ -241,7 +241,7 @@ label[class*="input-"] {
     height: 24px;
 }
 
-div[class*="wrapper-input"]{
+div[class*="wrapper-input"] {
     position: relative;
 }
 
@@ -250,14 +250,14 @@ div[class*="wrapper-input"]{
     text-align: end;
     padding-top: 8px;
     font-weight: 500;
-  
+
     position: absolute;
     bottom: -24px;
     right: 0;
     display: none;
 }
 
-.error.active{
+.error.active {
     display: block;
 }
 
@@ -494,7 +494,7 @@ hr {
     display: flex;
     align-items: center;
 
-    margin-top: 8rem;
+    margin-top: 0;
     margin-bottom: 1.5rem;
 }
 
@@ -663,6 +663,7 @@ container {
 .alert {
     position: fixed !important;
 }
+
 .alert-success,
 .alert-danger {
     display: none;

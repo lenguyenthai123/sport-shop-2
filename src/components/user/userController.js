@@ -166,14 +166,14 @@ const postAReview = async (req, res, next) => {
         const { productId } = req.params;
         const { rating, comment } = req.body;
         console.log(req.body);
-        const { result, averageRating } = await ReviewService.createAReview(productId, userId, fullname, rating, comment);
+        const { result, averageRating, totalReview } = await ReviewService.createAReview(productId, userId, fullname, rating, comment);
 
         // Preserve the history when user write review.
         user.reviews.push(result._id);
         await UserService.save(user);
 
         if (result) {
-            res.status(201).json({ message: "Create successfully", data: result, averageRating });
+            res.status(201).json({ message: "Create successfully", data: result, averageRating, totalReview });
         }
         else {
 
