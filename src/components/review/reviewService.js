@@ -24,7 +24,7 @@ const createAReview = async function (productId, userId, fullname, rating, comme
             await product.save();
 
             const result = await Review.create(review);
-            return result;
+            return { result, averageRating: product.rating };
         }
         else {
             return null;
