@@ -70,13 +70,13 @@
                         <label for="star-2"></label>
                         <input type="radio" id="star-1" name="rating" value="1">
                         <label for="star-1"></label> -->
-                        <% for(let k = 5; k >= 1; k--) { %>
-                            <% if ((productInfo.rating).toFixed(0) >= k) { %>
+                        <% for(let k=5; k>= 1; k--) { %>
+                            <% if ((productInfo.rating).toFixed(0)>= k) { %>
                                 <div class="star-<%= k %> active"></div>
-                            <% } else { %>
-                                <div class="star-<%= k %>"></div>
-                            <% } %>
-                        <% } %>
+                                <% } else { %>
+                                    <div class="star-<%= k %>"></div>
+                                    <% } %>
+                                        <% } %>
                     </div>
                     ( <%= reviews.totalDocs %> Customer Reviews)
                 </div>
@@ -350,13 +350,13 @@
                         </div>
                         <div class="num-review">
                             <div class="rating">
-                                <% for(let k = 5; k >= 1; k--) { %>
-                                    <% if ((productInfo.rating).toFixed(0) >= k) { %>
+                                <% for(let k=5; k>= 1; k--) { %>
+                                    <% if ((productInfo.rating).toFixed(0)>= k) { %>
                                         <div class="star-<%= k %> active"></div>
-                                    <% } else { %>
-                                        <div class="star-<%= k %>"></div>
-                                    <% } %>
-                                <% } %>
+                                        <% } else { %>
+                                            <div class="star-<%= k %>"></div>
+                                            <% } %>
+                                                <% } %>
                             </div>
                             <div class="num-ratings">
                                 (<%= reviews.totalDocs %> Ratings)
@@ -805,11 +805,10 @@
 
         // call api to get review
 
+        let totalPages = 10;
+        let currentPage = 1;
+        async function generateReviewPart() {
 
-        document.addEventListener('DOMContentLoaded', async function () {
-
-            let totalPages = 10;
-            let currentPage = 1;
 
             const curUrl = new URL(window.location.href);
 
@@ -868,6 +867,12 @@
 
             // Initial generation of pagination
             generatePagination();
+
+        }
+        document.addEventListener('DOMContentLoaded',  function () {
+
+            generateReviewPart();
+            
 
         })
 
@@ -951,6 +956,20 @@
         const plus = $(".plus")
         const num = $(".num")
         const minus = $(".minus")
+        let numOfProduct = 1;
+        plus.addEventListener("click", () => {
+            numOfProduct++;
+            num.innerText = numOfProduct;
+        })
+        minus.addEventListener("click", () => {
+
+            numOfProduct--;
+            if (numOfProduct <= 1) {
+                numOfProduct = 1;
+            }
+            num.innerText = numOfProduct;
+        })
+
 
         function initApp() {
             products.forEach((value, key) => {
@@ -991,19 +1010,7 @@
         }
 
 
-        let numOfProduct = 1;
-        plus.addEventListener("click", () => {
-            numOfProduct++;
-            num.innerText = numOfProduct;
-        })
-        minus.addEventListener("click", () => {
 
-            numOfProduct--;
-            if (numOfProduct <= 1) {
-                numOfProduct = 1;
-            }
-            num.innerText = numOfProduct;
-        })
 
 
 
@@ -1048,18 +1055,22 @@
                 })
                 .then(data => {
                     // Xử lý kết quả từ server (nếu cần)
-                  
+
                     const submitFrom = $('.btn-primary')
                     const alertReview = $('.alert-success')
                     alertReview.style.opacity = "1";
                     alertReview.style.display = "block"
-                    console.log(alertReview)
+
                     setTimeout(function () {
                         alertReview.style.opacity = "0";
                         setTimeout(function () {
                             alertReview.style.display = "none";
                         }, 500);
                     }, 3000);
+
+                    generateReviewPart()
+                    loadReviewHtml(currentPage)
+                    console.log('haha')
                 })
                 .catch(error => {
                     console.error('There has been a problem with your fetch operation:', error);
