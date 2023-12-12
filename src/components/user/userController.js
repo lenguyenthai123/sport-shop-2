@@ -143,21 +143,14 @@ const getReviewsForPaging = async (req, res, next) => {
 const getAccountProfile = async (req, res, next) => {
     try {
         const token = req.cookies['token'];
-        Jwt.verify(token, process.env.JWT_SECRET, async (err, decode) => {
-            if (err) {
-                console.log(err.message);
-                res.redirect('/login');
-            }
-            else {
-                console.log(decode);
-                profileData = await UserService.takeAccountProfileData(decode.id);
-                console.log(profileData);
-                if (profileData) {
+        const decode = Jwt.verify(token, process.env.JWT_SECRET);
+        console.log(decode);
+        profileData = await UserService.takeAccountProfileData(decode.id);
+        console.log(profileData);
+        if (profileData) {
 
-                    res.render("AccountProfile.ejs", { user: profileData });
-                }
-            }
-        })
+            res.render("AccountProfile.ejs", { user: profileData });
+        }
 
     }
     catch (error) {
@@ -173,14 +166,14 @@ const postAReview = async (req, res, next) => {
         const { productId } = req.params;
         const { rating, comment } = req.body;
         console.log(req.body);
-        const result = await ReviewService.createAReview(productId, userId, fullname, rating, comment);
+        const { result, averageRating, totalReview } = await ReviewService.createAReview(productId, userId, fullname, rating, comment);
 
         // Preserve the history when user write review.
         user.reviews.push(result._id);
         await UserService.save(user);
 
         if (result) {
-            res.status(201).json({ message: "Create successfully", data: result });
+            res.status(201).json({ message: "Create successfully", data: result, averageRating, totalReview });
         }
         else {
 

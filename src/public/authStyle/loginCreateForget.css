@@ -1,0 +1,687 @@
+html {
+    /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+.background {
+    background-color: #F3F3F3;
+    padding: 6vh 10vw;
+    display: flex;
+    justify-content: center;
+    width: 100vw !important;
+    height: 100vh;
+}
+
+.page-container {
+    background-color: #fff;
+    border-radius: 32px;
+    box-shadow: 0.4rem 0.4rem 0.45rem rgba(0, 0, 30, 0.3);
+    overflow: hidden;
+    width: 65vw;
+
+
+}
+
+#page-reset-password .container,
+#page-forget-password .container,
+#page-create-account .container,
+#page-login .container {
+    width: 100vw !important;
+    max-width: none;
+}
+
+.box-header {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background-color: #F3F3F3;
+    border-radius: 50%;
+    height: 36%;
+    width: 70%;
+    top: -18%;
+    left: 15%;
+}
+
+/* #page-create-account .box-header {
+
+    left: 0%;
+} */
+
+
+.text-header {
+    position: relative;
+    top: 20%;
+    font-size: 2rem;
+    color: #000;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+/* .col {
+    float: left;
+    padding-left: 8px;
+    padding-right: 8px;
+} */
+#page-reset-password .row,
+#page-forget-password .row,
+#page-create-account .row,
+#page-login .row {
+    display: flex;
+    justify-content: center;
+
+
+
+}
+
+#page-login .col-md-6 .img,
+#page-reset-password .col-md-6 .img,
+#page-forget-password .col-md-6 .img,
+#page-create-account .col-md-6 .img {
+    width: 100%;
+    height: 100%;
+
+}
+
+#page-create-account .col-md-6,
+#page-forget-password .col-md-6,
+#page-reset-password .col-md-6,
+#page-login .col-md-6 {
+    padding: 0;
+
+
+}
+
+.welcome-text {
+    position: absolute;
+    z-index: 1;
+    top: 2rem;
+    width: 100%;
+
+}
+
+.background-img {
+    padding: 30% 0;
+    background-color: #50AEEE;
+    position: relative;
+    height: 100%;
+
+}
+
+.text-data {
+    font-size: 16px;
+    opacity: 0.7;
+
+
+}
+
+
+.welcome {
+    font-size: 60px;
+}
+
+.header {
+    padding: 60px 0 0 60px;
+}
+
+
+
+.header-logo {
+    width: 135px;
+    height: 30px;
+}
+
+
+.img {
+    width: 100%;
+}
+
+#page-login {
+    display: block;
+}
+
+.instruction {
+    font-size: 20px;
+    padding-top: 20px;
+    opacity: 0.7;
+}
+
+.input {
+    display: flex;
+
+    align-items: center;
+
+    background:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(to right, #00D0B9, #036DA1) border-box;
+    border: 2px solid transparent;
+    border-radius: 15px;
+
+    width: 100%;
+    height: 64px;
+    color: #BBBEC3;
+
+}
+
+
+#page-create-account .col-md-6 .modal-content,
+/* #page-forget-password .col-md-6 .modal-content, */
+#page-login .col-md-6>div:not(:first-child) {
+    position: relative;
+    top: -18%;
+}
+
+#page-login .btn,
+#page-login .choose,
+#page-login .input-content {
+
+    margin: 0 4rem;
+
+}
+
+.text-data-input {
+    font-size: 24px;
+    padding: 12px 0;
+}
+
+.form-login {
+    margin-top: 2rem;
+}
+
+#page-login label {
+    display: none;
+}
+
+#page-login .checkbox-container {
+    display: block;
+}
+
+#input-full-name,
+#input-confirm-password,
+#input-email,
+#input-username,
+#input-password {
+    border: none;
+    background-color: inherit;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 26px;
+    color: #05729F;
+}
+
+.text-policy {
+    margin-top: 2rem;
+}
+
+.input.username {
+    margin-bottom: 1.5rem;
+}
+
+label[class*="input-"] {
+    width: 100%;
+}
+
+.input i[class*="ti-"],
+.input i[class*="ti-"] {
+    display: inline-block;
+    padding: 0 8px;
+    background-color: inherit;
+
+}
+
+/* #page-create-account .email,
+#page-create-account .username{
+    position: relative;
+} */
+#page-create-account .full-name img {
+    width: 24px;
+    height: 24px;
+}
+
+div[class*="wrapper-input"] {
+    position: relative;
+}
+
+.error {
+    color: red;
+    text-align: end;
+    padding-top: 8px;
+    font-weight: 500;
+
+    position: absolute;
+    bottom: -24px;
+    right: 0;
+    display: none;
+}
+
+.error.active {
+    display: block;
+}
+
+.icon {
+
+    padding: 1rem;
+
+    text-align: center;
+
+    font-size: 1.5rem;
+
+}
+
+
+.input-data .text-data {
+    background-color: inherit;
+}
+
+.input:hover {
+    /* background-color: #fff !important; */
+
+    /* hover vô lợt hơn */
+}
+
+.wrapper-input {
+    display: relative;
+}
+
+.input-content .input {}
+
+.input-data {
+    padding: 0px 12px;
+    width: 100%;
+    background-color: inherit;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+
+input:focus {
+    outline-width: 0;
+
+}
+
+input[class*="input-"] {
+    background-color: inherit;
+    width: 100%;
+}
+
+#page-login .btn {
+    width: calc(100%-8rem);
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+
+.choose .remember-me {
+    font-size: 20px;
+}
+
+.choose .forget-password {
+    font-size: 20px;
+}
+
+.btn button[class*="btn-"] {
+    padding: 1rem 3rem;
+    min-width: 148px;
+    background-color: #3D90FF;
+    border: 1px solid #fff;
+    border-radius: 50px;
+    color: #fff;
+
+    font-size: 24px;
+}
+
+.btn button[class*="btn-"]:hover {
+    opacity: 0.55;
+    cursor: pointer;
+
+}
+
+.btn .btn-create-account {
+    background-color: #F3F3F3 !important;
+    color: #000 !important;
+
+}
+
+
+
+#page-login .choose {
+    display: flex;
+    padding: 20px 0;
+    justify-content: space-between;
+}
+
+#page-create-account .choose {
+    padding-top: 1rem;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+}
+
+
+
+label[for="checkbox"] {
+    margin-left: 5px;
+}
+
+.forget-password {
+    text-decoration: none;
+    color: #000;
+
+}
+
+.checkbox-email {
+    display: flex;
+}
+
+
+.login-logo {
+    padding-right: 8px;
+    cursor: pointer;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+/* Full-width input fields */
+
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px solid #4CAF50;
+    border-radius: 50%;
+}
+
+.checkbox-container:hover input~.checkmark {
+    background-color: #e7f1e7;
+}
+
+.checkbox-container input:checked~.checkmark {
+    background-color: #4CAF50;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked~.checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+
+
+#page-create-account,
+/* #page-reset-password, */
+#page-forget-password {
+    width: 100%;
+    box-sizing: Content-box;
+}
+
+.modal-content {
+    border: none !important;
+    padding: 0 4rem;
+}
+
+.modal-content input[type=text],
+.modal-content input[type=number]
+
+/* .modal-content input[type=password]  */
+    {
+    width: 90%;
+    padding: 15px;
+    margin: 5px 0 10px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+
+}
+
+.modal-content input[type=text]:focus,
+.modal-content input[type=number]:focus,
+.modal-content input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+.wrapper-other-method {
+
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.border-text {
+    border-radius: 1rem;
+    border: 2px solid rgba(0, 0, 30, 0.3);
+    padding: 0.5rem 2rem;
+    min-width: fit-content;
+
+}
+
+.line {
+    border: 1px solid rgba(0, 0, 30, 0.3);
+    height: 0px;
+    width: 36%;
+    overflow: hidden;
+}
+
+
+.login-other-method {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.login-logo {
+    height: 60px;
+    width: 70px;
+    margin: 0 1rem;
+}
+
+.login-logo a {
+
+    cursor: pointer;
+}
+
+
+.img {
+    position: relative;
+}
+
+.hello {
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    color: #fff;
+
+}
+
+.welcome {
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    color: #000;
+}
+
+.clearfix {
+    display: flex;
+
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
+#page-reset-password .clearfix {
+    justify-content: center;
+}
+
+.clearfix button {
+    border: none;
+    cursor: pointer;
+
+    padding: 0.5rem 3rem;
+    min-width: 148px;
+    background-color: #3D90FF;
+    border: 1px solid #fff;
+    border-radius: 50px;
+    color: #fff;
+    margin: 1rem 2rem 0 2rem;
+    font-size: 24px;
+}
+
+.clearfix .cancelbtn {
+    margin-left: 20px;
+}
+
+.clearfix button:hover {
+    opacity: 1;
+}
+
+
+
+
+/* Float cancel and signup buttons and add an equal width */
+
+.cancelbtn,
+.signupbtn {
+    float: left;
+    width: 50%;
+}
+
+.cancelbtn {
+
+    background-color: #da5767 !important;
+}
+
+/* Add padding to container elements */
+.modal-content .container {
+    padding: 16px;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+container {
+    height: 100%;
+
+}
+
+.instruction {
+    opacity: 0.55;
+    padding: 32px 0;
+}
+
+
+.clearfix {
+    display: flex;
+    justify-content: center;
+}
+
+.log-in {
+    border: none;
+    background: #fff;
+    color: blue;
+    cursor: pointer;
+    padding: 0 6px;
+}
+
+.footer {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+#countdown {
+    display: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #3D90FF;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    justify-content: center;
+    margin-left: 4px;
+}
+
+.retry {
+    display: none;
+}
+
+.alert {
+    position: fixed !important;
+}
+
+.alert-success,
+.alert-danger {
+    display: none;
+    position: fixed !important;
+    top: 2%;
+    right: 10%;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s;
+    border-radius: 1rem;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+
+    .resetPasswordBtn,
+    .cancelbtn,
+    .signupbtn {
+        width: 100%;
+    }
+}

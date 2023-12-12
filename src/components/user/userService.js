@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const uploadToCloudinary = require("../../config/cloudinary.js");
+const { nextTick } = require("process");
 
 
 const getAnUser = async function (condition) {
@@ -116,7 +117,7 @@ const sendResetEmail = async function (user) {
 
 }
 
-const FilteredAndSortedUser = async function (page, fullname, email, sortByField, sortByOrder) {
+const FilteredAndSortedUser = async function (page, fullname, email, sortByRegistrationTime, sortByField, sortByOrder) {
   try {
     const filter = {};
     const sort = {};
@@ -133,6 +134,9 @@ const FilteredAndSortedUser = async function (page, fullname, email, sortByField
     // Sort
     if (sortByField !== `None` && sortByField) {
       sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
+    }
+    if (sortByRegistrationTime !== `None`) {
+      sort["registrationDate"] = sortByRegistrationTime === `desc` ? -1 : 1;
     }
 
     const options = {
@@ -217,6 +221,41 @@ const getDetailCart = async function (cart) {
     }
     return { detailCart, subTotal };
   } catch (error) {
+    throw error;
+  }
+}
+
+const getDetailCart1 = async function (cart) {
+  try {
+    const detailCart = [];
+    let subTotal = 0;
+    let total = 0;
+    for (let i = 0; i < cart.length; i++) {
+      try {
+        const product = await Product.findById(cart[i][`productId`]);
+        const quantity = cart[i][`quantity`];
+        subTotal += product.price * quantity;
+        total += product.price * (1 - product.discount / 100) * quantity;
+        detailCart.push({ productId: new mongoose.Types.ObjectId(cart[i]['productId']), quantity });
+      } catch (error) {
+        console.log(error);
+        console.log("Not found product");
+      }
+    }
+    return { detailCart, subTotal, total };
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+const getDetailCartById = async (id) => {
+  try {
+    const userData = await User.findById(id);
+    const cart = userData.cart;
+    return getDetailCart1(cart);
+  }
+  catch (error) {
     throw error;
   }
 }
@@ -375,6 +414,7 @@ module.exports = {
   FilteredAndSortedUser,
   updateAProductToCart,
   getDetailCart,
+  getDetailCartById,
   sendActiveTokenToMail,
   getAnUser,
   takeAccountProfileData,

@@ -141,7 +141,7 @@
             products.docs.forEach(element => {
                 htmlContent += 
                 `<div class="col-12 col-xl-3 col-lg-4 col-md-4 col-sm-6 gy-5">
-                    <div class="product">
+                    <div class="product" onclick="loadDetailProduct('${element._id}')">
                         <div class="product_image">
                             <img src= "${element.thumbnail}"
                             alt="${element.name}">

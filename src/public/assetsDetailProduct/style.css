@@ -152,7 +152,7 @@ button:focus {
 
 }
 
-.rating div[class*="star-"] {
+.rating div[class*="star-"].active {
     color: #ffcc00;
 }
 
@@ -470,6 +470,33 @@ button:focus {
 .user-reviews .line {}
 
 
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 20px;
+    color: #ccc;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.rating label:before {
+    content: '\2605';
+
+}
+
+.num-review{
+    width: fit-content;
+}
+
 
 .add-review .rating {
     unicode-bidi: bidi-override;
@@ -717,7 +744,7 @@ body {}
 .alert {
     position: fixed !important;
 }
-
+.alert-success,
 .alert-danger {
     display: none;
     position: fixed !important;

@@ -11,7 +11,7 @@ const OrderScheme = new Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: `Product`,
             },
-            quantity1: Number
+            quantity: Number
         }
     ],
     status: {
@@ -44,6 +44,10 @@ const OrderScheme = new Schema({
         default: "full name",
         trim: true,
     },
+    address: {
+        type: String
+    }
+    ,
     date: {
         type: Date,
         default: Date.now(),

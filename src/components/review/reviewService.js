@@ -24,7 +24,7 @@ const createAReview = async function (productId, userId, fullname, rating, comme
             await product.save();
 
             const result = await Review.create(review);
-            return result;
+            return { result, averageRating: product.rating, totalReview: product.totalReview };
         }
         else {
             return null;
@@ -41,6 +41,7 @@ const filteredAndGetPagingReviews = async function (productId, page) {
             const options = {
                 page: parseInt(page, 10),
                 limit: 5,
+                sort: { datePost: -1 }
             }
             const result = await Review.paginate({ productId: new mongoose.Types.ObjectId(productId) }, options);
 

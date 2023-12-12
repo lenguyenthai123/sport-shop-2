@@ -21,7 +21,7 @@ const validatorSignupOk = (req, res, next) => {
         // Verify user input
         const result = validationResult(req);
         if (!result.isEmpty()) {
-            res.status(400).send({ errors: result.array() });
+            res.status(400).json({ errors: result.array() });
             return;
         }
         else {
@@ -37,7 +37,7 @@ const postSignUp = async (req, res, next) => {
         // Verify user input
         const result = validationResult(req);
         if (!result.isEmpty()) {
-            res.status(400).send({ errors: result.array() });
+            res.status(400).json({ errors: result.array() });
             return;
         }
 
@@ -50,7 +50,7 @@ const postSignUp = async (req, res, next) => {
             const resultChecking = await UserService.sendActiveTokenToMail(user);
 
             if (resultChecking) {
-                res.status(201).send({ message: "Please check your email to activate your account" });
+                res.status(201).json({ message: "Please check your email to activate your account" });
             }
             else {
                 res.status(500).json({ msg: "Created user failed" });
@@ -73,7 +73,7 @@ const getActivation = async (req, res, next) => {
         else {
             foundedUser.active = true;
             await UserService.save(foundedUser);
-            res.status(200).send({ message: "Activation account successfully" });
+            res.status(200).json({ message: "Activation account successfully" });
         }
     }
     catch (error) {
@@ -96,7 +96,7 @@ const postLogin = async (req, res, next) => {
         const result = validationResult(req);
 
         if (!result.isEmpty()) {
-            res.status(400).send({ errors: result.array() });
+            res.status(400).json({ errors: result.array() });
             return;
         }
 
@@ -166,7 +166,7 @@ const postForgotPassword = async (req, res, next) => {
         const result = validationResult(req);
 
         if (!result.isEmpty()) {
-            res.status(400).send({ errors: result.array() });
+            res.status(400).json({ errors: result.array() });
             return;
         }
 
@@ -224,7 +224,7 @@ const postResetPassword = async (req, res, next) => {
         const result = validationResult(req);
 
         if (!result.isEmpty()) {
-            res.status(400).send({ errors: result.array() });
+            res.status(400).json({ errors: result.array() });
             return;
         }
 
@@ -232,6 +232,8 @@ const postResetPassword = async (req, res, next) => {
         const { password, passwordConfirmation } = req.body;
 
         const { id, token } = req.query;
+
+        console.log({ id, token })
 
         const user = await UserService.getUserById(id);
 
@@ -273,7 +275,7 @@ const postUpdatePassword = async (req, res, next) => {
         const resultValidator = validationResult(req);
 
         if (!resultValidator.isEmpty()) {
-            res.status(400).send({ errors: resultValidator.array() });
+            res.status(400).json({ errors: resultValidator.array() });
             return;
         }
 
