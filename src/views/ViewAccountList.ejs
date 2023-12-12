@@ -16,10 +16,12 @@
 <body>
     <%- include('SideBarAdmin') -%>
         <div class="page-view-account-list">
+            
             <div class="main--content">
                 <div class="header--wrapper">
                     <div class="header--title">
                         <span>Primary</span>
+                       
                         <h2>View Account List</h2>
                     </div>
                     <div class="user--infor">
@@ -30,6 +32,7 @@
                         <img src="\assets\img.jpg" alt="">
 
                     </div>
+                    <%- include('SortAccount') -%>
 
                 </div>
                 <div class="list-account-container">
@@ -50,7 +53,7 @@
                             <tbody id="list-account">
 
                                 <% for(let i=0; i < accountList.docs.length; i++) { %>
-                                    <tr>
+                                    <tr onclick="loadDetailUser('<%= accountList.docs[i]._id %>')">
                                         <td>
                                             <%= accountList.docs[i].fullname %>
                                         </td>
@@ -88,9 +91,10 @@
 
         <script>
             var account = document.querySelector(".table-container");
-            account.addEventListener("click", function () {
-                window.location.href = "/admin/accountdetail";
-            })
+            function loadDetailUser(userID) {
+                // window.location.href = "/admin/accountdetail";
+                window.location.href = `/admin/accountlist${userID}`;
+            }
             const listAccount = document.querySelector("#list-account");
             async function loadAccountHtml(page) {
                 const curUrl = new URL(window.location.href);
@@ -105,7 +109,7 @@
                 }
                 console.log(page)
                 console.log(curUrl.pathname);
-                await fetch(pathPaging)
+                await fetch(curUrl)
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -113,8 +117,6 @@
                         return response.json();
                     })
                     .then((data) => {
-
-
                         return data.accountList;
 
                     })
