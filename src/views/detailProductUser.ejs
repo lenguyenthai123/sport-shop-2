@@ -78,7 +78,10 @@
                                     <% } %>
                                         <% } %>
                     </div>
-                    ( <%= reviews.totalDocs %> Customer Reviews)
+                    <div class="number-review">
+                        ( <%= reviews.totalDocs %> Customer Reviews)
+                    </div>
+                  
                 </div>
                 <div class="wrapper-price-product">
                     <div class="price-product-current"></div>
@@ -358,9 +361,9 @@
                                             <% } %>
                                                 <% } %>
                             </div>
-                            <div class="num-ratings">
+                            <!-- <div class="num-ratings">
                                 (<%= reviews.totalDocs %> Ratings)
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
@@ -368,7 +371,7 @@
 
 
 
-                    <ul class="list-score-review">
+                    <!-- <ul class="list-score-review">
                         <li class="five-score">
                             <div class="score">5</div>
 
@@ -459,7 +462,7 @@
                                 100%
                             </div>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="col-9" id="reviews-page-product">
 
@@ -1055,7 +1058,9 @@
                 })
                 .then(data => {
                     // Xử lý kết quả từ server (nếu cần)
-
+                    $('.wrapper-score-review .score-review').innerHTML = parseFloat(data.averageRating).toFixed(1)
+                    $('.header-review').innerHTML = "Reviews(" + data.totalReview + ")"
+                    $('.number-review').innerHTML = "( " + data.totalReview + " Customer Reviews)"
                     const submitFrom = $('.btn-primary')
                     const alertReview = $('.alert-success')
                     alertReview.style.opacity = "1";
@@ -1069,8 +1074,9 @@
                     }, 3000);
 
                     generateReviewPart()
+                    currentPage = 1;
                     loadReviewHtml(currentPage)
-                    console.log('haha')
+                    console.log(data)
                 })
                 .catch(error => {
                     console.error('There has been a problem with your fetch operation:', error);
