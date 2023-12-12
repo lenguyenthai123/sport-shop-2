@@ -33,8 +33,8 @@ const getHomePage = async (req, res, next) => {
         const page = req.query.page; //Default;
 
         const productList = await ProductService.FilteredAndSortedProducts(page, productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
-        
-        res.render("Homepage_1.ejs", {productList: productList, isLoggedIn: true});
+
+        res.render("Homepage_1.ejs", { productList: productList, isLoggedIn: true });
 
     }
     catch (error) {
@@ -234,14 +234,14 @@ const getAccountList = async (req, res, next) => {
     try {
         const fullname = req.query.fullname || "None";
         const email = req.query.email || "None";
-        const registrationDate = req.query.registrationTime || "None";
+        const sortByRegistrationTime = req.query.registrationTime || "None";
         const sortByField = req.query.sortByField || "None";
         const sortByOrder = req.query.sortByOrder || "None";
 
         const page = 1;// Default
 
 
-        const accountList = await UserService.FilteredAndSortedUser(page, fullname, email, registrationDate, sortByField, sortByOrder);
+        const accountList = await UserService.FilteredAndSortedUser(page, fullname, email, sortByRegistrationTime, sortByField, sortByOrder);
         console.log(accountList);
         // res.status(200).json({ accountList });
         if (accountList) {
@@ -261,12 +261,12 @@ const getAccountPaging = async (req, res, next) => {
     try {
         const fullname = req.query.fullname || "None";
         const email = req.query.email || "None";
-        const registrationDate = req.query.registrationTime || "None";
+        const sortByRegistrationTime = req.query.registrationTime || "None";
         const sortByField = req.query.sortByField || "None";
         const sortByOrder = req.query.sortByOrder || "None";
         const page = req.query.page || 1;
 
-        const accountList = await UserService.FilteredAndSortedUser(page, fullname, email, registrationDate, sortByField, sortByOrder);
+        const accountList = await UserService.FilteredAndSortedUser(page, fullname, email, sortByRegistrationTime, sortByField, sortByOrder);
         if (accountList) {
             res.status(200).json({ accountList: accountList });
         }
