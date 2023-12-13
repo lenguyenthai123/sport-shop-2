@@ -7,6 +7,7 @@
     <title>View Account List</title>
     <link rel="stylesheet" href="\assets\styleViewAccountList.css">
     <link rel="stylesheet" href="/css/pagination.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <!-- Google chart -->
@@ -16,24 +17,30 @@
 <body>
     <%- include('SideBarAdmin') -%>
         <div class="page-view-account-list">
-            
+
             <div class="main--content">
                 <div class="header--wrapper">
                     <div class="header--title">
                         <span>Primary</span>
-                       
+
                         <h2>View Account List</h2>
                     </div>
                     <div class="user--infor">
                         <div class="search--box">
                             <i class="fa-solid fa-search"></i>
-                            <input type="text" placeholder="Search">
+                            <input type="text" id="search-information" placeholder="Search">
                         </div>
-                        <img src="\assets\img.jpg" alt="">
+                        <select class="form-select" id="search_selection" aria-label="search User">
+                            <option selected>Search by</option>
+                            <option value="fullname">Full Name</option>
+                            <option value="email">Email</option>
+
+                        </select>
+                        
 
                     </div>
                     <%- include('SortAccount') -%>
-
+                        <img src="\assets\img.jpg" alt="">
                 </div>
                 <div class="list-account-container">
                     <h3 class="main--title">List Account</h3>
@@ -144,26 +151,27 @@
                                     </tr>`;
                         });
                         listAccount.innerHTML = htmlContent;
-                       
+
                     }
                     )
             }
+            // handle sort accounts
 
-
+            const curUrl = new URL(window.location.href);
             document.addEventListener('DOMContentLoaded', async function () {
 
                 let totalPages = 10;
                 let currentPage = 1;
 
-                const curUrl = new URL(window.location.href);
+              
 
                 const urlObjectPath = curUrl.pathname;
                 const pathPaging = "/paging"
 
-                const reviewPagingPath = urlObjectPath + pathPaging;
+                curUrl.pathname = urlObjectPath + pathPaging;
 
-
-                await fetch(reviewPagingPath)
+                console.log(curUrl)
+                await fetch(curUrl)
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -213,8 +221,59 @@
 
             })
 
+            //handle choose method search
+            const searchInfo = document.querySelector("#search-information");
+            const searchBtn = document.querySelector(".fa-search")
+            const searchSelection = document.getElementById("search_selection");
+            let curUrl1 = new URL(window.location.href);
+            searchSelection.addEventListener("change", async function () {
+              
+                let searchSelectedValue = searchSelection.value;
+               
 
+                if (searchSelection.value == "fullname") {
+                    if (curUrl1.searchParams.has('fullname')) {
+                        curUrl1.searchParams.set('fullname',searchInfo.value);
+                    }
+                    else {
+                        curUrl1.searchParams.append('fullname',searchInfo.value);
+                    }
+                    if (curUrl1.searchParams.has('email')) {
+                        curUrl1.searchParams.delete('email');
+                    }
+                } else {
+                    console.log('haha')
+                    if (curUrl1.searchParams.has('email')) {
+                        curUrl1.searchParams.set('email',searchInfo.value);
+                    }
+                    else {
+                        curUrl1.searchParams.append('email',searchInfo.value);
+                    }
+                    if (curUrl1.searchParams.has('fullname')) {
+                        curUrl1.searchParams.delete('fullname');
+                    }
+                   
+                }
+                console.log(curUrl1.toString())
+
+
+            })
+           
+
+            searchBtn.addEventListener("click", async function () {
+               
+                if (curUrl1.searchParams.has('email')) {
+                    console.log('haha1')
+                    curUrl1.searchParams.set('email', searchInfo.value);
+                }
+                else {
+                    console.log('haha2')
+                    curUrl1.searchParams.set('fullname', searchInfo.value);
+                }
+                window.location.href = curUrl1.toString();
+
+            })
         </script>
 </body>
 
-</html>
+</html>``

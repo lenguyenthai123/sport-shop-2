@@ -79,3 +79,15 @@ tfoot td{
 .table-container:hover{
     cursor: pointer;
 }
+#search_selection,
+#sort_selection{
+
+    border-radius: 15px;
+    color: rgba(113, 99, 186, 255);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 2rem 4px 0.75rem;
+    width: fit-content;
+
+}

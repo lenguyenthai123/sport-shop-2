@@ -1,0 +1,32 @@
+/* .wrapper-sort-account{
+    background: rgb(237, 237, 237);
+    border-radius: 15px;
+    color: rgba(113, 99, 186, 255);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    width: fit-content;
+
+}
+
+#sort_selection{
+    background: inherit;
+    border: none;
+}
+.wrapper-sort-account img{
+    width: 24px ;
+    height: 24px ;
+} */
+
+.sort_selection{
+
+    border-radius: 15px;
+    color: rgba(113, 99, 186, 255);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    width: fit-content;
+
+}
