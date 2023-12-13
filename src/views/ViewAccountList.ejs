@@ -36,7 +36,7 @@
                             <option value="email">Email</option>
 
                         </select>
-                        
+
 
                     </div>
                     <%- include('SortAccount') -%>
@@ -100,7 +100,7 @@
             var account = document.querySelector(".table-container");
             function loadDetailUser(userID) {
                 // window.location.href = "/admin/accountdetail";
-                window.location.href = `/admin/accountlist${userID}`;
+                window.location.href = `/admin/accountlist/${userID}`;
             }
             const listAccount = document.querySelector("#list-account");
             async function loadAccountHtml(page) {
@@ -131,8 +131,10 @@
                         let htmlContent = "";
                         console.log(data)
                         data.docs.forEach(element => {
+                            const trimmedId = element._id.trim();
+                            const validObjectId = trimmedId.replace(/\s/g, '');
                             htmlContent +=
-                                `<tr>
+                                `<tr onclick="loadDetailUser('${validObjectId}')">
                                         <td>
                                            ${element.fullname}
                                         </td>
@@ -163,7 +165,7 @@
                 let totalPages = 10;
                 let currentPage = 1;
 
-              
+
 
                 const urlObjectPath = curUrl.pathname;
                 const pathPaging = "/paging"
@@ -227,16 +229,16 @@
             const searchSelection = document.getElementById("search_selection");
             let curUrl1 = new URL(window.location.href);
             searchSelection.addEventListener("change", async function () {
-              
+
                 let searchSelectedValue = searchSelection.value;
-               
+
 
                 if (searchSelection.value == "fullname") {
                     if (curUrl1.searchParams.has('fullname')) {
-                        curUrl1.searchParams.set('fullname',searchInfo.value);
+                        curUrl1.searchParams.set('fullname', searchInfo.value);
                     }
                     else {
-                        curUrl1.searchParams.append('fullname',searchInfo.value);
+                        curUrl1.searchParams.append('fullname', searchInfo.value);
                     }
                     if (curUrl1.searchParams.has('email')) {
                         curUrl1.searchParams.delete('email');
@@ -244,24 +246,24 @@
                 } else {
                     console.log('haha')
                     if (curUrl1.searchParams.has('email')) {
-                        curUrl1.searchParams.set('email',searchInfo.value);
+                        curUrl1.searchParams.set('email', searchInfo.value);
                     }
                     else {
-                        curUrl1.searchParams.append('email',searchInfo.value);
+                        curUrl1.searchParams.append('email', searchInfo.value);
                     }
                     if (curUrl1.searchParams.has('fullname')) {
                         curUrl1.searchParams.delete('fullname');
                     }
-                   
+
                 }
                 console.log(curUrl1.toString())
 
 
             })
-           
+
 
             searchBtn.addEventListener("click", async function () {
-               
+
                 if (curUrl1.searchParams.has('email')) {
                     console.log('haha1')
                     curUrl1.searchParams.set('email', searchInfo.value);
