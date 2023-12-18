@@ -216,8 +216,12 @@ html {
     margin-top: 2rem;
 }
 
-.input.username {
+#page-login .input.username {
     margin-bottom: 1.5rem;
+}
+
+#page-create-account .clearfix button {
+    margin: 1rem 0.5rem;
 }
 
 label[class*="input-"] {
@@ -494,7 +498,7 @@ hr {
     display: flex;
     align-items: center;
 
-    margin-top: 0;
+    margin-top: 2rem;
     margin-bottom: 1.5rem;
 }
 
