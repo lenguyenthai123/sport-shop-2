@@ -1,10 +1,13 @@
 html {
     /* font-family: Arial, Helvetica, sans-serif; */
+    background-color: #F3F3F3;
 }
+
+
 
 .background {
     background-color: #F3F3F3;
-    padding: 6vh 10vw;
+    margin: 6vh 10vw;
     display: flex;
     justify-content: center;
     width: 100vw !important;
@@ -330,14 +333,13 @@ input[class*="input-"] {
 }
 
 .btn button[class*="btn-"] {
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     min-width: 148px;
     background-color: #3D90FF;
     border: 1px solid #fff;
     border-radius: 50px;
     color: #fff;
-
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .btn button[class*="btn-"]:hover {
