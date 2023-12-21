@@ -11,7 +11,6 @@ html {
     display: flex;
     justify-content: center;
     width: 100vw !important;
-    height: 100vh;
 }
 
 .page-container {
@@ -524,6 +523,11 @@ hr {
     margin-top: 3rem;
     display: flex;
     justify-content: center;
+}
+
+.box-fix-bug{
+    height: 200px;
+    width: 100%;
 }
 
 .login-logo {
