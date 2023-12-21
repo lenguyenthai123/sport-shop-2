@@ -55,7 +55,8 @@ const getOrderListByUser = async (req, res, next) => {
             }
         }
         
-        res.status(201).json({"orderList": orderData});
+        // res.status(201).json({"orderList": orderData});
+        res.render("cart.ejs", {"orderList": orderData});
         //Render with 'orderData' variable
     } catch (error) {
         console.log(error);
