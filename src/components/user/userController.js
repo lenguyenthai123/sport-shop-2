@@ -191,7 +191,7 @@ const patchAProductToCart = async (req, res, next) => {
         const { quantity } = req.body;
         const { productId } = req.params;
         const user = req.user;
-
+        
         const result = await UserService.updateAProductToCart(user, productId, quantity);
 
         if (result) {
