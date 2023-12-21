@@ -211,7 +211,24 @@ const getCart = async (req, res, next) => {
         const { detailCart, subTotal } = await UserService.getDetailCart(user.cart);
 
         if (detailCart) {
-            //Render Here
+            res.status(200).json({cart: detailCart, subTotal});
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+const getCartPage = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const { detailCart, subTotal } = await UserService.getDetailCart(user.cart);
+
+        if (detailCart) {
 
             res.render("CartPage.ejs", { cart: detailCart, subTotal });
         }
@@ -291,6 +308,7 @@ module.exports = {
     getAllProductPage,
     getProductDetailPage,
     getCart,
+    getCartPage,
     getAccountProfile,
     getProductsForPaging,
     postAReview,

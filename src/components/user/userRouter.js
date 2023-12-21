@@ -32,12 +32,15 @@ router.post("/user/home-page/:productId/cart", passport.authenticate('jwt', { se
 
 router.get("/user/home-page/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getProductDetailPage)
 
+
 //User profile
 router.get("/user/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getAccountProfile);
 
 router.patch("/user/profile/avatar", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, upload.single("avatar"), Controllers.patchAvatarProfile);
 router.patch("/user/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.patchUserProfile);
 
+//User cart
 
+router.get("/user/cart", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getCartPage);
 
 module.exports = router;
