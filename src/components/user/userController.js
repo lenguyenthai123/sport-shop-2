@@ -229,8 +229,25 @@ const getCartPage = async (req, res, next) => {
         const { detailCart, subTotal } = await UserService.getDetailCart(user.cart);
 
         if (detailCart) {
-
             res.render("CartPage.ejs", { cart: detailCart, subTotal });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+const getCheckoutPage = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const { detailCart, subTotal } = await UserService.getDetailCart(user.cart);
+
+        if (detailCart) {
+            res.render("checkout.ejs", { cart: detailCart, subTotal });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -316,5 +333,6 @@ module.exports = {
     patchAProductToCart,
     patchUserProfile,
     checkRoleAndRedirect,
-    patchAvatarProfile
+    patchAvatarProfile,
+    getCheckoutPage,
 }

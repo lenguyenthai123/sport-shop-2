@@ -224,9 +224,6 @@
         const cart_item = document.getElementById("widget_shopping_cart_content");
 
         async function getCartInfo(){
-
-
-            
             await fetch('/user/cart')
             .then((response) => {
                 if (!response.ok) {
@@ -248,7 +245,7 @@
                             <h5 class="woocommerce-mini-cart__empty-message">Your cart is curently empty</h5>
                             <h5 class="woocommerce-mini-cart__empty-message">Let up help you find the perfect item</h5>
                         
-                            <a class="btn-shop-all" href="/cart">Shop All</a>               
+                            <a class="btn-shop-all" href="/cart-page">Shop All</a>               
                         
                         
                     </div>  
@@ -296,7 +293,7 @@
                     cart_body_html +=
                     `
                     </div>
-                        <a class="btn-shop-all" href="/cart">Shop All</a>
+                        <a class="btn-shop-all" href="/user/cart-page">Shop All</a>
                     </div>
                     `;
 
@@ -369,6 +366,8 @@
                             const quantityElement = element.parentElement.previousElementSibling.querySelector("a.border");
                             console.log(quantityElement);
                             const cur_quantity = quantityElement.innerHTML;
+
+                            console.log(quantityElement);
 
                             await fetch(`/user/home-page/${element.dataset.customValue}/cart`,
                                 {

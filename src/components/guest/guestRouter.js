@@ -8,7 +8,7 @@ router.get("/all-product", Controllers.checkRoleAndRedirectAllProduct, Controlle
 router.get("/home-page", Controllers.checkRoleAndRedirect, Controllers.getHomePage);
 router.get("/home-page/products/paging", Controllers.checkRoleAndRedirect, Controllers.getProductsForPaging);
 
-router.get("/cart", Controllers.checkRoleAndRedirectCart, Controllers.getCart)
+// router.get("/cart", Controllers.checkRoleAndRedirectCart, Controllers.getCart)
 
 // Product detail and paging.
 router.get("/home-page/:productId/review", Controllers.checkRoleAndRedirect, Controllers.getReviewsForPaging)
