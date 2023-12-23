@@ -72,10 +72,15 @@ const getOrderByUser = async (req, res, next) => {
         const token = req.cookies['token'];
         const decode = Jwt.verify(token, process.env.JWT_SECRET);
 
+        for (let j = 0; j < orderData.listItem.length; j++){
+            orderData.listItem[j].productId = (await productService.getAnProductDetail(orderData.listItem[j].productId)).productInfo;
+        }
+
         if(orderData.userId != decode.id){
             res.status(400).json({"message": "You cannot access this order"});
             return;
         }
+        // res.status(201).json({"data": orderData});
         res.render("orderDetail.ejs", {"orderDetail": orderData});
 
         //Render with 'orderData' variable

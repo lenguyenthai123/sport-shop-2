@@ -15,10 +15,10 @@
         <ul class="list-data">
             <li>
                 <div class="text-data">
-                    Order number:
+                    Order id:
                 </div>
                 <div class="data">
-                    3355
+                    <%= orderDetail._id %>
                 </div>
             </li>
             <li>
@@ -26,15 +26,15 @@
                     Date:
                 </div>
                 <div class="data">
-                    12/18/2023
+                    <%= orderDetail.date %>
                 </div>
             </li>
             <li>
                 <div class="text-data">
-                    Email:
+                    Full name:
                 </div>
                 <div class="data">
-                    nguyenthai1234cm@gmail.com
+                    <%= orderDetail.fullname %>
                 </div>
             </li>
             <li>
@@ -42,7 +42,7 @@
                     Total:
                 </div>
                 <div class="data">
-                    $210.30
+                    <%= orderDetail.subTotal %>
                 </div>
             </li>
             <li>
@@ -66,79 +66,20 @@
                 </tr>
             </thead>
             <tbody>
+                <% for (let i = 0;i < orderDetail.listItem.length; i++) { %>
                 <tr>
 
                     <td>
                         <div class="name-product">
-                            BROOKS MEN'S LAUNCH 9 ROAD-RUNNING SHOES
+                            <%= orderDetail.listItem[i].productId.name %>
                         </div>
                         <div class="quantity">
-                            × 2
+                            <%= orderDetail.listItem[i].quantity %>
                         </div>
                     </td>
-                    <td>$160.00</td>
+                    <td><%= orderDetail.listItem[i].quantity * orderDetail.listItem[i].productId.price %></td>
                 </tr>
-                <tr>
-
-                    <td>
-                        <div class="name-product">
-                            FIREFLY STARTER PACK
-                        </div>
-                        <div class="quantity">
-                            × 2
-                        </div>
-                    </td>
-                    <td>$160.00</td>
-                </tr>
-                <tr>
-
-                    <td>
-                        <div class="name-product">
-                            GOODR BOSLEY'S BASSET HOUND DREAMS POLARIZED SUNGLASSES
-                        </div>
-                        <div class="quantity">
-                            × 1
-                        </div>
-                    </td>
-                    <td>$160.00</td>
-                </tr>
-                <tr>
-
-                    <td>
-                        Subtotal:
-                    </td>
-                    <td>
-                        $210.30
-                    </td>
-                </tr>
-                <tr>
-
-                    <td>
-                        Shipping:
-                    </td>
-                    <td>
-                        Free shipping
-                    </td>
-                </tr>
-                <tr>
-
-                    <td>
-                        Payment method:
-                    </td>
-                    <td>
-                        Cash on delivery
-                    </td>
-                </tr>
-                <tr>
-
-                    <td>
-                        Total:
-                    </td>
-                    <td>
-                        $210.30
-                    </td>
-                </tr>
-
+                <% } %>
             </tbody>
         </table>
         <div class="row wrapper-address">
@@ -146,12 +87,13 @@
                 <h2 class="address-billing">
                     Billing address
                 </h2>
-                <div class="address">thau thaithaithauthauthau, CA 95843</div>
+                <div class="address">227 Nguyen Van Cu #3
+                    District 5, Ho Chi Minh city</div>
                 <div class="number-phone">
-                    1231233123
+                    Phone: (+84) 123-4567 ext#1
                 </div>
                 <div class="email">
-                    nguyenthai1234cm@gmail.com
+                    groupABC@gmail.com
                 </div>
             </div>
             <div class="col-6">
@@ -159,7 +101,7 @@
                     Shipping address
                 </h2>
                 <div class="address">
-                    thau thaithaithauthauthau, CA 95843
+                    <%= orderDetail.address %>
                 </div>
             </div>
         </div>
