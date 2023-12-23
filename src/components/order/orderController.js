@@ -55,8 +55,8 @@ const getOrderListByUser = async (req, res, next) => {
             }
         }
         
-        // res.status(201).json({"orderList": orderData});
-        res.render("cart.ejs", {"orderList": orderData});
+        // res.status(201).json({orderList: orderData}); 
+        res.render("OrderList.ejs", {orderList: orderData});
         //Render with 'orderData' variable
     } catch (error) {
         console.log(error);
@@ -68,8 +68,16 @@ const getOrderByUser = async (req, res, next) => {
     try {
         const orderId = req.params.orderId;
         const orderData = await orderService.getOrderDetail(orderId);
-        
-        res.status(201).json({"orderDetail": orderData});
+
+        const token = req.cookies['token'];
+        const decode = Jwt.verify(token, process.env.JWT_SECRET);
+
+        if(orderData.userId != decode.id){
+            res.status(400).json({"message": "You cannot access this order"});
+            return;
+        }
+        res.render("orderDetail.ejs", {"orderDetail": orderData});
+
         //Render with 'orderData' variable
     } catch (error) {
         console.log(error);
