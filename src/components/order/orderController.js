@@ -90,6 +90,38 @@ const getOrderByUser = async (req, res, next) => {
     }
 }
 
+const getOrderDetailByAdmin = async (req, res, next) => {
+    try {
+        const orderId = req.params.orderId;
+        const orderData = await orderService.getOrderDetail(orderId);
+
+        for (let j = 0; j < orderData.listItem.length; j++){
+            orderData.listItem[j].productId = (await productService.getAnProductDetail(orderData.listItem[j].productId)).productInfo;
+        }
+        // res.status(201).json({"data": orderData});
+        res.render("orderDetail.ejs", {"orderDetail": orderData});
+
+        //Render with 'orderData' variable
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+
+const getOrderByAdmin = async (req, res, next) => {
+    try {
+        const orderData = await orderService.getAllOrder();
+        
+        // res.status(201).json({orderList: orderData}); 
+        res.render("OrderList.ejs", {orderList: orderData});
+        //Render with 'orderData' variable
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 const deleteOrderByAdmin = async (req, res, next) => {
     try {
         const orderId = req.params.orderId;
@@ -108,5 +140,7 @@ module.exports = {
     createOrder,
     getOrderListByUser,
     getOrderByUser,
+    getOrderByAdmin,
     deleteOrderByAdmin,
+    getOrderDetailByAdmin,
 }

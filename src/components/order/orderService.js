@@ -10,6 +10,10 @@ const getOrderList = async (id) => {
     return await Order.find({userId: new moongose.Types.ObjectId(id)});
 }
 
+const getAllOrder = async () => {
+    return await Order.find({});
+}
+
 const getOrderDetail = async (orderId) => {
     return await Order.findById(orderId);
 }
@@ -20,6 +24,7 @@ const deleteOrder = async (orderId) => {
 
 module.exports = {
     createOrder,
+    getAllOrder,
     getOrderList,
     getOrderDetail,
     deleteOrder,

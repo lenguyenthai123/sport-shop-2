@@ -98,7 +98,7 @@ h2{
   }
   
   /* Delivering */
-  .delivering {
+  .delivered {
     background: linear-gradient(to right, #ff6600, #ffcc66);
   }
   
@@ -108,7 +108,7 @@ h2{
   }
   
   /* Canceled */
-  .canceled {
+  .cancelled {
     background: linear-gradient(to right, #ff0000, #ff6666);
   }
     
