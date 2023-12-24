@@ -13,10 +13,8 @@
 
 <body>
     <div class="container row">
-        <div class="col-7 ">
-
-            <form class="modal-content" id="checkoutForm">
-
+        <form class="modal-content" id="checkoutForm">
+            <div class="col-7">
                 <div class="billing-details-heading">
                     Billing Details
                 </div>
@@ -60,77 +58,77 @@
                     </div>
 
                 </div>
-            </form>
-        
+            
+            
 
-        </div>
-        <div class="col-5 ">
-            <div class="order-review-heading">
-                Your Order
             </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">
-                            Product</th>
-                        <th scope="col">Subtotal</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for(let i = 0; i < cart.length; i++) { %>
-                    <tr>
-                        <td><%= cart[i].product.name %> x <%= cart[i].quantity %></td>
-                        <td>$ <%= cart[i].product.price * cart[i].quantity %></td>
-                    </tr>
-                    <% } %>
-                    <tr>
-
-                        <td>Shipping</td>
-                        <td class="flat-rate">
-
-                            <div class="text-flat-rate">Flat rate:</div>
-                            <div class="price-flat-rate"> $0.00</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td>$ <%= subTotal %></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                    Cash on Delivery
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                <label class="form-check-label" for="flexRadioDefault2">
-                    Direct momo transfer
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                <label class="form-check-label" for="flexRadioDefault3">
-                    Direct vnpay transfer
-
-                </label>
-            </div>
-            <div class="wrapper-place-order">
-                <div class="target-data-usage">
-                    Your personal data will be used to process your order, support your experience throughout this
-                    website,
-                    and for other purposes described in our privacy policy.
+            <div class="col-5 ">
+                <div class="order-review-heading">
+                    Your Order
                 </div>
-                <button class="place-order" id="create_order">
-                    PLACE ORDER
-                </button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                Product</th>
+                            <th scope="col">Subtotal</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let i = 0; i < cart.length; i++) { %>
+                        <tr>
+                            <td><%= cart[i].product.name %> x <%= cart[i].quantity %></td>
+                            <td>$ <%= cart[i].product.price * cart[i].quantity %></td>
+                        </tr>
+                        <% } %>
+                        <tr>
+
+                            <td>Shipping</td>
+                            <td class="flat-rate">
+
+                                <div class="text-flat-rate">Flat rate:</div>
+                                <div class="price-flat-rate"> $0.00</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>$ <%= subTotal %></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="PaymentMethod" value="cashOnDeli" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Cash on Delivery
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="PaymentMethod" value="momo" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Direct momo transfer
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="PaymentMethod" value="vnpay" id="vnpay_payment">
+                    <label class="form-check-label" for="flexRadioDefault3">
+                        Direct vnpay transfer
+
+                    </label>
+                </div>
+                <div class="wrapper-place-order">
+                    <div class="target-data-usage">
+                        Your personal data will be used to process your order, support your experience throughout this
+                        website,
+                        and for other purposes described in our privacy policy.
+                    </div>
+                    <button type="button" class="place-order" id="create_order">
+                        PLACE ORDER
+                    </button>
+                </div>
+
             </div>
-
-        </div>
-
+        </form>
 
     </div>
 
@@ -141,11 +139,13 @@
         
 
 
-        create_order.addEventListener("click",async function() {
+        create_order.addEventListener("click", async function() {
             var form = document.getElementById('checkoutForm');
 
             var formData = new FormData(form);
             var formObject = {};
+
+            let orderId, total;
             formData.forEach((value, key) => {
                 formObject[key] = value;
             });
@@ -162,11 +162,42 @@
             }).then((response) => {
                 console.log(response);
                 if(response.ok){
+                    
                     alert("Place order successfully");
+                    
                 }
-            }).catch((error) => {
+                return response.json();
+            }).then((data) => {
+                orderId = data.orderId;
+                total = data.total;
+            })
+            .catch((error) => {
                 console.log(error);
             })
+
+            if(formObject['PaymentMethod'] == 'vnpay'){
+                await fetch('/payment/create_payment_url', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        orderId: orderId,
+                        total: total,
+                        language: "",
+                        bankCode: null
+                    })
+                }).then((response) => {
+                    return response.json();
+                    
+                }).then((data) => {
+                    console.log(data);
+                    window.location.href = data.url;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            }
         })
     </script>
     

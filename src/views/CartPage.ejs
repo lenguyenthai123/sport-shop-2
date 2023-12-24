@@ -97,12 +97,19 @@
                 <div class="price">$ <%= subTotal %>
                 </div>
             </div>
-            <button class="proceed-checkout">
-                <a style="text-decoration: none;color: inherit;width: 100%;height: 100%;display: block;" href="/user/check-out">PROCEED TO CHECKOUT</a>
+            <button class="proceed-checkout" id = "checkout_button">
+                PROCEED TO CHECKOUT
             </button>
         </div>
 
     </div>
+
+    <script>
+        const checkout_button = document.getElementById("checkout_button")
+        checkout_button.addEventListener("click" , function (){
+            window.location.href = "/user/check-out";
+        })
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"

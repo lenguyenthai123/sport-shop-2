@@ -30,11 +30,9 @@ const createOrder = async (req, res, next) => {
         const fullname = req.body.fullName;
         const address = req.body.address;
 
-    
-        await orderService.createOrder({userId, listItem, subTotal, shipping, discount, total, phoneNumber, fullname, address})
+        const order = await orderService.createOrder({userId, listItem, subTotal, shipping, discount, total, phoneNumber, fullname, address});
         
-        
-        res.status(201).json({"message": "Create order successfully"});
+        res.status(201).json({"orderId": order._id, "total": order.subTotal});
     }
     catch(error){
         next(error)
