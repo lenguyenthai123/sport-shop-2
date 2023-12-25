@@ -17,6 +17,7 @@
 
 <body>
     <div class="container">
+        <%- include('Navbar') %>
         <table class="table">
             <thead>
                 <tr>
@@ -51,6 +52,9 @@
         </table>
 
     </div>
+
+    <%- include('Footer') %>
+
     <script>
         const orders = document.querySelectorAll(".order_element");
         orders.forEach((element) => {

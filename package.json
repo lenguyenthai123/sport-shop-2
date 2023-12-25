@@ -54,6 +54,7 @@
     "has-proto": "^1.0.1",
     "has-symbols": "^1.0.3",
     "http-errors": "^2.0.0",
+    "https": "^1.0.0",
     "iconv-lite": "^0.4.24",
     "inherits": "^2.0.4",
     "ipaddr.js": "^1.9.1",
