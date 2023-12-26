@@ -2,6 +2,8 @@ const passport = require("passport");
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const crypto = require('crypto');
 
 const User = require("../components/user/userModel")
 require("dotenv").config();
@@ -67,3 +69,56 @@ passport.deserializeUser(function (user, cb) {
         return cb(null, user);
     });
 });
+
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CLIENT_REDIRECT_URL,
+},
+    async function (accessToken, refreshToken, profile, cb) {
+        console.log("accessToken: " + accessToken);
+        console.log("refreshToken: " + refreshToken);
+        console.log(profile);
+        console.log(profile.id);
+
+        // if (profile.email_verified) {
+        try {
+            const user = await User.findOne({ googleId: profile.id });
+            console.log("User: " + user);
+            if (!user) {
+
+                const newProfile = {
+                    username: crypto.randomBytes(16).toString('hex'),
+                    password: crypto.randomBytes(16).toString('hex'),
+                    email: profile._json.email,
+                    avatar: profile._json.picture,
+                    fullname: profile._json.name,
+                    active: profile._json.email_verified,
+                    googleId: profile.id,
+                }
+                const newUser = await User.create(newProfile);
+                console.log("new User: ", newUser);
+                cb(null, newUser);
+            }
+            else {
+                User.findOneAndUpdate({ googleId: profile.id }, {
+                    avatar: profile._json.picture,
+                    fullname: profile._json.name,
+                    active: profile._json.email_verified,
+                    googleId: profile.id,
+                })
+                cb(null, user);
+            }
+
+        }
+        catch (err) {
+            console.log("error: ", err);
+            cb(err, null);
+        }
+        // }
+        // else {
+
+        // }
+    }
+));

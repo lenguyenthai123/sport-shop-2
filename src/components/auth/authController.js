@@ -92,6 +92,7 @@ const getLogin = (req, res, next) => {
 
 const postLogin = async (req, res, next) => {
     try {
+
         // Verify user input
         const result = validationResult(req);
 
@@ -107,6 +108,10 @@ const postLogin = async (req, res, next) => {
         }
 
         const user = req.user;
+
+        if (!user.active) {
+            res.status(400).send("Your email address is not verified");
+        }
 
         user.latestLogin = Date.now();
         const token = await UserService.generateToken(user);

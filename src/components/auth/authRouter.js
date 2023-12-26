@@ -32,4 +32,11 @@ router.get("/update-password", passport.authenticate('jwt', { session: false }),
 router.post("/update-password", passport.authenticate('jwt', { session: false }), Middlewares.checkTokenAndActivationValidate, Middlewares.updatePasswordValidator, Authentication.postUpdatePassword)
 
 router.get("/account/active/:activeToken", Authentication.getActivation);
+
+router.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }), Authentication.postLogin);
+
 module.exports = router;
