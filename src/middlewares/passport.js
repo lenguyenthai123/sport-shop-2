@@ -3,6 +3,8 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 const crypto = require('crypto');
 
 const User = require("../components/user/userModel")
@@ -120,5 +122,56 @@ passport.use(new GoogleStrategy({
         // else {
 
         // }
+    }
+));
+
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: process.env.FACEBOOK_APP_REDIRECT_URL,
+    profileFields: ['id', 'displayName', 'photos', 'email', 'name', 'profileUrl', 'gender']
+
+},
+    async function (accessToken, refreshToken, profile, cb) {
+        console.log("accessToken: " + accessToken);
+        console.log("refreshToken: " + refreshToken);
+        // console.log("picture " + JSON.parse(profile._json.picture.data[0]));
+        console.log(profile);
+        console.log(profile.id);
+
+        try {
+            const user = await User.findOne({ facebookId: profile.id });
+            console.log("User: " + user);
+            if (!user) {
+
+                const newProfile = {
+                    username: crypto.randomBytes(16).toString('hex'),
+                    password: crypto.randomBytes(16).toString('hex'),
+                    email: profile._json.email || null,
+                    fullname: profile._json.name,
+                    active: true,
+                    facebookId: profile.id,
+                    // avatar: profile._json.picture,
+
+                }
+                const newUser = await User.create(newProfile);
+                console.log("new User: ", newUser);
+                cb(null, newUser);
+            }
+            else {
+                User.findOneAndUpdate({ googleId: profile.id }, {
+                    fullname: profile._json.name,
+                    facebookId: profile.id,
+                    // avatar: profile._json.picture,
+                })
+                cb(null, user);
+            }
+
+        }
+        catch (err) {
+            console.log("error: ", err);
+            cb(err, null);
+        }
+        // cb(null, null);
     }
 ));
