@@ -48,6 +48,10 @@ const OrderScheme = new Schema({
         type: String
     }
     ,
+    paymentMethod:{
+        type: String,
+        default: "CashOnDeli"
+    },
     date: {
         type: Date,
         default: Date.now(),

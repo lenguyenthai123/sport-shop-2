@@ -7,10 +7,15 @@ const createOrder = async (order) => {
 }
 
 const getOrderList = async (id) => {
+    await Order.updateMany(
+        { paymentMethod: { $exists: false } },
+        { $set: { paymentMethod: 'CashOnDeli' } },
+        { multi: true }
+    )
     return await Order.find({userId: new moongose.Types.ObjectId(id)});
 }
 
-const getAllOrder = async () => {
+const getAllOrder = async () => { 
     return await Order.find({});
 }
 
@@ -22,9 +27,9 @@ const deleteOrder = async (orderId) => {
     await Order.findByIdAndDelete(orderId);
 }
 
-const updateOrderStatusToDeliver = async (orderId) => {
+const updateOrderPaymentMethod = async (orderId, method) => {
     await Order.findByIdAndUpdate(orderId, {
-        status: "Delivering"
+        paymentMethod: method
     })
 }
 
@@ -34,5 +39,5 @@ module.exports = {
     getOrderList,
     getOrderDetail,
     deleteOrder,
-    updateOrderStatusToDeliver,
+    updateOrderPaymentMethod,
 }

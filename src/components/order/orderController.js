@@ -54,7 +54,7 @@ const getOrderListByUser = async (req, res, next) => {
         }
         
         // res.status(201).json({orderList: orderData}); 
-        res.render("OrderList.ejs", {orderList: orderData});
+        res.render("OrderList.ejs", {orderList: orderData, isLoggedIn: true});
         //Render with 'orderData' variable
     } catch (error) {
         console.log(error);
@@ -79,7 +79,7 @@ const getOrderByUser = async (req, res, next) => {
             return;
         }
         // res.status(201).json({"data": orderData});
-        res.render("orderDetail.ejs", {"orderDetail": orderData});
+        res.render("orderDetail.ejs", {"orderDetail": orderData, isLoggedIn: true});
 
         //Render with 'orderData' variable
     } catch (error) {
