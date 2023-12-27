@@ -79,6 +79,7 @@
 
 .img-banner {
     position: relative;
+    overflow: hidden;
 }
 
 .img-banner .sub-imgs {
@@ -108,10 +109,86 @@
     max-height: 0;
     overflow: hidden;
     animation: slideUp 1s ease-out;
+    animation-fill-mode: backwards;
+    color: #fff;
+}
+
+
+.wrapper-content-top {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    animation: slideDown 1s ease-out;
     animation-fill-mode: forwards;
     color: #fff;
 
 }
+
+
+div[class*="wrapper-content"].show,
+div[class*="wrapper-content"].hide {
+    opacity: 1;
+    max-height: 1000px;
+    overflow: hidden;
+}
+
+.wrapper-content-bottom.show {
+
+    animation: slideUp 1s ease-out;
+    animation-fill-mode: backwards;
+
+}
+
+.wrapper-content-top.show {
+
+    animation: slideDown 1s ease-out;
+    animation-fill-mode: forwards;
+
+
+}
+
+
+.wrapper-content-top.hide {
+    animation: slideDownHide 1s ease-out;
+    animation-fill-mode: forwards;
+
+
+}
+
+.wrapper-content-bottom.hide {
+    animation: slideUpHide 1s ease-out;
+    animation-fill-mode: backwards;
+
+}
+
+
+
+@keyframes slideUpHide {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideDownHide {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
 
 @keyframes slideUp {
     from {
@@ -135,11 +212,6 @@
         transform: translateY(0);
         opacity: 1;
     }
-}
-
-.show {
-    opacity: 1;
-    max-height: 1000px;
 }
 
 .text-sale-number {
@@ -199,13 +271,13 @@
     height: 10px;
     display: block;
     margin-right: 4px;
-   
-  
+
+
 }
 
 .control-nav-main-img a:hover {
     background-color: #C3E92D;
-    
+
 }
 
 
@@ -221,7 +293,7 @@
 
 }
 
-.wrapper-shop-category > a{
+.wrapper-shop-category>a {
     text-decoration: none;
     color: black;
 }
@@ -269,11 +341,11 @@
 .text-header-category:hover {
     color: #C3E92D;
     cursor: pointer;
-   
+
 }
 
 
-.service{
+.service {
     margin-top: 4rem;
     background-color: #F7F7F7;
     text-align: center;
@@ -282,28 +354,28 @@
     border-radius: 20px;
 }
 
-.text-header-service{
+.text-header-service {
     font-size: 20px;
     padding: 12px 0;
 }
-.text-sub-service{
+
+.text-sub-service {
     font-size: 14px;
     opacity: 0.6;
     line-height: 1.6;
-    
+
 }
 
 
-.service .col-3 svg{
+.service .col-3 svg {
     transition: transform 0.3s ease;
 }
 
-.service .col-3 svg:hover{
+.service .col-3 svg:hover {
     scale: 1.1;
     transform: rotate(-1deg);
 }
 
-.header-shop-category--product{
+.header-shop-category--product {
     margin-bottom: 20px;
 }
-

@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    max-width: 1440px !important;
+}
+
+
+.list-data {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.list-data>li {
+    display: flex;
+}
+
+.list-data>li .text-data {
+    padding-right: 4px;
+}
+
+.list-data>li .data {
+    font-weight: 700;
+}
+
+.header {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+/* tr>td>div{
+    font-weight: 700;
+} */
+tr>td {
+    font-weight: 700;
+}
+th,
+tr,
+tr>td {
+    /* Đặt các thuộc tính CSS cho phần tử div chẵn ở đây */
+    border: 1px solid #f5f5f5 !important;
+    padding: 7px;
+}
+
+tr>td:first-child{
+    display: flex;
+}
+
+.quantity{
+    margin-left: 4px;
+}
+
+h2{
+    font-weight: 800;
+}
+.wrapper-address .col-6 div:not(:first-child){
+    font-weight: 700;
+    font-style: oblique;
+}
+
+.wrapper-address{
+    margin-top: 1.5rem;
+}
+
+    
+    

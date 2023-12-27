@@ -1,14 +1,16 @@
 html {
     /* font-family: Arial, Helvetica, sans-serif; */
+    background-color: #F3F3F3;
 }
+
+
 
 .background {
     background-color: #F3F3F3;
-    padding: 6vh 10vw;
+    margin: 6vh 10vw;
     display: flex;
     justify-content: center;
     width: 100vw !important;
-    height: 100vh;
 }
 
 .page-container {
@@ -216,8 +218,12 @@ html {
     margin-top: 2rem;
 }
 
-.input.username {
+#page-login .input.username {
     margin-bottom: 1.5rem;
+}
+
+#page-create-account .clearfix button {
+    margin: 1rem 0.5rem;
 }
 
 label[class*="input-"] {
@@ -326,14 +332,13 @@ input[class*="input-"] {
 }
 
 .btn button[class*="btn-"] {
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     min-width: 148px;
     background-color: #3D90FF;
     border: 1px solid #fff;
     border-radius: 50px;
     color: #fff;
-
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .btn button[class*="btn-"]:hover {
@@ -494,7 +499,7 @@ hr {
     display: flex;
     align-items: center;
 
-    margin-top: 0;
+    margin-top: 2rem;
     margin-bottom: 1.5rem;
 }
 
@@ -518,6 +523,11 @@ hr {
     margin-top: 3rem;
     display: flex;
     justify-content: center;
+}
+
+.box-fix-bug{
+    height: 200px;
+    width: 100%;
 }
 
 .login-logo {

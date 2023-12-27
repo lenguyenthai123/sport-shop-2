@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assetsOrderDetail/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <%- include('Navbar') %>
+        <ul class="list-data">
+            <li>
+                <div class="text-data">
+                    Order id:
+                </div>
+                <div class="data">
+                    <%= orderDetail._id %>
+                </div>
+            </li>
+            <li>
+                <div class="text-data">
+                    Date:
+                </div>
+                <div class="data">
+                    <%= orderDetail.date %>
+                </div>
+            </li>
+            <li>
+                <div class="text-data">
+                    Full name:
+                </div>
+                <div class="data">
+                    <%= orderDetail.fullname %>
+                </div>
+            </li>
+            <li>
+                <div class="text-data">
+                    Total:
+                </div>
+                <div class="data">
+                    <%= orderDetail.subTotal %>
+                </div>
+            </li>
+            <li>
+                <div class="text-data">
+                    Payment method:
+                </div>
+                <div class="data">
+                    <%= orderDetail.paymentMethod %>
+                </div>
+            </li>
+        </ul>
+        <h1 class="header">
+            Order details
+        </h1>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th scope="col">Product</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i = 0;i < orderDetail.listItem.length; i++) { %>
+                <tr>
+
+                    <td>
+                        <div class="name-product">
+                            <%= orderDetail.listItem[i].productId.name %>
+                        </div>
+                        <div class="quantity">
+                            <%= orderDetail.listItem[i].quantity %>
+                        </div>
+                    </td>
+                    <td><%= orderDetail.listItem[i].quantity * orderDetail.listItem[i].productId.price %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="row wrapper-address">
+            <div class="col-6">
+                <h2 class="address-billing">
+                    Billing address
+                </h2>
+                <div class="address">227 Nguyen Van Cu #3
+                    District 5, Ho Chi Minh city</div>
+                <div class="number-phone">
+                    Phone: (+84) 123-4567 ext#1
+                </div>
+                <div class="email">
+                    groupABC@gmail.com
+                </div>
+            </div>
+            <div class="col-6">
+                <h2 class="shipping-billing">
+                    Shipping address
+                </h2>
+                <div class="address">
+                    <%= orderDetail.address %>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <%- include('Footer') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

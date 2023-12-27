@@ -80,6 +80,7 @@
 }
 .shopping_cart h5{
     margin-top: 4vh;
+    text-align: center;
 }
 .shopping_cart hr{
     margin-top: 1.25rem;
@@ -155,3 +156,4 @@
     height: 72px;
     width: 72px;
 }
+

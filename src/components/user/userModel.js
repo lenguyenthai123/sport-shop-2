@@ -16,12 +16,12 @@ const UserScheme = new Schema({
     },
     email: {
         type: String,
-        required: [true, 'Please provide email'],
+        // required: [true, 'Please provide email'],
         match: [
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             'Please provide a valid email',
         ],
-        unique: true,
+        // unique: true,
     },
     fullname: {
         type: String,
@@ -65,6 +65,18 @@ const UserScheme = new Schema({
         type: Date,
         default: Date.now()
 
+    },
+    googleId: {
+        type: String,
+        default: null,
+    },
+    facebookId: {
+        type: String,
+        default: null,
+    },
+    provider: {
+        type: String,
+        default: null,
     },
     cart: [
         {

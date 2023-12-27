@@ -191,7 +191,7 @@ const patchAProductToCart = async (req, res, next) => {
         const { quantity } = req.body;
         const { productId } = req.params;
         const user = req.user;
-
+        
         const result = await UserService.updateAProductToCart(user, productId, quantity);
 
         if (result) {
@@ -211,9 +211,43 @@ const getCart = async (req, res, next) => {
         const { detailCart, subTotal } = await UserService.getDetailCart(user.cart);
 
         if (detailCart) {
-            //Render Here
+            res.status(200).json({cart: detailCart, subTotal});
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
 
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+const getCartPage = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const { detailCart, subTotal } = await UserService.getDetailCart(user.cart);
+
+        if (detailCart) {
             res.render("CartPage.ejs", { cart: detailCart, subTotal });
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+const getCheckoutPage = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const { detailCart, subTotal } = await UserService.getDetailCart(user.cart);
+
+        if (detailCart) {
+            res.render("checkout.ejs", { cart: detailCart, subTotal });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -291,6 +325,7 @@ module.exports = {
     getAllProductPage,
     getProductDetailPage,
     getCart,
+    getCartPage,
     getAccountProfile,
     getProductsForPaging,
     postAReview,
@@ -298,5 +333,6 @@ module.exports = {
     patchAProductToCart,
     patchUserProfile,
     checkRoleAndRedirect,
-    patchAvatarProfile
+    patchAvatarProfile,
+    getCheckoutPage,
 }

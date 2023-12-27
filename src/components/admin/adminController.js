@@ -13,6 +13,7 @@ const ProductService = require("../product/productService.js")
 const UserService = require("../user/userService.js")
 const ReviewService = require("../review/reviewService.js");
 const CatalogService = require("../catalog/catalogService.js");
+const OrderService = require("../order/orderService.js");
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
@@ -420,7 +421,7 @@ const updateRatingProduct = async (req, res, next) => {
 
         }
     } catch (error) {
-
+        next(error);
     }
 }
 
@@ -434,7 +435,19 @@ const updateUserAddress = async (req, res, next) => {
 
         }
     } catch (error) {
+        next(error);
+    }
+}
 
+const getListOrderPage = async (req, res, next) => {
+    try {
+        const data = await OrderService.getAllOrder();
+        // res.json({listOrder: data});
+        res.render("listOrderAdmin.ejs", {orderList: data});
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
     }
 }
 
@@ -459,4 +472,5 @@ module.exports = {
     updateRatingProduct,
     patchAdminProfile,
     updateUserAddress,
+    getListOrderPage,
 }

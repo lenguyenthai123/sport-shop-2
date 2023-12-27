@@ -1,86 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping cart</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/cart_page.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assetsCart/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+
 <body>
-    <div class="card">
-        <div class="row">
-            <div class="col-md-8 col-lg-8 cart">
-                <div class="title">
-                    <div class="row">
-                        <div class="col"><h4><b>Shopping Cart</b></h4></div>
-                        <div class="col align-self-center text-right text-muted">3 items</div>
-                    </div>
-                </div>    
-                <div class="row border-top border-bottom">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
-                        <div class="col">
-                            <div class="row text-muted">Shirt</div>
-                            <div class="row">Cotton T-shirt</div>
-                        </div>
-                        <div class="col">
-                            <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
-                        </div>
-                        <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/ba3tvGm.jpg"></div>
-                        <div class="col">
-                            <div class="row text-muted">Shirt</div>
-                            <div class="row">Cotton T-shirt</div>
-                        </div>
-                        <div class="col">
-                            <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
-                        </div>
-                        <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                    </div>
-                </div>
-                <div class="row border-top border-bottom">
-                    <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/pHQ3xT3.jpg"></div>
-                        <div class="col">
-                            <div class="row text-muted">Shirt</div>
-                            <div class="row">Cotton T-shirt</div>
-                        </div>
-                        <div class="col">
-                            <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
-                        </div>
-                        <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                    </div>
-                </div>
-                <div class="back-to-shop"><a href="/home-page">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+    <div class="container row">
+        <div class="col-8 list-product">
+            <div class="discription-freeship">
+                Buy
+                <span>$79.85</span>
+                more to get
+                <span>freeship</span>
             </div>
-            <div class="col-md-4 col-lg-4 summary">
-                <div><h5><b>Summary</b></h5></div>
-                <hr>
-                <div class="row">
-                    <div class="col" style="padding-left:0;">ITEMS 3</div>
-                    <div class="col text-right">&euro; 132.00</div>
-                </div>
-                <form>
-                    <p>SHIPPING</p>
-                    <select><option class="text-muted">Standard-Delivery- &euro;5.00</option></select>
-                    <p>GIVE CODE</p>
-                    <input id="code" placeholder="Enter your code">
-                </form>
-                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                    <div class="col">TOTAL PRICE</div>
-                    <div class="col text-right">&euro; 137.00</div>
-                </div>
-                <button class="btn">CHECKOUT</button>
+            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="40" aria-valuemin="0"
+                aria-valuemax="100">
+                <div class="progress-bar" style="width: 40%"></div>
             </div>
+            <table class="table list-product">
+
+                <thead>
+                    <tr>
+                        <th class="header" scope="col"> </th>
+                        <th class="header" scope="col"> Product</th>
+                        <th class="header" scope="col"> Price</th>
+                        <th class="header" scope="col">Quantity</th>
+                        <th class="header" scope="col">Subtotal</th>
+                        <th class="header" scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i = 0; i < cart.length; i++) { %>
+                    <tr>
+                        <td>
+                            <div class="product-thumbnail">
+                                <img src="<%= cart[i].product.thumbnail %>" alt="">
+                            </div>
+                        </td>
+                        <td class="name-product">
+
+                            <%= cart[i].product.name %>
+
+                        </td>
+
+                        <td class="price-product"><%= cart[i].product.price %></td>
+                        <td class="quantity-product">
+                            <div class="inner-quantity">
+                                <input type="number" id="quantity_656a9f77e7b22" class="input-text qty text" step="1"
+                                    min="0" name="" value="<%= cart[i].quantity %>" title="Qty" placeholder="" inputmode="numeric" disabled>
+                            </div>
+                        </td>
+
+                        <td class="sub-total"><%= cart[i].quantity*cart[i].product.price %>  </td>
+
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <div class="wrapper">
+                <div class="wrapper-apply-coupon">
+                
+                    <input type="text" class="input-coupon-code" placeholder="Coupon code">
+                    <button class="apply-coupon">apply coupon</button>
+                  
+                </div>
+            </div>
+            
         </div>
-        
+        <div class="col-4 cart-total">
+            <h2>Cart Totals</h2>
+            <div class="sub-total">
+                <div class="text">Subtotal</div>
+                <div class="price">$ <%= subTotal %></div>
+            </div>
+            <div class="shipping">
+                <div class="text">Shipping</div>
+                <div class="information">
+                    <div class="flat-rate">
+                        <div class="text-flat-rate">Flat rate: </div>
+                        <div class="price-flat-rate">$0.00</div>
+                    </div>
+                    <div class="place-ship">
+                        <div class="text-place-ship">Shipping to </div>
+                        <div class="place-place-ship"> CA</div>
+                    </div>
+                </div>
+            </div>
+            <div class="Total">
+                <div class="text">Total</div>
+                <div class="price">$ <%= subTotal %>
+                </div>
+            </div>
+            <button class="proceed-checkout" id = "checkout_button">
+                PROCEED TO CHECKOUT
+            </button>
+        </div>
+
     </div>
+
+    <script>
+        const checkout_button = document.getElementById("checkout_button")
+        checkout_button.addEventListener("click" , function (){
+            window.location.href = "/user/check-out";
+        })
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
 </body>
-</html>l
+
+</html>

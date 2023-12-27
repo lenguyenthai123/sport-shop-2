@@ -12,6 +12,7 @@ const routerGuest = require("../components/guest/guestRouter");
 const routerUser = require("../components/user/userRouter");
 const routerProduct = require("../components/product/productRouter");
 const routerOrder = require("../components/order/orderRouter");
+const routerPayment = require("../components/order/payment.js")
 
 router.use("/", routerAuthentication);
 router.use("/", routerAdmin);
@@ -19,6 +20,7 @@ router.use("/", routerGuest);
 router.use("/", routerUser);
 router.use("/", routerProduct);
 router.use("/", routerOrder);
+router.use("/", routerPayment);
 
 
 

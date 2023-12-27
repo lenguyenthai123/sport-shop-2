@@ -20,8 +20,6 @@ router.get("/user/all-product", passport.authenticate('jwt', { session: false, f
 
 router.get("/user/home-page/products/paging", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getProductsForPaging);
 
-router.get("/user/cart", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getCart)
-
 router.post("/user/home-page/:productId/review", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.postAReview)
 
 // Paging
@@ -32,12 +30,19 @@ router.post("/user/home-page/:productId/cart", passport.authenticate('jwt', { se
 
 router.get("/user/home-page/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getProductDetailPage)
 
+
 //User profile
 router.get("/user/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getAccountProfile);
 
 router.patch("/user/profile/avatar", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, upload.single("avatar"), Controllers.patchAvatarProfile);
 router.patch("/user/profile", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.patchUserProfile);
 
+//User cart
 
+router.get("/user/cart", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getCart);
+
+router.get("/user/cart-page", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getCartPage);
+
+router.get("/user/check-out", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, Controllers.checkRoleAndRedirect, Controllers.getCheckoutPage);
 
 module.exports = router;

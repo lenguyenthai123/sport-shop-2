@@ -30,11 +30,9 @@ const createOrder = async (req, res, next) => {
         const fullname = req.body.fullName;
         const address = req.body.address;
 
-    
-        await orderService.createOrder({userId, listItem, subTotal, shipping, discount, total, phoneNumber, fullname, address})
+        const order = await orderService.createOrder({userId, listItem, subTotal, shipping, discount, total, phoneNumber, fullname, address});
         
-        
-        res.status(201).json({"message": "Create order successfully"});
+        res.status(201).json({"orderId": order._id, "total": order.subTotal});
     }
     catch(error){
         next(error)
@@ -55,7 +53,8 @@ const getOrderListByUser = async (req, res, next) => {
             }
         }
         
-        res.status(201).json({"orderList": orderData});
+        // res.status(201).json({orderList: orderData}); 
+        res.render("OrderList.ejs", {orderList: orderData, isLoggedIn: true});
         //Render with 'orderData' variable
     } catch (error) {
         console.log(error);
@@ -67,8 +66,53 @@ const getOrderByUser = async (req, res, next) => {
     try {
         const orderId = req.params.orderId;
         const orderData = await orderService.getOrderDetail(orderId);
+
+        const token = req.cookies['token'];
+        const decode = Jwt.verify(token, process.env.JWT_SECRET);
+
+        for (let j = 0; j < orderData.listItem.length; j++){
+            orderData.listItem[j].productId = (await productService.getAnProductDetail(orderData.listItem[j].productId)).productInfo;
+        }
+
+        if(orderData.userId != decode.id){
+            res.status(400).json({"message": "You cannot access this order"});
+            return;
+        }
+        // res.status(201).json({"data": orderData});
+        res.render("orderDetail.ejs", {"orderDetail": orderData, isLoggedIn: true});
+
+        //Render with 'orderData' variable
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+const getOrderDetailByAdmin = async (req, res, next) => {
+    try {
+        const orderId = req.params.orderId;
+        const orderData = await orderService.getOrderDetail(orderId);
+
+        for (let j = 0; j < orderData.listItem.length; j++){
+            orderData.listItem[j].productId = (await productService.getAnProductDetail(orderData.listItem[j].productId)).productInfo;
+        }
+        // res.status(201).json({"data": orderData});
+        res.render("orderDetail.ejs", {"orderDetail": orderData});
+
+        //Render with 'orderData' variable
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+
+const getOrderByAdmin = async (req, res, next) => {
+    try {
+        const orderData = await orderService.getAllOrder();
         
-        res.status(201).json({"orderDetail": orderData});
+        // res.status(201).json({orderList: orderData}); 
+        res.render("OrderList.ejs", {orderList: orderData});
         //Render with 'orderData' variable
     } catch (error) {
         console.log(error);
@@ -94,5 +138,7 @@ module.exports = {
     createOrder,
     getOrderListByUser,
     getOrderByUser,
+    getOrderByAdmin,
     deleteOrderByAdmin,
+    getOrderDetailByAdmin,
 }
