@@ -87,10 +87,12 @@
 
                 </div>
                 <div class="wrapper-price-product">
-                    <div class="price-product-current"></div>
+                    <div class="price-product-current">
+                        <%= productInfo.price %>
+                    </div>
 
                     <div class="price-product-origin">
-                        <%= productInfo.price %>
+                        
                     </div>
 
                     <div class="percent-discount">
@@ -664,8 +666,6 @@
         const containerImage = $('.img-main-product');
         const mainImage = $('.main-img');
 
-        const priceProductCurrent = $('price-product-current')
-
         // add to cart
         let closeShopping = $('.closeShopping')
         let listCard = $('.listCard')
@@ -680,12 +680,12 @@
         const btnRightArrow = $('.btn-right-arrow')
 
         // set current price
-        const priceOrigin = parseInt($('.price-product-origin').innerHTML)
+        const priceCurrent = parseInt($('.price-product-current').innerHTML)
         const percentDiscount = parseInt($('.percent-discount').innerHTML)
 
-        const currentPrice = priceOrigin * (100 - percentDiscount) / 100
+        const priceOrigin = parseInt(priceCurrent / (1 - percentDiscount/100));
 
-        $('.price-product-current').innerHTML = currentPrice.toString();
+        $('.price-product-origin').innerHTML = priceOrigin.toString();
 
 
         let curImgIndex = 0;
