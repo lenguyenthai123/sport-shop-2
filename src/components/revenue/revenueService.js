@@ -96,7 +96,7 @@ const getRevenueValueForChart = async function (type, startTime, endTime) {
                 '_id.year': 1,
             }
         }
-        group.total = { $sum: '$total' };
+        group.total = { $sum: '$subTotal' };
 
 
         console.log("Group: " + group);
