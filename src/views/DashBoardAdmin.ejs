@@ -7,196 +7,284 @@
 
     <title>Dashboard Design</title>
 
-    <!-- <link rel="stylesheet" href="/assets/styleIndex.css"> -->
+    <link rel="stylesheet" href="/assetsDashboardAdmin/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google chart -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2013',  1000,      400],
-          ['2014',  1170,      460],
-          ['2015',  660,       1120],
-          ['2016',  1030,      540]
-        ]);
-
-        var options = {
-          title: 'Company Performance',
-          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0}
-        };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
     </script>
 </head>
 
 <body>
     <%- include('SideBarAdmin') -%>
-    <!-- dashboard -->
-    <div id="dashboard">
-        <div class="main--content">
-            <div class="header--wrapper">
-                <div class="header--title">
-                    <span>Primary</span>
-                    <h2>Dashboard</h2>
+        <!-- dashboard -->
+        <div id="dashboard">
+            <div class="main--content">
+                <div class="header--wrapper">
+                    <div class="header--title">
+                        <span>Primary</span>
+                        <h2>Dashboard</h2>
+                    </div>
+                    <div class="user--infor">
+                        <div class="search--box">
+                            <i class="fa-solid fa-search"></i>
+                            <input type="text" placeholder="Search">
+                        </div>
+                        <img src="https://omimultimarket.com/inc/style.lib/assets/images/login.png" alt="">
+
+                    </div>
+
                 </div>
-                <div class="user--infor">
-                    <div class="search--box">
-                        <i class="fa-solid fa-search"></i>
-                        <input type="text" placeholder="Search">
+                <div class="card--container">
+                    <h3 class="main--title">Today's data</h3>
+                    <div class="card--wrapper">
+                        <div class="payment--card light-red">
+                            <div class="card--header">
+                                <div class="amount">
+                                    <span class="title">
+                                        Payment amount
+                                    </span>
+                                    <span class="amount-value">
+                                        $500.00
+                                    </span>
+                                </div>
+                                <i class="fas fa-dollar-sign icon"></i>
+                            </div>
+
+                            <span class="card-detail">**** **** **** 3484</span>
+                        </div>
+                        <div class="payment--card light-purple">
+                            <div class="card--header">
+                                <div class="amount">
+                                    <span class="title">
+                                        Payment order
+                                    </span>
+                                    <span class="amount-value">
+                                        $200.00
+                                    </span>
+                                </div>
+                                <i class="fas fa-list icon dark-purple"></i>
+                            </div>
+
+                            <span class="card-detail">**** **** **** 5542</span>
+                        </div>
+                        <div class="payment--card light-green">
+                            <div class="card--header">
+                                <div class="amount">
+                                    <span class="title">
+                                        Payment customer
+                                    </span>
+                                    <span class="amount-value">
+                                        $350.00
+                                    </span>
+                                </div>
+                                <i class="fas fa-users icon dark-green"></i>
+                            </div>
+
+                            <span class="card-detail">**** **** **** 8896</span>
+                        </div>
+                        <div class="payment--card light-blue">
+                            <div class="card--header">
+                                <div class="amount">
+                                    <span class="title">
+                                        Payment proceed
+                                    </span>
+                                    <span class="amount-value">
+                                        $150.00
+                                    </span>
+                                </div>
+                                <i class="fas fa-check icon dark-blue"></i>
+                            </div>
+
+                            <span class="card-detail">**** **** **** 7745</span>
+                        </div>
+                        <div class="tabular--wrapper">
+                            <h3 class="main--title">
+                                Finance data
+                            </h3>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Transaction Type</th>
+                                            <th>Descriptioin</th>
+                                            <th>Amount</th>
+                                            <th>Catagory</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td>2023-11-01</td>
+                                            <td>Expenses</td>
+                                            <td>Office Supplies</td>
+                                            <td>$250</td>
+                                            <td>Office Expenses</td>
+                                            <td>Pending</td>
+                                            <td><button>Edit</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2023-11-01</td>
+                                            <td>Expenses</td>
+                                            <td>Office Supplies</td>
+                                            <td>$250</td>
+                                            <td>Office Expenses</td>
+                                            <td>Pending</td>
+                                            <td><button>Edit</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2023-11-01</td>
+                                            <td>Expenses</td>
+                                            <td>Office Supplies</td>
+                                            <td>$250</td>
+                                            <td>Office Expenses</td>
+                                            <td>Pending</td>
+                                            <td><button>Edit</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2023-11-01</td>
+                                            <td>Expenses</td>
+                                            <td>Office Supplies</td>
+                                            <td>$250</td>
+                                            <td>Office Expenses</td>
+                                            <td>Pending</td>
+                                            <td><button>Edit</button></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="7">
+                                                Total: $1,000
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                    </thead>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
-                    <img src="https://omimultimarket.com/inc/style.lib/assets/images/login.png" alt="">
-    
+
                 </div>
-    
-            </div>
-            <div class="card--container">
-                <h3 class="main--title">Today's data</h3>
-                <div class="card--wrapper">
-                    <div class="payment--card light-red">
-                        <div class="card--header">
-                            <div class="amount">
-                                <span class="title">
-                                    Payment amount
-                                </span>
-                                <span class="amount-value">
-                                    $500.00
-                                </span>
-                            </div>
-                            <i class="fas fa-dollar-sign icon"></i>
-                        </div>
-    
-                        <span class="card-detail">**** **** **** 3484</span>
+                <div class="sort-product-container">
+
+                    <div class="col-8 col-xl-2 col-lg-2 col-sm-8 home_option_for_tax">
+                        <select class="form-select" id="sort_selection" aria-label="Sort product">
+                            <option selected>Sort products</option>
+                            <option value="day">Day</option>
+
+                            <option value="month">Month</option>
+                            <option value="year">Year</option>
+
+                        </select>
                     </div>
-                    <div class="payment--card light-purple">
-                        <div class="card--header">
-                            <div class="amount">
-                                <span class="title">
-                                    Payment order
-                                </span>
-                                <span class="amount-value">
-                                    $200.00
-                                </span>
-                            </div>
-                            <i class="fas fa-list icon dark-purple"></i>
-                        </div>
-    
-                        <span class="card-detail">**** **** **** 5542</span>
-                    </div>
-                    <div class="payment--card light-green">
-                        <div class="card--header">
-                            <div class="amount">
-                                <span class="title">
-                                    Payment customer
-                                </span>
-                                <span class="amount-value">
-                                    $350.00
-                                </span>
-                            </div>
-                            <i class="fas fa-users icon dark-green"></i>
-                        </div>
-    
-                        <span class="card-detail">**** **** **** 8896</span>
-                    </div>
-                    <div class="payment--card light-blue">
-                        <div class="card--header">
-                            <div class="amount">
-                                <span class="title">
-                                    Payment proceed
-                                </span>
-                                <span class="amount-value">
-                                    $150.00
-                                </span>
-                            </div>
-                            <i class="fas fa-check icon dark-blue"></i>
-                        </div>
-    
-                        <span class="card-detail">**** **** **** 7745</span>
-                    </div>
-                    <div class="tabular--wrapper">
-                        <h3 class="main--title">
-                            Finance data
-                        </h3>
-                        <div class="table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Transaction Type</th>
-                                        <th>Descriptioin</th>
-                                        <th>Amount</th>
-                                        <th>Catagory</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                <tbody>
-                                    <tr>
-                                        <td>2023-11-01</td>
-                                        <td>Expenses</td>
-                                        <td>Office Supplies</td>
-                                        <td>$250</td>
-                                        <td>Office Expenses</td>
-                                        <td>Pending</td>
-                                        <td><button>Edit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023-11-01</td>
-                                        <td>Expenses</td>
-                                        <td>Office Supplies</td>
-                                        <td>$250</td>
-                                        <td>Office Expenses</td>
-                                        <td>Pending</td>
-                                        <td><button>Edit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023-11-01</td>
-                                        <td>Expenses</td>
-                                        <td>Office Supplies</td>
-                                        <td>$250</td>
-                                        <td>Office Expenses</td>
-                                        <td>Pending</td>
-                                        <td><button>Edit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023-11-01</td>
-                                        <td>Expenses</td>
-                                        <td>Office Supplies</td>
-                                        <td>$250</td>
-                                        <td>Office Expenses</td>
-                                        <td>Pending</td>
-                                        <td><button>Edit</button></td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan = "7">
-                                            Total: $1,000
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                                </thead>
-                            </table>
-                        </div>
-                        
-                    </div>
+
+                    <canvas id="lineChart" width="800" height="400"></canvas>
                 </div>
             </div>
-            <div class="graphBox">
-                    <div id="chart_div" style="width: 800px; height: 800px;"></div>
-                
-            </div>
+
         </div>
-    </div>
+
+
+        <script>
+            var lineChart;
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Dữ liệu mẫu cho 12 tháng
+                var data = {
+                    
+                    datasets: [{
+                        label: 'Doanh số bán hàng',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                       
+                    }]
+                };
+
+                // Cấu hình biểu đồ
+                var options = {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            type: 'category',
+                            labels: data.labels,
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                };
+
+                // Lấy thẻ canvas và vẽ biểu đồ
+                var ctx = document.getElementById('lineChart').getContext('2d');
+                lineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: data,
+                    options: options
+                });
+            });
+
+            var ngayHienTai = new Date();
+            var ngayTruoc = new Date();
+            var ngayTest = new Date();
+            ngayTruoc.setDate(ngayTruoc.getDate() - 1000);
+            ngayTest.setDate(ngayTruoc.getDate() - 60);
+            console.log("Ngày hiện tại: ", ngayHienTai);
+            console.log("Ngày 7 ngày trước: ", ngayTruoc);
+
+            const sortSelection = document.getElementById("sort_selection");
+
+            sortSelection.addEventListener("change", async function () {
+                let selectedValue = sortSelection.value;
+
+                const fetchData = async () => {
+                    try {
+                        const response = await fetch(`/revenue/chart?type=${selectedValue}&startTime=${ngayTruoc}&endTime=${ngayTest}`, {
+                            method: 'GET',
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+
+                        const data = await response.json();
+
+                        console.log('Data from server:', data);
+                        const chartData = data.map(item => {
+                            return {
+                                x: new Date(item._id.year, item._id.month - 1, item._id.day),
+                                y: item.total
+                            };
+                        });
+
+                        const labels = chartData.map(item => item.x.toDateString());
+
+                        // Cập nhật label cho trục x
+                        lineChart.options.scales.x.labels = labels;
+                        // Thêm dataset mới cho biểu đồ
+                        lineChart.data.datasets.push({
+                            label: 'Doanh số mới',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 2,
+                            data: chartData,
+                        });
+
+                        // Cập nhật dữ liệu cho biểu đồ và vẽ lại
+                        lineChart.update();
+                    } catch (error) {
+                        console.error('Error fetching data:', error.message);
+                    }
+                };
+
+                fetchData();
+            });
 
 
 
+        </script>
 </body>
 
 </html>
