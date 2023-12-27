@@ -1,11 +1,5 @@
-const Jwt = require("jsonwebtoken")
-const moongose = require("mongoose")
-const orderService = require('./orderService');
-const userService = require('../user/userService')
-const productService = require('../product/productService');
-const User = require('../user/userModel');
-const Revenue = require('./revenueModel');
 const RevenueService = require('./revenueService');
+const Order = require('../order/orderModel');
 
 require("dotenv").config();
 
@@ -29,21 +23,60 @@ const createRevenue = async (req, res, next) => {
 const getChartValue = async (req, res, next) => {
 
     try {
+
         const type = req.query.type;
-        const startTime = req.query.startTime;
-        const endTime = req.query.endTime;
+        const startTime = new Date(req.query.startTime);
+        const endTime = new Date(req.query.endTime);
+
+        console.log("vao day: " + type + " " + startTime + " " + endTime);
 
         const revenueList = await RevenueService.getRevenueValueForChart(type, startTime, endTime);
+        console.log("Vuot qua");
 
         res.status(200).json(revenueList);
     }
     catch (err) {
+        console.log(err);
         next(err);
     }
 }
 
+const getTopRevenue = async (req, res, next) => {
+
+    try {
+        const startTime = new Date(req.query.startTime);
+        const endTime = new Date(req.query.endTime);
+
+        const topList = await RevenueService.getTopRevenueProduct(startTime, endTime);
+
+        res.status(200).json(topList);
+    }
+    catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
+
+// const fix = async (req, res, next) => {
+
+//     try {
+//         const list = await Order.find({});
+//         for (let i = 0; i < list.length; i++) {
+//             const order = list[i];
+//             // console.log(order)
+//             const result = await RevenueService.create(order._id);
+
+//         }
+//         console.log("Thanh cong");
+//     }
+//     catch (err) {
+//         console.log(err);
+//         next(err);
+//     }
+// }
 
 module.exports = {
     createRevenue,
-    getChartValue
+    getChartValue,
+    getTopRevenue,
 }

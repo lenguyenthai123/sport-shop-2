@@ -13,6 +13,7 @@ const routerUser = require("../components/user/userRouter");
 const routerProduct = require("../components/product/productRouter");
 const routerOrder = require("../components/order/orderRouter");
 const routerPayment = require("../components/order/payment.js")
+const routerRevenue = require("../components/revenue/revenueRouter.js");
 
 router.use("/", routerAuthentication);
 router.use("/", routerAdmin);
@@ -21,6 +22,7 @@ router.use("/", routerUser);
 router.use("/", routerProduct);
 router.use("/", routerOrder);
 router.use("/", routerPayment);
+router.use("/", routerRevenue);
 
 
 

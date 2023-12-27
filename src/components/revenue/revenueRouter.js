@@ -22,4 +22,9 @@ router.post("/revenue", passport.authenticate('jwt', { session: false, failureRe
 
 router.get("/revenue/chart", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controller.getChartValue);
 
+router.get("/revenue/top", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controller.getTopRevenue);
+
+
+// router.get("/revenue/fix", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controller.fix);
+
 module.exports = router;
