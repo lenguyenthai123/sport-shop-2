@@ -85,10 +85,12 @@
                         ( <%= reviews.totalDocs %> Customer Reviews)
                     </div>
                     <div class="wrapper-price-product">
-                        <div class="price-product-current"></div>
+                        <div class="price-product-current">
+                            <%= productInfo.price %>
+                        </div>
 
                         <div class="price-product-origin">
-                            <%= productInfo.price %>
+                            
                         </div>
 
                         <div class="percent-discount">
@@ -730,12 +732,12 @@
             const btnRightArrow = $('.btn-right-arrow')
 
             // set current price
-            const priceOrigin = parseInt($('.price-product-origin').innerHTML)
+            const priceCurrent = parseInt($('.price-product-current').innerHTML)
             const percentDiscount = parseInt($('.percent-discount').innerHTML)
 
-            const currentPrice = priceOrigin * (100 - percentDiscount) / 100
+            const priceOrigin = parseInt(priceCurrent / (1 - percentDiscount/100));
 
-            $('.price-product-current').innerHTML = currentPrice.toString();
+            $('.price-product-origin').innerHTML = priceOrigin.toString();
 
 
             let curImgIndex = 0;
@@ -981,13 +983,15 @@
             const numQuantity = $('.num-quantity')
 
             addToCart.addEventListener('click', function () {
-
-                subTotal.innerHTML = '$' + (currentPrice * numOfProduct).toString();
-                priceProduct.innerHTML = '$' + currentPrice.toString();
-                numQuantity.innerHTML = numOfProduct.toString() + "x";
-                backgroundOverlay.classList.add('active')
-                body.classList.add('active')
-
+                alertLogin.style.opacity = "1";
+                alertLogin.style.display = "block"
+                console.log(alertLogin)
+                setTimeout(function () {
+                    alertLogin.style.opacity = "0";
+                    setTimeout(function () {
+                        alertLogin.style.display = "none";
+                    }, 500);
+                }, 3000);
             });
 
             closeShopping.addEventListener('click', function () {
