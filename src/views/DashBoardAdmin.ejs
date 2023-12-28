@@ -213,7 +213,7 @@
 
                             <input type="submit" value="Submit">
                         </form>
-                        <div class="col-8 col-xl-2 col-lg-2 col-sm-8 home_option_for_tax">
+                        <!-- <div class="col-8 col-xl-2 col-lg-2 col-sm-8 home_option_for_tax">
                             <select class="form-select" id="sort_selection-top" aria-label="Sort product">
 
                                 <option value="day">Day</option>
@@ -222,7 +222,7 @@
                                 <option value="year">Year</option>
 
                             </select>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="wrapper-chart">
@@ -240,7 +240,7 @@
             var lineChart;
             let selectedValue = "day";
             var columnChart;
-         //   let selectedValueTop = "day";
+            //   let selectedValueTop = "day";
 
             document.addEventListener('DOMContentLoaded', function () {
                 var data = {
@@ -306,7 +306,7 @@
 
                 // Lấy thẻ canvas và vẽ biểu đồ
                 var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
+                columnChart = new Chart(ctx, {
                     type: 'bar',
                     data: data1,
                     options: options
@@ -409,53 +409,32 @@
 
                         let chartData, labels;
 
-                        if (selectedValue === "day") {
-                            chartData = data.map(item => {
-                                return {
-                                    x: new Date(item._id.year, item._id.month - 1, item._id.day),
-                                    y: item.total
-                                };
-                            });
-                            labels = chartData.map(item => item.x.toDateString());
-                        } else if (selectedValue === "month") {
-                            chartData = data.map(item => {
-                                return {
-                                    x: new Date(item._id.year, item._id.month - 1),
-                                    y: item.total
-                                };
-                            });
-                            labels = chartData.map(item => item.x.toLocaleString('default', { month: 'long' }));
-                        } else if (selectedValue === "year") {
-                            chartData = data.map(item => {
-                                return {
-                                    x: new Date(item._id.year, 0), // January of the year
-                                    y: item.total
-                                };
-                            });
-                            labels = chartData.map(item => item.x.getFullYear().toString());
-                        }
+                        // Extract data for the chart
+                        chartData = data.map(item => ({
+                            x: item.productName,
+                            y: item.totalRevenue
+                        }));
+                        labels = chartData.map(item => item.x);
 
                         // Nếu biểu đồ chưa được tạo, hãy tạo nó
-                        if (!lineChart) {
-                            lineChart = new Chart(ctx, {
-                                type: 'line',
+                        if (!columnChart) {
+                            columnChart = new Chart(ctx, {
+                                type: 'bar', // Use 'bar' for column chart
                                 data: {
                                     labels: labels,
                                     datasets: [{
                                         label: 'Doanh Thu',
                                         data: chartData,
+                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                         borderColor: 'rgba(75, 192, 192, 1)',
-                                        borderWidth: 1,
-                                        fill: false
+                                        borderWidth: 1
                                     }]
                                 },
                                 options: {
                                     scales: {
                                         x: {
-                                            type: 'time',
-                                            time: {
-                                                unit: 'day' // Điều chỉnh đơn vị thời gian tùy thuộc vào selectedValue
-                                            }
+                                            type: 'category',
+                                            labels: labels
                                         },
                                         y: {
                                             beginAtZero: true
@@ -465,9 +444,9 @@
                             });
                         } else {
                             // Nếu biểu đồ đã tồn tại, cập nhật dữ liệu và nhãn
-                            lineChart.data.labels = labels;
-                            lineChart.data.datasets[0].data = chartData;
-                            lineChart.update();
+                            columnChart.data.labels = labels;
+                            columnChart.data.datasets[0].data = chartData;
+                            columnChart.update();
                         }
                     } catch (error) {
                         console.error('Error fetching data:', error.message);
@@ -478,6 +457,7 @@
 
                 return false;
             }
+
         </script>
 </body>
 
