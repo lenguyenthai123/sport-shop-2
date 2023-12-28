@@ -119,6 +119,8 @@ const getRevenueValueForChart = async function (type, startTime, endTime) {
 const getTopRevenueProduct = async function (startTime, endTime) {
     try {
         console.log("getTopRevenueProduct");
+        console.log(startTime)
+        console.log(endTime)
         const data = await Revenue.aggregate([
             {
                 $match: {

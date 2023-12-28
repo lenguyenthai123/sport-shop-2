@@ -46,9 +46,9 @@ const getTopRevenue = async (req, res, next) => {
     try {
         const startTime = new Date(req.query.startTime);
         const endTime = new Date(req.query.endTime);
-
+        console.log("vao day: "  + " " + startTime + " " + endTime);
         const topList = await RevenueService.getTopRevenueProduct(startTime, endTime);
-
+        console.log("Vuot qua");
         res.status(200).json(topList);
     }
     catch (err) {

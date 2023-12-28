@@ -199,6 +199,38 @@
                     </div>
 
                 </div>
+                <div class="sort-product-container">
+                    <h3 class="main--title">Revenue Chart</h3>
+                    <div class="wrapper-sort">
+                        <form id="form-day-top" action="#" onsubmit="return handleSubmitTop()">
+                            <label for="start-date">Start Date:</label>
+                            <input type="date" id="start-date-top" name="start-date" required>
+
+                            <label for="end-date">End Date:</label>
+                            <input type="date" id="end-date-top" name="end-date" required>
+
+                            <br><br>
+
+                            <input type="submit" value="Submit">
+                        </form>
+                        <div class="col-8 col-xl-2 col-lg-2 col-sm-8 home_option_for_tax">
+                            <select class="form-select" id="sort_selection-top" aria-label="Sort product">
+
+                                <option value="day">Day</option>
+
+                                <option value="month">Month</option>
+                                <option value="year">Year</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="wrapper-chart">
+                        <canvas id="myChart" width="400" height="200"></canvas>
+
+                    </div>
+
+                </div>
             </div>
 
         </div>
@@ -207,6 +239,8 @@
         <script>
             var lineChart;
             let selectedValue = "day";
+            var columnChart;
+         //   let selectedValueTop = "day";
 
             document.addEventListener('DOMContentLoaded', function () {
                 var data = {
@@ -235,6 +269,46 @@
                 lineChart = new Chart(ctx, {
                     type: 'line',
                     data: data,
+                    options: options
+                });
+
+                var data1 = {
+                    labels: ['Sản phẩm A', 'Sản phẩm B', 'Sản phẩm C', 'Sản phẩm D', 'Sản phẩm E'],
+                    datasets: [{
+                        label: 'Doanh Thu',
+                        data: [5000, 8000, 12000, 6000, 10000],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                };
+
+                // Cấu hình biểu đồ
+                var options = {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                };
+
+                // Lấy thẻ canvas và vẽ biểu đồ
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: data1,
                     options: options
                 });
             });
@@ -308,6 +382,99 @@
                 }
 
                 fetchData();
+
+                return false;
+            }
+            const sortSelectionTop = document.getElementById("sort_selection-top");
+
+            // sortSelectionTop.addEventListener("change", async function () {
+            //     selectedValueTop = sortSelection.value;
+            // });
+
+            function handleSubmitTop() {
+                var startDateTop = new Date(document.getElementById("start-date-top").value);
+                var endDateTop = new Date(document.getElementById("end-date-top").value);
+
+                const fetchDataTop = async () => {
+                    try {
+                        const response = await fetch(`/revenue/top?startTime=${startDateTop}&endTime=${endDateTop}`, {
+                            method: 'GET',
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+
+                        const data = await response.json();
+
+                        let chartData, labels;
+
+                        if (selectedValue === "day") {
+                            chartData = data.map(item => {
+                                return {
+                                    x: new Date(item._id.year, item._id.month - 1, item._id.day),
+                                    y: item.total
+                                };
+                            });
+                            labels = chartData.map(item => item.x.toDateString());
+                        } else if (selectedValue === "month") {
+                            chartData = data.map(item => {
+                                return {
+                                    x: new Date(item._id.year, item._id.month - 1),
+                                    y: item.total
+                                };
+                            });
+                            labels = chartData.map(item => item.x.toLocaleString('default', { month: 'long' }));
+                        } else if (selectedValue === "year") {
+                            chartData = data.map(item => {
+                                return {
+                                    x: new Date(item._id.year, 0), // January of the year
+                                    y: item.total
+                                };
+                            });
+                            labels = chartData.map(item => item.x.getFullYear().toString());
+                        }
+
+                        // Nếu biểu đồ chưa được tạo, hãy tạo nó
+                        if (!lineChart) {
+                            lineChart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Doanh Thu',
+                                        data: chartData,
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        borderWidth: 1,
+                                        fill: false
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        x: {
+                                            type: 'time',
+                                            time: {
+                                                unit: 'day' // Điều chỉnh đơn vị thời gian tùy thuộc vào selectedValue
+                                            }
+                                        },
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        } else {
+                            // Nếu biểu đồ đã tồn tại, cập nhật dữ liệu và nhãn
+                            lineChart.data.labels = labels;
+                            lineChart.data.datasets[0].data = chartData;
+                            lineChart.update();
+                        }
+                    } catch (error) {
+                        console.error('Error fetching data:', error.message);
+                    }
+                }
+
+                fetchDataTop();
 
                 return false;
             }

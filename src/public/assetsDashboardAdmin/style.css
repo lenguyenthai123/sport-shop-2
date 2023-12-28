@@ -9,6 +9,7 @@
 .wrapper-sort{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 2rem;
 }
 
 .date-picker-container {
@@ -40,19 +41,36 @@
     background-color: #45a049;
 }
 
+
+.wrapper-chart #myChart
 .wrapper-chart #lineChart{
     width: 100% !important;
     aspect-ratio: 2/1;
 }
+
+#form-day-top,
 #form-day{
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
+
+#form-day-top > label,
+#form-day-top > input,
 #form-day > label,
 #form-day > input
 {
     margin: 0 12px;
+}
+
+
+#sort_selection-top,
+#sort_selection{
+    background-color: #EDEDED;
+    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    font-size: 20px;
+
 }
 
 
