@@ -8,63 +8,286 @@
     <link rel="stylesheet" href="/assetsListOrderAdmin/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="stylesheet" href="\assets\styleViewAccountList.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        .order_element:hover{
-            cursor: pointer;
-        }
+
     </style>
 </head>
 
 <body>
     <%- include('SideBarAdmin') -%>
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ORDER ID</th>
-                    <th scope="col">CUSTOMER</th>
-                    <th scope="col">DATE</th>
-                    <th scope="col">STATUS</th>
-                    <th scope="col">TOTAL</th>
+        <div class="page-view-account-list">
 
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let i = 0; i < orderList.length; i++) { %>
-                    <tr class="order_element" data-custom-value="<%= orderList[i]._id %>">                        
-                            <td>
-                                <%= orderList[i]._id %>
-                            </td>
-                            <td><%= orderList[i].fullname %></td>
-                            <td><%= orderList[i].date %></td>
-                            <td class="status text-center">
-                                <div class="text <%= orderList[i].status.toLowerCase() %>">
-                                    <%= orderList[i].status %>
-                                </div>
-                            </td>
-                            <td>$<%= orderList[i].total %></td>
-                        
-                    </tr>
-                    <% } %>
-                
-            </tbody>
-        </table>
+            <div class="main--content">
+                <div class="header--wrapper">
+                    <div class="header--title">
+                        <span>Primary</span>
 
-    </div>
+                        <h2>View Order List</h2>
+                    </div>
+                    <div class="user--infor">
+                        <div class="search--box">
+                            <i class="fa-solid fa-search"></i>
+                            <input type="text" id="search-information" placeholder="Search">
+                        </div>
+                        <select class="form-select" id="search_selection" aria-label="search User">
+                            <option selected>Search by</option>
+                            <option value="fullname">Full Name</option>
+                            <option value="paymentMethod">Payment Method</option>
 
-    <script>
-        const orders = document.querySelectorAll(".order_element");
-        orders.forEach((element) => {
-            element.addEventListener("click", function(){
-                window.location.href = "/admin/order/" + element.dataset.customValue;
+                        </select>
+
+
+                    </div>
+                    <%- include('SortOrder') -%>
+
+                </div>
+                <div class="list-account-container">
+                    <h3 class="main--title">List Order</h3>
+
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">ORDER ID</th>
+                                    <th scope="col">CUSTOMER</th>
+                                    <th scope="col">DATE</th>
+                                    <th scope="col">STATUS</th>
+                                    <th scope="col">TOTAL</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="list-account">
+
+                                <% for (let i=0; i < orderList.docs.length; i++) { %>
+                                    <tr class="order_element" data-custom-value="<%= orderList.docs[i]._id %>">
+                                        <td>
+                                            <%= orderList.docs[i]._id %>
+                                        </td>
+                                        <td>
+                                            <%= orderList.docs[i].fullname %>
+                                        </td>
+                                        <td>
+                                            <%= orderList.docs[i].date %>
+                                        </td>
+                                        <td class="status text-center">
+                                            <div class="text <%= orderList.docs[i].status.toLowerCase() %>">
+                                                <%= orderList.docs[i].status %>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            $<%= orderList.docs[i].total %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+
+
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                            </thead>
+                        </table>
+                    </div>
+                    <div id="pagination-container"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            var account = document.querySelector(".table-container");
+
+            // load detail order
+            // function loadDetailUser(userID) {
+            //     // window.location.href = "/admin/accountdetail";
+            //     window.location.href = `/admin/accountlist/${userID}`;
+            // }
+            const listOrder = document.querySelector("#list-account");
+            async function loadOrderHtml(page) {
+                const curUrl = new URL(window.location.href);
+                const urlObjectPath = curUrl.pathname;
+                const pathPaging = "/paging"
+                curUrl.pathname = urlObjectPath + pathPaging;
+
+                if (curUrl.searchParams.has('page')) {
+                    curUrl.searchParams.set('page', page);
+                } else {
+                    curUrl.searchParams.append('page', page);
+                }
+                console.log(page)
+                console.log(curUrl.pathname);
+                await fetch(curUrl)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        return data.orderList;
+
+                    })
+                    .then(function (data) {
+                        let htmlContent = "";
+                        console.log(data)
+                        data.docs.forEach(element => {
+                            const trimmedId = element._id.trim();
+                            const validObjectId = trimmedId.replace(/\s/g, '');
+                            htmlContent +=
+                                `<tr class="order_element" onclick="loadDetailUser('${validObjectId}')">
+        <td>
+           ${element._id}
+        </td>
+        <td>
+            ${element.fullname}
+        </td>
+        <td>
+            ${element.date}
+        </td>
+        <td class="status text-center">
+            <div class="text ${element.status.toLowerCase()}">
+                ${element.status}
+            </div>
+        </td>
+        <td>
+            ${element.total}
+        </td>
+    </tr>`;
+
+                        });
+                        listOrder.innerHTML = htmlContent;
+
+                    }
+                    )
+            }
+            // handle sort accounts
+
+            const curUrl = new URL(window.location.href);
+            document.addEventListener('DOMContentLoaded', async function () {
+
+                let totalPages = 10;
+                let currentPage = 1;
+
+
+
+                const urlObjectPath = curUrl.pathname;
+                const pathPaging = "/paging"
+
+                curUrl.pathname = urlObjectPath + pathPaging;
+
+                console.log(curUrl)
+                await fetch(curUrl)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+
+                        totalPages = data.orderList.totalPages;
+                        return data;
+
+                    })
+
+                // Function to generate pagination HTML
+                function generatePagination() {
+                    const paginationContainer = document.getElementById('pagination-container');
+                    paginationContainer.innerHTML = ''; // Clear previous content
+
+
+                    for (let i = 1; i <= totalPages; i++) {
+
+                        const paginationItem = document.createElement('li');
+                        paginationItem.textContent = i;
+                        paginationItem.className = 'pagination-item';
+                        paginationItem.dataset.value = i;
+
+                        // Add active class to the current page
+                        if (i === currentPage) {
+
+                            paginationItem.classList.add('active');
+                        }
+
+                        // Add click event listener to each pagination item
+                        paginationItem.addEventListener('click', function () {
+                            currentPage = i;
+
+                            loadOrderHtml(i);
+                            generatePagination(); // Re-generate pagination on click
+                        });
+
+                        paginationContainer.appendChild(paginationItem);
+
+                    }
+                }
+                // Initial generation of pagination
+                generatePagination();
+
             })
-        })
-    </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+            //handle choose method search
+            const searchInfo = document.querySelector("#search-information");
+            const searchBtn = document.querySelector(".fa-search")
+            const searchSelection = document.getElementById("search_selection");
+            let curUrl1 = new URL(window.location.href);
+            searchSelection.addEventListener("change", async function () {
+
+                let searchSelectedValue = searchSelection.value;
+
+
+                if (searchSelection.value == "fullname") {
+                    if (curUrl1.searchParams.has('fullname')) {
+                        curUrl1.searchParams.set('fullname', searchInfo.value);
+                    }
+                    else {
+                        curUrl1.searchParams.append('fullname', searchInfo.value);
+                    }
+                    if (curUrl1.searchParams.has('paymentMethod')) {
+                        curUrl1.searchParams.delete('paymentMethod');
+                    }
+                } else {
+                    console.log('haha')
+                    if (curUrl1.searchParams.has('paymentMethod')) {
+                        curUrl1.searchParams.set('paymentMethod', searchInfo.value);
+                    }
+                    else {
+                        curUrl1.searchParams.append('paymentMethod', searchInfo.value);
+                    }
+                    if (curUrl1.searchParams.has('fullname')) {
+                        curUrl1.searchParams.delete('fullname');
+                    }
+
+                }
+                console.log(curUrl1.toString())
+
+
+            })
+
+
+            searchBtn.addEventListener("click", async function () {
+
+                if (curUrl1.searchParams.has('paymentMethod')) {
+                    console.log('haha1')
+                    curUrl1.searchParams.set('paymentMethod', searchInfo.value);
+                }
+                else {
+                    console.log('haha2')
+                    curUrl1.searchParams.set('fullname', searchInfo.value);
+                }
+                window.location.href = curUrl1.toString();
+
+            })
+
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 
 </body>
 
