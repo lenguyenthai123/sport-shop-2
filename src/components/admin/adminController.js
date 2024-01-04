@@ -441,9 +441,23 @@ const updateUserAddress = async (req, res, next) => {
 
 const getListOrderPage = async (req, res, next) => {
     try {
-        const data = await OrderService.getAllOrder();
-        // res.json({listOrder: data});
-        res.render("listOrderAdmin.ejs", {orderList: data});
+        const fullname = req.query.fullname || "None";
+        const paymentMethod = req.query.paymentMethod || "None";
+        const sortByOrderTime = req.query.orderTime || "None";
+        const sortByField = req.query.sortByField || "None";
+        const sortByOrder = req.query.sortByOrder || "None";
+        const page = req.query.page || 1;
+
+        
+        const orderList = await OrderService.FilteredAndSortedOrder(page, fullname, paymentMethod, sortByOrderTime, sortByField, sortByOrder)
+        console.log(orderList)
+        if (orderList) {
+            res.render("listOrderAdmin.ejs", { orderList: orderList });
+        }
+        else {
+            res.status(404).json({ message: "Not found" })
+        }
+
     }
     catch (error) {
         console.log(error);
@@ -451,6 +465,29 @@ const getListOrderPage = async (req, res, next) => {
     }
 }
 
+
+const getListOrderPaging = async (req, res, next) => {
+    try {
+        const fullname = req.query.fullname || "None";
+        const paymentMethod = req.query.paymentMethod || "None";
+        const sortByOrderTime = req.query.orderTime || "None";
+        const sortByField = req.query.sortByField || "None";
+        const sortByOrder = req.query.sortByOrder || "None";
+        const page = req.query.page || 1;
+
+        const orderList = await OrderService.FilteredAndSortedOrder(page, fullname, paymentMethod, sortByOrderTime, sortByField, sortByOrder)
+        if (orderList) {
+            res.status(200).json({ orderList: orderList });
+        }
+        else {
+            res.status(404).json({ message: "Not found" })
+        }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
 
 module.exports = {
     getHomePage,
@@ -473,4 +510,5 @@ module.exports = {
     patchAdminProfile,
     updateUserAddress,
     getListOrderPage,
+    getListOrderPaging,
 }

@@ -1,6 +1,76 @@
 .sort-product-container {
+    margin-top: 1rem;
     background: #fff;
     padding: 2rem;
     border-radius: 10px;
+   
 }
+
+.wrapper-sort{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.date-picker-container {
+    text-align: center;
+}
+
+.sort-product-container label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.sort-product-container input[type="date"] {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.sort-product-container input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sort-product-container input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+.wrapper-chart #myChart
+.wrapper-chart #lineChart{
+    width: 100% !important;
+    aspect-ratio: 2/1;
+}
+
+#form-day-top,
+#form-day{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#form-day-top > label,
+#form-day-top > input,
+#form-day > label,
+#form-day > input
+{
+    margin: 0 12px;
+}
+
+
+#sort_selection-top,
+#sort_selection{
+    background-color: #EDEDED;
+    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    font-size: 20px;
+
+}
+
 

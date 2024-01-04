@@ -33,6 +33,44 @@ const updateOrderPaymentMethod = async (orderId, method) => {
     })
 }
 
+
+const FilteredAndSortedOrder = async function (page, fullname, paymentMethod, sortByOrderTime, sortByField, sortByOrder) {
+    try {
+      const filter = {};
+      const sort = {};
+        
+      // Fliter
+      if (fullname !== `None` && fullname) {
+        filter.fullname = { $regex: fullname, $options: "i" };
+      }
+  
+      if (paymentMethod !== `None` && paymentMethod) {
+        filter.paymentMethod = { $regex: paymentMethod, $options: "i" };
+      }
+  
+      // Sort
+      if (sortByField !== `None` && sortByField) {
+        sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
+      }
+      if (sortByOrderTime !== `None`) {
+        sort["registrationDate"] = sortByOrderTime === `desc` ? -1 : 1;
+      }
+  
+      const options = {
+        page: page,
+        limit: 10,
+        sort: sort,
+      }
+  
+      const result = await Order.paginate(filter, options);
+     // console.log(result)
+      return result;
+    } catch (error) {
+      console.log("Error in filteredAndSortedProducts of User Services", error);
+      throw error;
+    }
+  }
+
 module.exports = {
     createOrder,
     getAllOrder,
@@ -40,4 +78,5 @@ module.exports = {
     getOrderDetail,
     deleteOrder,
     updateOrderPaymentMethod,
+    FilteredAndSortedOrder,
 }
