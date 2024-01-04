@@ -1,4 +1,3 @@
-
 /* card container */
 
 
@@ -8,7 +7,7 @@
     border-radius: 10px;
 }
 
-.page-view-account-list{
+.page-view-account-list {
     width: 100%;
 }
 
@@ -17,7 +16,7 @@
 /* tabular section */
 
 
-.tabular--wrapper{
+.tabular--wrapper {
     background: #fff;
     margin-top: 1rem;
     border-radius: 10px;
@@ -25,7 +24,7 @@
     width: 100%;
 }
 
-.table-container{
+.table-container {
     width: 100%;
 
 }
@@ -35,52 +34,54 @@ table {
     border-collapse: collapse;
 }
 
-thead{
+thead {
     background: rgba(113, 99, 186, 255);
     color: #fff;
 }
 
-th{
+th {
     padding: 15px;
     text-align: left;
 }
 
-tbody{
+tbody {
     background: #f2f2f2;
 }
 
-td{
+td {
     padding: 15px;
     font-size: 14px;
     color: #333;
 }
 
-tr:nth-child(even){
+tr:nth-child(even) {
     background: #fff;
 }
 
-tfoot{
-    background: rgba(113,99,186,255);
+tfoot {
+    background: rgba(113, 99, 186, 255);
     font-weight: bold;
     color: #fff;
 
 }
-tfoot td{
+
+tfoot td {
     padding: 15px;
     background: inherit;
 }
 
-.table-container button{
+.table-container button {
     color: green;
-    background:none;
+    background: none;
     cursor: pointer;
 }
 
-.table-container:hover{
+.table-container:hover {
     cursor: pointer;
 }
-#search_selection,
-#sort_selection{
+
+#status_selection,
+#sort_selection {
 
     border-radius: 15px;
     color: rgba(113, 99, 186, 255);
@@ -90,4 +91,15 @@ tfoot td{
     padding: 4px 2rem 4px 0.75rem;
     width: fit-content;
 
+}
+
+#order-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
 }
