@@ -13,17 +13,24 @@
     <link rel="stylesheet" href="/css/home_page2.css">
     <style>
         .searching_container{
-            margin-top: 30px;
+            /* margin-top: 30px !important; */
         }
     </style>
 </head>
 <body>
     
     <div class="container overflow-hidden">
-        <form class="searching_container">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="row gx-4 search_bar">
+            <div class="col-lg-10 gy-4">
+                <form class="searching_container">
+                    <input class="form-control me-2" type="search" placeholder="Search" name="productName" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="col-lg-2 gy-4">
+                <button class="btn btn-outline-success" id="createProductButton" type="button">Create new product</button>
+            </div>
+        </div>
         <div class="row gx-6">
             <div class="col-9 gy-4 home_hotel_type_list">
                 <div class="home_hotel_type" data-custom-value="NIKE">
@@ -73,7 +80,7 @@
             </div>
 
             <%- include('FilterProduct') -%>
-            <%- include('SortProduct') -%>
+            <%- include('SortProductAdmin') -%>
         </div>
         <div class="row gx-7" id="home_page_product">
             <% for(let i = 0; i < productList.docs.length; i++){ %>
@@ -101,6 +108,7 @@
                             <div class="product_info_2_price">
                                 <span class="product_info_2_dollar">$ <%= productList.docs[i].price %></span>   
                             </div>
+                            <a class="btn btn-outline-success" href="/admin/update-product/<%= productList.docs[i]._id%>">Update product</a>
                         </div>
                     </div>
                 </div>
@@ -247,6 +255,11 @@
                 window.location.href = curUrl;
             })
         })
+
+        const createProductButton = document.getElementById("createProductButton");
+        createProductButton.addEventListener("click" ,function(){
+            window.location.href = "/admin/create-product";
+        });
     
         </script>
 </body>

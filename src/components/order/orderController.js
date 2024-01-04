@@ -31,6 +31,10 @@ const createOrder = async (req, res, next) => {
         const address = req.body.address;
 
         const order = await orderService.createOrder({userId, listItem, subTotal, shipping, discount, total, phoneNumber, fullname, address});
+
+        listItem.forEach(async (item) => {
+            await productService.updateTotalPurchase(item.productId, item.quantity);
+        })
         
         res.status(201).json({"orderId": order._id, "total": order.subTotal});
     }

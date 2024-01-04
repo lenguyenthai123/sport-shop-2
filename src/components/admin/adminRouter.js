@@ -31,8 +31,8 @@ const checkAdmin = (req, res, next) => {
 }
 router.get("/admin/home-page", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getHomePage);
 
-router.get("/admin/product", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getFormCreateNewProduct)
-router.post("/admin/product", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, UploadProduct, Controllers.postANewProduct)
+router.get("/admin/create-product", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getFormCreateNewProduct)
+router.post("/admin/create-product", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, UploadProduct, Controllers.postANewProduct)
 
 router.get("/admin/update-product/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getFormUpdateProduct)
 router.patch("/admin/update-product/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, UploadProduct, Controllers.patchAProduct)

@@ -39,7 +39,7 @@
                             </div>
                             <div class="start_info_text">
                                 <span class="start_info_name">
-                                    Nhat Nam Nguyen
+                                    <%= user.fullname %>
                                 </span>
 
                                 <span class="start_info_nickname">@NguyenNNam</span>
@@ -133,9 +133,9 @@
                         <div class="frame_info_2_column">
                             <div class="frame_info_column_1">
                                 <div class="student_id">
-                                    <span class="label">Student ID</span>
+                                    <span class="label">Username</span>
                                     <br>
-                                    <input type="text" class="input_info" value="21127648">
+                                    <input type="text" class="input_info" value="<%= user.username %>">
                                 </div>
                                 <div class="full_name">
                                     <span class="label">Full name</span>
