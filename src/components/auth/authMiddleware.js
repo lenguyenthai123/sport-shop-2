@@ -43,7 +43,7 @@ const signupValidators = [
 
     body("password")
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
-        .isStrongPassword().withMessage('Password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
+        .isStrongPassword().withMessage('Must contain special digit, number, lower and upper case letters')
         .escape(),
 
     body("passwordConfirmation").escape().custom((value, { req }) => {
@@ -81,7 +81,7 @@ const updatePasswordValidator = [
 
     body("newPassword")
         .isLength({ min: 6 }).withMessage('New password must be at least 6 characters')
-        .isStrongPassword().withMessage('New password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
+        .isStrongPassword().withMessage('Must contain special digit, number, lower and upper case letters')
         .escape(),
 
     body("passwordConfirmation").escape().custom((value, { req }) => {
