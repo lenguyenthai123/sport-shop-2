@@ -116,7 +116,7 @@ const postLogin = async (req, res, next) => {
         user.latestLogin = Date.now();
         const token = await UserService.generateToken(user);
         user.token = token;
-
+        console.log(user.token);
         await UserService.save(user);
 
         res.cookie("token", token, {
