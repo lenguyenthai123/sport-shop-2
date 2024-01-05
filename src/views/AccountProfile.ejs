@@ -48,20 +48,20 @@
                         <div class="date_of_birth">
                             <span class="label">Date of birth</span>
                             <br>
-                            <input type="text" name="dateOfBirth" class="input_info"
-                                value="<%= user.dateOfBirth.toLocaleDateString() %>">
+                            <input type="date" name="dateOfBirth" class="input_info"
+                                value="<%= user.dateOfBirth.toISOString().split('T')[0] %>">
                         </div>
                     </div>
                     <div class="frame_info_column_2">
                         <div class="email">
                             <span class="label">Email</span>
                             <br>
-                            <input disabled type="text" name="email" class="input_info" value="<%= user.email %>">
+                            <input disabled type="email" name="email" class="input_info" value="<%= user.email %>">
                         </div>
                         <div class="phone_number">
                             <span class="label">Phone number</span>
                             <br>
-                            <input type="text" name="phoneNumber" class="input_info" value="<%= user.phoneNumber %>">
+                            <input type="number" name="phoneNumber" class="input_info" value="<%= user.phoneNumber %>">
                         </div>
                         <div class="country">
                             <span class="label">Country</span>
