@@ -348,19 +348,19 @@
                         } else if (selectedValue === "month") {
                             chartData = data.map(item => {
                                 return {
-                                    x: new Date(item._id.year, item._id.month - 1),
+                                    x: new Date(item._id.year, item._id.month, 0),
                                     y: item.total
                                 };
                             });
-                            labels = chartData.map(item => item.x.toLocaleString('default', { month: 'long' }));
+                            labels = chartData.map(item => item.x.toDateString());
                         } else if (selectedValue === "year") {
                             chartData = data.map(item => {
                                 return {
-                                    x: new Date(item._id.year, 0), // January of the year
+                                    x: new Date(item._id.year, 0, 0), // January of the year
                                     y: item.total
                                 };
                             });
-                            labels = chartData.map(item => item.x.getFullYear().toString());
+                            labels = chartData.map(item => item.x.toDateString());
                         }
 
                         // Update the existing dataset

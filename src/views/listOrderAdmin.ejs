@@ -28,19 +28,19 @@
                         <h2>View Order List</h2>
                     </div>
                     <div class="user--infor">
-                        <div class="search--box">
-                            <i class="fa-solid fa-search"></i>
-                            <input type="text" id="search-information" placeholder="Search">
-                        </div>
-                        <select class="form-select" id="search_selection" aria-label="search User">
-                            <option selected>Search by</option>
-                            <option value="fullname">Full Name</option>
-                            <option value="paymentMethod">Payment Method</option>
+                        <select class="form-select" id="status_selection" aria-label="search User">
+                            <option selected>Status</option>
+                            <option value="Completed">COMPLETED</option>
+                            <option value="Delivered">DELIVERED</option>
+                            <option value="Processing">PROCESSING</option>
+                            <option value="Cancelled">CANCELLED</option>
 
                         </select>
 
 
+
                     </div>
+
                     <%- include('SortOrder') -%>
 
                 </div>
@@ -63,7 +63,8 @@
                             <tbody id="list-account">
 
                                 <% for (let i=0; i < orderList.docs.length; i++) { %>
-                                    <tr class="order_element" data-custom-value="<%= orderList.docs[i]._id %>">
+                                    <tr class="order_element" onclick="loadDetailOrder('<%= orderList.docs[i]._id %>')"
+                                        data-custom-value="<%= orderList.docs[i]._id %>">
                                         <td>
                                             <%= orderList.docs[i]._id %>
                                         </td>
@@ -138,7 +139,7 @@
                             const trimmedId = element._id.trim();
                             const validObjectId = trimmedId.replace(/\s/g, '');
                             htmlContent +=
-                                `<tr class="order_element" onclick="loadDetailUser('${validObjectId}')">
+                                `<tr class="order_element" onclick="loadDetailOrder('${validObjectId}')">
         <td>
            ${element._id}
         </td>
@@ -229,60 +230,31 @@
                 generatePagination();
 
             })
-
-            //handle choose method search
-            const searchInfo = document.querySelector("#search-information");
-            const searchBtn = document.querySelector(".fa-search")
-            const searchSelection = document.getElementById("search_selection");
+            //handle filter status
+            const statusSelection = document.getElementById("status_selection");
             let curUrl1 = new URL(window.location.href);
-            searchSelection.addEventListener("change", async function () {
+            statusSelection.addEventListener("change", async function () {
+                let searchSelectedValue = statusSelection.value;
+                console.log(searchSelectedValue, searchSelectedValue)
 
-                let searchSelectedValue = searchSelection.value;
+                // Clear all existing search parameters
+                curUrl1.searchParams.forEach((value, name) => {
+                    curUrl1.searchParams.delete(name);
+                });
 
-
-                if (searchSelection.value == "fullname") {
-                    if (curUrl1.searchParams.has('fullname')) {
-                        curUrl1.searchParams.set('fullname', searchInfo.value);
-                    }
-                    else {
-                        curUrl1.searchParams.append('fullname', searchInfo.value);
-                    }
-                    if (curUrl1.searchParams.has('paymentMethod')) {
-                        curUrl1.searchParams.delete('paymentMethod');
-                    }
+                // Set or append the new search parameter
+                if (curUrl1.searchParams.has('status')) {
+                    curUrl1.searchParams.set('status', searchSelectedValue);
                 } else {
-                    console.log('haha')
-                    if (curUrl1.searchParams.has('paymentMethod')) {
-                        curUrl1.searchParams.set('paymentMethod', searchInfo.value);
-                    }
-                    else {
-                        curUrl1.searchParams.append('paymentMethod', searchInfo.value);
-                    }
-                    if (curUrl1.searchParams.has('fullname')) {
-                        curUrl1.searchParams.delete('fullname');
-                    }
-
+                    curUrl1.searchParams.append('status', searchSelectedValue);
                 }
-                console.log(curUrl1.toString())
 
-
-            })
-
-
-            searchBtn.addEventListener("click", async function () {
-
-                if (curUrl1.searchParams.has('paymentMethod')) {
-                    console.log('haha1')
-                    curUrl1.searchParams.set('paymentMethod', searchInfo.value);
-                }
-                else {
-                    console.log('haha2')
-                    curUrl1.searchParams.set('fullname', searchInfo.value);
-                }
                 window.location.href = curUrl1.toString();
-
-            })
-
+            });
+            //handle load detail order
+            function loadDetailOrder(orderID) {
+                window.location.href = `/admin/orders/${orderID}`;
+            }
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
