@@ -98,8 +98,7 @@ tfoot td {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    background: #fff;
-    border-radius: 10px;
-    padding: 10px 2rem;
+    background: #ebe9e9;
+    padding: 1rem ; 
     margin-bottom: 1rem;
 }

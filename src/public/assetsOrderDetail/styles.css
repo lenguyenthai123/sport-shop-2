@@ -39,6 +39,7 @@ body {
 tr>td {
     font-weight: 700;
 }
+
 th,
 tr,
 tr>td {
@@ -47,25 +48,30 @@ tr>td {
     padding: 7px;
 }
 
-tr>td:first-child{
+tr>td:first-child {
     display: flex;
 }
 
-.quantity{
+.quantity {
     margin-left: 4px;
 }
 
-h2{
+h2 {
     font-weight: 800;
 }
-.wrapper-address .col-6 div:not(:first-child){
+
+.wrapper-address .col-6 div:not(:first-child) {
     font-weight: 700;
     font-style: oblique;
 }
 
-.wrapper-address{
+.wrapper-address {
     margin-top: 1.5rem;
 }
 
-    
-    
+#wrapper-order-container {
+    background: #fff;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px 2rem;
+}
