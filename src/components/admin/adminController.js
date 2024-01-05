@@ -388,8 +388,10 @@ const patchBanAnUser = async (req, res, next) => {
         const ban = req.body.ban;
 
         const user = await UserService.getUserById(userId);
-
-        if (user._id !== req.user._id) {
+   
+       
+        if (userId !== req.user.id) {
+          
             const result = await UserService.setBanAnUser(user, ban);
             if (result) {
                 console.log(ban);
@@ -402,10 +404,12 @@ const patchBanAnUser = async (req, res, next) => {
                 return;
             }
             else {
+             
                 res.status(500).json({ message: "Internal Server Error" });
             }
         }
         else {
+       
             res.status(403).json({ message: "Can not ban your admin account" });
             return;
         }

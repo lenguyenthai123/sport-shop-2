@@ -985,7 +985,7 @@
             addToCart.addEventListener('click', function () {
                 alertLogin.style.opacity = "1";
                 alertLogin.style.display = "block"
-                console.log(alertLogin)
+                alertLogin.innerHTML = "Please Login to add product to cart"
                 setTimeout(function () {
                     alertLogin.style.opacity = "0";
                     setTimeout(function () {
@@ -1112,7 +1112,7 @@
                 console.log('haha')
                 alertLogin.style.opacity = "1";
                 alertLogin.style.display = "block"
-                console.log(alertLogin)
+                alertLogin.innerHTML = "Please login to review"
                 setTimeout(function () {
                     alertLogin.style.opacity = "0";
                     setTimeout(function () {
