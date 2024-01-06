@@ -12,6 +12,7 @@ const uploadToCloudinary = require("../../config/cloudinary.js");
 
 
 const mongoose = require("mongoose");
+const e = require("express");
 
 const FilteredAndSortedProducts = async function (page, name, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder) {
     try {
@@ -21,7 +22,26 @@ const FilteredAndSortedProducts = async function (page, name, catalogId, manufac
 
         // filter
         if (name !== `None` && name) {
-            filter.name = { $regex: name, $options: "i" };
+            const { Client } = require('@elastic/elasticsearch');
+            const client = new Client({
+            node: 'https://57727d8ffb1e48cfa43bad1822100a24.us-central1.gcp.cloud.es.io:443',
+            auth: {
+                apiKey: 'MmMwRjM0d0JBdkNZdWI4T0RLa006RDBrSGk1bnNULWlyTlZGRmJ3c3pIUQ=='
+            }
+            });
+            const searchResult = await client.search({
+                index: 'search-search-product-final',
+                q: name,
+                _source: ["id"]
+            });
+            const res = searchResult.hits.hits;
+            id_restriction = [];
+            res.forEach(e => {
+                const id = e._source;
+                id_restriction.push(new mongoose.Types.ObjectId(id.id.id_content));
+            });
+            console.log(id_restriction);
+            filter._id = { $in: id_restriction}
         }
         if (catalogId !== "None" && catalogId) {
             try {
