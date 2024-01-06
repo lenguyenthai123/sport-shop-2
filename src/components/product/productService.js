@@ -173,9 +173,9 @@ const takePriceOfProduct = async (productId) => {
 
 const updateTotalPurchase = async (productId, quantity) => {
     const product = await Product.findById(productId);
-    const curQuant = product.totalPurchase;
+    const curQuant = parseInt(product.totalPurchase, 10);
     const newQuant = curQuant + quantity;
-    await Product.findByIdAndUpdate({totalPurchase: newQuant}); 
+    await Product.findByIdAndUpdate(productId, {totalPurchase: newQuant}); 
 }
 
 module.exports = {
