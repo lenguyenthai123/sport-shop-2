@@ -73,7 +73,7 @@ const getActivation = async (req, res, next) => {
         else {
             foundedUser.active = true;
             await UserService.save(foundedUser);
-            res.status(200).json({ message: "Activation account successfully" });
+            res.status(200).send("Activation account successfully");
         }
     }
     catch (error) {
