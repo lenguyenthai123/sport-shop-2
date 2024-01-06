@@ -167,7 +167,7 @@ const updateOne = async function (id, product) {
 
 const takePriceOfProduct = async (productId) => {
     const product = await Product.findById(productId);
-    let price = product.price * (100 - product.discount)/100;
+    let price = product.price * (100 - product.discount) / 100;
     return price;
 }
 
@@ -175,7 +175,44 @@ const updateTotalPurchase = async (productId, quantity) => {
     const product = await Product.findById(productId);
     const curQuant = product.totalPurchase;
     const newQuant = curQuant + quantity;
-    await Product.findByIdAndUpdate({totalPurchase: newQuant}); 
+    await Product.findByIdAndUpdate({ totalPurchase: newQuant });
+}
+
+const updateProduct = async (productId, data) => {
+    try {
+        const product = {};
+
+        if (data.thumbnail) {
+            product.thumbnail = data.thumbnail;
+        }
+        if (data.gallery.length > 1) {
+            product.gallery = data.gallery;
+        }
+        console.log(data);
+        product.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
+        product.name = req.body.name;
+        product.price = req.body.price;
+        product.description = req.body.description;
+        product.discount = req.body.discount;
+        product.status = req.body.status;
+        product.manufacturer = req.body.manufacturer;
+
+        await ProductService.updateOne(productId, product);
+    }
+    catch (err) {
+
+    }
+}
+
+
+const createProduct = async (data) => {
+    try {
+        const product = await Product.create(data);
+        console.log(product);
+        return product;
+    }
+    catch (err) {
+    }
 }
 
 module.exports = {
@@ -188,5 +225,6 @@ module.exports = {
     updateOne,
     takePriceOfProduct,
     updateTotalPurchase,
-
+    updateProduct,
+    createProduct,
 }

@@ -14,4 +14,6 @@ const Controllers = require("./productController.js");
 
 router.get("/product/aaa/mmmm/", Controllers.postAnProduct)
 
+router.get("/api/product/:productId", Controllers.apiProduct);
+
 module.exports = router;
