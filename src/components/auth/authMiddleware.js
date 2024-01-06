@@ -97,10 +97,11 @@ const checkTokenAndActivationValidate = (req, res, next) => {
         if (req.cookies.token !== req.user.token) {
             console.log(req.cookies.token);
             console.log(req.user.token);
-            res.status(401).send("You have to login");
+            res.redirect("/login");
             return;
         }
         if (req.user.active === false) {
+            console.log("Chua active");
             res.status(401).send("You have to verify your account");
             return;
         }

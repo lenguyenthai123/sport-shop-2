@@ -116,28 +116,28 @@ const getFormCreateNewProduct = async (req, res, next) => {
 }
 
 
-const postANewProduct = async (req, res, next) => {
-    if (!req.files) {
-        return res.status(400).json({ error: "No file uploaded" });
+const apiCloudinary = async (req, res, next) => {
+
+    try {
+        console.log(req.files);
+        const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
+        console.log(thumbnail, gallery);
+        res.status(200).json({ thumbnail, gallery });
     }
+    catch (e) {
+        console.log(e);
+        next(e);
+    }
+}
+
+const postANewProduct = async (req, res, next) => {
     try {
 
-        const product = {};
-        const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
+        console.log("Vao postANewProduct");
+        const data = req.body;
 
-        product.thumbnail = thumbnail;
-        product.gallery = gallery;
-        product.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
-        product.name = req.body.name;
-        product.price = req.body.price;
-        product.description = req.body.description;
-        product.discount = req.body.discount;
-        product.status = req.body.status;
-        product.manufacturer = req.body.manufacturer;
-
-        const newProduct = new Product(product);
-        await newProduct.save();
-        res.status(201).json({ message: "Create product successfully", newProduct });
+        const product = await ProductService.createProduct(data);
+        res.status(201).json({ message: "Create product successfully", product });
 
     }
     catch (error) {
@@ -174,37 +174,20 @@ const getFormUpdateProduct = async (req, res, next) => {
 const patchAProduct = async (req, res, next) => {
 
     try {
-
-
-
+        console.log("Vao day");
         const { productId } = req.params;
 
-        const product = {};
-        console.log(req.files);
-        if (req.files) {
-            const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
-            if (thumbnail) {
-                product.thumbnail = thumbnail;
-            }
-            if (gallery) {
-                product.gallery = gallery;
-            }
-        }
+        const data = req.body;
+        console.log(data);
 
-        product.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
-        product.name = req.body.name;
-        product.price = req.body.price;
-        product.description = req.body.description;
-        product.discount = req.body.discount;
-        product.status = req.body.status;
-        product.manufacturer = req.body.manufacturer;
+        await ProductService.updateProduct(productId, data);
 
-        await ProductService.updateOne(productId, product);
-        res.status(201).json({ message: "Update product successfully", product });
+
+        res.status(201).json({ message: "Update product successfully" });
 
     }
     catch (error) {
-        console.log("Xuat loi:::", error);
+        console.log("Xuat loi", error);
         next(error);
     }
 }
@@ -388,10 +371,10 @@ const patchBanAnUser = async (req, res, next) => {
         const ban = req.body.ban;
 
         const user = await UserService.getUserById(userId);
-   
-       
+
+
         if (userId !== req.user.id) {
-          
+
             const result = await UserService.setBanAnUser(user, ban);
             if (result) {
                 console.log(ban);
@@ -404,12 +387,12 @@ const patchBanAnUser = async (req, res, next) => {
                 return;
             }
             else {
-             
+
                 res.status(500).json({ message: "Internal Server Error" });
             }
         }
         else {
-       
+
             res.status(403).json({ message: "Can not ban your admin account" });
             return;
         }
@@ -503,7 +486,7 @@ const getOrderDetail = async (req, res, next) => {
 
 
         for (let j = 0; j < order.listItem.length; j++) {
-            order.listItem[j].productId = (await productService.getAnProductDetail(order.listItem[j].productId)).productInfo;
+            order.listItem[j].productId = (await ProductService.getAnProductDetail(order.listItem[j].productId)).productInfo;
         }
         console.log(order);
         if (order) {
@@ -567,4 +550,5 @@ module.exports = {
     getListOrderPaging,
     getOrderDetail,
     patchOrderStatus,
+    apiCloudinary,
 }

@@ -24,11 +24,24 @@ const postAnProduct = (req, res, next) => {
         console.log("herer");
         res.render("tmp.ejs");
     } catch (error) {
+        next(error)
+    }
+}
+
+const apiProduct = async (req, res, next) => {
+    try {
+        const productId = req.params.productId;
+        const product = await ProductService.getProductById(productId);
+        console.log(product);
+        res.status(200).json(product);
+
+    } catch (error) {
+        next(error)
 
     }
 }
 
 module.exports = {
     postAnProduct,
-
+    apiProduct,
 }
