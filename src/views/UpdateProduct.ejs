@@ -26,7 +26,7 @@
                             <h2 class="tm-block-title d-inline-block title">Update Product</h2>
                         </div>
                     </div>
-                    <form class="tm-edit-product-form" enctype="multipart/form-data">
+                    <form id="myForm" class="tm-edit-product-form" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PATCH">
 
                         <div class="row tm-edit-product-row">
@@ -89,7 +89,9 @@
                                         <label for="stock">Status
                                         </label>
                                         <select class="custom-select tm-select-accounts" id="status-select" required>
-                                            <option value="<%= product.status %>" selected="">Select status</option>
+                                            <option value="<%= product.status %>" selected="">
+                                                <%= product.status %>
+                                            </option>
                                             <option value="In Stock">In Stock</option>
                                             <option value="Pre Order">Pre Order</option>
                                             <option value="Out of Stock">Out of Stock</option>
@@ -103,7 +105,9 @@
                                         </label>
                                         <select class="custom-select tm-select-accounts" id="manufacturer-select"
                                             required>
-                                            <option value="<%= product.manufacturer %>" selected="">Select</option>
+                                            <option value="<%= product.manufacturer %>" selected="">
+                                                <%= product.manufacturer %>
+                                            </option>
                                             <option value="NIKE">Nike</option>
                                             <option value="ADIDAS">Adidas</option>
                                             <option value="PUMA">Puma</option>
@@ -147,7 +151,7 @@
                             </div>
 
                             <div class="col-12">
-                                <button id="button-submit" type="button"
+                                <button id="button-submit" type="submit"
                                     class="btn-submit btn-submit-primary btn-block text-uppercase">Update
                                     Product
                                     Now</button>
@@ -157,12 +161,15 @@
                 </div>
             </div>
             <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+                <input type="hidden" id="hiddenId" value="<%= product._id %>">
 
             </div>
         </div>
     </div>
     </div>
     <script>
+
+        const myForm = document.getElementById('myForm');
 
         const uploadThumbnail = document.querySelector("#thumbnail");
         const thumbnailState = document.querySelector("#thumbnailState");
@@ -186,6 +193,61 @@
         const name = document.querySelector("#name");
         const description = document.querySelector("#description");
         const discount = document.querySelector("#discount");
+
+        let thumbnail;
+        let gallery = [];
+        let num = 0;
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            const id = document.querySelector("#hiddenId").value;
+            console.log(id);
+            console.log("Vao");
+
+            await fetch(`../../api/product/${id}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        "enctype": "multipart/form-data",
+                        "Content-Type": "application/json",
+                    },
+                }).then(res => {
+                    if (res.ok) {
+                        console.log('Data and gallery images uploaded successfully.');
+                        return res.json();
+                    } else {
+                        console.error('Failed to upload data and gallery images.');
+
+                    }
+                    // console.log(res);
+                }).then(data => {
+
+                    console.log(data);
+                    const product = data;
+                    console.log(product);
+                    thumbnail = product.thumbnail;
+                    thumbnailState.innerHTML = `Update file: <img src=${product.thumbnail} alt="Thumbnail">`;
+                    thumbnailState.style.color = `#000000`;
+                    thumbnailState.style.fontWeight = "300";
+
+
+                    let n = 0;
+                    gallery.push(...product.gallery);
+
+                    for (let i = 0; i < product.gallery.length; i++) {
+                        galleryState.innerHTML += ` <img src=${product.gallery[i]} class ="image-gallery" id = "gallery${n + i}"> <button id="btn-gallery-${n + i}" type="button" class="btn btn-danger btn-gallery" onclick = "deleteImage(${n + i})">X</button></br>`;
+                        // galleryState.innerHTML += `${files[i].name.length}</br>`;
+                    }
+                    galleryState.innerHTML += "";
+                    // #acc6de
+                    galleryState.style.color = `#000000`;
+                    galleryState.style.fontWeight = "300";
+                })
+                .catch(error => {
+                    console.error('Error uploading data and gallery images:', error);
+                });
+        });
+
+
 
 
         // Alert
@@ -231,16 +293,54 @@
             console.log(statusSelect.value);
         })
 
-        uploadThumbnail.addEventListener("change", (e) => {
+        uploadThumbnail.addEventListener("change", async (e) => {
             const files = uploadThumbnail.files;
             console.log(files);
-            if (files.length > 0) {
+            // if (files.length > 0) {
 
-                thumbnailState.textContent = `Update file: ${rutgon(files[0].name)}`;
-                thumbnailState.style.color = `#000000`;
-                thumbnailState.style.fontWeight = "300";
+            //     thumbnailState.textContent = `Update file: ${rutgon(files[0].name)}`;
+            //     thumbnailState.style.color = `#000000`;
+            //     thumbnailState.style.fontWeight = "300";
+            // }
+            const formData = new FormData();
+            if (uploadThumbnail.files.length > 0) {
+                console.log(uploadThumbnail.files[0]);
+                formData.append("thumbnail", uploadThumbnail.files[0]);
             }
 
+            console.log("Vao day");
+            const currentUrl = window.location.href;
+            console.log(currentUrl);
+            await fetch("../../api/cloudinary",
+                {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        "enctype": "multipart/form-data",
+                    },
+                }).then(res => {
+                    if (res.ok) {
+                        console.log('Data and gallery images uploaded successfully.');
+                        return res.json();
+                    } else {
+                        console.error('Failed to upload data and gallery images.');
+
+                    }
+                    // console.log(res);
+                }).then(data => {
+                    // Xử lý dữ liệu ở đây
+                    console.log(data);
+                    if (data.thumbnail !== null) {
+                        thumbnail = data.thumbnail;
+                        thumbnailState.innerHTML = `Update file: <img src=${thumbnail} alt=${rutgon(files[0].name)}>`;
+                        thumbnailState.style.color = `#000000`;
+                        thumbnailState.style.fontWeight = "300";
+                    }
+                    console.log(thumbnail);
+                })
+                .catch(error => {
+                    console.error('Error uploading data and gallery images:', error);
+                });
         });
 
         function rutgon(s) {
@@ -252,58 +352,111 @@
                 return ans;
             }
         }
-
-        uploadGallery.addEventListener("change", (e) => {
+        galleryState.innerHTML = `Update files:</br>`;
+        uploadGallery.addEventListener("change", async (e) => {
             const files = uploadGallery.files;
             console.log(files);
-            if (files.length > 0) {
-                galleryState.innerHTML = `Update files:</br>`;
-                for (let i = 0; i < files.length; i++) {
-                    galleryState.innerHTML += `- ${rutgon(files[i].name)}</br>`;
-                    // galleryState.innerHTML += `${files[i].name.length}</br>`;
-                }
-                galleryState.innerHTML += "";
-                // #acc6de
-                galleryState.style.color = `#000000`;
-                galleryState.style.fontWeight = "300";
-            }
-        })
 
-        async function submit(event) {
-
-            console.log("Vao day");
             const formData = new FormData();
-
-            formData.append("name", name.value);
-            formData.append("price", price.value);
-            formData.append("description", description.value);
-            formData.append("discount", discount.value);
-            formData.append("catalogId", catalogId.value);
-            formData.append("manufacturer", manufacturer.value);
-            formData.append("status", status.value);
-
-            console.log(formData);
-
-            if (uploadThumbnail.files.length > 0) {
-                console.log(uploadThumbnail.files[0]);
-                formData.append("thumbnail", uploadThumbnail.files[0]);
-            }
             if (uploadGallery.files.length > 0) {
                 for (const file of uploadGallery.files) {
                     formData.append("gallery", file);
                 }
             }
-            const currentUrl = window.location.href;
 
-            appendAlert("Loading...", "info");
-            fetch(currentUrl,
+            await fetch("../../api/cloudinary",
                 {
-                    method: 'PATCH',
+                    method: 'POST',
                     body: formData,
                     headers: {
                         "enctype": "multipart/form-data",
                     },
+                }).then(res => {
+                    if (res.ok) {
+                        console.log('Data and gallery images uploaded successfully.');
+                        return res.json();
+                    } else {
+                        console.error('Failed to upload data and gallery images.');
+
+                    }
+                    // console.log(res);
+                }).then(data => {
+                    // Xử lý dữ liệu ở đây
+                    console.log(gallery);
+                    console.log(data.gallery);
+
+                    if (data.gallery.length > 0) {
+                        const n = gallery.length;
+                        gallery.push(...data.gallery);
+
+                        for (let i = 0; i < data.gallery.length; i++) {
+                            galleryState.innerHTML += ` <img src=${data.gallery[i]} alt=${rutgon(files[0].name)} class ="image-gallery" id = "gallery${n + i}"> <button id="btn-gallery-${n + i}" type="button" class="btn btn-danger btn-gallery" onclick = "deleteImage(${n + i})">X</button></br>`;
+                            // galleryState.innerHTML += `${files[i].name.length}</br>`;
+                        }
+                        galleryState.innerHTML += "";
+                        // #acc6de
+                        galleryState.style.color = `#000000`;
+                        galleryState.style.fontWeight = "300";
+                    }
+                    console.log(gallery);
+                    uploadGallery.files = [];
+                })
+                .catch(error => {
+                    console.error('Error uploading data and gallery images:', error);
+                });
+
+        })
+        function deleteImage(index) {
+            console.log("Vao day: " + index);
+
+            gallery[index] = -1;
+            const image = document.querySelector(`#gallery${index}`);
+            const btn = document.querySelector(`#btn-gallery-${index}`);
+            image.style.display = "none";
+            btn.style.display = "none";
+            galleryState.removeChild(image);
+            galleryState.removeChild(btn);
+
+        }
+        async function submit(event) {
+            event.preventDefault();
+
+            console.log("Vao day");
+            let formData = {};
+
+            formData.name = name.value;
+            formData.price = price.value;
+            formData.description = description.value;
+            formData.discount = discount.value;
+            formData.catalogId = catalogId.value;
+            formData.manufacturer = manufacturer.value;
+            formData.status = status.value;
+
+            if (thumbnail !== null) {
+                console.log(thumbnail);
+                formData.thumbnail = thumbnail;
+            }
+            formData.gallery = [];
+            if (gallery.length > 0) {
+                for (let i = 0; i < gallery.length; i++) {
+                    if (gallery[i] !== -1) {
+                        formData.gallery.push(gallery[i]);
+                    }
+                }
+            }
+            const currentUrl = window.location.href;
+            console.log(formData);
+            appendAlert("Loading...", "info");
+            await fetch(currentUrl,
+                {
+                    method: 'PATCH',
+                    body: JSON.stringify(formData),
+                    headers: {
+                        // "enctype": "multipart/form-data",
+                        "Content-Type": "application/json",
+                    },
                 }).then(response => {
+                    console.log(response);
                     if (response.ok) {
                         console.log('Data and gallery images uploaded successfully.');
                         appendAlert("Update product successfully", "success");
@@ -312,12 +465,14 @@
                         appendAlert("Update product failed", "danger");
 
                     }
+                }).then(data => {
+                    console.log(data);
                 }).catch(error => {
                     console.error('Error uploading data and gallery images:', error);
                 });
         }
 
-        btnSubmit.addEventListener("click", submit);
+        myForm.addEventListener("submit", submit);
 
 
 

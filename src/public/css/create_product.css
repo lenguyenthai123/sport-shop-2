@@ -15,6 +15,29 @@ body {
     border: #bdc3c7;
 }
 
+.btn-gallery {
+    height: 25px !important;
+    width: 25px !important;
+    font-size: 12px !important;
+    padding: 0px !important;
+    /* border-radius: 0.2px; */
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    /* background-color: rgb(247, 124, 124); */
+}
+
+.alert-success,
+.alert-danger {
+
+    position: fixed !important;
+    top: 2%;
+    right: 3%;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s;
+    border-radius: 1rem;
+}
 
 button:focus {
     outline: 0;
@@ -77,6 +100,11 @@ button:focus {
     border-color: #bdc3c7;
     padding: 15px;
     background: url(../img/arrow-down.png) 98% no-repeat #ffffff;
+}
+
+.image-gallery {
+    height: 200px;
+    width: 200px;
 }
 
 input::placeholder {

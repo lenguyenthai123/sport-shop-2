@@ -20,7 +20,15 @@ const UploadProduct = upload.fields([
     { name: 'gallery', maxCount: 8 },
 ]);
 
-
+// const UpdateThumbnailProduct = upload.fields([
+//     { name: 'thumbnail', maxCount: 1 },
+// ]);
+// const UpdateGalleryProduct = upload.fields([
+//     { name: 'gallery', maxCount: 8 },
+// ]);
+// const UpdateProduct = upload.fields([
+//     { name: 'thumbnail', maxCount: 1 },
+// ]);
 const checkAdmin = (req, res, next) => {
     if (req.user.role === `admin`) {
         return next();
@@ -35,7 +43,8 @@ router.get("/admin/create-product", passport.authenticate('jwt', { session: fals
 router.post("/admin/create-product", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, UploadProduct, Controllers.postANewProduct)
 
 router.get("/admin/update-product/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getFormUpdateProduct)
-router.patch("/admin/update-product/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, UploadProduct, Controllers.patchAProduct)
+router.post("/api/cloudinary", UploadProduct, Controllers.apiCloudinary);
+router.patch("/admin/update-product/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.patchAProduct)
 
 router.get("/admin/products", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getProductList)
 router.get("/admin/products/paging", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getProductsForPaging)
