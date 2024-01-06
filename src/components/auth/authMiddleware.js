@@ -43,7 +43,7 @@ const signupValidators = [
 
     body("password")
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
-        .isStrongPassword().withMessage('Password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
+        .isStrongPassword().withMessage('Must contain special digit, number, lower and upper case letters')
         .escape(),
 
     body("passwordConfirmation").escape().custom((value, { req }) => {
@@ -81,7 +81,7 @@ const updatePasswordValidator = [
 
     body("newPassword")
         .isLength({ min: 6 }).withMessage('New password must be at least 6 characters')
-        .isStrongPassword().withMessage('New password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
+        .isStrongPassword().withMessage('Must contain special digit, number, lower and upper case letters')
         .escape(),
 
     body("passwordConfirmation").escape().custom((value, { req }) => {
@@ -97,11 +97,11 @@ const checkTokenAndActivationValidate = (req, res, next) => {
         if (req.cookies.token !== req.user.token) {
             console.log(req.cookies.token);
             console.log(req.user.token);
-            res.status(401).json({ message: "You have to login" });
+            res.status(401).send("You have to login");
             return;
         }
         if (req.user.active === false) {
-            res.status(401).json({ message: "You have to verify your account" });
+            res.status(401).send("You have to verify your account");
             return;
         }
 

@@ -40,12 +40,12 @@ router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }), Authentication.postLogin);
 
 
-router.get('/auth/facebook',
-    passport.authenticate('facebook'));
+// router.get('/auth/facebook',
+//     passport.authenticate('facebook'));
 
-router.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    Authentication.postLogin);
+// router.get('/auth/facebook/callback',
+//     passport.authenticate('facebook', { failureRedirect: '/login' }),
+//     Authentication.postLogin);
 
 
 module.exports = router;
