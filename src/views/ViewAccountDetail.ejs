@@ -21,6 +21,9 @@
     <div class="alert alert-success  text-center align-items-center">
 
     </div>
+    <div class="alert alert-danger  text-center align-items-center">
+
+    </div>
     <%- include('SideBarAdmin') -%>
         <div class="page-view-detail-account">
             <div class="main--content">
@@ -101,7 +104,7 @@
 
 
                 </div>
-                <div class="wrapper-activities-expenditure-account">
+                <!-- <div class="wrapper-activities-expenditure-account">
                     <div class="expenditure-account-container">
                         <h3 class="main--title">Expenditure User</h3>
 
@@ -133,7 +136,7 @@
 
 
                     </div>
-                </div>
+                </div> -->
 
             </div>
 
@@ -188,7 +191,17 @@
                     })
                     .catch(error => {
                         // Handle errors
-                        console.error("Error:", error.message);
+                        const alertReview = $('.alert-danger')
+                        alertReview.style.opacity = "1";
+                        alertReview.style.display = "block"
+                        alertReview.innerHTML = `cannot change state this account`
+                        setTimeout(function () {
+                            alertReview.style.opacity = "0";
+                            setTimeout(function () {
+                                alertReview.style.display = "none";
+                            }, 500);
+                        }, 3000);
+                       
                     });
             }
 
@@ -235,6 +248,16 @@
                     })
                     .catch(error => {
                         // Handle errors
+                        const alertReview = $('.alert-danger')
+                        alertReview.style.opacity = "1";
+                        alertReview.style.display = "block"
+                        alertReview.innerHTML = `cannot change state this account`
+                        setTimeout(function () {
+                            alertReview.style.opacity = "0";
+                            setTimeout(function () {
+                                alertReview.style.display = "none";
+                            }, 500);
+                        }, 3000);
                         console.error("Error:", error.message);
                     });
             }

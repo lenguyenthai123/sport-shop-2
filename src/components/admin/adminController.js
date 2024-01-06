@@ -8,6 +8,9 @@ const Review = require("../review/reviewModel.js");
 const Catalog = require("../catalog/catalogModel.js");
 const Product = require("../product/productModel.js");
 
+const orderService = require('../order/orderService.js');
+
+
 //Service
 const ProductService = require("../product/productService.js")
 const UserService = require("../user/userService.js")
@@ -385,8 +388,10 @@ const patchBanAnUser = async (req, res, next) => {
         const ban = req.body.ban;
 
         const user = await UserService.getUserById(userId);
-
-        if (user._id !== req.user._id) {
+   
+       
+        if (userId !== req.user.id) {
+          
             const result = await UserService.setBanAnUser(user, ban);
             if (result) {
                 console.log(ban);
@@ -399,10 +404,12 @@ const patchBanAnUser = async (req, res, next) => {
                 return;
             }
             else {
+             
                 res.status(500).json({ message: "Internal Server Error" });
             }
         }
         else {
+       
             res.status(403).json({ message: "Can not ban your admin account" });
             return;
         }
@@ -441,15 +448,14 @@ const updateUserAddress = async (req, res, next) => {
 
 const getListOrderPage = async (req, res, next) => {
     try {
-        const fullname = req.query.fullname || "None";
-        const paymentMethod = req.query.paymentMethod || "None";
+        const status = req.query.status || "None";
         const sortByOrderTime = req.query.orderTime || "None";
         const sortByField = req.query.sortByField || "None";
         const sortByOrder = req.query.sortByOrder || "None";
         const page = req.query.page || 1;
 
-        
-        const orderList = await OrderService.FilteredAndSortedOrder(page, fullname, paymentMethod, sortByOrderTime, sortByField, sortByOrder)
+
+        const orderList = await OrderService.FilteredAndSortedOrder(page, status, sortByOrderTime, sortByField, sortByOrder)
         console.log(orderList)
         if (orderList) {
             res.render("listOrderAdmin.ejs", { orderList: orderList });
@@ -468,14 +474,14 @@ const getListOrderPage = async (req, res, next) => {
 
 const getListOrderPaging = async (req, res, next) => {
     try {
-        const fullname = req.query.fullname || "None";
-        const paymentMethod = req.query.paymentMethod || "None";
+        const status = req.query.status || "None";
+
         const sortByOrderTime = req.query.orderTime || "None";
         const sortByField = req.query.sortByField || "None";
         const sortByOrder = req.query.sortByOrder || "None";
         const page = req.query.page || 1;
 
-        const orderList = await OrderService.FilteredAndSortedOrder(page, fullname, paymentMethod, sortByOrderTime, sortByField, sortByOrder)
+        const orderList = await OrderService.FilteredAndSortedOrder(page, status, sortByOrderTime, sortByField, sortByOrder)
         if (orderList) {
             res.status(200).json({ orderList: orderList });
         }
@@ -488,6 +494,54 @@ const getListOrderPaging = async (req, res, next) => {
         next(error);
     }
 }
+
+const getOrderDetail = async (req, res, next) => {
+    try {
+        const { orderId } = req.params;
+
+        const order = await orderService.getOrderDetail(orderId);
+
+
+        for (let j = 0; j < order.listItem.length; j++) {
+            order.listItem[j].productId = (await ProductService.getAnProductDetail(order.listItem[j].productId)).productInfo;
+        }
+        console.log(order);
+        if (order) {
+
+            res.render("orderDetailAdmin.ejs", { order: order });
+        }
+        else {
+            res.status(404).render("404.ejs")
+        }
+    }
+    catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+const patchOrderStatus = async (req, res, next) => {
+    try {
+        console.log("patchOrderStatus");
+        const { orderId } = req.params;
+        console.log(req.body);
+        console.log(orderId);
+        const result = await OrderService.updateState(orderId, req.body.status);
+        console.log(result);
+        if (result) {
+            res.status(200).json({ message: result });
+            return;
+        }
+        else {
+            res.status(404).json({ message: "Can't update state" });
+        }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+
 
 module.exports = {
     getHomePage,
@@ -511,4 +565,6 @@ module.exports = {
     updateUserAddress,
     getListOrderPage,
     getListOrderPaging,
+    getOrderDetail,
+    patchOrderStatus,
 }

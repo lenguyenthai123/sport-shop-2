@@ -35,7 +35,7 @@
                     </div>
 
                 </div>
-                <div class="card--container">
+                <!-- <div class="card--container">
                     <h3 class="main--title">Today's data</h3>
                     <div class="card--wrapper">
                         <div class="payment--card light-red">
@@ -166,9 +166,9 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
                 <div class="sort-product-container">
-                    <h3 class="main--title">Revenue Chart</h3>
+                    <h3 class="main--title">Recurring Revenue Chart</h3>
                     <div class="wrapper-sort">
                         <form id="form-day" action="#" onsubmit="return handleSubmit()">
                             <label for="start-date">Start Date:</label>
@@ -200,7 +200,7 @@
 
                 </div>
                 <div class="sort-product-container">
-                    <h3 class="main--title">Revenue Chart</h3>
+                    <h3 class="main--title">Top 5 Revenue Chart</h3>
                     <div class="wrapper-sort">
                         <form id="form-day-top" action="#" onsubmit="return handleSubmitTop()">
                             <label for="start-date">Start Date:</label>
@@ -273,10 +273,10 @@
                 });
 
                 var data1 = {
-                    labels: ['Sản phẩm A', 'Sản phẩm B', 'Sản phẩm C', 'Sản phẩm D', 'Sản phẩm E'],
+                    labels: [],
                     datasets: [{
                         label: 'Doanh Thu',
-                        data: [5000, 8000, 12000, 6000, 10000],
+                        data: [],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -348,19 +348,19 @@
                         } else if (selectedValue === "month") {
                             chartData = data.map(item => {
                                 return {
-                                    x: new Date(item._id.year, item._id.month - 1),
+                                    x: new Date(item._id.year, item._id.month, 0),
                                     y: item.total
                                 };
                             });
-                            labels = chartData.map(item => item.x.toLocaleString('default', { month: 'long' }));
+                            labels = chartData.map(item => item.x.toDateString());
                         } else if (selectedValue === "year") {
                             chartData = data.map(item => {
                                 return {
-                                    x: new Date(item._id.year, 0), // January of the year
+                                    x: new Date(item._id.year, 0, 0), // January of the year
                                     y: item.total
                                 };
                             });
-                            labels = chartData.map(item => item.x.getFullYear().toString());
+                            labels = chartData.map(item => item.x.toDateString());
                         }
 
                         // Update the existing dataset

@@ -6,6 +6,10 @@
    
 }
 
+.main--content{
+    width: 100%;
+}
+
 .wrapper-sort{
     display: flex;
     justify-content: space-between;

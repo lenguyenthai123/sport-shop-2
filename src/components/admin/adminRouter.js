@@ -57,6 +57,8 @@ router.patch("/admin/accountlist/:userId/ban", passport.authenticate('jwt', { se
 
 router.get("/admin/orders", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getListOrderPage);
 router.get("/admin/orders/paging", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getListOrderPaging);
+router.get("/admin/orders/:orderId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getOrderDetail);
+router.patch("/admin/orders/:orderId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.patchOrderStatus);
 
 
 

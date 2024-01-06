@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assetsOrderDetail/styles.css">
+    <link rel="stylesheet" href="\assets\styleIndex.css">
+    <link rel="stylesheet" href="/alert.css">
+    <link rel="stylesheet" href="\assets\styleViewAccountList.css">
+    <link rel="stylesheet" href="\assets\styleViewDetailAccount.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="alert alert-success  text-center align-items-center">
+        Check your email to reset your account
+    </div>
+    <div class="alert alert-danger  text-center align-items-center">
+        gmail is not registered
+    </div>
+
+    <%- include('SideBarAdmin') -%>
+
+        <div class="container" id="order-container">
+            <div class="wrapper-container" id="wrapper-order-container">
+                <ul class="list-data">
+                    <li>
+                        <div class="text-data">
+                            Order id:
+                        </div>
+                        <div class="data">
+                            <%= order._id %>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text-data">
+                            Date:
+                        </div>
+                        <div class="data">
+                            <%= order.date %>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text-data">
+                            Full name:
+                        </div>
+                        <div class="data">
+                            <%= order.fullname %>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text-data">
+                            Total:
+                        </div>
+                        <div class="data">
+                            <%= order.subTotal %>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text-data">
+                            Payment method:
+                        </div>
+                        <div class="data">
+                            <%= order.paymentMethod %>
+                        </div>
+                    </li>
+                    <li>
+
+                        <div class="text-data">
+                            Status:
+                        </div>
+                        <div class="data" id="status">
+                            <%= order.status %>
+                        </div>
+                    </li>
+                    <select class="form-select" id="status_selection" aria-label="search User">
+                        <option selected>Status</option>
+                        <option value="Completed">COMPLETED</option>
+                        <option value="Delivered">DELIVERED</option>
+                        <option value="Processing">PROCESSING</option>
+                        <option value="Cancelled">CANCELLED</option>
+
+                    </select>
+
+                </ul>
+
+                <h1 class="header">
+                    Order details
+                </h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Product</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let i=0; i < order.listItem.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <div class="name-product">
+                                        <%= order.listItem[i].productId ? order.listItem[i].productId.name : '' %>
+                                    </div>
+                                    <div class="quantity">
+                                        <%= order.listItem[i].quantity %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <%= order.listItem[i].productId ? order.listItem[i].quantity *
+                                        order.listItem[i].productId.price : '' %>
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+                <div class="row wrapper-address">
+                    <div class="col-6">
+                        <h2 class="address-billing">
+                            Billing address
+                        </h2>
+                        <div class="address">227 Nguyen Van Cu #3
+                            District 5, Ho Chi Minh city</div>
+                        <div class="number-phone">
+                            Phone: (+84) 123-4567 ext#1
+                        </div>
+                        <div class="email">
+                            groupABC@gmail.com
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h2 class="shipping-billing">
+                            Shipping address
+                        </h2>
+                        <div class="address">
+                            <%= order.address %>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <script>
+            const $ = document.querySelector.bind(document)
+            const $$ = document.querySelectorAll.bind(document)
+
+            const status = $('#status_selection')
+            const order_id = "<%= order._id %>"
+
+            status.addEventListener('change', async function (e) {
+                const res = await fetch(`/admin/orders/${order_id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        status: status.value
+                    })
+                })
+                const data = await res.json()
+                if (data) {
+                    $('#status').innerHTML = status.value;
+                    const alertSuccess = $('.alert-success')
+                    alertSuccess.innerHTML = "Update status successfully"
+                    alertSuccess.style.opacity = "1";
+                    alertSuccess.style.display = "block"
+                    console.log(alertSuccess)
+                    setTimeout(function () {
+                        alertSuccess.style.opacity = "0";
+                        setTimeout(function () {
+                            alertSuccess.style.display = "none";
+                        }, 500);
+                    }, 3000);
+                }
+                else {
+                    const alertDanger = $('.alert-danger')
+                    alertDanger.innerHTML = "Update status failed"
+                    alertDanger.style.opacity = "1";
+                    alertDanger.style.display = "block"
+                    setTimeout(function () {
+                        alertDanger.style.opacity = "0";
+                        setTimeout(function () {
+                            alertDanger.style.display = "none";
+                        }, 500);
+                    }, 3000);
+                }
+
+            })
+
+
+
+        </script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+</body>
+
+</html>

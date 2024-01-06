@@ -16,13 +16,21 @@ const create = async function (orderId) {
                 if (order.listItem.length > 0) {
                     for (let i = 0; i < order.listItem.length; i++) {
                         const data = order.listItem[i];
+                        console.log(data);
+
                         const productId = data.productId;
                         const quantity = data.quantity;
 
                         // if (moongose.isValidObjectId(productId)) {
                         const product = await Product.findById(productId);
 
+                        console.log("Product thu ", i, " 1");
+                        console.log(product)
                         const price = product.price;
+
+                        console.log("Quantity ", quantity, "Price ", price);
+                        console.log("Quantity ", typeof (quantity), "Price ", typeof (price));
+
                         const total = quantity * price;
 
                         const newRevenue = {
@@ -32,7 +40,10 @@ const create = async function (orderId) {
                             total,
                             date: order.date,
                         }
+                        console.log("Product thu ", i, " 2");
+
                         const revenue = await Revenue.create(newRevenue);
+
                         console.log(revenue);
                         // }
                     }
@@ -48,6 +59,7 @@ const create = async function (orderId) {
         }
     }
     catch (e) {
+        console.log(e.message);
         throw e;
     }
 }
@@ -96,7 +108,7 @@ const getRevenueValueForChart = async function (type, startTime, endTime) {
                 '_id.year': 1,
             }
         }
-        group.total = { $sum: '$total' };
+        group.total = { $sum: '$subTotal' };
 
 
         console.log("Group: " + group);
