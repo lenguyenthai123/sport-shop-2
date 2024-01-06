@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 const moment = require('moment');
 const orderService = require("./orderService");
+require("dotenv").config()
 
 
 router.post('/payment/create_payment_url', function (req, res, next) {
@@ -21,7 +22,7 @@ router.post('/payment/create_payment_url', function (req, res, next) {
         let tmnCode = config.get('vnp_TmnCode');
         let secretKey = config.get('vnp_HashSecret');
         let vnpUrl = config.get('vnp_Url');
-        let returnUrl = config.get('vnp_ReturnUrl');
+        let returnUrl = process.env.WEBSITE_URL + "/payment/vnpay_return";
         let orderId = req.body.orderId;
         let amount = req.body.total;
         let bankCode = req.body.bankCode;
@@ -105,19 +106,25 @@ router.get('/payment/vnpay_return', function (req, res, next) {
 
 
 function sortObject(obj) {
-	let sorted = {};
-	let str = [];
-	let key;
-	for (key in obj){
-		if (obj.hasOwnProperty(key)) {
-		str.push(encodeURIComponent(key));
-		}
-	}
-	str.sort();
-    for (key = 0; key < str.length; key++) {
-        sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
+    try{
+        let sorted = {};
+        let str = [];
+        let key;
+        for (key in obj){
+            if (obj.hasOwnProperty(key)) {
+            str.push(encodeURIComponent(key));
+            }
+        }
+        str.sort();
+        for (key = 0; key < str.length; key++) {
+            sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
+        }
+        return sorted;
+
     }
-    return sorted;
+    catch(error){
+        console.log(error);
+    }
 }
 
 router.post('/payment/create_payment_url_momo', function (request, response, next) {
@@ -130,10 +137,11 @@ router.post('/payment/create_payment_url_momo', function (request, response, nex
         var requestId = partnerCode + new Date().getTime();
         var orderId = request.body.orderId;
         var orderInfo = "pay with MoMo";
-        var redirectUrl = "http://localhost:8080/payment/momo_return";
+        var redirectUrl = process.env.WEBSITE_URL + "/payment/momo_return";
         var ipnUrl = "https://callback.url/notify";
         // var ipnUrl = redirectUrl = "https://webhook.site/454e7b77-f177-4ece-8236-ddf1c26ba7f8";
         var amount = "" + request.body.total;
+        console.log("Amount:12" + amount);
         var requestType = "payWithATM"
         var extraData = ""; //pass empty value if your merchant does not have stores
 

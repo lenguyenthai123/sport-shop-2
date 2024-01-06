@@ -3,16 +3,11 @@ const Product = require("../product/productModel")
 const moongose = require("mongoose")
 
 const createOrder = async (order) => {
-  return Order.create(order);
+    return await Order.create(order);
 }
 
 const getOrderList = async (id) => {
-  await Order.updateMany(
-    { paymentMethod: { $exists: false } },
-    { $set: { paymentMethod: 'CashOnDeli' } },
-    { multi: true }
-  )
-  return await Order.find({ userId: new moongose.Types.ObjectId(id) });
+    return await Order.find({userId: new moongose.Types.ObjectId(id)});
 }
 
 const getAllOrder = async () => {

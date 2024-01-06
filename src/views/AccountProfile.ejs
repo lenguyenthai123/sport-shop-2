@@ -100,7 +100,6 @@
         function openModal() {
             document.getElementById('modal_cus').style.display = 'flex';
         }
-        
 
         function closeModal() {
             document.getElementById('modal_cus').style.display = 'none';
@@ -177,7 +176,10 @@
                 },
             })
                 .then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data);
+                    alert("Change information successfully");
+                })
                 .catch(error => console.error('Error:', error));
 
             // Perform other actions (e.g., submit the form)

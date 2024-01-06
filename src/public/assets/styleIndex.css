@@ -13,6 +13,14 @@ body {
     display: flex;
 }
 
+#dashboard {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
 .sidebar {
     position: sticky;
     top: 0;

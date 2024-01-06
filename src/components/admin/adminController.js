@@ -486,7 +486,7 @@ const getOrderDetail = async (req, res, next) => {
 
 
         for (let j = 0; j < order.listItem.length; j++) {
-            order.listItem[j].productId = (await productService.getAnProductDetail(order.listItem[j].productId)).productInfo;
+            order.listItem[j].productId = (await ProductService.getAnProductDetail(order.listItem[j].productId)).productInfo;
         }
         console.log(order);
         if (order) {

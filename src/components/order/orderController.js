@@ -33,10 +33,14 @@ const createOrder = async (req, res, next) => {
         const order = await orderService.createOrder({userId, listItem, subTotal, shipping, discount, total, phoneNumber, fullname, address});
 
         listItem.forEach(async (item) => {
-            await productService.updateTotalPurchase(item.productId, item.quantity);
+            await productService.updateTotalPurchase(item.productId.toString(), item.quantity);
         })
+
+        console.log(listItem);
+        console.log(listItem[0].productId.toString())
         
         res.status(201).json({"orderId": order._id, "total": order.subTotal});
+        console.log("ababa");
     }
     catch(error){
         next(error)
