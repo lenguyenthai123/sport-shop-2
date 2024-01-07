@@ -34,5 +34,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            docker pull lenguyenthai/sport-shop-2:latest
-            docker run -d -p 80:8080 lenguyenthai/sport-shop-2:latest
+            docker stop web-container
+            docker rm -f web-container
+            docker rmi lenguyenthai/sport-2:latest
+            docker run -d -p 80:8080 --name web-container lenguyenthai/sport-shop-2:latest
