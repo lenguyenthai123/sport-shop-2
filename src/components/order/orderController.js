@@ -55,11 +55,11 @@ const getOrderListByUser = async (req, res, next) => {
 
         const orderData = await orderService.getOrderList(decode.id);
 
-        for(let i = 0; i < orderData.length; i++){
-            for (let j = 0; j < (orderData[i].listItem).length; j++){
-                orderData[i].listItem[j].productId = (await productService.getAnProductDetail((orderData[i].listItem[j]).productId)).productInfo;
-            }
-        }
+        // for(let i = 0; i < orderData.length; i++){
+        //     for (let j = 0; j < (orderData[i].listItem).length; j++){
+        //         orderData[i].listItem[j].productId = (await productService.getAnProductDetail((orderData[i].listItem[j]).productId)).productInfo;
+        //     }
+        // }
         
         // res.status(201).json({orderList: orderData}); 
         res.render("OrderList.ejs", {orderList: orderData, isLoggedIn: true});

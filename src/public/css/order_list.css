@@ -96,8 +96,12 @@ h2{
   }
   
   /* Delivering */
-  .delivering {
+  .delivered {
     background: linear-gradient(to right, #ff6600, #ffcc66);
+  }
+
+  .delivering {
+    background: linear-gradient(to right, #dfd002, #e5f233);
   }
   
   /* Processing */
