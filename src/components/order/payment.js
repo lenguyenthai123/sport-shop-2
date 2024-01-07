@@ -93,9 +93,9 @@ router.get('/payment/vnpay_return', function (req, res, next) {
         if(secureHash === signed){
             //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
             if(req.query.vnp_TransactionStatus == '00') orderService.updateOrderPaymentMethod(orderId, "VNPAY");
-            res.render('success', {code: vnp_Params['vnp_ResponseCode']})
+            res.send("Thanh toán thành công");
         } else{
-            res.render('success', {code: '97'})
+            res.send("Thanh toán thất bại");
         }
     }
     catch(error){
@@ -228,7 +228,7 @@ router.get('/payment/momo_return', function (req, res, next) {
             
             res.send("Pay order successfully");
         } else{
-            res.render('success', {code: '97'})
+            res.send("Pay order unsuccessfully");
         }
     }
     catch(error){
