@@ -18,7 +18,7 @@ const checkAdmin = (req, res, next) => {
     }
 }
 
-router.post("/revenue", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controller.createRevenue);
+// router.post("/revenue", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controller.createRevenue);
 
 router.get("/revenue/chart", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controller.getChartValue);
 

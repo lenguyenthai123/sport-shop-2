@@ -1,13 +1,14 @@
 const Order = require("./orderModel")
 const Product = require("../product/productModel")
 const moongose = require("mongoose")
+const RevenueService = require("../revenue/revenueService")
 
 const createOrder = async (order) => {
-    return await Order.create(order);
+  return await Order.create(order);
 }
 
 const getOrderList = async (id) => {
-    return await Order.find({userId: new moongose.Types.ObjectId(id)});
+  return await Order.find({ userId: new moongose.Types.ObjectId(id) });
 }
 
 const getAllOrder = async () => {
@@ -67,11 +68,21 @@ const FilteredAndSortedOrder = async function (page, status, sortByOrderTime, so
 
 const updateState = async (orderId, state) => {
   try {
-    const result = await Order.findByIdAndUpdate(orderId, {
-      status: state
-    });
-  
-    return result;
+
+    const order = await Order.findById(orderId);
+
+    if (order.status !== state) {
+      const result = await Order.findByIdAndUpdate(orderId, {
+        status: state
+      });
+
+      // Update next to revenue if there the "Completed" state
+      if (state === "Completed") {
+        const rs = await RevenueService.create(orderId);
+      }
+      return result;
+    }
+    return null;
   } catch (error) {
     throw error;
   }

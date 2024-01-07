@@ -40,7 +40,7 @@ const checkAdmin = (req, res, next) => {
 router.get("/admin/home-page", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getHomePage);
 
 router.get("/admin/create-product", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getFormCreateNewProduct)
-router.post("/admin/create-product", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, UploadProduct, Controllers.postANewProduct)
+router.post("/admin/create-product", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.postANewProduct)
 
 router.get("/admin/update-product/:productId", passport.authenticate('jwt', { session: false, failureRedirect: '/login' }), checkTokenAndActivationValidate, checkAdmin, Controllers.getFormUpdateProduct)
 router.post("/api/cloudinary", UploadProduct, Controllers.apiCloudinary);
@@ -73,10 +73,10 @@ router.patch("/admin/orders/:orderId", passport.authenticate('jwt', { session: f
 
 // fix database
 
-router.get("/admin/updateCatalogName", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateCatalogName);
+// router.get("/admin/updateCatalogName", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateCatalogName);
 
-router.get("/admin/updateCatalogName", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateCatalogName);
+// router.get("/admin/updateCatalogName", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateCatalogName);
 
-router.get("/admin/updateUserAddress", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateUserAddress);
+// router.get("/admin/updateUserAddress", passport.authenticate('jwt', { session: false }), checkAdmin, Controllers.updateUserAddress);
 
 module.exports = router;

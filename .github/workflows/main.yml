@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - master
+      - dev
 
 jobs:
   build:
@@ -27,3 +27,12 @@ jobs:
       - 
         name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest
+      - name: SSH into EC2 and run Docker image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull lenguyenthai/sport-shop-2:latest
+            docker run -d -p 80:8080 lenguyenthai/sport-shop-2:latest
