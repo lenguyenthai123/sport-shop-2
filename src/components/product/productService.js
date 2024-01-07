@@ -24,10 +24,10 @@ const FilteredAndSortedProducts = async function (page, name, catalogId, manufac
         if (name !== `None` && name) {
             const { Client } = require('@elastic/elasticsearch');
             const client = new Client({
-            node: 'https://57727d8ffb1e48cfa43bad1822100a24.us-central1.gcp.cloud.es.io:443',
-            auth: {
-                apiKey: 'MmMwRjM0d0JBdkNZdWI4T0RLa006RDBrSGk1bnNULWlyTlZGRmJ3c3pIUQ=='
-            }
+                node: 'https://57727d8ffb1e48cfa43bad1822100a24.us-central1.gcp.cloud.es.io:443',
+                auth: {
+                    apiKey: 'MmMwRjM0d0JBdkNZdWI4T0RLa006RDBrSGk1bnNULWlyTlZGRmJ3c3pIUQ=='
+                }
             });
             const searchResult = await client.search({
                 index: 'search-search-product-final',
@@ -41,7 +41,7 @@ const FilteredAndSortedProducts = async function (page, name, catalogId, manufac
                 id_restriction.push(new mongoose.Types.ObjectId(id.id.id_content));
             });
             console.log(id_restriction);
-            filter._id = { $in: id_restriction}
+            filter._id = { $in: id_restriction }
         }
         if (catalogId !== "None" && catalogId) {
             try {
@@ -200,27 +200,29 @@ const updateTotalPurchase = async (productId, quantity) => {
 
 const updateProduct = async (productId, data) => {
     try {
-        const product = {};
+        const product = await Product.findById(productId);
 
         if (data.thumbnail) {
             product.thumbnail = data.thumbnail;
         }
-        if (data.gallery.length > 1) {
+        if (data.gallery && data.gallery.length > 0) {
             product.gallery = data.gallery;
         }
         console.log(data);
-        product.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
-        product.name = req.body.name;
-        product.price = req.body.price;
-        product.description = req.body.description;
-        product.discount = req.body.discount;
-        product.status = req.body.status;
-        product.manufacturer = req.body.manufacturer;
+        product.catalogId = new mongoose.Types.ObjectId(data.catalogId);
+        product.name = data.name;
+        product.price = (data.price);
+        product.description = data.description;
+        product.discount = (data.discount);
+        product.status = data.status;
+        product.manufacturer = data.manufacturer;
 
-        await ProductService.updateOne(productId, product);
+        const rs = await product.save();
+        console.log(product);
     }
     catch (err) {
-
+        console.log(err);
+        throw err;
     }
 }
 

@@ -79,6 +79,20 @@ const updateState = async (orderId, state) => {
       // Update next to revenue if there the "Completed" state
       if (state === "Completed") {
         const rs = await RevenueService.create(orderId);
+
+        for (let i = 0; i < order.listItem.length; i++) {
+          const data = order.listItem[i];
+          try {
+            const product = await Product.findById(data.productId);
+            product.totalPurchase += Number.parseInt(data.quantity);
+            await product.save();
+            console.log(product.totalPurchase);
+          }
+          catch (err) {
+            console.log(err);
+          }
+        }
+
       }
       return result;
     }
